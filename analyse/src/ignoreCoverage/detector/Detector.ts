@@ -160,6 +160,12 @@ export type DetectorOptions = {
 
 
 
+/**
+ * Retrieves default values from the provided partial options and returns a complete DetectorOptions object.
+ * @param partialOptions - Partial options object containing some of the DetectorOptions properties.
+ * @returns Complete DetectorOptions object with default values filled in.
+ * @throws - No exceptions are thrown by this method.
+ */
 function getDefaultValuesFromPartialOptions(partialOptions: Partial<DetectorOptions>): DetectorOptions{
     // @ts-ignore
     let result: DetectorOptions = {}
@@ -202,10 +208,17 @@ export class Detector {
     public additional: any;
     public detector_version: string;
 
+    /**
+     * Get the default options for the detector.
+     * @param options - Optional partial options to override the default values.
+     * @returns The default values for the detector options.
+     * @throws If an error occurs while retrieving the default values.
+     */
     static getDefaultOptions(options?: Partial<DetectorOptions>){
         return getDefaultValuesFromPartialOptions(options || {});
     }
 
+    
     public constructor(softwareProjectDicts: SoftwareProjectDicts,
                        options: Partial<DetectorOptions> | null,
                        progressCallback: any,
@@ -234,6 +247,11 @@ export class Detector {
         this.detector_version = detector_version;
     }
 
+    /**
+     * Asynchronously detects data clumps in the software project.
+     * @returns A promise that resolves to a DataClumpsTypeContext object containing the detected data clumps.
+     * @throws {Error} If there is an error during the detection process.
+     */
     public async detect(): Promise<DataClumpsTypeContext>{
         this.timer.start();
 

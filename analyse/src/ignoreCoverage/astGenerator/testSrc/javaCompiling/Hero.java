@@ -10,6 +10,12 @@ class Hero<T extends Number> {
     List<? extends Number> extendsType;
     List<Number> noVarTypeWithNumber;
 
+        /**
+         * Removes the specified item from the lookup.
+         *
+         * @param item the item to be removed from the lookup
+         * @throws NullPointerException if the specified item is null
+         */
     private void lookupRemoveItem(T item) {
             // Implementation here
         }

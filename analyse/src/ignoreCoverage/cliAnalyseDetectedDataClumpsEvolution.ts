@@ -21,7 +21,14 @@ program
         'This script performs data clumps detection in a given directory.\n\n' +
         'npx data-clumps-doctor [options] <path_to_folder>')
     .version(version)
-    .option('--report_folder <path>', 'Output path', current_working_directory+'/data-clumps-results/'+Analyzer.project_name_variable_placeholder+'/') // Default value is './data-clumps.json'
+    .option('--report_folder <path>', 'Output path', current_working_directory+'/data-clumps-results/'+Analyzer.project_name_variable_placeholder+'/') /**
+ * Converts timestamp to file paths for report files in the specified folder.
+ * 
+ * @param {string} report_folder - The folder containing the report files.
+ * @returns {Object} - An object mapping timestamps to an array of file paths.
+ * @throws {Error} - If there is an error reading or parsing the report files.
+ */
+// Default value is './data-clumps.json'
 
 function time_stamp_to_file_paths(report_folder){
     let all_report_files = fs.readdirSync(report_folder);
@@ -61,11 +68,26 @@ function time_stamp_to_file_paths(report_folder){
     return timestamp_to_file_path;
 }
 
+/**
+ * Retrieves sorted timestamps from the given timestamp_to_file_path object.
+ * 
+ * @param timestamp_to_file_path The object containing timestamps as keys and file paths as values.
+ * @returns An array of sorted timestamps.
+ * @throws {TypeError} If timestamp_to_file_path is not an object.
+ */
 function getSortedTimestamps(timestamp_to_file_path){
     let sorted_timestamps = Object.keys(timestamp_to_file_path)
     return sorted_timestamps;
 }
 
+/**
+ * Retrieves all data clump keys from the given sorted timestamps and timestamp to file paths.
+ * 
+ * @param sorted_timestamps The array of sorted timestamps.
+ * @param timestamp_to_file_paths The object mapping timestamps to file paths.
+ * @returns An object containing all the data clump keys.
+ * @throws Throws an error if there is an issue reading or parsing the report files.
+ */
 function getAllDataClumpsKeys(sorted_timestamps, timestamp_to_file_paths){
     let all_data_clump_keys = {};
     console.log("Getting all data clump keys");
@@ -95,6 +117,14 @@ function getAllDataClumpsKeys(sorted_timestamps, timestamp_to_file_paths){
     return all_data_clump_keys;
 }
 
+/**
+ * Retrieves a dictionary of keys for type A based on the provided sorted timestamps and timestamp to file paths mapping.
+ * 
+ * @param sorted_timestamps The array of sorted timestamps.
+ * @param timestamp_to_file_paths The mapping of timestamp to file paths.
+ * @returns A dictionary containing keys for type A.
+ * @throws Throws an error if there is an issue reading or parsing the report files.
+ */
 function getTypeAKeysDict(sorted_timestamps, timestamp_to_file_paths){
 
     console.log("Getting type A keys dict");
@@ -144,6 +174,14 @@ function getTypeAKeysDict(sorted_timestamps, timestamp_to_file_paths){
     return keys_type_a;
 }
 
+/**
+ * Retrieves the keys that are found in the last timestamp but not in the first timestamp.
+ * 
+ * @param sorted_timestamps - Array of sorted timestamps.
+ * @param timestamp_to_file_paths - Object mapping timestamp to file paths.
+ * @throws - Throws an error if there is an issue reading or parsing the report files.
+ * @returns - Dictionary of keys found in the last timestamp but not in the first timestamp.
+ */
 // keys that are found in the last timestamp but not in the first timestamp
 function getTypeBKeysDict(sorted_timestamps, timestamp_to_file_paths){
 
@@ -191,6 +229,13 @@ function getTypeBKeysDict(sorted_timestamps, timestamp_to_file_paths){
     return keys_type_b;
 }
 
+/**
+ * Get dictionary of keys that are found in the last but not in the first timestamp
+ * @param sorted_timestamps Array of sorted timestamps
+ * @param timestamp_to_file_paths Mapping of timestamp to file paths
+ * @returns Dictionary of keys found in the last but not in the first timestamp
+ * @throws Error if there is an issue reading or parsing the report file
+ */
 // keys that are found in the last but not in the first timestamp
 function getTypeCKeysDict(sorted_timestamps, timestamp_to_file_paths){
 
@@ -238,6 +283,14 @@ function getTypeCKeysDict(sorted_timestamps, timestamp_to_file_paths){
     return keys_type_c;
 }
 
+/**
+ * Retrieves the keys of type D from the provided sorted timestamps and timestamp to file paths mapping.
+ * 
+ * @param sorted_timestamps An array of sorted timestamps.
+ * @param timestamp_to_file_paths A mapping of timestamp to file paths.
+ * @returns A dictionary containing the keys of type D.
+ * @throws {Error} Throws an error if there is a failure in reading or parsing the report files.
+ */
 function getTypeDKeysDict(sorted_timestamps, timestamp_to_file_paths){
     console.log("Getting type D keys dict");
 
@@ -290,6 +343,14 @@ function getTypeDKeysDict(sorted_timestamps, timestamp_to_file_paths){
     return keys_type_d;
 }
 
+/**
+ * Retrieves a dictionary of type E keys from the given sorted timestamps and timestamp to file paths mapping.
+ * 
+ * @param sorted_timestamps - An array of sorted timestamps.
+ * @param timestamp_to_file_paths - A mapping of timestamps to file paths.
+ * @returns A dictionary containing the type E keys.
+ * @throws Throws an error if there is an issue with reading or parsing the report files.
+ */
 function getTypeEKeysDict(sorted_timestamps, timestamp_to_file_paths){
 
     console.log("Getting type E keys dict");
@@ -360,6 +421,13 @@ function getTypeEKeysDict(sorted_timestamps, timestamp_to_file_paths){
 }
 
 
+/**
+ * Calculates the history distribution based on sorted timestamps and timestamp to file paths.
+ * @param {Array<number>} sorted_timestamps - The sorted timestamps.
+ * @param {Object} timestamp_to_file_paths - The mapping of timestamp to file paths.
+ * @throws {Error} Throws an error if the control sum does not match.
+ * @returns {Object} Returns the history distribution object containing keys for different types and their percentages.
+ */
 function getHistoryDistribution(sorted_timestamps, timestamp_to_file_paths){
 
     console.log("getHistoryDistribution");
@@ -427,6 +495,12 @@ function getHistoryDistribution(sorted_timestamps, timestamp_to_file_paths){
 }
 
 
+/**
+ * Converts a project commit date to a formatted date string.
+ * @param project_commit_date The project commit date in seconds.
+ * @returns The formatted date string.
+ * @throws Error if the project_commit_date is not a valid number.
+ */
 function project_commit_dateToDate(project_commit_date){
     let date = new Date(project_commit_date*1000);
     // date to string
@@ -434,6 +508,12 @@ function project_commit_dateToDate(project_commit_date){
     return date_string;
 }
 
+/**
+ * Asynchronously analyses the report folder with the given options.
+ * @param report_folder The path to the report folder to be analysed.
+ * @param options The options for the analysis.
+ * @throws {Error} If the specified path to the report folder does not exist.
+ */
 async function analyse(report_folder, options){
     console.log("Analysing Detected Data-Clumps");
     if (!fs.existsSync(report_folder)) {
@@ -450,6 +530,11 @@ async function analyse(report_folder, options){
 
 }
 
+/**
+ * Asynchronous function to execute the main logic.
+ * 
+ * @throws {Error} Throws an error if there is an issue with the execution.
+ */
 async function main() {
     console.log("Data-Clumps-Doctor Detection");
 

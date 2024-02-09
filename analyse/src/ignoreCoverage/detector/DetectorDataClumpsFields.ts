@@ -6,9 +6,23 @@ import {ClassOrInterfaceTypeContext, MemberFieldParameterTypeContext, MethodType
 import {SoftwareProjectDicts} from "./../SoftwareProject";
 import {DetectorOptions} from "./Detector";
 
+/**
+ * Refactors the method to Detector since there is already the creation, so why not the refactoring
+ * 
+ * @param rawOptions - The raw options to be parsed
+ * @returns The parsed DetectorOptions
+ * @throws Error if any of the parsing operations fail
+ */
 // TODO refactor this method to Detector since there is already the creation, so why not the refactoring
 function getParsedValuesFromPartialOptions(rawOptions: DetectorOptions): DetectorOptions{
 
+    /**
+     * Parses the given value to a boolean.
+     * 
+     * @param value - The value to be parsed.
+     * @returns The parsed boolean value.
+     * @throws TypeError if the input value is not a valid boolean representation.
+     */
     function parseBoolean(value: any){
         return ""+value==="true";
     }
@@ -29,11 +43,18 @@ export class DetectorDataClumpsFields {
     public options: DetectorOptions;
     public progressCallback: any;
 
+    
     public constructor(options: DetectorOptions, progressCallback?: any){
         this.options = getParsedValuesFromPartialOptions(options)
         this.progressCallback = progressCallback;
     }
 
+    /**
+     * Asynchronously detects data clumps in the given software project dictionaries.
+     * @param softwareProjectDicts The dictionaries containing the software project data.
+     * @returns A promise that resolves to a dictionary of data clump type contexts, or null if no data clumps are detected.
+     * @throws {Error} If an error occurs during the detection process.
+     */
     public async detect(softwareProjectDicts: SoftwareProjectDicts): Promise<Dictionary<DataClumpTypeContext> | null>{
         console.log("DetectorDataClumpsFields: detect")
 
@@ -63,7 +84,12 @@ export class DetectorDataClumpsFields {
     }
 
     /**
-     * DataclumpsInspection.java line 405
+     * Generates member field parameters related to a class.
+     * @param currentClass The current class or interface type context.
+     * @param classesDict A dictionary of class or interface type contexts.
+     * @param dataClumpsFieldParameters A dictionary of data clump type contexts.
+     * @param softwareProjectDicts The software project dictionaries.
+     * @throws Error if the hierarchy is not complete and cannot detect if a class is inherited or not.
      */
     private generateMemberFieldParametersRelatedToForClass(currentClass: ClassOrInterfaceTypeContext, classesDict: Dictionary<ClassOrInterfaceTypeContext>, dataClumpsFieldParameters: Dictionary<DataClumpTypeContext>, softwareProjectDicts: SoftwareProjectDicts){
 
@@ -98,6 +124,15 @@ export class DetectorDataClumpsFields {
         }
     }
 
+    /**
+     * Generates member field parameters related to another class for a given class.
+     * 
+     * @param currentClass The current class or interface.
+     * @param otherClass The other class or interface to compare with.
+     * @param dataClumpsFieldParameters A dictionary to store data clump type context.
+     * @param softwareProjectDicts The software project dictionaries.
+     * @param currentClassWholeHierarchyKnown A boolean indicating if the whole hierarchy of the current class is known.
+     */
     private generateMemberFieldParametersRelatedToForClassToOtherClass(currentClass: ClassOrInterfaceTypeContext, otherClass: ClassOrInterfaceTypeContext, dataClumpsFieldParameters: Dictionary<DataClumpTypeContext>, softwareProjectDicts: SoftwareProjectDicts, currentClassWholeHierarchyKnown: boolean){
 
         let debug = false;
@@ -206,6 +241,15 @@ export class DetectorDataClumpsFields {
         dataClumpsFieldParameters[dataClumpContext.key] = dataClumpContext;
     }
 
+    /**
+     * Retrieves member parameters from a class or interface.
+     * 
+     * @param currentClassOrInterface The current class or interface to retrieve member parameters from.
+     * @param softwareProjectDicts The dictionary of software projects.
+     * @param analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces Flag to indicate whether to analyze fields inherited from super classes or interfaces.
+     * @returns An array of member field parameter types.
+     * @throws Error if there is an issue retrieving member parameters.
+     */
     public static getMemberParametersFromClassOrInterface(currentClassOrInterface: ClassOrInterfaceTypeContext, softwareProjectDicts: SoftwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces): MemberFieldParameterTypeContext[]{
         let classParameters: MemberFieldParameterTypeContext[] = [];
 

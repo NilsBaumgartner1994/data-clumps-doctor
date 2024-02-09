@@ -12,6 +12,7 @@ export class SoftwareProjectDicts {
   public dictMethod: Dictionary<MethodTypeContext> = {};
   public dictMethodParameters: Dictionary<MethodParameterTypeContext> = {};
 
+  
   public constructor() {
     this.dictClassOrInterface = {};
     this.dictMemberFieldParameters = {};
@@ -31,10 +32,20 @@ export class SoftwareProjectDicts {
      */
    }
 
+   /**
+    * Load a class or interface.
+    * @param classOrInterface The class or interface type context to be loaded.
+    * @throws {Error} If the class or interface type context is invalid.
+    */
    public loadClassOrInterface(classOrInterface: ClassOrInterfaceTypeContext) {
     this.handleClassOrInterface(classOrInterface);
    }
 
+  /**
+   * Fill methods for a given class or interface.
+   * @param classOrInterface The class or interface type context.
+   * @throws {Error} If the class or interface type context is invalid.
+   */
   private fillMethodsForClassOrInterface(classOrInterface: ClassOrInterfaceTypeContext) {
     // Fill methods
     let methodsDictForClassOrInterface = classOrInterface.methods;
@@ -55,6 +66,11 @@ export class SoftwareProjectDicts {
     }
   }
 
+  /**
+   * Fill member fields for a class or interface.
+   * @param classOrInterface The class or interface type context.
+   * @throws {Error} Throws an error if the classOrInterface parameter is invalid.
+   */
   private fillMemberFieldsForClassOrInterface(classOrInterface: ClassOrInterfaceTypeContext) {
     // Fill memberFieldParameters
     let memberFieldParametersDictForClassOrInterface = classOrInterface.fields;
@@ -66,12 +82,22 @@ export class SoftwareProjectDicts {
     }
   }
 
+  /**
+   * Handle the given class or interface type context.
+   * @param classOrInterface The class or interface type context to handle.
+   * @throws {Error} If an error occurs while handling the class or interface type context.
+   */
   private handleClassOrInterface(classOrInterface: ClassOrInterfaceTypeContext) {
     this.fillClassOrInterfaceDicts(classOrInterface);
     this.fillMemberFieldsForClassOrInterface(classOrInterface);
     this.fillMethodsForClassOrInterface(classOrInterface);
   }
 
+  /**
+   * Fill the dictionary with class or interface types.
+   * @param classOrInterface - The class or interface type context to be added to the dictionary.
+   * @throws {Error} - Throws an error if there is an issue with filling the dictionary.
+   */
   private fillClassOrInterfaceDicts(classOrInterface: ClassOrInterfaceTypeContext) {
     // Fill dictClassOrInterface
     this.dictClassOrInterface[classOrInterface.key] = classOrInterface;
@@ -93,6 +119,11 @@ export class SoftwareProjectDicts {
     }
   }
 
+  /**
+   * Print information about the class or interface.
+   * 
+   * @throws {Error} If there is an issue with logging or accessing object keys.
+   */
   public printInfo() {
     console.log("amount: dictClassOrInterface: " + Object.keys(this.dictClassOrInterface).length);
     console.log("amount: dictMemberFieldParameters: " + Object.keys(this.dictMemberFieldParameters).length);

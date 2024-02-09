@@ -7,6 +7,13 @@ import {GitHelper} from "./GitHelper";
 
 const current_working_directory = process.cwd();
 
+/**
+ * Asynchronous function to start the development process.
+ * 
+ * This function logs a message indicating the start of development and then performs a series of asynchronous operations, including retrieving a remote URL using GitHelper, parsing XML to AST, and analyzing software project dictionaries.
+ * 
+ * @throws {Error} Throws an error if any of the asynchronous operations fail.
+ */
 async function main() {
     console.log("Development started");
 

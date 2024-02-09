@@ -43,6 +43,13 @@ public class MyRule extends AbstractJavaRule {
     static String filePath = "";
     static String packageName = "";
 
+    /**
+     * Converts the given object to a JSON string using the Jackson ObjectMapper.
+     *
+     * @param obj the object to be converted to JSON
+     * @return the JSON string representing the object
+     * @throws JsonProcessingException if an error occurs during JSON processing
+     */
     public static String convertToJson(Object obj) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT); // Enable pretty printing
@@ -65,11 +72,24 @@ public class MyRule extends AbstractJavaRule {
     }
 
     @Override
+    /**
+     * Starts the process with the given rule context.
+     *
+     * @param ctx the rule context to start the process with
+     * @throws NullPointerException if ctx is null
+     */
     public void start(RuleContext ctx) {
         // Your other code
     }
 
     @Override
+    /**
+     * This method is called when the analysis is finished.
+     * Override this method as needed to perform any necessary actions at the end of the analysis.
+     *
+     * @param ctx The rule context for the analysis
+     * @throws NullPointerException if the rule context is null
+     */
     public void end(RuleContext ctx) {
         // Override as needed
         //System.out.println("================");
@@ -77,14 +97,13 @@ public class MyRule extends AbstractJavaRule {
     }
 
     /**
-     * Gets called before we get into the class declaration
-    public Object visit(ASTFieldDeclaration node, Object data){
-        System.out.println("ASTFieldDeclaration");
-
-        return super.visit(node, data);
-    }
+    /**
+     * Returns the position of the given ASTFieldDeclaration node.
+     *
+     * @param node the ASTFieldDeclaration node
+     * @return the AstPosition object representing the position of the node
+     * @throws NullPointerException if the input node is null
      */
-
     private AstPosition getAstPosition(ASTFieldDeclaration node){
         AstPosition position = new AstPosition();
         position.startLine = node.getBeginLine();
@@ -95,6 +114,13 @@ public class MyRule extends AbstractJavaRule {
     }
 
         private AstPosition getAstPosition(ASTVariableDeclaratorId node){
+        /**
+         * Returns the position of the given ASTVariableDeclaratorId node.
+         *
+         * @param node the ASTVariableDeclaratorId node
+         * @return the position of the node
+         * @throws NullPointerException if the node is null
+         */
             AstPosition position = new AstPosition();
             position.startLine = node.getBeginLine();
             position.startColumn = node.getBeginColumn();
@@ -104,6 +130,13 @@ public class MyRule extends AbstractJavaRule {
         }
 
     private void extractFields(ASTClassOrInterfaceDeclaration node, ClassOrInterfaceTypeContext classContext){
+    /**
+     * Extracts fields from the given ASTClassOrInterfaceDeclaration and adds them to the provided ClassOrInterfaceTypeContext.
+     *
+     * @param node The ASTClassOrInterfaceDeclaration from which to extract fields
+     * @param classContext The ClassOrInterfaceTypeContext to which the extracted fields will be added
+     * @throws NullPointerException if either node or classContext is null
+     */
         List<ASTFieldDeclaration> fields = node.descendants(ASTFieldDeclaration.class).toList();
 
         String memberFieldKeyPre = getClassOrInterfaceKey(node)+"/memberField/";
@@ -155,6 +188,13 @@ public class MyRule extends AbstractJavaRule {
     }
 
     private void extractMethods(ASTClassOrInterfaceDeclaration node, ClassOrInterfaceTypeContext classContext){
+    /**
+     * Extracts methods from the given ASTClassOrInterfaceDeclaration and populates the ClassOrInterfaceTypeContext with the extracted methods.
+     *
+     * @param node The ASTClassOrInterfaceDeclaration from which methods are to be extracted
+     * @param classContext The ClassOrInterfaceTypeContext to be populated with the extracted methods
+     * @throws NullPointerException if either node or classContext is null
+     */
 
         String classOrInterfaceKey = getClassOrInterfaceKey(node);
 
@@ -269,6 +309,12 @@ public class MyRule extends AbstractJavaRule {
     }
 
     private String getClassOrInterfaceKey(ASTClassOrInterfaceDeclaration node){
+    /**
+     * Returns the key of the class or interface.
+     *
+     * @param node the ASTClassOrInterfaceDeclaration node
+     * @return the key of the class or interface
+     */
         String classOrInterfaceKey = node.getCanonicalName();
         if(classOrInterfaceKey==null){
             classOrInterfaceKey = node.getSimpleName();
@@ -277,6 +323,13 @@ public class MyRule extends AbstractJavaRule {
     }
 
     private void extractClassInformations(ASTClassOrInterfaceDeclaration node, ClassOrInterfaceTypeContext classContext){
+    /**
+     * Extracts information about a class or interface declaration and populates the provided ClassOrInterfaceTypeContext object.
+     *
+     * @param node the ASTClassOrInterfaceDeclaration node representing the class or interface
+     * @param classContext the ClassOrInterfaceTypeContext object to be populated with class information
+     * @throws NullPointerException if either node or classContext is null
+     */
 
         // Set the properties of the classContext based on the node
         classContext.name = node.getSimpleName();
@@ -301,6 +354,13 @@ public class MyRule extends AbstractJavaRule {
     }
 
     private boolean hasTypeVariable(JTypeMirror typeMirror){
+    /**
+     * Checks if the given JTypeMirror contains a type variable.
+     *
+     * @param typeMirror the JTypeMirror to be checked
+     * @return true if the typeMirror contains a type variable, false otherwise
+     * @throws NullPointerException if the typeMirror is null
+     */
         if(typeMirror instanceof JTypeVar){ // something like: T item ==> T
             return true;
         }
@@ -322,6 +382,13 @@ public class MyRule extends AbstractJavaRule {
     }
 
     private String getQualifiedNameUnsafe(JTypeMirror typeMirror){
+    /**
+     * Generates a qualified name for the given type mirror.
+     *
+     * @param typeMirror the type mirror for which the qualified name is to be generated
+     * @return the qualified name of the given type mirror
+     * @throws NullPointerException if the typeMirror is null
+     */
 
         TypePrettyPrint.TypePrettyPrinter typePrettyPrinter = new TypePrettyPrint.TypePrettyPrinter();
         typePrettyPrinter.printAnnotations(false);
@@ -348,6 +415,13 @@ public class MyRule extends AbstractJavaRule {
     }
 
     private void extractExtendsAndImplements(ASTClassOrInterfaceDeclaration node, ClassOrInterfaceTypeContext classContext){
+    /**
+     * Extracts the interfaces and classes that the given class or interface extends or implements.
+     *
+     * @param node the ASTClassOrInterfaceDeclaration representing the class or interface
+     * @param classContext the ClassOrInterfaceTypeContext to store the extracted information
+     * @throws NullPointerException if either node or classContext is null
+     */
 
         // Extract the interfaces this class implements
         List<ASTImplementsList> implementsLists = node.findDescendantsOfType(ASTImplementsList.class);
@@ -375,6 +449,13 @@ public class MyRule extends AbstractJavaRule {
     }
 
     private ClassOrInterfaceTypeContext visitClassOrInterface(ASTClassOrInterfaceDeclaration node){
+    /**
+     * Visits a class or interface declaration and extracts information about the class or interface.
+     *
+     * @param node the ASTClassOrInterfaceDeclaration node to be visited
+     * @return an instance of ClassOrInterfaceTypeContext containing information about the class or interface
+     * @throws SomeException if there is an error during the visit
+     */
         //System.out.println("ASTClassOrInterfaceDeclaration");
 
         // Create a new instance of your ClassOrInterfaceTypeContext class
@@ -406,6 +487,13 @@ public class MyRule extends AbstractJavaRule {
     }
 
     private void visitInnerClassesOrInterfaces(ASTClassOrInterfaceDeclaration node, ClassOrInterfaceTypeContext classContext){
+    /**
+     * Visits the inner classes or interfaces of the given class or interface node and adds them to the appropriate map in the class context.
+     *
+     * @param node the ASTClassOrInterfaceDeclaration representing the outer class or interface
+     * @param classContext the ClassOrInterfaceTypeContext representing the context of the outer class or interface
+     * @throws NullPointerException if the node or classContext is null
+     */
         List<ASTClassOrInterfaceDeclaration> innerClassesAndInterfaces = node.findDescendantsOfType(ASTClassOrInterfaceDeclaration.class);
         for (ASTClassOrInterfaceDeclaration innerClassOrInterface : innerClassesAndInterfaces) {
             ClassOrInterfaceTypeContext innerClassOrInterfaceContext = this.visitClassOrInterface(innerClassOrInterface);
@@ -420,6 +508,12 @@ public class MyRule extends AbstractJavaRule {
     }
 
     public void setFilePathAndPackageName(ASTClassOrInterfaceDeclaration node){
+    /**
+     * Sets the file path and package name for the given ASTClassOrInterfaceDeclaration node.
+     *
+     * @param node the ASTClassOrInterfaceDeclaration node for which the file path and package name are to be set
+     * @throws NullPointerException if the node is null
+     */
         //System.out.println(node.getCanonicalName());
         AstInfo astInfo = node.getAstInfo();
 
@@ -441,6 +535,13 @@ public class MyRule extends AbstractJavaRule {
     }
 
     public void handleDublicateDefinition(File file, ClassOrInterfaceTypeContext classContext){
+    /**
+     * Handles duplicate definition of a class or interface in a file.
+     *
+     * @param file the file to be processed
+     * @param classContext the context of the class or interface type
+     * @throws RuntimeException if the class is declared multiple times in the same package
+     */
         String currentClassDefinedInFile = classContext.file_path;
         String otherClassDefinedInFilePath = "OTHER FILE COULD NOT BE READ";
         String jsonString = "";
@@ -471,6 +572,16 @@ public class MyRule extends AbstractJavaRule {
     }
 
     public Object visit(ASTClassOrInterfaceDeclaration node, Object data) {
+    /**
+     * This method visits the ASTClassOrInterfaceDeclaration node and performs various operations on it.
+     * It sets the file path and package name, visits the class or interface, and converts the classContext to JSON and adds it to the output.
+     * It also handles file creation, deletion, and writing the output to the file.
+     *
+     * @param node The ASTClassOrInterfaceDeclaration node to be visited
+     * @param data The data object
+     * @return null
+     * @throws IOException If an I/O error occurs while writing to the file
+     */
         this.setFilePathAndPackageName(node); // before visitClassOrInterface
         ClassOrInterfaceTypeContext classContext = this.visitClassOrInterface(node); // after setFilePathAndPackageName
 

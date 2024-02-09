@@ -11,6 +11,14 @@ type ParameterPair = {
 
 export class DetectorUtils {
 
+    /**
+     * Calculate the probability of data clumps based on the current and other probability modifiers and parameter pairs.
+     * @param currentProbabilityModifier The probability modifier for the current class.
+     * @param otherProbabilityModifier The probability modifier for the other class.
+     * @param parameterPairs An array of ParameterPair objects representing the common parameters between the classes.
+     * @returns The probability of data clumps.
+     * @throws {Error} If the parameterPairs array is empty or null.
+     */
     private static calculateProbabilityOfDataClumps(currentProbabilityModifier: number, otherProbabilityModifier: number, parameterPairs: ParameterPair[]){
         let modifierCurrentClassKnown = currentProbabilityModifier
         let modifierOtherClassKnown = otherProbabilityModifier
@@ -31,6 +39,18 @@ export class DetectorUtils {
         return probabilityOfDataClumps;
     }
 
+    /**
+     * Calculate the probability of data clumps in fields.
+     * 
+     * @param currentClassWholeHierarchyKnown - Indicates if the whole hierarchy of the current class is known.
+     * @param otherClassWholeHierarchyKnown - Indicates if the whole hierarchy of the other class is known.
+     * @param parameterPairs - An array of parameter pairs.
+     * @param fieldsOfClassesWithUnknownHierarchyProbabilityModifier - The probability modifier for fields of classes with unknown hierarchy.
+     * 
+     * @returns The probability of data clumps in the fields.
+     * 
+     * @throws {Error} If there is an issue with calculating the probability.
+     */
     public static calculateProbabilityOfDataClumpsFields(currentClassWholeHierarchyKnown: boolean, otherClassWholeHierarchyKnown: boolean, parameterPairs: ParameterPair[], fieldsOfClassesWithUnknownHierarchyProbabilityModifier: number){
         let currentModifier = 1
         if(!currentClassWholeHierarchyKnown){
@@ -46,6 +66,15 @@ export class DetectorUtils {
         return probabilityOfDataClumps;
     }
 
+    /**
+     * Calculates the probability of data clumps between methods.
+     * @param currentClassWholeHierarchyKnown - Indicates if the whole hierarchy of the current class is known.
+     * @param otherClassWholeHierarchyKnown - Indicates if the whole hierarchy of the other class is known.
+     * @param parameterPairs - Array of parameter pairs.
+     * @param methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier - Modifier for classes or interfaces with unknown hierarchy.
+     * @returns The probability of data clumps between methods.
+     * @throws {Error} Throws an error if there is an issue in calculating the probability.
+     */
     public static calculateProbabilityOfDataClumpsMethodsToMethods(currentClassWholeHierarchyKnown: boolean, otherClassWholeHierarchyKnown: boolean, parameterPairs: ParameterPair[], methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier: number){
         let currentModifier = 1;
         if(!currentClassWholeHierarchyKnown){
@@ -60,6 +89,16 @@ export class DetectorUtils {
         return probabilityOfDataClumps;
     }
 
+    /**
+     * Calculate the probability of data clumps based on the given parameters.
+     * @param currentClassWholeHierarchyKnown - Indicates if the whole hierarchy of the current class is known.
+     * @param otherClassWholeHierarchyKnown - Indicates if the whole hierarchy of the other class is known.
+     * @param parameterPairs - Array of parameter pairs.
+     * @param methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier - Modifier for classes or interfaces with unknown hierarchy for methods.
+     * @param fieldsOfClassesWithUnknownHierarchyProbabilityModifier - Modifier for classes with unknown hierarchy for fields.
+     * @returns The probability of data clumps.
+     * @throws {Error} If there is an issue in calculating the probability.
+     */
     public static calculateProbabilityOfDataClumpsMethodsToFields(currentClassWholeHierarchyKnown: boolean, otherClassWholeHierarchyKnown: boolean, parameterPairs: ParameterPair[], methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier: number, fieldsOfClassesWithUnknownHierarchyProbabilityModifier: number){
         let currentModifier = 1;
         if(!currentClassWholeHierarchyKnown){
@@ -76,6 +115,15 @@ export class DetectorUtils {
     }
 
 
+    /**
+     * Retrieves common parameter pair keys between two arrays of VariableTypeContext objects.
+     * @param parameters - The first array of VariableTypeContext objects.
+     * @param otherParameters - The second array of VariableTypeContext objects.
+     * @param similarityModifierOfVariablesWithUnknownType - The similarity modifier for variables with unknown type.
+     * @param ignoreParameterModifiers - Indicates whether to ignore parameter modifiers.
+     * @returns An array of ParameterPair objects representing the common parameter pair keys.
+     * @throws {Error} Throws an error if the input parameters are not valid.
+     */
     public static getCommonParameterPairKeys(parameters: VariableTypeContext[], otherParameters: VariableTypeContext[], similarityModifierOfVariablesWithUnknownType, ignoreParameterModifiers: boolean){
 
 
@@ -97,6 +145,14 @@ export class DetectorUtils {
         return commonParameterPairKeys;
     }
 
+    /**
+     * Retrieves current and other parameters from common parameter pair keys.
+     * @param commonFieldParameterPairKeys - Array of parameter pairs
+     * @param currentClassParameters - Array of current class parameters
+     * @param otherClassParameters - Array of other class parameters
+     * @returns Tuple containing dictionary of current parameters and string representing common field parameter keys
+     * @throws Error if unable to retrieve parameters from the given keys
+     */
     public static getCurrentAndOtherParametersFromCommonParameterPairKeys(commonFieldParameterPairKeys: ParameterPair[], currentClassParameters: VariableTypeContext[], otherClassParameters: VariableTypeContext[])
         :[Dictionary<DataClumpsVariableFromContext>, string]
     {

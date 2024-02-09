@@ -32,6 +32,7 @@ export class Analyzer {
 
     public timer: Timer;
 
+    
     constructor(
         path_to_project: string,
         path_to_ast_generator_folder: string,
@@ -62,6 +63,11 @@ export class Analyzer {
         this.timer = new Timer();
     }
 
+    /**
+     * Asynchronously retrieves the current commit selection mode.
+     * @throws {Error} Throws an error if there is an issue with retrieving the project commit.
+     * @returns {Promise<any[]>} A promise that resolves to an array of commits to be analyzed.
+     */
     public async getCommitSelectionModeCurrent(){
         let commits_to_analyse: any[] = [];
         let commit = await GitHelper.getProjectCommit(this.path_to_project);
@@ -72,6 +78,13 @@ export class Analyzer {
         return commits_to_analyse;
     }
 
+    /**
+     * Asynchronously retrieves all git commits from the specified project.
+     * 
+     * @throws {Error} Throws an error if there is a problem with retrieving the commits.
+     * 
+     * @returns {Promise<string[]>} A promise that resolves to an array of missing commit results.
+     */
     async getAllGitCommits(){
         //console.log("Perform a full check of the whole project");
         const allCommits = await GitHelper.getAllCommitsFromGitProject(this.path_to_project);
@@ -89,6 +102,11 @@ export class Analyzer {
         return missing_commit_results;
     }
 
+    /**
+     * Asynchronously retrieves the commit hashes for all git tags in the project.
+     * @throws {Error} Throws an error if there is an issue with retrieving the commit hashes.
+     * @returns {Promise<string[]>} A promise that resolves to an array of commit hashes for all git tags in the project.
+     */
     async getGitTagCommitsHashes(){
         //console.log("Perform a full check of the whole project");
         const allTags = await GitHelper.getAllTagsFromGitProject(this.path_to_project);
@@ -112,6 +130,11 @@ export class Analyzer {
         return missing_commit_results;
     }
 
+    /**
+     * Configures the commit selection mode and returns a promise with the result.
+     * @returns A promise with an object containing information about the git checkout need and the commits to analyze.
+     * @throws {Error} Throws an error if there is an issue with the commit selection mode.
+     */
     public async configureCommitSelectionMode(): Promise<{ git_checkout_needed: boolean; commits_to_analyse: any[] }> {
         let git_checkout_needed = true;
         let commits_to_analyse: any[] = [];
@@ -132,6 +155,12 @@ export class Analyzer {
         }
     }
 
+    /**
+     * Asynchronously loads the project name.
+     * @param path_to_folder The path to the folder.
+     * @returns A promise that resolves to the project name.
+     * @throws Error if the project name could not be found in the git repository.
+     */
     async loadProjectName(path_to_folder: string): Promise<string> {
         if(!!this.passed_project_name){ // if project name was passed as parameter
             return this.passed_project_name; // use passed project name
@@ -144,6 +173,11 @@ export class Analyzer {
         return project_name;
     }
 
+    /**
+     * Asynchronously starts the process.
+     * 
+     * @throws {Error} Throws an error if there is an issue with the git checkout.
+     */
     async start(){
         this.timer.start();
 
@@ -193,6 +227,14 @@ export class Analyzer {
         this.timer.printElapsedTime("Detection time");
     }
 
+    /**
+     * Replaces output variables in the given path with the provided project name and project commit.
+     * @param path_to_output_with_variables The path containing variables to be replaced.
+     * @param project_name The name of the project to be used for replacement. Default value is "project_name".
+     * @param project_commit The commit of the project to be used for replacement. Default value is "project_commit".
+     * @returns The modified path with replaced variables.
+     * @throws {Error} If path_to_output_with_variables is not a valid string.
+     */
     static replaceOutputVariables(path_to_output_with_variables, project_name="project_name", project_commit="project_commit"){
         let copy = path_to_output_with_variables+"";
         copy = copy.replace(Analyzer.project_name_variable_placeholder, project_name);
@@ -200,6 +242,12 @@ export class Analyzer {
         return copy;
     }
 
+    /**
+     * Check if analysis exists for a given commit.
+     * @param commit The commit to check for analysis.
+     * @throws Error if an error occurs while checking for analysis.
+     * @returns True if analysis exists for the given commit, otherwise false.
+     */
     async doesAnalysisExist(commit){
         let path_to_result = Analyzer.replaceOutputVariables(this.path_to_output_with_variables, this.project_name, commit);
         if (fs.existsSync(path_to_result)) {
@@ -208,6 +256,12 @@ export class Analyzer {
         return false;
     }
 
+    /**
+     * Asynchronously analyses the given commit.
+     * 
+     * @param commit - The commit to be analysed.
+     * @throws Error - Throws an error if the source type is not supported.
+     */
     async analyse(commit){
         console.log("Analyse commit: "+commit);
 
@@ -272,6 +326,21 @@ export class Analyzer {
         }
     }
 
+    /**
+     * Analyse software project dictionaries and save the results to a file.
+     * @param softwareProjectDicts - The software project dictionaries to be analysed.
+     * @param project_url - The URL of the project.
+     * @param project_name - The name of the project.
+     * @param project_version - The version of the project.
+     * @param commit - The commit information.
+     * @param commit_tag - The commit tag.
+     * @param commit_date - The commit date.
+     * @param path_to_result - The path to save the results file.
+     * @param progressCallback - A callback function for progress updates.
+     * @param detectorOptions - Options for the detector.
+     * @throws {Error} - An error occurred while writing to file.
+     * @returns {Promise<any>} - A promise that resolves with the data clumps context.
+     */
     static async analyseSoftwareProjectDicts(softwareProjectDicts, project_url, project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, detectorOptions){
         let detector = new Detector(softwareProjectDicts, detectorOptions, progressCallback, project_url, project_name, project_version, commit, commit_tag, commit_date);
 

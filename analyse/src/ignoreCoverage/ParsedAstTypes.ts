@@ -15,6 +15,7 @@ export class AstElementTypeContext {
     public hasTypeVariable: boolean;
     public position: AstPosition | undefined;
 
+    
     public constructor(key, name, type){
         this.key = key;
         this.name = name;
@@ -27,6 +28,7 @@ export class VariableTypeContext extends AstElementTypeContext{
     public modifiers: string[] | undefined;
     public ignore: boolean;
 
+    
     public constructor(key, name, type, modifiers, ignore){
         super(key, name, type);
         this.modifiers = modifiers;
@@ -34,11 +36,12 @@ export class VariableTypeContext extends AstElementTypeContext{
     }
 
     /**
-     * TODO: we should refactor it that VariableTypeContext has a field like: data field-> true; or parameter-> true, so we dont have to put ignoreParameterModifiers by ourself
      * Returns a number between 0 and 1. 1 means the parameters are equal, 0 means they are not equal at all.
-     * @param otherParameter
-     * @param similarityModifierOfVariablesWithUnknownType
-     * @param ignoreParameterModifiers if true, the modifiers are ignored like "public" or "private". This is required for method parameters because they can't have "public" or "private" modifiers and therefore a comparison with data fields would be wrong and always return 0. But for data fields compared to other data fields, the modifiers should be considered and therefore this option shall be true.
+     * @param otherParameter The other parameter to compare with.
+     * @param similarityModifierOfVariablesWithUnknownType The similarity modifier for variables with unknown type.
+     * @param ignoreParameterModifiers If true, the modifiers are ignored like "public" or "private". This is required for method parameters because they can't have "public" or "private" modifiers and therefore a comparison with data fields would be wrong and always return 0. But for data fields compared to other data fields, the modifiers should be considered and therefore this option shall be true.
+     * @returns A number representing the similarity between the parameters.
+     * @throws {Error} If an error occurs during the comparison process.
      */
     public isSimilarTo(otherParameter: VariableTypeContext, similarityModifierOfVariablesWithUnknownType: number, ignoreParameterModifiers: boolean): number{
         //TODO: we need to check the similarity of the name
@@ -67,6 +70,12 @@ export class VariableTypeContext extends AstElementTypeContext{
         return baseSimilarity
     }
 
+    /**
+     * Get the similarity modifier of same variable modifiers.
+     * @param otherParameter The other variable type context to compare with.
+     * @returns Returns the similarity modifier (0 if modifiers are not the same, 1 if they are the same).
+     * @throws {Error} Throws an error if there is an issue with comparing the modifiers.
+     */
     public getSimilarityModifierOfSameVariableModifiers(otherParameter: VariableTypeContext){
         let sameModifiers = this.haveSameModifiers(otherParameter);
         if(!sameModifiers){
@@ -76,6 +85,13 @@ export class VariableTypeContext extends AstElementTypeContext{
         }
     }
 
+    /**
+     * Check if two names are similar.
+     * @param nameA - The first name to compare.
+     * @param nameB - The second name to compare.
+     * @returns 0 if the names are not similar, 1 if they are similar.
+     * @throws {Error} Throws an error if nameA or nameB is not a string.
+     */
     public isSimilarName(nameA: string, nameB: string){
         let sameName = nameA === nameB;
         if(!sameName){
@@ -84,6 +100,12 @@ export class VariableTypeContext extends AstElementTypeContext{
         return 1;
     }
 
+    /**
+     * Check if the current parameter has the same modifiers as the other parameter.
+     * @param otherParameter - The other parameter to compare with.
+     * @returns true if both parameters have the same modifiers, false otherwise.
+     * @throws {Error} - Throws an error if there is an issue with comparing the modifiers.
+     */
     public haveSameModifiers(otherParameter: VariableTypeContext){
         let sameModifiers = true;
         let bothHaveModifiers = this.modifiers !== undefined && otherParameter.modifiers !== undefined;
@@ -105,6 +127,12 @@ export class VariableTypeContext extends AstElementTypeContext{
         return sameModifiers;
     }
 
+    /**
+     * Checks if all keys in array1 are present in array2.
+     * @param array1 The first array of keys to check.
+     * @param array2 The second array to check for the presence of keys.
+     * @returns Returns true if all keys in array1 are present in array2, otherwise returns false.
+     */
     private allKeysInArray(array1: string[], array2: string[]){
         for(let i = 0; i < array1.length; i++){
             let key = array1[i];
@@ -117,10 +145,22 @@ export class VariableTypeContext extends AstElementTypeContext{
 }
 
 export class ParameterTypeContextUtils{
+    /**
+     * Converts the parameter type context to a string representation.
+     * @param parameterTypeContext The variable type context to convert.
+     * @returns A string representation of the parameter type context.
+     * @throws If the parameterTypeContext is null or undefined.
+     */
     public static parameterToString(parameterTypeContext: VariableTypeContext){
         return `{${parameterTypeContext.type} ${parameterTypeContext.name}}`;
     }
 
+    /**
+     * Converts an array of VariableTypeContext objects to a string representation.
+     * @param parameters - An array of VariableTypeContext objects to be converted to string.
+     * @returns A string representation of the parameters array.
+     * @throws {Error} If the parameters array is empty.
+     */
     public static parametersToString(parameters: VariableTypeContext[]){
         let orderedParameters = parameters.sort((a, b) => {
             return a.name.localeCompare(b.name);
@@ -154,6 +194,13 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext{
     public innerDefinedClasses: Dictionary<ClassOrInterfaceTypeContext>;
     public innerDefinedInterfaces: Dictionary<ClassOrInterfaceTypeContext>;
 
+    /**
+     * Creates a new instance of ClassOrInterfaceTypeContext from the provided object.
+     * 
+     * @param obj The object to create the instance from.
+     * @returns A new instance of ClassOrInterfaceTypeContext.
+     * @throws {Error} If the provided object is not valid or if any of the internal operations fail.
+     */
     public static fromObject(obj: ClassOrInterfaceTypeContext){
         //console.log("Copy ClassOrInterfaceTypeContext");
 
@@ -177,6 +224,7 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext{
         return instance;
     }
 
+    
     public constructor(key, name, type, file_path){
         super(key, name, type);
         this.file_path = file_path;
@@ -192,6 +240,13 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext{
         this.auxclass = false;
     }
 
+    /**
+     * Check if the given class or interface is a subclass, interface, or parent of another class or interface.
+     * @param possibleSubOrSuperClassOrInterface The class or interface to check against.
+     * @param softwareProjectDicts The dictionary of software projects.
+     * @throws {Error} Throws an error if the comparison fails.
+     * @returns {boolean} Returns true if the given class or interface is a subclass, interface, or parent of another class or interface; otherwise, returns false.
+     */
     public isSubClassOrInterfaceOrParentOfOtherClassOrInterface(possibleSubOrSuperClassOrInterface: ClassOrInterfaceTypeContext, softwareProjectDicts: SoftwareProjectDicts){
         let isSubClassOf = this.isSubClassOrInterfaceOfOtherClassOrInterface(possibleSubOrSuperClassOrInterface, softwareProjectDicts);
         if(isSubClassOf){
@@ -204,12 +259,25 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext{
         return false;
     }
 
+    /**
+     * Check if the given class or interface is a subclass or interface of another class or interface.
+     * @param possibleSuperClassOrInterface The class or interface to check against.
+     * @param softwareProjectDicts The dictionary containing software project information.
+     * @throws {Error} Throws an error if the provided class or interface is not found in the dictionary.
+     * @returns {boolean} Returns true if the given class or interface is a subclass or interface of another class or interface; otherwise, returns false.
+     */
     public isSubClassOrInterfaceOfOtherClassOrInterface(possibleSuperClassOrInterface: ClassOrInterfaceTypeContext, softwareProjectDicts: SoftwareProjectDicts){
         let superClassesAndInterfacesKeys = this.getSuperClassesAndInterfacesKeys(softwareProjectDicts, true);
         let possibleSuperClassOrInterfaceKey = possibleSuperClassOrInterface.key;
         return !!superClassesAndInterfacesKeys[possibleSuperClassOrInterfaceKey]
     }
 
+    /**
+     * Checks if the whole hierarchy is known for the given software project dictionaries.
+     * @param softwareProjectDicts The software project dictionaries containing class or interface information.
+     * @throws Throws an error if the super classes or interfaces are not found in the dictionary.
+     * @returns Returns true if the whole hierarchy is known, otherwise false.
+     */
     public isWholeHierarchyKnown(softwareProjectDicts: SoftwareProjectDicts){
         let currentClassOrInterface = this;
         //console.log("-- currentClassOrInterface.key: "+currentClassOrInterface?.key)
@@ -228,6 +296,12 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext{
         return true;
     }
 
+    /**
+     * Checks if the whole hierarchy is known and prints unknown if not
+     * @param softwareProjectDicts - The dictionary of software projects
+     * @throws {Error} - Throws an error if superClassesOrInterface is not found
+     * @returns {boolean} - Returns true if the hierarchy is known, otherwise false
+     */
     public isWholeHierarchyKnownPrintUnknown(softwareProjectDicts: SoftwareProjectDicts){
         let currentClassOrInterface = this;
         console.log("-- currentClassOrInterface.key: "+currentClassOrInterface?.key)
@@ -249,6 +323,16 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext{
         return true;
     }
 
+    /**
+     * Retrieves the keys of super classes and interfaces for the given software project dictionaries.
+     * 
+     * @param softwareProjectDicts The software project dictionaries to retrieve keys from.
+     * @param recursive Flag to indicate whether to retrieve keys recursively.
+     * @param checkedKeys The dictionary of checked keys.
+     * @param level The level of recursion.
+     * @returns An array of keys representing the super classes and interfaces.
+     * @throws {Error} Throws an error if there is an issue with retrieving the keys.
+     */
     public getSuperClassesAndInterfacesKeys(softwareProjectDicts: SoftwareProjectDicts, recursive: boolean, checkedKeys: Dictionary<string | null> = {}, level=0): any[] {
         //console.log(level+" - getSuperClassesAndInterfacesKeys for: "+this.key);
         //console.log(this);
@@ -303,11 +387,18 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext{
 export class MemberFieldParameterTypeContext extends VariableTypeContext{
     public classOrInterfaceKey: string;
 
+    
     public constructor(key, name, type, modifiers, ignore, classOrInterface: ClassOrInterfaceTypeContext){
         super(classOrInterface?.key+"/"+"memberField"+"/"+key, name, type, modifiers, ignore);
         this.classOrInterfaceKey = classOrInterface?.key;
     }
 
+    /**
+     * Create a MemberFieldParameterTypeContext instance from an object.
+     * @param obj The object to create the instance from.
+     * @returns A new instance of MemberFieldParameterTypeContext.
+     * @throws {Error} If obj is not provided.
+     */
     public static fromObject(obj: MemberFieldParameterTypeContext){
         //console.log("MemberFieldParameterTypeContext fromObject")
         // @ts-ignore
@@ -320,6 +411,13 @@ export class MemberFieldParameterTypeContext extends VariableTypeContext{
 export class MethodParameterTypeContext extends VariableTypeContext{
     public methodKey: string;
 
+    /**
+     * Creates a new instance of MethodParameterTypeContext from the provided object.
+     * 
+     * @param obj The object to create the instance from.
+     * @returns A new instance of MethodParameterTypeContext.
+     * @throws {Error} If the provided object is not of type MethodParameterTypeContext.
+     */
     public static fromObject(obj: MethodParameterTypeContext){
         // @ts-ignore
         let instance = new MethodParameterTypeContext();
@@ -327,6 +425,7 @@ export class MethodParameterTypeContext extends VariableTypeContext{
         return instance;
     }
 
+    
     public constructor(key, name, type, modifiers, ignore, method: MethodTypeContext){
         super(method?.key+"/parameter/"+key, name, type, modifiers, ignore);
         this.methodKey = method?.key;
@@ -340,6 +439,12 @@ export class MethodTypeContext extends AstElementTypeContext{
     public parameters: MethodParameterTypeContext[];
     public classOrInterfaceKey: string;
 
+    /**
+     * Creates a MethodTypeContext instance from the given object.
+     * @param obj The object to create the MethodTypeContext instance from.
+     * @throws {Error} Throws an error if the obj parameter is not of type MethodTypeContext.
+     * @returns A new MethodTypeContext instance created from the given object.
+     */
     public static fromObject(obj: MethodTypeContext){
         // @ts-ignore
         let instance = new MethodTypeContext();
@@ -350,6 +455,7 @@ export class MethodTypeContext extends AstElementTypeContext{
         return instance;
     }
 
+    
     public constructor(key, name, type, overrideAnnotation: boolean, classOrInterface: ClassOrInterfaceTypeContext){
         super(classOrInterface?.key+"/method/"+key, name, type);
         this.modifiers = [];
@@ -358,6 +464,11 @@ export class MethodTypeContext extends AstElementTypeContext{
         this.overrideAnnotation = overrideAnnotation;
     }
 
+    /**
+     * Get the method signature.
+     * @returns {string} The method signature.
+     * @throws {Error} If there is an error in getting the method signature.
+     */
     public getMethodSignature(){
         let methodSignature = this.name+"(";
         for(let i = 0; i < this.parameters.length; i++){
@@ -371,6 +482,13 @@ export class MethodTypeContext extends AstElementTypeContext{
         return methodSignature;
     }
 
+    /**
+     * Checks if the method has the same signature as another method.
+     * @param otherMethod The other method to compare with.
+     * @throws {Error} Throws an error if the number of parameters is different.
+     * @throws {Error} Throws an error if the method signatures are different.
+     * @returns {boolean} Returns true if the methods have the same signature, otherwise false.
+     */
     public hasSameSignatureAs(otherMethod: MethodTypeContext){
         let hasSameSignature = true;
 
@@ -386,12 +504,25 @@ export class MethodTypeContext extends AstElementTypeContext{
         return hasSameSignature;
     }
 
+    /**
+     * Retrieves the class or interface based on the provided method type context and software project dictionaries.
+     * @param method The method type context.
+     * @param softwareProjectDicts The software project dictionaries.
+     * @returns The current class or interface based on the provided method type context.
+     * @throws If the current class or interface is not found in the software project dictionaries.
+     */
     public static getClassOrInterface(method: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts){
         let currentClassOrInterfaceKey = method.classOrInterfaceKey;
         let currentClassOrInterface = softwareProjectDicts.dictClassOrInterface[currentClassOrInterfaceKey];
         return currentClassOrInterface;
     }
 
+    /**
+     * Check if the whole hierarchy is known for a given method.
+     * @param method The method type context.
+     * @param softwareProjectDicts The software project dictionaries.
+     * @throws {Error} Throws an error if the current class or interface is not found.
+     */
     public static isWholeHierarchyKnown(method: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts){
         //console.log("isWholeHierarchyKnown?: method.key: "+method?.key);
         //console.log("softwareProjectDicts.dictClassOrInterface")
@@ -403,6 +534,12 @@ export class MethodTypeContext extends AstElementTypeContext{
     }
 
 
+    /**
+     * Check if the method is inherited from a parent class or interface.
+     * @param softwareProjectDicts - The dictionary containing the software project data.
+     * @throws {Error} - Throws an error if the superClassOrInterface could not be found.
+     * @returns {boolean} - Returns true if the method is inherited, otherwise false.
+     */
     public isInheritedFromParentClassOrInterface(softwareProjectDicts: SoftwareProjectDicts){
         // In Java we can't rely on @Override annotation because it is not mandatory: https://stackoverflow.com/questions/4822954/do-we-really-need-override-and-so-on-when-code-java
         if(this.overrideAnnotation){
