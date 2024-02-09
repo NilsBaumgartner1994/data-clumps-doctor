@@ -1,3 +1,8 @@
+/**
+ * Executes the test for all languages.
+ * 
+ * @throws {Error} Throws an error if the test fails.
+ */
 function testAllLanguages() {
     test('Example test', async () => {
         expect("a").toBe("a");

@@ -6,9 +6,22 @@ import {DetectorOptions, DetectorOptionsInformation} from "./Detector";
 import {DetectorDataClumpsMethodsToOtherMethods} from "./DetectorDataClumpsMethodsToOtherMethods";
 import {DetectorDataClumpsMethodsToOtherFields} from "./DetectorDataClumpsMethodsToOtherFields";
 
+/**
+ * TODO refactor this method to Detector since there is already the creation, so why not the refactoring
+ * 
+ * @param rawOptions - The raw options to be parsed
+ * @returns The parsed detector options
+ * @throws Error if any parsing error occurs
+ */
 // TODO refactor this method to Detector since there is already the creation, so why not the refactoring
 function getParsedValuesFromPartialOptions(rawOptions: DetectorOptions): DetectorOptions{
 
+    /**
+     * Parses the given value to a boolean.
+     * @param value - The value to be parsed.
+     * @returns {boolean} - The parsed boolean value.
+     * @throws {Error} - Throws an error if the value is not a valid boolean string.
+     */
     function parseBoolean(value: any){
         return ""+value==="true";
     }
@@ -28,6 +41,7 @@ export class DetectorDataClumpsMethods {
     public toOtherMethodsDetector: DetectorDataClumpsMethodsToOtherMethods;
     public toOtherFieldsDetector: DetectorDataClumpsMethodsToOtherFields;
 
+    
     public constructor(options: DetectorOptions, progressCallback?: any){
         this.options = getParsedValuesFromPartialOptions(JSON.parse(JSON.stringify(options)));
         this.progressCallback = progressCallback;
@@ -35,6 +49,13 @@ export class DetectorDataClumpsMethods {
         this.toOtherFieldsDetector = new DetectorDataClumpsMethodsToOtherFields(options, progressCallback);
     }
 
+    /**
+     * Asynchronously detects data clumps in software projects.
+     * 
+     * @param softwareProjectDicts - The dictionary containing software project data.
+     * @returns A promise that resolves to a dictionary of data clump type contexts, or null if no data clumps are detected.
+     * @throws This method does not throw any exceptions.
+     */
     public async detect(softwareProjectDicts: SoftwareProjectDicts): Promise<Dictionary<DataClumpTypeContext> | null>{
         //console.log("Detecting software project for data clumps in methods");
         let methodsDict = softwareProjectDicts.dictMethod;
@@ -56,10 +77,12 @@ export class DetectorDataClumpsMethods {
     }
 
     /**
-     * DataclumpsInspection.java line 370
-     * @param method
-     * @param methodToClassOrInterfaceDict
+     * Analyzes the given method for data clumps.
+     * @param method - The method to analyze
+     * @param softwareProjectDicts - The dictionary of software project data
+     * @param dataClumpsMethodParameterDataClumps - The dictionary of data clump type context for method parameters
      * @private
+     * @throws {Error} - Throws an error if there is a problem analyzing the method
      */
     private analyzeMethod(method: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>){
 

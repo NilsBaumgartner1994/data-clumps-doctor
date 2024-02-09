@@ -51,6 +51,11 @@ program
     .option('--project_version <project_version>', 'Project Version (default: Git-Commit hash)')
     .option('--project_commit <project_commit>', 'Project Commit (default: current Git-Commit hash)')
     .option('--commit_selection <mode>', 'Commit selections (default: current, options: history, tags, "commit_hash1,commit_hash2,...")')
+/**
+ * Function to print the logo.
+ * 
+ * @throws {Error} Throws an error if the detector options JSON path is not provided.
+ */
 // TODO: --detector_options <path_to_detector_options_json>
 
 function printLogo(){
@@ -85,6 +90,12 @@ function printLogo(){
 }
 
 
+/**
+ * Asynchronously analyzes a project using the specified options.
+ * @param path_to_project The path to the project to be analyzed.
+ * @param options The options for analysis, including source type, AST generator folder path, source folder path, AST output path, output path with variables, project version, preserve AST output flag, detector options path, detector options use uncertainty flag, commit selection mode, project name, project URL.
+ * @throws Throws an error if the detector options file is invalid or does not exist.
+ */
 async function analyse(path_to_project, options){
     const source_type = options.source_type;
     const path_to_ast_generator_folder = options.path_to_ast_generator_folder;
@@ -147,6 +158,11 @@ async function analyse(path_to_project, options){
     await analyzer.start()
 }
 
+/**
+ * Asynchronous function to execute the main logic for Data-Clumps-Doctor Detection.
+ * @throws {Error} Throws an error if no project urls or path to project is specified.
+ * @throws {Error} Throws an error if the specified path to ast generator folder does not exist.
+ */
 async function main() {
     console.log("Data-Clumps-Doctor Detection");
 

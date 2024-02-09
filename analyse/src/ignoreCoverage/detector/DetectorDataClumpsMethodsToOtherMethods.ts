@@ -4,9 +4,23 @@ import {MethodTypeContext} from "./../ParsedAstTypes";
 import {SoftwareProjectDicts} from "./../SoftwareProject";
 import {DetectorOptions, DetectorOptionsInformation} from "./Detector";
 
+/**
+ * Refactors the method to Detector since there is already the creation.
+ * 
+ * @param rawOptions - The raw options to be parsed.
+ * @returns The parsed DetectorOptions.
+ * @throws - Throws an error if parsing fails.
+ */
 // TODO refactor this method to Detector since there is already the creation, so why not the refactoring
 function getParsedValuesFromPartialOptions(rawOptions: DetectorOptions): DetectorOptions{
 
+    /**
+     * Parses the given value to a boolean.
+     * 
+     * @param value - The value to be parsed.
+     * @returns The parsed boolean value.
+     * @throws {Error} If the value is not a valid boolean string.
+     */
     function parseBoolean(value: any){
         return ""+value==="true";
     }
@@ -27,16 +41,18 @@ export class DetectorDataClumpsMethodsToOtherMethods {
     public options: DetectorOptions;
     public progressCallback: any;
 
+    
     public constructor(options: DetectorOptions, progressCallback?: any){
         this.options = getParsedValuesFromPartialOptions(JSON.parse(JSON.stringify(options)));
         this.progressCallback = progressCallback;
     }
 
     /**
-     * DataclumpsInspection.java line 487
-     * @param method
-     * @param methodToClassOrInterfaceDict
-     * @private
+     * Check for parameter data clumps in the given method.
+     * @param method - The method to check for parameter data clumps.
+     * @param softwareProjectDicts - The dictionary of software projects.
+     * @param dataClumpsMethodParameterDataClumps - The dictionary of data clumps for method parameter data clumps.
+     * @param methodWholeHierarchyKnown - A boolean indicating if the method's whole hierarchy is known.
      */
     public checkParameterDataClumps(method: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, methodWholeHierarchyKnown: boolean){
         //console.log("Checking parameter data clumps for method " + method.key);
@@ -71,12 +87,13 @@ export class DetectorDataClumpsMethodsToOtherMethods {
 
 
     /**
-     * DataclumpsInspection.java line 547
-     * @param method
-     * @param methodParametersDict
-     * @param currentClassOrInterface
-     * @param classesOrInterfacesDict
-     * @param isSameClassOrInterface
+     * Check method parameters for data clumps.
+     * @param method - The method to check for data clumps.
+     * @param otherMethod - The other method to compare with.
+     * @param softwareProjectDicts - The dictionary of software project data.
+     * @param dataClumpsMethodParameterDataClumps - The dictionary to store data clump contexts.
+     * @param wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod - Flag indicating if the whole hierarchy is known for the current method.
+     * @throws - No exceptions are thrown by this method.
      * @private
      */
     private checkMethodParametersForDataClumps(method: MethodTypeContext,otherMethod: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod: boolean) {

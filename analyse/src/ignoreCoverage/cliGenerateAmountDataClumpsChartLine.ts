@@ -21,7 +21,13 @@ program
         'npx data-clumps-doctor [options] <path_to_folder>')
     .version(version)
     .option('--report_folder <path>', 'Output path', current_working_directory+'/data-clumps-results/'+Analyzer.project_name_variable_placeholder+'/') // Default value is './data-clumps.json'
-    .option('--output <path>', 'Output path', current_working_directory+'/AmountDataClumpsOverProjectVersions.py') // Default value is './data-clumps.json'
+    .option('--output <path>', 'Output path', current_working_directory+'/AmountDataClumpsOverProjectVersions.py') /**
+ * Converts timestamp to file paths.
+ * @param all_report_files_paths Array of file paths.
+ * @throws Error if unable to read or parse the report file.
+ * @returns Object containing timestamp to file path mapping.
+ */
+// Default value is './data-clumps.json'
 
 function time_stamp_to_file_paths(all_report_files_paths){
 
@@ -47,6 +53,13 @@ function time_stamp_to_file_paths(all_report_files_paths){
     return timestamp_to_file_path;
 }
 
+/**
+ * Recursively retrieves all report files in the specified folder.
+ * 
+ * @param {string} folder_path - The path of the folder to search for report files.
+ * @returns {string[]} - An array of paths to all report files found.
+ * @throws {Error} - Throws an error if there is an issue with reading the directory or file stats.
+ */
 function getAllReportFilesRecursiveInFolder(folder_path){
     let all_report_files = fs.readdirSync(folder_path);
     let all_report_files_paths: any = [];
@@ -68,12 +81,24 @@ function getAllReportFilesRecursiveInFolder(folder_path){
 
 }
 
+/**
+ * Retrieves sorted timestamps from the given timestamp_to_file_path object.
+ * 
+ * @param timestamp_to_file_path - The object containing timestamps as keys and file paths as values.
+ * @returns An array of sorted timestamps.
+ */
 function getSortedTimestamps(timestamp_to_file_path){
     let sorted_timestamps = Object.keys(timestamp_to_file_path)
     return sorted_timestamps;
 }
 
 
+/**
+ * Converts a project commit date to a formatted date string.
+ * @param project_commit_date The project commit date in seconds.
+ * @returns The formatted date string.
+ * @throws Error if the project_commit_date is not a valid number.
+ */
 function project_commit_dateToDate(project_commit_date){
     let date = new Date(project_commit_date*1000);
     // date to string
@@ -81,6 +106,14 @@ function project_commit_dateToDate(project_commit_date){
     return date_string;
 }
 
+/**
+ * Retrieves the amount data clumps from the given sorted timestamps and timestamp to file paths.
+ * 
+ * @param sorted_timestamps The array of sorted timestamps.
+ * @param timestamp_to_file_paths The object mapping timestamps to file paths.
+ * @returns An array containing the amount data clumps retrieved from the report files.
+ * @throws Throws an error if there is an issue reading or parsing the report files.
+ */
 function getListAmountDataClumps(sorted_timestamps, timestamp_to_file_paths){
 
     let row: any = []
@@ -103,6 +136,13 @@ function getListAmountDataClumps(sorted_timestamps, timestamp_to_file_paths){
     return row;
 }
 
+/**
+ * Asynchronously analyses the report folder and generates a visualization of project data clumps over project versions.
+ * @param {string} report_folder - The path to the report folder to be analysed.
+ * @param {any} options - Additional options for the analysis (if any).
+ * @throws {Error} - Throws an error if the specified path to the report folder does not exist.
+ * @returns {Promise<string>} - A string containing the generated visualization code.
+ */
 async function analyse(report_folder, options){
     console.log("Analysing Detected Data-Clumps");
     if (!fs.existsSync(report_folder)) {
@@ -184,6 +224,11 @@ async function analyse(report_folder, options){
 
 }
 
+/**
+ * Asynchronous function to execute the main program.
+ * 
+ * @throws {Error} Throws an error if there is an issue with file system operations.
+ */
 async function main() {
     console.log("Data-Clumps-Doctor Detection");
 

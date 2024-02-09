@@ -23,7 +23,14 @@ program
     .version(version)
     .option('--report_folder <path>', 'Report path', current_working_directory+'/data-clumps-results/'+Analyzer.project_name_variable_placeholder+'/') // Default value is './data-clumps.json'
     .option('--ignore_without_data_clumps <bool>', 'Ignore files without data clumps', 'true') // Default value is 'true'
-    .option('--output <path>', 'Output path for script', current_working_directory+'/DataClumpsTypesDistribution.py') // Default value is './data-clumps.json'
+    .option('--output <path>', 'Output path for script', current_working_directory+'/DataClumpsTypesDistribution.py') /**
+ * Retrieves all report files recursively in the specified folder.
+ * 
+ * @param {string} folder_path - The path of the folder to search for report files.
+ * @returns {string[]} - An array of paths to all the report files found.
+ * @throws {Error} - Throws an error if there is an issue with reading the directory or file stats.
+ */
+// Default value is './data-clumps.json'
 
 function getAllReportFilesRecursiveInFolder(folder_path){
     let all_report_files = fs.readdirSync(folder_path);
@@ -46,6 +53,12 @@ function getAllReportFilesRecursiveInFolder(folder_path){
 
 }
 
+/**
+ * Calculate the median of a list of values
+ * @param {number[]} listOfValues - The list of values for which to calculate the median
+ * @returns {number} - The median value of the list
+ * @throws {Error} - If the input list is empty
+ */
 function getMedian(listOfValues){
     // Sort the list of values
     let sortedValues = [...listOfValues].sort((a, b) => a - b);
@@ -64,6 +77,13 @@ function getMedian(listOfValues){
     return median;
 }
 
+/**
+ * Retrieves values for a given variable and list of values.
+ * @param nameOfVariable - The name of the variable.
+ * @param listOfValues - The list of values for the variable.
+ * @returns The content generated based on the variable and its values.
+ * @throws Error if the list of values is empty.
+ */
 function getValuesFor(nameOfVariable, listOfValues){
     let fileContent = "";
     let median = getMedian(listOfValues);
@@ -85,6 +105,12 @@ function getValuesFor(nameOfVariable, listOfValues){
     return fileContent;
 }
 
+/**
+ * Counts the data clumps cluster distribution based on the provided report files paths and options to ignore without data clumps.
+ * @param all_report_files_paths - Array of paths to the report files
+ * @param ignore_without_data_clumps - Boolean flag to ignore files without data clumps
+ * @throws - Throws an error if there is an issue processing the report files
+ */
 function printDataClumpsClusterDistribution(all_report_files_paths, ignore_without_data_clumps){
 
 
@@ -175,6 +201,13 @@ function printDataClumpsClusterDistribution(all_report_files_paths, ignore_witho
 
 }
 
+/**
+ * Asynchronously analyses the report folder using the provided options.
+ * @param {string} report_folder - The path to the report folder to be analysed.
+ * @param {object} options - The options for analysis.
+ * @returns {Promise<string>} - A promise that resolves with the analysis result as a string.
+ * @throws {Error} - If the specified path to the report folder does not exist.
+ */
 async function analyse(report_folder, options){
     console.log("Start Analysing Detected Data-Clumps-Clusters");
     if (!fs.existsSync(report_folder)) {
@@ -191,6 +224,11 @@ async function analyse(report_folder, options){
     return filecontent;
 }
 
+/**
+ * Asynchronous function to start Data-Clumps-Doctor Detection.
+ * 
+ * @throws {Error} Throws an error if any exception occurs during the execution.
+ */
 async function main() {
     console.log("Start Data-Clumps-Doctor Detection");
 

@@ -21,7 +21,14 @@ program
         'This script performs data clumps detection in a given directory.\n\n' +
         'npx data-clumps-doctor [options] <path_to_folder>')
     .version(version)
-    .option('--report_folder <path>', 'Report path', current_working_directory+'/data-clumps-results/'+Analyzer.project_name_variable_placeholder+'/') // Default value is './data-clumps.json'
+    .option('--report_folder <path>', 'Report path', current_working_directory+'/data-clumps-results/'+Analyzer.project_name_variable_placeholder+'/') /**
+ * Retrieves all report files recursively in the specified folder path.
+ * 
+ * @param folder_path The path of the folder to search for report files.
+ * @returns An array containing the paths of all report files found in the specified folder and its subfolders.
+ * @throws Throws an error if there is an issue with reading the directory or file system operations.
+ */
+// Default value is './data-clumps.json'
 //    .option('--output <path>', 'Output path for script', current_working_directory+'/GenerateDataClumpsClusterToAmountDataClumpsDistributionForBoxplots.py') // Default value is './data-clumps.json'
 
 function getAllReportFilesRecursiveInFolder(folder_path){
@@ -45,6 +52,15 @@ function getAllReportFilesRecursiveInFolder(folder_path){
 
 }
 
+/**
+ * Counts the amount of data clumps groups and classifies them into single node groups, two node groups, and larger groups.
+ * 
+ * @param data_clumps_dict - A dictionary containing data clumps with keys as the class or interface key and values as the data clump information.
+ * 
+ * @returns An object containing the count of single node groups, two node groups, and larger groups of data clumps.
+ * 
+ * @throws {TypeError} - If the input data_clumps_dict is not a valid dictionary.
+ */
 function countDataClumpsGroupsToAmountDataClumps(data_clumps_dict){
     let data_clumps_keys = Object.keys(data_clumps_dict);
 
@@ -66,6 +82,12 @@ function countDataClumpsGroupsToAmountDataClumps(data_clumps_dict){
     }
 
     let visited = {};
+    /**
+     * Perform a depth-first search to calculate the size of a group of connected nodes.
+     * @param node The starting node for the depth-first search.
+     * @returns The size of the group of connected nodes.
+     * @throws {Error} If the node is not found in the graph.
+     */
     function dfs(node): number {
         visited[node] = true;
         let neighbors = graph[node];
@@ -106,6 +128,12 @@ function countDataClumpsGroupsToAmountDataClumps(data_clumps_dict){
     };
 }
 
+/**
+ * Calculate the median of a list of values
+ * @param listOfValues - The list of values for which to calculate the median
+ * @returns The median value of the list
+ * @throws {Error} If the list of values is empty
+ */
 function getMedian(listOfValues){
     // Sort the list of values
     let sortedValues = [...listOfValues].sort((a, b) => a - b);
@@ -129,6 +157,14 @@ function getMedian(listOfValues){
     return median;
 }
 
+/**
+ * Retrieves values for a given variable and list of values.
+ * 
+ * @param nameOfVariable - The name of the variable.
+ * @param listOfValues - The list of values for the variable.
+ * @returns A string containing the file content.
+ * @throws Error if the list of values is empty.
+ */
 function getValuesFor(nameOfVariable, listOfValues){
     let fileContent = "";
     let median = getMedian(listOfValues);
@@ -150,6 +186,11 @@ function getValuesFor(nameOfVariable, listOfValues){
     return fileContent;
 }
 
+/**
+ * Counts the data clumps cluster distribution based on the provided report file paths.
+ * @param {string[]} all_report_files_paths - Array of paths to the report files
+ * @throws {Error} - Throws an error if there is an issue processing the report files
+ */
 function printDataClumpsClusterDistribution(all_report_files_paths){
 
     console.log("Counting data clumps cluster distribution ...")
@@ -204,6 +245,13 @@ function printDataClumpsClusterDistribution(all_report_files_paths){
 
 }
 
+/**
+ * Asynchronously analyses the report folder with the specified options.
+ * @param {string} report_folder - The path to the report folder to be analysed.
+ * @param {any} options - The options for the analysis.
+ * @throws {Error} - If the specified path to the report folder does not exist.
+ * @returns {Promise<string>} - A promise that resolves to the content of the analysed report.
+ */
 async function analyse(report_folder, options){
     console.log("Analysing Detected Data-Clumps-Clusters");
     if (!fs.existsSync(report_folder)) {
@@ -219,6 +267,11 @@ async function analyse(report_folder, options){
     return filecontent;
 }
 
+/**
+ * Asynchronous function to execute the main program.
+ * 
+ * @throws {Error} Throws an error if there is an issue with the execution of the main program.
+ */
 async function main() {
     console.log("Data-Clumps-Doctor Detection");
 

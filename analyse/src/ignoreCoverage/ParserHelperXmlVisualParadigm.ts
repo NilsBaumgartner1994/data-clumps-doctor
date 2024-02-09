@@ -16,6 +16,13 @@ const parser = new xml2js.Parser();
 
 export class ParserHelperXmlVisualParadigm {
 
+    /**
+     * Asynchronously parses XML data to JSON.
+     * 
+     * @param xmlData The XML data to be parsed.
+     * @returns A Promise that resolves to the parsed JSON data.
+     * @throws Error if there is an issue parsing the XML data.
+     */
     static async parseXmlToJSON(xmlData): Promise<any> {
         return new Promise((resolve, reject) => {
             parser.parseString(xmlData, (err, result) => {
@@ -30,6 +37,13 @@ export class ParserHelperXmlVisualParadigm {
         });
     }
 
+    /**
+     * Parses UML class or interface from the given dictionary of classes or interfaces, ModelChild, and RootModelRelationshipContainer.
+     * @param dictOfClassesOrInterfaces - The dictionary of classes or interfaces.
+     * @param ModelChild - The model child.
+     * @param RootModelRelationshipContainer - The root model relationship container.
+     * @throws {Error} - Throws an error if there is an issue parsing the UML class or interface.
+     */
     static async parseUmlClassOrInterface(dictOfClassesOrInterfaces, ModelChild, RootModelRelationshipContainer){
         //console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++")
         //console.log("parseUmlClassOrInterface")
@@ -284,6 +298,12 @@ export class ParserHelperXmlVisualParadigm {
         //console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++")
     }
 
+    /**
+     * Parses the parsed XML data to dictionary of classes or interfaces.
+     * @param parsedXMLDataToJSON The parsed XML data in JSON format.
+     * @throws {Error} Throws an error if there is an issue with parsing or processing the XML data.
+     * @returns A map containing the classes or interfaces parsed from the XML data.
+     */
     static async parseParsedXmlDataToDictClassesOrInterfaces(parsedXMLDataToJSON){
 
         let dictOfClassesOrInterfaces: Map<string, ClassOrInterfaceTypeContext> = new Map<string, ClassOrInterfaceTypeContext>();
@@ -320,6 +340,12 @@ export class ParserHelperXmlVisualParadigm {
         return dictOfClassesOrInterfaces;
     }
 
+    /**
+     * Retrieves class or interface information from the parsed AST folder.
+     * @param path_to_folder_of_parsed_ast The path to the folder containing the parsed AST.
+     * @throws {Error} Throws an error if there is a failure in loading ASTs or parsing JSON data.
+     * @returns {SoftwareProjectDicts} Returns a SoftwareProjectDicts object containing the loaded class or interface information.
+     */
     static async getDictClassOrInterfaceFromParsedAstFolder(path_to_folder_of_parsed_ast){
         let softwareProjectDicts: SoftwareProjectDicts = new SoftwareProjectDicts();
         console.log("Started loading ASTs")
@@ -341,6 +367,12 @@ export class ParserHelperXmlVisualParadigm {
         return softwareProjectDicts
     }
 
+    /**
+     * Parse the XML file to a dictionary of classes or interfaces.
+     * @param path_to_xml_file The path to the XML file to be parsed.
+     * @throws Error if there is an issue reading the XML file or parsing it to JSON.
+     * @returns A dictionary of classes or interfaces parsed from the XML file.
+     */
     static async parseXMlToDictClassOrInterface(path_to_xml_file: string){
         const xmlData = fs.readFileSync(path_to_xml_file, 'utf8');
 
@@ -353,6 +385,13 @@ export class ParserHelperXmlVisualParadigm {
         return dictOfClassesOrInterfaces;
     }
 
+    /**
+     * Parses the XML file to Abstract Syntax Trees (ASTs) and saves them to a specified folder.
+     * 
+     * @param path_to_xml_file The path to the XML file to be parsed.
+     * @param path_to_folder_of_parsed_ast The path to the folder where the parsed ASTs will be saved.
+     * @throws {Error} An error occurred while writing parseXmlToAst to file.
+     */
     static async parseXmlToAst(path_to_xml_file: string, path_to_folder_of_parsed_ast: string){
 
         let dictOfClassesOrInterfaces: Map<string, ClassOrInterfaceTypeContext> = await ParserHelperXmlVisualParadigm.parseXMlToDictClassOrInterface(path_to_xml_file);

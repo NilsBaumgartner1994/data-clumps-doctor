@@ -9,6 +9,12 @@ import {exec, spawn} from 'child_process';
 
 export class ParserHelper {
 
+    /**
+     * Retrieves software project dictionaries from the parsed AST folder.
+     * @param path_to_folder_of_parsed_ast The path to the folder containing parsed AST files.
+     * @throws {Error} Throws an error if there is a problem reading or parsing the AST files.
+     * @returns {SoftwareProjectDicts} Returns the software project dictionaries obtained from the parsed AST folder.
+     */
     static async getSoftwareProjectDictsFromParsedAstFolder(path_to_folder_of_parsed_ast){
         let softwareProjectDicts: SoftwareProjectDicts = new SoftwareProjectDicts();
         //console.log("Started loading ASTs")
@@ -30,6 +36,13 @@ export class ParserHelper {
         return softwareProjectDicts
     }
 
+    /**
+     * Asynchronously removes the generated Abstract Syntax Trees (ASTs) from the specified folder path.
+     * 
+     * @param path_to_folder_of_parsed_ast The path to the folder containing the parsed ASTs.
+     * @throws {Error} Throws an error if there is a problem removing the ASTs.
+     * @returns A Promise that resolves when the ASTs are successfully removed.
+     */
     static async removeGeneratedAst(path_to_folder_of_parsed_ast: string): Promise<void> {
         //console.log("Started removing generated ASTs");
         // delete file if exists
