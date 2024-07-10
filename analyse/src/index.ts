@@ -1,4 +1,6 @@
 /* istanbul ignore file */
+
+//test comment
 import {SoftwareProjectDicts} from "./ignoreCoverage/SoftwareProject";
 import * as ParsedAstTypes from "./ignoreCoverage/ParsedAstTypes";
 import {Detector, DetectorOptionsInformation, DetectorOptions as DetectorOptions_} from "./ignoreCoverage/detector/Detector";
