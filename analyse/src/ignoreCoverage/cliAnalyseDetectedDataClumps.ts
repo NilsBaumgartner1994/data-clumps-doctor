@@ -38,16 +38,22 @@ function time_stamp_to_file_paths(report_folder){
 
     console.log("Reading all report files and extracting data clumps amount per commit date");
     let timestamp_to_file_path = {};
+    let time_start = new Date();
     for(let i = 0; i <all_report_files_paths.length; i++){
         let report_file_path = all_report_files_paths[i];
         let report_file = fs.readFileSync(report_file_path, 'utf8');
-        console.log("parsing report file: "+report_file_path+" ...")
+        let now = new Date();
+        let time_diff = now.getTime() - time_start.getTime();
+        let time_per_file = time_diff/(i+1);
+        let time_left = time_per_file*(all_report_files_paths.length-(i+1));
+        let time_running = time_diff;
+        let time_left_hh_mm_ss = new Date(time_left).toISOString().substr(11, 8);
+        let time_running_hh_mm_ss = new Date(time_running).toISOString().substr(11, 8);
+        let file_name_with_extension = path.basename(report_file_path);
+        console.log("parsing "+(i+1)+"/"+all_report_files_paths.length+" files | time estimated left: "+time_left_hh_mm_ss+" | time running: "+time_running_hh_mm_ss+" | file: "+file_name_with_extension);
         let report_file_json = JSON.parse(report_file);
         let project_commit_date = report_file_json?.project_info?.project_commit_date;
         project_commit_date = parseInt(project_commit_date); // unix timestamp
-        let project_commit_date_date = project_commit_dateToDate(project_commit_date);
-        console.log("project_commit_date: "+project_commit_date);
-
         if(timestamp_to_file_path[project_commit_date] === undefined){
             timestamp_to_file_path[project_commit_date] = [report_file_path]
         }
@@ -195,10 +201,16 @@ function countDataClumpsGroups(data_clumps_dict){
 
 
 function project_commit_dateToDate(project_commit_date){
-    let date = new Date(project_commit_date*1000);
-    // date to string
-    let date_string = date.toISOString().slice(0,10);
-    return date_string;
+    try{
+        let date = new Date(project_commit_date*1000);
+        // date to string
+        let date_string = date.toISOString().slice(0,10);
+        return date_string;
+    } catch (err){
+        console.log("Error: "+err);
+        console.log("project_commit_date: "+project_commit_date);
+        return project_commit_date;
+    }
 }
 
 function printTableHeader(rowPrintOptions){

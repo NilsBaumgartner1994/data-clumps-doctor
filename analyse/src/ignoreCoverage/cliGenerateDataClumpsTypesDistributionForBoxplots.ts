@@ -166,7 +166,7 @@ function printDataClumpsClusterDistribution(all_report_files_paths, ignore_witho
     fileContent += "ax1.set(ylabel='Percentage of Data Clumps')\n"
     fileContent += "ax1.set(xlabel='Data Clumps Types')\n"
     fileContent += "plt.xticks(range(1, len(labels) + 1), labels)\n"
-    fileContent += "plt.subplots_adjust(left=0.12, right=0.95, top=0.98, bottom=0.15)\n"
+    fileContent += "plt.subplots_adjust(left=0.15, right=0.98, top=0.98, bottom=0.15)\n"
     fileContent += "fig.set_size_inches(6, 4, forward=True)\n"
     fileContent += "fig.set_dpi(200)\n"
     fileContent += "plt.show()\n"

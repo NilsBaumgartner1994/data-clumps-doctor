@@ -45,67 +45,6 @@ function getAllReportFilesRecursiveInFolder(folder_path){
 
 }
 
-function countDataClumpsGroupsToAmountDataClumps(data_clumps_dict){
-    let data_clumps_keys = Object.keys(data_clumps_dict);
-
-    let graph = {};
-    for(let j = 0; j < data_clumps_keys.length; j++){
-        let data_clump_key = data_clumps_keys[j];
-        let data_clump = data_clumps_dict[data_clump_key];
-        let to_class = data_clump.to_class_or_interface_key;
-        let from_class = data_clump.from_class_or_interface_key;
-
-        if(graph[from_class] === undefined){
-            graph[from_class] = [];
-        }
-        if(graph[to_class] === undefined){
-            graph[to_class] = [];
-        }
-        graph[from_class].push(to_class);
-        graph[to_class].push(from_class);  // Assuming the graph is undirected
-    }
-
-    let visited = {};
-    function dfs(node): number {
-        visited[node] = true;
-        let neighbors = graph[node];
-        let groupSize = 1;  // Start with 1 to count the current node
-        for(let i = 0; i < neighbors.length; i++){
-            let neighbor = neighbors[i];
-            if(!visited[neighbor]){
-                groupSize += dfs(neighbor);  // Accumulate the size from each connected node
-            }
-        }
-        return groupSize;
-    }
-
-    let singleNodeGroups_amount_data_clumps = 0;
-    let twoNodeGroups_amount_data_clumps = 0;
-    let largerGroups_amount_data_clumps = 0;
-
-
-    for(let j = 0; j < data_clumps_keys.length; j++) {
-        let data_clump_key = data_clumps_keys[j];
-        let data_clump = data_clumps_dict[data_clump_key];
-        let from_class = data_clump.from_class_or_interface_key;
-        let node = from_class;
-        let groupSize: number = dfs(node);
-        if(groupSize === 1){
-            singleNodeGroups_amount_data_clumps++;
-        } else if(groupSize === 2){
-            twoNodeGroups_amount_data_clumps++;
-        } else {
-            largerGroups_amount_data_clumps++;
-        }
-    }
-
-    return {
-        singleNodeGroups_amount_data_clumps: singleNodeGroups_amount_data_clumps,
-        twoNodeGroups_amount_data_clumps: twoNodeGroups_amount_data_clumps,
-        largerGroups_amount_data_clumps: largerGroups_amount_data_clumps
-    };
-}
-
 function getMedian(listOfValues){
     // Sort the list of values
     let sortedValues = [...listOfValues].sort((a, b) => a - b);
@@ -129,27 +68,6 @@ function getMedian(listOfValues){
     return median;
 }
 
-function getValuesFor(nameOfVariable, listOfValues){
-    let fileContent = "";
-    let median = getMedian(listOfValues);
-    console.log("Median for "+nameOfVariable+": "+median)
-    fileContent += "\n";
-    fileContent += +"# "+nameOfVariable+"_median = "+median+"\n";
-    fileContent += nameOfVariable+"= [\n";
-    let amountSingleGroups = listOfValues.length
-    for(let i = 0; i < amountSingleGroups; i++){
-        fileContent += "  "+listOfValues[i];
-        if(i < amountSingleGroups - 1){
-            fileContent += ",\n";
-        }
-    }
-    fileContent += "\n";
-    fileContent += "]\n";
-    fileContent += "\n";
-
-    return fileContent;
-}
-
 function printDataClumpsClusterDistribution(all_report_files_paths){
 
     console.log("Counting data clumps cluster distribution ...")
@@ -160,6 +78,16 @@ function printDataClumpsClusterDistribution(all_report_files_paths){
     let total_amount_fields_to_fields_data_clumps = 0;
 
     let amount_variables_in_data_clumps: any = [];
+
+    let allKeys = {};
+    let uniqueFieldToFieldDataClumpKeys = {};
+    let uniqueParameterToParameterDataClumpKeys = {};
+    let uniqueParameterToFieldDataClumpKeys = {};
+
+    let earliest_timestamp: number | undefined = undefined
+    let latest_timestamp: number | undefined = undefined
+    let latest_report_file_path: string | undefined = undefined
+    let latest_report_file_json: DataClumpsTypeContext | undefined = undefined
 
     for(let i = 0; i < all_report_files_paths.length; i++){
         let report_file_path = all_report_files_paths[i];
@@ -180,17 +108,76 @@ function printDataClumpsClusterDistribution(all_report_files_paths){
             let fields_to_fields_data_clump = report_file_json?.report_summary.fields_to_fields_data_clump || 0;
             total_amount_fields_to_fields_data_clumps += fields_to_fields_data_clump;
 
+            let project_commit_date = report_file_json.project_info.project_commit_date
+            if(!!project_commit_date){
+                // project_commit_date: '1360449946',
+                let timestamp = parseInt(project_commit_date);
+                console.log("Timestamp: "+timestamp)
+                // check if valid timestamp
+                if(!isNaN(timestamp)){
+                    if(earliest_timestamp === undefined || timestamp < earliest_timestamp){
+                        earliest_timestamp = timestamp;
+                    }
+                    if(latest_timestamp === undefined || timestamp > latest_timestamp){
+                        latest_timestamp = timestamp;
+                        latest_report_file_path = report_file_path;
+                        latest_report_file_json = report_file_json;
+                    }
+                }
+            }
+
+
             let data_clumps = report_file_json?.data_clumps || {}
             let data_clumps_keys = Object.keys(data_clumps);
             for(let j = 0; j < data_clumps_keys.length; j++) {
+                let key = data_clumps_keys[j];
+                allKeys[key] = true;
                 let data_clump_key = data_clumps_keys[j];
                 let data_clump = data_clumps[data_clump_key];
                 let data_clump_data = data_clump.data_clump_data
                 let amount_variables = Object.keys(data_clump_data).length;
                 amount_variables_in_data_clumps.push(amount_variables);
+                if(data_clump.data_clump_type == "parameters_to_fields_data_clump"){
+                    uniqueParameterToFieldDataClumpKeys[key] = true;
+                }
+                else if(data_clump.data_clump_type == "parameters_to_parameters_data_clump"){
+                    uniqueParameterToParameterDataClumpKeys[key] = true;
+                }
+                else if(data_clump.data_clump_type == "fields_to_fields_data_clump"){
+                    uniqueFieldToFieldDataClumpKeys[key] = true;
+                }
             }
-
     }
+
+    if(!!earliest_timestamp){
+        let earliest_date = new Date(earliest_timestamp * 1000);
+        console.log("Earliest date: "+earliest_date)
+    }
+    if(!!latest_timestamp){
+        let latest_date = new Date(latest_timestamp * 1000);
+        console.log("Latest date: "+latest_date)
+        console.log("Latest report file path: "+latest_report_file_path)
+        console.log(latest_report_file_json?.project_info);
+        console.log(latest_report_file_json?.report_summary)
+    }
+
+    if(earliest_timestamp !== undefined && latest_timestamp !== undefined){
+        let maturity_development_time = latest_timestamp - earliest_timestamp;
+        let maturity_development_time_days = maturity_development_time / (60 * 60 * 24);
+        console.log("Maturity development time in days: "+maturity_development_time_days)
+        let maturity_development_time_years = maturity_development_time_days / 365;
+        console.log("Maturity development time in years: "+maturity_development_time_years)
+    }
+
+    let amountUniqueKeys = Object.keys(allKeys);
+    console.log("UNIQUE total_amount_data_clumps: "+amountUniqueKeys.length);
+    let amountUniqueFieldToFieldDataClumpKeys = Object.keys(uniqueFieldToFieldDataClumpKeys);
+    console.log("UNIQUE total_amount_field_to_field_data_clumps: "+amountUniqueFieldToFieldDataClumpKeys.length);
+    let amountUniqueParameterToParameterDataClumpKeys = Object.keys(uniqueParameterToParameterDataClumpKeys);
+    console.log("UNIQUE total_amount_parameter_to_parameter_data_clumps: "+amountUniqueParameterToParameterDataClumpKeys.length);
+    let amountUniqueParameterToFieldDataClumpKeys = Object.keys(uniqueParameterToFieldDataClumpKeys);
+    console.log("UNIQUE total_amount_parameter_to_field_data_clumps: "+amountUniqueParameterToFieldDataClumpKeys.length);
+    console.log("----")
 
     console.log("total_amount_data_clumps: "+total_amount_data_clumps);
     console.log("total_amount_parameter_to_parameter_data_clumps: "+total_amount_parameter_to_parameter_data_clumps);

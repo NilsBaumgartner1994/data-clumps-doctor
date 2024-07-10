@@ -32,7 +32,6 @@ function time_stamp_to_file_paths(all_report_files_paths){
         let report_file_json = JSON.parse(report_file);
         let project_commit_date = report_file_json?.project_info?.project_commit_date;
         project_commit_date = parseInt(project_commit_date); // unix timestamp
-        let project_commit_date_date = project_commit_dateToDate(project_commit_date);
 
         if(timestamp_to_file_path[project_commit_date] === undefined){
             timestamp_to_file_path[project_commit_date] = [report_file_path]
@@ -123,10 +122,11 @@ async function analyse(report_folder, options){
     let lastProjectIndex = all_report_projects.length - 1;
     for (let i = 0; i < all_report_projects.length; i++) {
         let report_project = all_report_projects[i];
-        console.log("Analysing project: "+report_project);
+        // check if project is .DS_Store or non
 
         let report_file_path = path.join(report_folder, report_project);
         if (fs.lstatSync(report_file_path).isDirectory()) {
+            console.log("Check project: "+report_project);
 
             let all_report_files_paths = getAllReportFilesRecursiveInFolder(report_file_path);
             let timestamp_to_file_paths = time_stamp_to_file_paths(all_report_files_paths);

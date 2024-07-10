@@ -49,25 +49,30 @@ export class VariableTypeContext extends AstElementTypeContext{
         // name, same data type, same access modifier)
         let sameType = (!!this.type && !!otherParameter.type && this.type === otherParameter.type) || (!this.type && !otherParameter.type);
 
+        similarityModifierOfVariablesWithUnknownType = similarityModifierOfVariablesWithUnknownType > 0 ? similarityModifierOfVariablesWithUnknownType : 0;
+
         let baseSimilarity = 1;
-        if(!ignoreParameterModifiers){ // because method parameters can't have "public" or "private" modifiers, a comparison with data fields would be wrong and always return 0. Therefore support a variable to ignore the modifiers
-            baseSimilarity *= this.getSimilarityModifierOfSameVariableModifiers(otherParameter)
-        }
-        // TODO: Add ignore Type
-        if(!sameType){
-            if(similarityModifierOfVariablesWithUnknownType > 0){
-                baseSimilarity *= similarityModifierOfVariablesWithUnknownType;
-            } else {
-                baseSimilarity *= 0;
-            }
-        }
-
+        baseSimilarity *= this.getSimilarityModifierOfSameVariableModifiers(otherParameter, ignoreParameterModifiers)
+        baseSimilarity *= baseSimilarity *= this.getSimilarityModifierOfTypeComparison(this.type, otherParameter.type, similarityModifierOfVariablesWithUnknownType);
         baseSimilarity *= this.isSimilarName(this.name, otherParameter.name);
-
         return baseSimilarity
     }
 
-    public getSimilarityModifierOfSameVariableModifiers(otherParameter: VariableTypeContext){
+    public getSimilarityModifierOfTypeComparison(typeA: any, typeB: any, similarityModifierOfVariablesWithUnknownType: number){
+        similarityModifierOfVariablesWithUnknownType = similarityModifierOfVariablesWithUnknownType > 0 ? similarityModifierOfVariablesWithUnknownType : 0;
+        let sameType = (!!typeA && !!typeB && typeA === typeB) || (!typeA && !typeB);
+        if(!sameType){
+            return similarityModifierOfVariablesWithUnknownType
+        } else {
+            return 1;
+        }
+    }
+
+    public getSimilarityModifierOfSameVariableModifiers(otherParameter: VariableTypeContext, ignoreParameterModifiers: boolean){
+        if(ignoreParameterModifiers){
+            return 1;
+        }
+
         let sameModifiers = this.haveSameModifiers(otherParameter);
         if(!sameModifiers){
             return 0

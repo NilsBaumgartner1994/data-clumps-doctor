@@ -200,6 +200,8 @@ function printDataClumpsClusterDistribution(all_report_files_paths){
         "import pandas as pd\n" +
         "import math\n" +
         "import csv\n" +
+        "import matplotlib\n" +
+        "matplotlib.rcParams.update({'font.size': 18})" +
         "NaN = nan\n" +
         "";
 
@@ -218,7 +220,7 @@ function printDataClumpsClusterDistribution(all_report_files_paths){
     fileContent += "plt.boxplot(data)\n"
     fileContent += "ax1.set(ylabel='Percentage of Data Clumps Groups')\n"
     fileContent += "plt.xticks(range(1, len(labels) + 1), labels)\n"
-    fileContent += "plt.subplots_adjust(left=0.12, right=0.95, top=0.98, bottom=0.10)\n"
+    fileContent += "plt.subplots_adjust(left=0.15, right=0.95, top=0.98, bottom=0.10)\n"
     fileContent += "fig.set_size_inches(6, 4, forward=True)\n"
     fileContent += "fig.set_dpi(200)\n"
     fileContent += "plt.show()\n"
