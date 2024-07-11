@@ -168,9 +168,10 @@ export class Analyzer {
                 } else {
                     console.log("Analyse "+commit);
 
-                    let progress_exludes_skipped = i-amount_skipped;
-                    let total_exludes_skipped = amount_commits-amount_skipped;
-                    this.timer.printEstimatedTimeRemaining(progress_exludes_skipped, total_exludes_skipped, "", "");
+                    let progress_excludes_skipped = i-amount_skipped;
+                    let total_excludes_skipped = amount_commits-amount_skipped;
+                    this.timer.printElapsedTime("", " - "+progress_excludes_skipped+"/"+total_excludes_skipped);
+                    this.timer.printEstimatedTimeRemaining(progress_excludes_skipped, total_excludes_skipped, "", "");
 
                     let checkoutWorked = true;
                     if(!!commit){
