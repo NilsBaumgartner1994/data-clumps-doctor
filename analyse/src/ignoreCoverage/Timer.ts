@@ -32,12 +32,21 @@ export class Timer {
     public printElapsedTime(prefix?: string | null, suffix?: string | null) {
         prefix = prefix ? `${prefix}: ` : "";
         suffix = suffix ? `: ${suffix}` : "";
-        console.log(prefix+`Elapsed time: ${this.formatTimeToString()}`+suffix);
+        let elapsed = this.getElapsedTime();
+        console.log(prefix+`Elapsed time: ${this.formatTimeToString(elapsed)}`+suffix);
     }
 
-    public formatTimeToString() {
+    public printEstimatedTimeRemaining(progress: number, total: number, prefix?: string | null, suffix?: string | null) {
+        let remaining = total - progress;
+        let estimatedTime = this.getElapsedTime() / progress * remaining;
+        let estimatedTimeStr = this.formatTimeToString(estimatedTime);
+        prefix = prefix ? `${prefix}: ` : "";
+        suffix = suffix ? `: ${suffix}` : "";
+        console.log(prefix+`Estimated time remaining: ${estimatedTimeStr}`+suffix);
+    }
+
+    public formatTimeToString(duration: number) {
         // print in format: HH:MM:SS.mmm
-        let duration = this.getElapsedTime();
         let milliseconds = Math.floor(duration % 1000);
         let seconds = Math.floor((duration / 1000) % 60);
         let minutes = Math.floor((duration / (1000 * 60)) % 60);

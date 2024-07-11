@@ -155,6 +155,7 @@ export class Analyzer {
 
         if(git_checkout_needed){
             let i=1;
+            let amount_skipped = 0;
             let amount_commits = commits_to_analyse.length;
             //console.log("Analysing amount commits: "+amount_commits);
             for (const commit of commits_to_analyse) {
@@ -163,8 +164,13 @@ export class Analyzer {
                 let output_exists = await this.doesAnalysisExist(commit);
                 if(output_exists){
                     console.log("Result already exists for "+commit);
+                    amount_skipped++;
                 } else {
                     console.log("Analyse "+commit);
+
+                    let progress_exludes_skipped = i-amount_skipped;
+                    let total_exludes_skipped = amount_commits-amount_skipped;
+                    this.timer.printEstimatedTimeRemaining(progress_exludes_skipped, total_exludes_skipped, "", "");
 
                     let checkoutWorked = true;
                     if(!!commit){
