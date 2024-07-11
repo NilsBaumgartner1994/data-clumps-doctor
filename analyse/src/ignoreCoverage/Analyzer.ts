@@ -144,6 +144,9 @@ export class Analyzer {
         return project_name;
     }
 
+    /**
+     * Class representing a Timer.
+     */
     async start(){
         this.timer.start();
 
