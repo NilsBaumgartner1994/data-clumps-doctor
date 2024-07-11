@@ -15,6 +15,7 @@ export class Analyzer {
 
 
     public project_url: string | undefined | null;
+    public git_tag_start_offset: number;
     public path_to_project: string;
     public path_to_ast_generator_folder: string;
     public path_to_output_with_variables: string;
@@ -41,6 +42,7 @@ export class Analyzer {
         path_to_ast_output: string,
         commit_selection_mode: string | undefined | null,
         project_url: string | undefined | null,
+        git_tag_start_offset: number,
         project_name: string | undefined | null,
         project_version: any,
         preserve_ast_output: boolean,
@@ -54,6 +56,7 @@ export class Analyzer {
         this.path_to_ast_output = path_to_ast_output;
         this.commit_selection_mode = commit_selection_mode;
         this.project_url = project_url;
+        this.git_tag_start_offset = git_tag_start_offset;
         this.passed_project_name = project_name;
         this.project_version = project_version;
         this.preserve_ast_output = preserve_ast_output
@@ -162,8 +165,16 @@ export class Analyzer {
                 console.log("Check "+"Commit ["+i+"/"+amount_commits+"]");
 
                 let output_exists = await this.doesAnalysisExist(commit);
-                if(output_exists){
-                    console.log("Result already exists for "+commit);
+                let amount_skipped_smaller_than_git_tag_start_offset = amount_skipped < this.git_tag_start_offset;
+                let skip_commit = amount_skipped_smaller_than_git_tag_start_offset || output_exists;
+
+                if(skip_commit){
+                    console.log("Skip "+commit);
+                    if(output_exists){
+                        console.log("Output exists");
+                    } else if (amount_skipped_smaller_than_git_tag_start_offset){
+                        console.log("Skip since smaller than git_tag_start_offset: "+this.git_tag_start_offset);
+                    }
                     amount_skipped++;
                 } else {
                     console.log("Analyse "+commit);
@@ -212,6 +223,14 @@ export class Analyzer {
         if (fs.existsSync(path_to_result)) {
             return true;
         }
+
+        // check if compressed result exists
+        let path_to_result_compressed = path_to_result + ".zip";
+        if (fs.existsSync(path_to_result_compressed)) {
+            console.log("Found compressed result: "+path_to_result_compressed);
+            return true;
+        }
+
         return false;
     }
 

@@ -59,7 +59,7 @@ export class Timer {
         let millisecondsStr = milliseconds.toString().padStart(3, "0");
 
         // print in format: HH:MM:SS.mmm
-        return `${hoursStr}:${minutesStr}:${secondsStr}.${millisecondsStr}`;
+        return `${hoursStr}h :${minutesStr}m :${secondsStr}s.${millisecondsStr}`;
     }
 
 }

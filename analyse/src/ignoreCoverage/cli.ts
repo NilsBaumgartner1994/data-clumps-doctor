@@ -18,6 +18,7 @@ let path_to_temp_folder = os.tmpdir();
 
 let default_git_project_temp_folder = path.join(path_to_temp_folder, 'temp_git_cloned_'+Analyzer.project_name_variable_placeholder);
 let default_ast_output_temp_folder = path.join(path_to_temp_folder, 'temp_ast_output_'+Analyzer.project_name_variable_placeholder);
+let default_git_tag_start_offset = 0;
 
 const program = new Command();
 
@@ -34,6 +35,7 @@ program
 //    .argument('<path_to_project>', 'Absolute path to project (a git project in best case)')
     .option('--git_project_url_to_analyse <git_project_url_to_analyse>', 'Git project URL to analyse. If you want to analyse just a specific folder in the project, you have to use --relative_path_to_source_folder_in_project.')
     .option('--git_project_temp_folder <git_project_temp_folder>', 'Git project temp folder (default: '+default_git_project_temp_folder+")", default_git_project_temp_folder)
+    .option('--git_tag_start_offset <git_tag_start_offset>', 'Offset to start from the last tag (default: 0)', ''+default_git_tag_start_offset)
     .option('--path_to_project <path_to_project>', 'Absolute path to project (a git project in best case)', undefined)
     .option('--relative_path_to_source_folder_in_project <relative_path_to_source_folder_in_project>', 'Relative path to source files (default is ./). If you want to analyse just a specific folder in the project, you can specify it here. For example ./src if the source files are in the src folder.', './')
     .option('--preserve_ast_output <preserve_ast_output>', 'If the ast_output folder should be preserved (default: false).', false)
@@ -99,6 +101,11 @@ async function analyse(path_to_project, options){
     let project_version = options.project_version;
     let preserve_ast_output = options.preserve_ast_output;
 
+    let git_tag_start_offset = default_git_tag_start_offset
+    if(options.git_tag_start_offset){
+        git_tag_start_offset = parseInt(options.git_tag_start_offset);
+    }
+
     let detector_options_path = options.detector_options_path;
     let detector_options: Partial<DetectorOptions> = {};
 
@@ -138,6 +145,7 @@ async function analyse(path_to_project, options){
         path_to_ast_output,
         commit_selection_mode,
         passed_project_url,
+        git_tag_start_offset,
         passed_project_name,
         project_version,
         preserve_ast_output,
