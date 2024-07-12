@@ -51,15 +51,17 @@ export class Timer {
         let seconds = Math.floor((duration / 1000) % 60);
         let minutes = Math.floor((duration / (1000 * 60)) % 60);
         let hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+        let days = Math.floor((duration / (1000 * 60 * 60 * 24)));
 
         // pad with zeros
+        let daysStr = days.toString().padStart(2, "0");
         let hoursStr = hours.toString().padStart(2, "0");
         let minutesStr = minutes.toString().padStart(2, "0");
         let secondsStr = seconds.toString().padStart(2, "0");
         let millisecondsStr = milliseconds.toString().padStart(3, "0");
 
         // print in format: HH:MM:SS.mmm
-        return `${hoursStr}h :${minutesStr}m :${secondsStr}s.${millisecondsStr}`;
+        return `${daysStr}d :${hoursStr}h :${minutesStr}m :${secondsStr}s.${millisecondsStr}`;
     }
 
 }
