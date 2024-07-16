@@ -16,7 +16,7 @@ A library to parse files and folders to check for data clumps and refactor them.
 
 ## Dataset
 
-We're excited to share our public [Data-Clumps Dataset](https://github.com/FireboltCasters/Data-Clumps-Dataset/) with you. We invite you to explore it and consider contributing to our growing repository. By uploading your analyzed data, you can help enrich our dataset and support the broader community in their software analysis endeavors. Together, we can enhance our understanding of data-clumps and their impact on software development.
+We're excited to share our public [Data-Clumps Dataset](https://github.com/NilsBaumgartner1994/Data-Clumps-Dataset/) with you. We invite you to explore it and consider contributing to our growing repository. By uploading your analyzed data, you can help enrich our dataset and support the broader community in their software analysis endeavors. Together, we can enhance our understanding of data-clumps and their impact on software development.
 
 ## Reporting Format
 
