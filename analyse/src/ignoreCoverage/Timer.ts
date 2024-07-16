@@ -45,6 +45,13 @@ export class Timer {
         console.log(prefix+`Estimated time remaining: ${estimatedTimeStr}`+suffix);
     }
 
+    /**
+     * Converts a duration in milliseconds to a formatted string in the format HH:MM:SS.mmm.
+     * @param {number} duration - The duration in milliseconds to be formatted.
+     * @returns {string} A string representing the formatted time in the format HH:MM:SS.mmm.
+     * @example
+     * formatTimeToString(123456789) => '01d :10h :17m :36s.789'
+     */
     public formatTimeToString(duration: number) {
         // print in format: HH:MM:SS.mmm
         let milliseconds = Math.floor(duration % 1000);
