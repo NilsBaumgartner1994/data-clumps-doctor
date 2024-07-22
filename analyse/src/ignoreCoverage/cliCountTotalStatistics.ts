@@ -91,7 +91,8 @@ function printDataClumpsClusterDistribution(all_report_files_paths){
 
     for(let i = 0; i < all_report_files_paths.length; i++){
         let report_file_path = all_report_files_paths[i];
-        console.log("Processing report_file_path: "+i+" with "+all_report_files_paths.length+" report files")
+        console.log("Processing report_file: "+(i+1)+" / "+all_report_files_paths.length+" report files")
+        console.log("report_file_path: "+report_file_path)
 
             let report_file = fs.readFileSync(report_file_path, 'utf8');
             let report_file_json: DataClumpsTypeContext = JSON.parse(report_file);
@@ -115,10 +116,13 @@ function printDataClumpsClusterDistribution(all_report_files_paths){
                 console.log("Timestamp: "+timestamp)
                 // check if valid timestamp
                 if(!isNaN(timestamp)){
-                    if(earliest_timestamp === undefined || timestamp < earliest_timestamp){
+                    // check if it is not 1970
+                    let earliest_allowed_timestamp = 10;
+
+                    if(earliest_timestamp === undefined || timestamp < earliest_timestamp && timestamp >= earliest_allowed_timestamp){
                         earliest_timestamp = timestamp;
                     }
-                    if(latest_timestamp === undefined || timestamp > latest_timestamp){
+                    if(latest_timestamp === undefined || timestamp > latest_timestamp && timestamp >= earliest_allowed_timestamp){
                         latest_timestamp = timestamp;
                         latest_report_file_path = report_file_path;
                         latest_report_file_json = report_file_json;
@@ -152,6 +156,7 @@ function printDataClumpsClusterDistribution(all_report_files_paths){
     if(!!earliest_timestamp){
         let earliest_date = new Date(earliest_timestamp * 1000);
         console.log("Earliest date: "+earliest_date)
+        console.log("earliest_timestamp: "+earliest_timestamp)
     }
     if(!!latest_timestamp){
         let latest_date = new Date(latest_timestamp * 1000);
