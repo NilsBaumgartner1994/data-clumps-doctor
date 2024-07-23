@@ -27,7 +27,7 @@ In our endeavor to ensure precision and standardization in reporting data clumps
 - The project to be analyzed can not have [Wildcard imports](https://stackoverflow.com/questions/147454/why-is-using-a-wild-card-with-a-java-import-statement-bad)
   - It will not break but the detector may generate false positives
   - Since a static source-code analysis is made, the detector does not know where the import comes exactly from
-- Node Version 14.15.6 (test on this. Newer versions might also work)
+- Node Version 18.19.1 (test on this. Newer and older versions might also work)
 - Java 19
   - openjdk version "19.0.1" 2022-10-18
   - OpenJDK Runtime Environment (build 19.0.1+10-21)
@@ -37,12 +37,11 @@ In our endeavor to ensure precision and standardization in reporting data clumps
 ## Installation
 
 ```
-cd data-clumps-doctor/analyse && npm ci && npm run build
+cd data-clumps-doctor/analyse/src/ignoreCoverage/astGenerator && make build
 ```
 
-Optional: build the astGenerator from source
 ```
-cd data-clumps-doctor/analyse/src/ignoreCoverage/astGenerator && make build
+cd data-clumps-doctor/analyse && npm ci && npm run build
 ```
 
 ## Usage
@@ -59,7 +58,7 @@ node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub
 
 Example to analyse git ArgoUML completely:
 ```
-node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --git_project_urls_to_analyse https://github.com/argouml-tigris-org/argouml
+node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --git_project_url_to_analyse https://github.com/argouml-tigris-org/argouml
 ```
 
 Example to analyse multiple git completely:
@@ -73,6 +72,26 @@ node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub
 node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --git_project_url_to_analyse https://github.com/apache/xerces2-j
 ```
 
+### Commit Selection
+
+All Git Tags
+```
+--commit_selection tags
+```
+
+
+All Commits
+```
+--commit_selection full
+```
+
+Current
+```
+--commit_selection current
+```
+
+
+
 ### Help
 
 ```
@@ -85,6 +104,7 @@ node ./build/ignoreCoverage/cli.js --help
 ## Roadmap
 
 - [x] Support cli
+- [ ] Verbose option
     - [ ] Improve options and add documentation
 - [x] Parser
     - [x] Support Java - PMD
