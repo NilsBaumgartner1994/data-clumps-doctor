@@ -128,7 +128,7 @@ function getMedian(listOfValues){
     return median;
 }
 
-function getValuesFor(nameOfVariable, listOfValues){
+export function getValuesFor(nameOfVariable, listOfValues){
     let fileContent = "";
     let median = getMedian(listOfValues);
     console.log("Median for "+nameOfVariable+": "+median)
@@ -201,7 +201,7 @@ function printDataClumpsClusterDistribution(all_report_files_paths){
         "import math\n" +
         "import csv\n" +
         "import matplotlib\n" +
-        "matplotlib.rcParams.update({'font.size': 18})" +
+        "matplotlib.rcParams.update({'font.size': 18})\n" +
         "NaN = nan\n" +
         "";
 

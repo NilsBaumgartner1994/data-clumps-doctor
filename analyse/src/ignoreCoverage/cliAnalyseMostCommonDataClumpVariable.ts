@@ -120,7 +120,7 @@ async function analyse(report_folder, options){
                     let variable_key_name_and_type = getVariableKeyNameAndType(variable);
                     if(most_common_variable[variable_key_name_and_type] === undefined){
                         most_common_variable[variable_key_name_and_type] = {
-                            amount: 0,
+                            occurrences: 0,
                             name: variable.name,
                             type: variable.type,
                             projects: {}

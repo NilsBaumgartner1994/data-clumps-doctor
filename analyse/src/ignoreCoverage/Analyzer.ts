@@ -150,7 +150,9 @@ export class Analyzer {
     async start(){
         this.timer.start();
 
+        console.log("Start: "+this.path_to_project);
         this.project_name = await this.loadProjectName(this.path_to_project);
+        console.log("Project Name: "+this.project_name);
         let {
             git_checkout_needed,
             commits_to_analyse
@@ -194,7 +196,11 @@ export class Analyzer {
                     }
                     if(checkoutWorked){
                         // Do analysis for each missing commit and proceed to the next
-                        await this.analyse(commit);
+                        try{
+                            await this.analyse(commit);
+                        } catch(error: any){
+                            console.error("Error during analysis: "+error);
+                        }
                         //console.log("Proceed to next");
                     } else {
                         console.log("Skip since checkout did not worked");
@@ -204,7 +210,11 @@ export class Analyzer {
             }
         } else {
             let commit = (commits_to_analyse && commits_to_analyse.length === 1) ? commits_to_analyse[0] : undefined;
-            await this.analyse(commit);
+            try{
+                await this.analyse(commit);
+            } catch(error: any){
+                console.error("Error during analysis: "+error);
+            }
         }
 
         this.timer.stop();
@@ -282,7 +292,6 @@ export class Analyzer {
             let softwareProjectDicts: SoftwareProjectDicts = await ParserHelper.getSoftwareProjectDictsFromParsedAstFolder(this.path_to_ast_output);
             console.log("softwareProjectDicts: ")
             softwareProjectDicts.printInfo();
-
 
             let path_to_result = Analyzer.replaceOutputVariables(this.path_to_output_with_variables, this.project_name, commit);
             let progressCallback = null
