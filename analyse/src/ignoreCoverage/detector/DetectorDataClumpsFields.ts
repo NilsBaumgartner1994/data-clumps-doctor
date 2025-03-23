@@ -63,7 +63,23 @@ export class DetectorDataClumpsFields {
     }
 
     /**
-     * DataclumpsInspection.java line 405
+     * Generates member field parameters related to a specific class in the context of data clumps analysis.
+     *
+     * This method inspects the current class and its hierarchy to determine the member fields and their relationships
+     * with other classes. It utilizes the provided dictionaries to gather necessary information and applies certain
+     * options to control the analysis behavior.
+     *
+     * @param {ClassOrInterfaceTypeContext} currentClass - The class or interface context for which member fields are being analyzed.
+     * @param {Dictionary<ClassOrInterfaceTypeContext>} classesDict - A dictionary containing other classes/interfaces for comparison.
+     * @param {Dictionary<DataClumpTypeContext>} dataClumpsFieldParameters - A dictionary to store the resulting data clump field parameters.
+     * @param {SoftwareProjectDicts} softwareProjectDicts - A collection of software project-related dictionaries used for context.
+     *
+     * @returns {void} This method does not return a value. It modifies the dataClumpsFieldParameters dictionary directly.
+     *
+     * @throws {Error} Throws an error if the current class hierarchy is not fully known and the analysis cannot proceed.
+     *
+     * @example
+     * // Example usage of the method would go here, showcasing how to call it with appropriate parameters.
      */
     private generateMemberFieldParametersRelatedToForClass(currentClass: ClassOrInterfaceTypeContext, classesDict: Dictionary<ClassOrInterfaceTypeContext>, dataClumpsFieldParameters: Dictionary<DataClumpTypeContext>, softwareProjectDicts: SoftwareProjectDicts){
 
@@ -98,6 +114,35 @@ export class DetectorDataClumpsFields {
         }
     }
 
+    /**
+     * Generates member field parameters related to one class in relation to another class.
+     * This function analyzes the fields of the current class and the other class to identify
+     * potential data clumps based on their member fields.
+     *
+     * @param {ClassOrInterfaceTypeContext} currentClass - The context of the current class
+     * being analyzed.
+     * @param {ClassOrInterfaceTypeContext} otherClass - The context of the other class
+     * to which the current class is being compared.
+     * @param {Dictionary<DataClumpTypeContext>} dataClumpsFieldParameters - A dictionary
+     * to store identified data clump parameters.
+     * @param {SoftwareProjectDicts} softwareProjectDicts - A collection of dictionaries
+     * related to the software project, used for hierarchy and field analysis.
+     * @param {boolean} currentClassWholeHierarchyKnown - Indicates whether the whole
+     * hierarchy of the current class is known.
+     *
+     * @returns {void} This function does not return a value. It modifies the
+     * dataClumpsFieldParameters dictionary directly.
+     *
+     * @throws {Error} Throws an error if the provided classes are invalid or if there
+     * is an issue with the software project dictionaries.
+     *
+     * @description The function performs several checks to determine if the classes
+     * should be analyzed, including whether they are the same class, if their hierarchies
+     * are known, and if one class is a subclass of the other. It retrieves member fields
+     * from both classes and calculates the probability of data clumps based on shared
+     * field parameters. If certain conditions are met, it creates a data clump context
+     * and adds it to the provided dictionary.
+     */
     private generateMemberFieldParametersRelatedToForClassToOtherClass(currentClass: ClassOrInterfaceTypeContext, otherClass: ClassOrInterfaceTypeContext, dataClumpsFieldParameters: Dictionary<DataClumpTypeContext>, softwareProjectDicts: SoftwareProjectDicts, currentClassWholeHierarchyKnown: boolean){
 
         let debug = false;
@@ -203,6 +248,16 @@ export class DetectorDataClumpsFields {
         dataClumpsFieldParameters[dataClumpContext.key] = dataClumpContext;
     }
 
+    /**
+     * Retrieves all member fields from a given class or interface, including those inherited from superclasses or superinterfaces.
+     *
+     * @param {ClassOrInterfaceTypeContext} currentClassOrInterface - The class or interface context from which to retrieve member fields.
+     * @param {SoftwareProjectDicts} softwareProjectDicts - A dictionary containing the project's classes and interfaces for reference.
+     * @param {boolean} analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces - A flag indicating whether to include fields inherited from superclasses or superinterfaces.
+     * @returns {MemberFieldParameterTypeContext[]} An array of member field parameter contexts that belong to the specified class or interface, including inherited fields if applicable.
+     *
+     * @throws {Error} Throws an error if the provided class or interface context is invalid or if there is an issue accessing the superclass fields.
+     */
     public static getMemberFieldsFromClassOrInterface(currentClassOrInterface: ClassOrInterfaceTypeContext, softwareProjectDicts: SoftwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces): MemberFieldParameterTypeContext[]{
         let totalClassFields: MemberFieldParameterTypeContext[] = [];
 
