@@ -57,6 +57,24 @@ export class VariableTypeContext extends AstElementTypeContext{
         return baseSimilarity
     }
 
+    /**
+     * Calculates a similarity modifier based on the comparison of two types.
+     *
+     * This method evaluates the types of two variables and determines a similarity modifier
+     * based on whether both types are defined, both types are undefined, or if they are equal.
+     * If the types are not similar, it returns the provided similarity modifier for variables
+     * with unknown types, ensuring that this value is non-negative.
+     *
+     * @param {any} typeA - The first type to compare. Can be any value.
+     * @param {any} typeB - The second type to compare. Can be any value.
+     * @param {number} similarityModifierOfVariablesWithUnknownType - A numeric value representing
+     *        the similarity modifier for variables whose types are unknown. This value will be
+     *        adjusted to be non-negative if it is less than zero.
+     * @returns {number} Returns 1 if both types are the same or both are undefined; otherwise,
+     *          returns the adjusted similarity modifier for unknown types.
+     *
+     * @throws {TypeError} Throws an error if the provided parameters are not of expected types.
+     */
     public getSimilarityModifierOfTypeComparison(typeA: any, typeB: any, similarityModifierOfVariablesWithUnknownType: number){
         similarityModifierOfVariablesWithUnknownType = similarityModifierOfVariablesWithUnknownType > 0 ? similarityModifierOfVariablesWithUnknownType : 0;
         let bothHaveType = !!typeA && !!typeB;
@@ -84,6 +102,20 @@ export class VariableTypeContext extends AstElementTypeContext{
         }
     }
 
+    /**
+     * Compares two names to determine if they are similar.
+     *
+     * This method evaluates the similarity between two provided names,
+     * which can be useful in scenarios such as user input validation,
+     * name matching, or deduplication processes.
+     *
+     * @param {string} nameA - The first name to compare.
+     * @param {string} nameB - The second name to compare.
+     * @returns {boolean} Returns true if the names are considered similar,
+     *                    otherwise returns false.
+     *
+     * @throws {Error} Throws an error if either name is not a string.
+     */
     public isSimilarName(nameA: string, nameB: string){
 
     }
@@ -232,6 +264,21 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext{
         return true;
     }
 
+    /**
+     * Determines whether the entire hierarchy of classes or interfaces is known
+     * within the provided software project dictionaries. This method checks
+     * each superclass or interface to ensure that it exists in the given
+     * dictionary.
+     *
+     * @param {SoftwareProjectDicts} softwareProjectDicts - The dictionary containing
+     *        the definitions of classes and interfaces in the software project.
+     *
+     * @returns {boolean} Returns true if all superclasses and interfaces are known,
+     *          otherwise returns false.
+     *
+     * @throws {Error} Throws an error if the softwareProjectDicts parameter is
+     *         invalid or not provided.
+     */
     public isWholeHierarchyKnownPrintUnknown(softwareProjectDicts: SoftwareProjectDicts){
         let currentClassOrInterface = this;
         //console.log("-- currentClassOrInterface.key: "+currentClassOrInterface?.key)
