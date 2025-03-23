@@ -26,12 +26,42 @@ program
     .option('--output <path>', 'Output path', current_working_directory+'/AmountDataClumpsOverProjectVersions.py') // Default value is './data-clumps.json'
 
 
+/**
+ * Retrieves and sorts the keys from a given object representing timestamps mapped to file paths.
+ *
+ * This function takes an object where the keys are timestamps and the values are file paths,
+ * and returns an array of the sorted timestamp keys.
+ *
+ * @param {Object<string, string>} timestamp_to_file_path - An object mapping timestamps (as strings) to file paths (as strings).
+ * @returns {Array<string>} An array of sorted timestamp keys.
+ *
+ * @throws {TypeError} Throws an error if the input is not an object.
+ */
 function getSortedTimestamps(timestamp_to_file_path){
     let sorted_timestamps = Object.keys(timestamp_to_file_path)
     return sorted_timestamps;
 }
 
 
+/**
+ * Converts a Unix timestamp representing a project commit date into a formatted date string (YYYY-MM-DD).
+ *
+ * This function takes a Unix timestamp as input, converts it to a JavaScript Date object, and returns
+ * the date in ISO format (YYYY-MM-DD). If the input timestamp is invalid, it defaults to the epoch date
+ * (1970-01-01).
+ *
+ * @param {number} project_commit_date - The Unix timestamp of the project commit date.
+ * @returns {string} The formatted date string in the format YYYY-MM-DD.
+ * @throws {Error} Throws an error if the conversion to ISO string fails.
+ *
+ * @example
+ * // Returns "2023-10-01"
+ * project_commit_dateToDate(1696123200);
+ *
+ * @example
+ * // Returns "1970-01-01" for an invalid timestamp
+ * project_commit_dateToDate(-1);
+ */
 function project_commit_dateToDate(project_commit_date){
     let date = new Date(project_commit_date*1000);
     // check if valid date
@@ -50,6 +80,22 @@ function project_commit_dateToDate(project_commit_date){
     }
 }
 
+/**
+ * Calculates the normalized amount of data clumps from a given report file in JSON format.
+ *
+ * This function retrieves various metrics related to data clumps by calling helper functions
+ * that normalize the number of parameters and fields. It then computes the average of these
+ * normalized metrics to provide a single value representing the normalized amount of data clumps.
+ *
+ * @param {DataClumpsTypeContext} report_file_json - The report file in JSON format containing
+ * data clump information.
+ *
+ * @returns {number} The normalized amount of data clumps calculated as the average of the
+ * normalized metrics.
+ *
+ * @throws {Error} Throws an error if the input report_file_json is invalid or if any of the
+ * helper functions fail to execute properly.
+ */
 function getNormalizedAmountDataClumps(report_file_json: DataClumpsTypeContext){
     let normalized_amount_method_field_data_clumps = getNormalizedNumberOfParameterFieldDataClumps(report_file_json);
     let normalized_amount_method_method_data_clumps = getNormalizedNumberOfParameterParameterDataClumps(report_file_json);
@@ -62,6 +108,19 @@ function getNormalizedAmountDataClumps(report_file_json: DataClumpsTypeContext){
     return normalized_amount_data_clumps;
 }
 
+/**
+ * Calculates the normalized number of parameter field data clumps based on the provided report file JSON.
+ *
+ * This function takes a report file in JSON format, extracts relevant information about the number of methods
+ * and classes or interfaces, and computes the normalized amount of method field data clumps. If there are no methods
+ * or classes/interfaces, it returns zero to avoid division by zero.
+ *
+ * @param {DataClumpsTypeContext} report_file_json - The report file in JSON format containing project information
+ * and summary of data clumps.
+ * @returns {number} The normalized amount of method field data clumps, or zero if there are no methods or classes/interfaces.
+ *
+ * @throws {Error} Throws an error if the input report_file_json is invalid or does not contain the expected structure.
+ */
 function getNormalizedNumberOfParameterFieldDataClumps(report_file_json: DataClumpsTypeContext){
     let number_of_methods = report_file_json.project_info.number_of_methods || 0;
     if(number_of_methods === 0){
@@ -109,6 +168,18 @@ function getNormalizedNumberOfFieldFieldDataClumps(report_file_json: DataClumpsT
     return normalized_amount_field_field_data_clumps;
 }
 
+/**
+ * Analyzes a list of timestamps and retrieves the amount of data clumps from corresponding report files.
+ *
+ * This function takes in sorted timestamps and a mapping of timestamps to file paths, reads each report file,
+ * parses its content, and computes the normalized amount of data clumps for each report.
+ *
+ * @param {string[]} sorted_timestamps - An array of sorted timestamp strings to be analyzed.
+ * @param {Object} timestamp_to_file_paths - An object mapping each timestamp to an array of file paths.
+ * @returns {any[]} An array containing the normalized amount of data clumps for each report file associated with the timestamps.
+ *
+ * @throws {Error} Throws an error if the file cannot be read or if the JSON parsing fails.
+ */
 function getListAmountDataClumps(sorted_timestamps, timestamp_to_file_paths){
 
     let row: any = []
@@ -133,6 +204,18 @@ function getListAmountDataClumps(sorted_timestamps, timestamp_to_file_paths){
     return row;
 }
 
+/**
+ * Analyzes the data clumps detected in the specified report folder and generates a Python script for visualization.
+ *
+ * This asynchronous function checks if the provided report folder exists, retrieves report files,
+ * processes the data to count data clumps, and constructs a Python script that uses Matplotlib
+ * and Pandas to visualize the results.
+ *
+ * @param {string} report_folder - The path to the folder containing report files.
+ * @param {Object} options - Additional options for analysis (currently unused).
+ * @returns {Promise<string>} A promise that resolves to a string containing the generated Python script.
+ * @throws {Error} Throws an error if the specified report folder does not exist.
+ */
 async function analyse(report_folder, options){
     console.log("Analysing Detected Data-Clumps");
     if (!fs.existsSync(report_folder)) {
@@ -215,6 +298,22 @@ async function analyse(report_folder, options){
 
 }
 
+/**
+ * The main function that orchestrates the execution of the Data-Clumps-Doctor detection process.
+ * It parses command-line arguments, retrieves options, analyzes the specified report folder,
+ * and writes the output to a designated file.
+ *
+ * @async
+ * @function main
+ * @returns {Promise<void>} A promise that resolves when the output has been successfully written to the file.
+ *
+ * @throws {Error} Throws an error if there is an issue with file operations, such as failing to delete an existing output file
+ * or failing to write to the output file.
+ *
+ * @example
+ * // To execute the main function, simply call it in an async context:
+ * await main();
+ */
 async function main() {
     console.log("Data-Clumps-Doctor Detection");
 
