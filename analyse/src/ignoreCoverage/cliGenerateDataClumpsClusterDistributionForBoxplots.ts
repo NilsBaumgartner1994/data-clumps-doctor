@@ -149,6 +149,18 @@ export function getValuesFor(nameOfVariable, listOfValues){
     return fileContent;
 }
 
+/**
+ * Analyzes the distribution of data clumps across multiple report files and generates a Python script for visualizing the results.
+ *
+ * This function reads a list of report file paths, processes each file to extract data clump information,
+ * calculates the percentage distribution of different types of data clumps, and generates a Python script
+ * that creates a boxplot of these distributions.
+ *
+ * @param {string[]} all_report_files_paths - An array of file paths to the report files to be processed.
+ * @returns {string} The content of a Python script that visualizes the data clump distributions.
+ *
+ * @throws {Error} Throws an error if a report file cannot be read or if the JSON parsing fails.
+ */
 function printDataClumpsClusterDistribution(all_report_files_paths){
 
     console.log("Counting data clumps cluster distribution ...")

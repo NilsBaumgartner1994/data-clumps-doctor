@@ -71,13 +71,22 @@ export class DetectorDataClumpsMethodsToOtherMethods {
 
 
     /**
-     * DataclumpsInspection.java line 547
-     * @param method
-     * @param methodParametersDict
-     * @param currentClassOrInterface
-     * @param classesOrInterfacesDict
-     * @param isSameClassOrInterface
+     * Analyzes two methods to determine if they share parameters that indicate the presence of data clumps.
+     *
+     * This method checks if the provided methods are the same, if they belong to the same class or interface,
+     * and if they have a sufficient number of parameters to be considered for data clump detection. It also
+     * verifies the inheritance hierarchy of the methods to ensure that inherited methods are not counted as
+     * data clumps.
+     *
+     * @param method - The first method to analyze, represented as a MethodTypeContext.
+     * @param otherMethod - The second method to compare against, also represented as a MethodTypeContext.
+     * @param softwareProjectDicts - A collection of dictionaries containing information about the software project.
+     * @param dataClumpsMethodParameterDataClumps - A dictionary to store identified data clumps between methods.
+     * @param wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod - A boolean indicating if the complete hierarchy
+     *        of the current method's class or interface is known.
      * @private
+     *
+     * @throws {Error} Throws an error if there is an issue with the method parameters or project dictionaries.
      */
     private checkMethodParametersForDataClumps(method: MethodTypeContext,otherMethod: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod: boolean) {
         //console.log("--- otherMethod"+ otherMethod.key)

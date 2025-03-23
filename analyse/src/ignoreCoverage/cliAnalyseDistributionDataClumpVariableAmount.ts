@@ -31,6 +31,21 @@ program
     .option('--report_folder <path>', 'Output path', current_working_directory+'/data-clumps-results/'+Analyzer.project_name_variable_placeholder+'/') // Default value is './data-clumps.json'
     .option('--output <path>', 'Output path for script', current_working_directory+'/DistributionDataClumpFileDistance.py') // Default value is './data-clumps.json'
 
+/**
+ * Merges a new set of amounts into an existing amount dictionary.
+ *
+ * This function takes two dictionaries: one representing the current amounts
+ * and another representing additional amounts to be added. It updates the
+ * current amounts by adding the values from the additional amounts for each
+ * corresponding key. If a key does not exist in the current amounts, it will
+ * be initialized with the value from the additional amounts.
+ *
+ * @param {Record<string, number>} amountDict - The current amounts dictionary.
+ * @param {Record<string, number>} newAdditionalAmount - The dictionary of additional amounts to add.
+ * @returns {Record<string, number>} The updated amounts dictionary after addition.
+ *
+ * @throws {TypeError} If either parameter is not an object or is null.
+ */
 function addAmount(amountDict: Record<string, number>, newAdditionalAmount: Record<string, number>): Record<string, number> {
     for (const key in newAdditionalAmount) {
         if (newAdditionalAmount.hasOwnProperty(key)) {
@@ -40,6 +55,18 @@ function addAmount(amountDict: Record<string, number>, newAdditionalAmount: Reco
     return amountDict;
 }
 
+/**
+ * Analyzes data clumps from reports located in the specified folder and generates statistical analysis.
+ *
+ * This asynchronous function checks for the existence of the report folder, reads report files,
+ * and processes data clumps to gather statistics. It also generates a box plot visualization of the results.
+ *
+ * @param {string} report_folder - The path to the folder containing report files.
+ * @param {object} options - Additional options for analysis (currently unused).
+ * @returns {Promise<string>} A promise that resolves to a string containing the generated Python code for analysis.
+ *
+ * @throws {Error} Throws an error if the specified report folder does not exist.
+ */
 async function analyse(report_folder, options){
     console.log("Analysing Detected Data-Clumps");
     if (!fs.existsSync(report_folder)) {
