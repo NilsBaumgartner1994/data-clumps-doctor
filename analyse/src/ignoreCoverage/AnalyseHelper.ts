@@ -13,6 +13,24 @@ export class AnalyseHelper {
             "/"+total_data_clumps.toString().padStart(6, "0"));
     }
 
+    /**
+     * Processes an array of report file paths and maps each unique project commit date
+     * to its corresponding file paths.
+     *
+     * This method reads each report file, extracts the project commit date, and organizes
+     * the file paths based on these timestamps. The commit date is expected to be in
+     * Unix timestamp format.
+     *
+     * @param {string[]} all_report_files_paths - An array of strings representing the
+     * paths to the report files to be processed.
+     *
+     * @returns {Object<number, string[]>} An object where each key is a Unix timestamp
+     * representing the project commit date, and the value is an array of file paths
+     * associated with that timestamp.
+     *
+     * @throws {Error} Throws an error if a report file cannot be read or if the JSON
+     * parsing fails.
+     */
     static time_stamp_to_file_paths(all_report_files_paths: string[]){
 
         console.log("Get timestamps for all report files");
@@ -38,6 +56,18 @@ export class AnalyseHelper {
         return timestamp_to_file_path;
     }
 
+    /**
+     * Recursively retrieves all report files with a .json extension from a specified folder and its subfolders.
+     *
+     * This method scans the provided folder path for files and directories. If a directory is found, it will
+     * recursively search within that directory for additional report files. Only files ending with the .json
+     * extension are collected and returned in an array of file paths.
+     *
+     * @param {string} folder_path - The path to the folder to search for report files.
+     * @returns {string[]} An array of file paths for all found report files with a .json extension.
+     *
+     * @throws {Error} Throws an error if the folder_path is invalid or if there are issues reading the directory.
+     */
     static getAllReportFilesRecursiveInFolder(folder_path){
         let all_report_files = fs.readdirSync(folder_path);
         let all_report_files_paths: any = [];
@@ -59,6 +89,18 @@ export class AnalyseHelper {
 
     }
 
+    /**
+     * Calculates the median of a list of numerical values.
+     *
+     * The median is the value separating the higher half from the lower half of a data sample.
+     * If the list has an odd number of observations, the median is the middle number.
+     * If the list has an even number of observations, the median is the average of the two middle numbers.
+     *
+     * @param {number[]} listOfValues - An array of numbers for which the median is to be calculated.
+     * @returns {number} The median value of the provided list of numbers.
+     *
+     * @throws {Error} Throws an error if the input array is empty.
+     */
     static getMedian(listOfValues: number[]): number {
         // Sort the list of values
         let sortedValues = [...listOfValues].sort((a, b) => a - b);
@@ -77,6 +119,17 @@ export class AnalyseHelper {
         return median;
     }
 
+    /**
+     * Generates a string representation of a variable assignment
+     * in the format of "variableName = JSON.stringify(values)".
+     *
+     * @param {string} nameOfVariable - The name of the variable to be assigned.
+     * @param {Record<string, number>} values - An object containing key-value pairs
+     *        where keys are strings and values are numbers.
+     * @returns {string} A formatted string that represents the variable assignment.
+     *
+     * @throws {Error} Throws an error if the input values are not in the expected format.
+     */
     static getValuesForRecord(nameOfVariable: string, values: Record<string, number>): string {
         let fileContent = "";
         fileContent += "\n";
@@ -101,6 +154,17 @@ export class AnalyseHelper {
         return method_parameters_list;
     }
 
+    /**
+     * Generates a formatted string containing the median value and a list of values
+     * for a specified variable name.
+     *
+     * @param {string} nameOfVariable - The name of the variable for which the values are being processed.
+     * @param {number[]} listOfValues - An array of numerical values to analyze.
+     * @returns {string} A formatted string that includes the median of the provided values
+     *                  and the list of values in a specific format.
+     *
+     * @throws {Error} Throws an error if the input listOfValues is empty.
+     */
     static getValuesFor(nameOfVariable: string, listOfValues: number[]){
         let fileContent = "";
         let median = AnalyseHelper.getMedian(listOfValues);
