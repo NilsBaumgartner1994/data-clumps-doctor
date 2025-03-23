@@ -308,6 +308,17 @@ export class Analyzer {
         }
     }
 
+    /**
+     * Serializes a large object into a JSON format and writes it to a specified writable stream.
+     * The method handles special cases, such as nested objects, and formats the output for readability.
+     *
+     * @param {Record<string, any>} obj - The object to be serialized. It can contain various types of properties.
+     * @param {fs.WriteStream} stream - The writable stream where the serialized JSON will be written.
+     *
+     * @throws {Error} Throws an error if serialization of any property fails, logging the error to the console.
+     *
+     * @async
+     */
     static async stringifyBigObjectToStream(obj: Record<string, any>, stream: fs.WriteStream) {
         stream.write('{\n');
 
@@ -352,6 +363,15 @@ export class Analyzer {
     }
 
 
+    /**
+     * Saves the provided data clumps context to a specified file path.
+     * If the file already exists, it will be deleted before writing the new data.
+     * The function ensures that the directory for the file path exists, creating it if necessary.
+     *
+     * @param {Object} dataClumpsContext - The context data to be saved to the file.
+     * @param {string} path_to_result - The file path where the data should be saved.
+     * @throws {Error} Throws an error if there is an issue during the file writing process.
+     */
     static async saveDataClumpsContextToFile(dataClumpsContext, path_to_result) {
         // delete file if exists
         if(fs.existsSync(path_to_result)){
@@ -371,6 +391,27 @@ export class Analyzer {
         }
     }
 
+    /**
+     * Analyzes a collection of software project dictionaries to detect data clumps.
+     *
+     * This method initializes a detector with the provided parameters, performs the detection of data clumps,
+     * and saves the resulting context to a specified file.
+     *
+     * @param {Array<Object>} softwareProjectDicts - An array of dictionaries representing software projects.
+     * @param {string} project_url - The URL of the project being analyzed.
+     * @param {string} project_name - The name of the project.
+     * @param {string} project_version - The version of the project.
+     * @param {string} commit - The commit identifier for the project.
+     * @param {string} commit_tag - The tag associated with the commit.
+     * @param {Date} commit_date - The date of the commit.
+     * @param {string} path_to_result - The file path where the results will be saved.
+     * @param {function} progressCallback - A callback function to report progress during detection.
+     * @param {Object} detectorOptions - Options to configure the detector's behavior.
+     *
+     * @returns {Promise<DataClumpsTypeContext>} A promise that resolves to the context of detected data clumps.
+     *
+     * @throws {Error} Throws an error if the detection process fails or if saving to the file fails.
+     */
     static async analyseSoftwareProjectDicts(softwareProjectDicts, project_url, project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, detectorOptions){
         let detector = new Detector(softwareProjectDicts, detectorOptions, progressCallback, project_url, project_name, project_version, commit, commit_tag, commit_date);
 
