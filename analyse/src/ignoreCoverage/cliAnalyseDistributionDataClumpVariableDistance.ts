@@ -53,19 +53,24 @@ function getAllReportFilesRecursiveInFolder(folder_path){
 }
 
 /**
- * Pairwise Distance:
+ * Calculates the absolute distances (in lines) between each pair of clumped fields based on their starting line positions.
  *
- *     Calculate the absolute distance (in lines) between each pair of clumped fields.
- *     Formula:
- *     distance(A,B)=∣startLine(A)−startLine(B)∣
- *     distance(A,B)=∣startLine(A)−startLine(B)∣
- *     If A, B, and C are in positions:
- *         A: line 2
- *         B: line 10
- *         C: line 20
- *         Distances = [|2 - 10|, |10 - 20|] = [8, 10].
- *     Resulting series: [8, 10].
- * @param positions
+ * The function computes the distance using the formula:
+ * distance(A, B) = |startLine(A) - startLine(B)|
+ *
+ * For example, if the positions are as follows:
+ * - A: line 2
+ * - B: line 10
+ * - C: line 20
+ *
+ * The resulting distances would be calculated as:
+ * Distances = [|2 - 10|, |10 - 20|] = [8, 10].
+ * Resulting series: [8, 10].
+ *
+ * @param positions An array of Position objects, each containing a startLine property.
+ * @returns A record where the keys are the calculated distances and the values are the counts of how many times each distance occurs.
+ *
+ * @throws Error if the input is not an array of Position objects.
  */
 function calculateLinePairwiseDistances(positions: Position[]): Record<string, number> {
     // sort the positions by start line
@@ -79,15 +84,20 @@ function calculateLinePairwiseDistances(positions: Position[]): Record<string, n
 }
 
 /**
- * Spread (Max-Min):
+ * Calculates the spread of start lines from an array of position objects.
  *
- *     Measure the span of the clumped fields:
- *     spread=max(startLine)−min(startLine)
- *     spread=max(startLine)−min(startLine)
- *     Using the example above:
- *         max = 20, min = 2, so spread = 20 - 2 = 18.
- *     Single value: [18].
- * @param positions
+ * The spread is defined as the difference between the maximum and minimum
+ * start line values found in the provided positions. This function returns
+ * an object where the keys are the calculated spread values and the values
+ * are the counts of how many times each spread value occurs.
+ *
+ * @param positions - An array of Position objects, each containing a
+ *                   startLine property.
+ * @returns A Record where each key is a string representation of the
+ *          spread value and each value is the count of occurrences of
+ *          that spread.
+ *
+ * @throws Will throw an error if the positions array is empty.
  */
 function calculateLineSpread(positions: Position[]): Record<string, number> {
     const startLines = positions.map(pos => pos.startLine);
@@ -100,13 +110,18 @@ function calculateLineSpread(positions: Position[]): Record<string, number> {
 }
 
 /**
- * Distance to Median Field:
+ * Calculates the distances of given positions' start lines to the median start line.
  *
- *     Find the median field line and calculate distances to it:
- *         median = startLine(B) = 10.
- *         Distances = [|2 - 10|, |10 - 10|, |20 - 10|] = [8, 0, 10].
- *     Resulting series: [8, 0, 10].
- * @param positions
+ * This function takes an array of positions, extracts their start lines,
+ * computes the median of these start lines, and then calculates the absolute
+ * distances of each start line from the median. The result is returned as
+ * a record where the keys are the distances and the values are the counts
+ * of how many times each distance occurs.
+ *
+ * @param {Position[]} positions - An array of Position objects, each containing a startLine property.
+ * @returns {Record<string, number>} A record mapping each distance to its occurrence count.
+ *
+ * @throws {Error} Throws an error if the positions array is empty.
  */
 function calculateLineDistancesToMedian(positions: Position[]): Record<string, number> {
     const startLines = positions.map(pos => pos.startLine).sort((a, b) => a - b);
@@ -119,6 +134,23 @@ function calculateLineDistancesToMedian(positions: Position[]): Record<string, n
     return distances;
 }
 
+/**
+ * Adjusts the position of a variable declaration based on modifiers, type, and whether it is the first variable.
+ *
+ * This function modifies the start column of the given position by accounting for the length of any modifiers
+ * and the type name. If the `adjustForModifiersAndTypes` flag is false, the original position is returned.
+ *
+ * @param {Position} position - The original position to be adjusted.
+ * @param {string[] | undefined} modifiers - An array of modifiers (e.g., 'public', 'static') to be considered for adjustment.
+ * @param {string} fullyQualifiedType - The fully qualified type name from which the simple type will be extracted.
+ * @param {string} variableName - The name of the variable being declared (not used in calculations but may be relevant for context).
+ * @param {boolean} adjustForModifiersAndTypes - A flag indicating whether to adjust the position based on modifiers and types.
+ * @param {boolean} isFirst - A flag indicating whether this is the first variable in a declaration, affecting the adjustment.
+ *
+ * @returns {Position} The adjusted position with updated start column.
+ *
+ * @throws {Error} Throws an error if the position is invalid or if any unexpected input is provided.
+ */
 function adjustPositionForModifiersTypeAndDelimiters(
     position: Position,
     modifiers: string[] | undefined,
@@ -185,6 +217,24 @@ function fixSortedAdjustedPositions(sortedPositions: Position[]): Position[] {
     return fixedPositions;
 }
 
+/**
+ * Adjusts the positions of the given variables based on their modifiers and type.
+ *
+ * This function takes an array of variables and adjusts their positions according to specified
+ * modifiers and types. It can also account for whether to adjust based on modifiers and types.
+ *
+ * @param {Array<DataClumpsVariableFromContext | DataClumpsVariableToContext>} variables -
+ * An array of variables that need position adjustments. Each variable should contain properties
+ * such as position, modifiers, type, and name.
+ *
+ * @param {boolean} adjustForModifiersAndType - A flag indicating whether to adjust positions
+ * based on modifiers and type. If true, the adjustments will consider these factors.
+ *
+ * @returns {Array<Position>} An array of adjusted positions corresponding to the input variables.
+ *
+ * @throws {Error} Throws an error if the input variables are not in the expected format or if
+ * any required property is missing from the variable objects.
+ */
 function adjustPositionsForModifiersAndType(
     variables: DataClumpsVariableFromContext[] | DataClumpsVariableToContext[],
     adjustForModifiersAndType: boolean,
@@ -211,17 +261,63 @@ function adjustPositionsForModifiersAndType(
 
 
 
+/**
+ * Retrieves fixed adjusted positions based on the provided variables and type modifier adjustment flag.
+ *
+ * This function processes an array of variables, sorts them by their position, adjusts their positions
+ * according to specified modifiers and type, and then returns the final fixed adjusted positions.
+ *
+ * @param {Array<DataClumpsVariableFromContext | DataClumpsVariableToContext>} variables - An array of variables
+ *        that can either be of type `DataClumpsVariableFromContext` or `DataClumpsVariableToContext`.
+ * @param {boolean} adjustForTypeModifier - A flag indicating whether to adjust the positions for type modifiers.
+ *
+ * @returns {Array<Position>} An array of adjusted positions after sorting and fixing.
+ *
+ * @throws {Error} Throws an error if the input variables are not of the expected types.
+ */
 function getFixedAdjustedPositions(variables: DataClumpsVariableFromContext[] | DataClumpsVariableToContext[], adjustForTypeModifier: boolean): Position[] {
     const sortedVariables = sortVariablesByPosition(variables);
     const positions = adjustPositionsForModifiersAndType(sortedVariables, adjustForTypeModifier);
     return fixSortedAdjustedPositions(positions);
 }
 
+/**
+ * Retrieves fixed adjusted positions based on the provided data clump variables and a type modifier adjustment flag.
+ *
+ * This function accepts an array of either `DataClumpsVariableFromContext` or `DataClumpsVariableToContext`
+ * and determines the adjusted positions accordingly.
+ *
+ * @param {Array<DataClumpsVariableFromContext | DataClumpsVariableToContext>} variables - An array of data clump variables
+ *        from either the context of 'from' or 'to'.
+ * @param {boolean} adjustForTypeModifier - A flag indicating whether to adjust the positions for type modifiers.
+ * @returns {Array<Position>} An array of adjusted positions based on the input variables and type modifier flag.
+ *
+ * @throws {Error} Throws an error if the input variables are not of the expected types.
+ */
 export function getFixedAdjustedPositionFromDataClumpTypeContext(variables: DataClumpsVariableFromContext[] | DataClumpsVariableToContext[], adjustForTypeModifier: boolean): Position[] {
     return getFixedAdjustedPositions(variables, adjustForTypeModifier);
 }
 
 
+/**
+ * Calculates various distance metrics based on the provided variable contexts.
+ *
+ * This function takes an array of variables, which can either be from the
+ * DataClumpsVariableFromContext or DataClumpsVariableToContext types, and computes
+ * the pairwise distances, spread, and distances to the median for the adjusted positions
+ * derived from these variables.
+ *
+ * @param {Array<DataClumpsVariableFromContext | DataClumpsVariableToContext>} variables -
+ * An array of variables representing either the source or target contexts for data clumps.
+ *
+ * @returns {{ pairwise: Record<string, number>, spread: Record<string, number>, toMedian: Record<string, number> }}
+ * An object containing three properties:
+ * - pairwise: A record of pairwise distances between positions.
+ * - spread: A record representing the spread of positions.
+ * - toMedian: A record of distances from each position to the median position.
+ *
+ * @throws {Error} Throws an error if the input variables are not of the expected types.
+ */
 function calculateFieldDistances(
     variables: DataClumpsVariableFromContext[] | DataClumpsVariableToContext[]
 ): { pairwise: Record<string, number>; spread: Record<string, number>; toMedian: Record<string, number> } {
@@ -235,6 +331,28 @@ function calculateFieldDistances(
 }
 
 
+/**
+ * Calculates various distance metrics for parameters within a data clump.
+ * This function analyzes the positions of method parameters and the provided
+ * data clump variables to compute pairwise distances, spread, and distances
+ * to the median.
+ *
+ * @param {DataClumpTypeContext} data_clump - The context of the data clump,
+ * containing information about the method and its parameters.
+ * @param {(DataClumpsVariableFromContext[] | DataClumpsVariableToContext[])} data_clump_variables - An array of variables
+ * associated with the data clump, which can be either from or to context.
+ *
+ * @returns {{ pairwise: Record<string, number>, spread: Record<string, number>, spread_normalized: Record<string, number>, toMedian: Record<string, number>, toMedian_normalized: Record<string, number> }}
+ * An object containing:
+ * - pairwise: A record of pairwise distances between parameters.
+ * - spread: A record of the spread distance between the first and last parameters.
+ * - spread_normalized: A normalized version of the spread distance.
+ * - toMedian: A record of distances of each parameter to the median position.
+ * - toMedian_normalized: A normalized version of the distances to the median.
+ *
+ * @throws {Error} Throws an error if method parameters cannot be extracted
+ * from the data clump or if no parameters are found.
+ */
 function calculateParameterDistances(
     data_clump: DataClumpTypeContext,
     data_clump_variables: DataClumpsVariableFromContext[] | DataClumpsVariableToContext[],
@@ -288,12 +406,39 @@ function calculateParameterDistances(
 
     let variables_index_position: Record<string, number> = {};
 
+    /**
+     * Generates a key string for a given method parameter variable.
+     *
+     * This function takes a variable of type `DataClumpsVariableFromContext` or `DataClumpsVariableToContext`
+     * and constructs a string that combines the variable's type and name.
+     *
+     * @param {DataClumpsVariableFromContext | DataClumpsVariableToContext} variable - The variable from which to generate the key.
+     * @returns {string} A string representation of the variable's type and name, formatted as "type name".
+     *
+     * @throws {TypeError} Throws an error if the provided variable is not of the expected types.
+     */
     function getVariableKeyForMethodParameter(variable: DataClumpsVariableFromContext | DataClumpsVariableToContext): string {
         // "name": "uri",
         // "type": "java.lang.String",
         return variable.type+" "+variable.name;
     }
 
+    /**
+     * Retrieves the index of a specified variable within the method parameters.
+     *
+     * This function takes a variable of type `DataClumpsVariableFromContext` or
+     * `DataClumpsVariableToContext`, determines its corresponding key, and looks up
+     * the index in the predefined dictionary of method parameter positions.
+     * If the variable is not found, it returns -1.
+     *
+     * @param {DataClumpsVariableFromContext | DataClumpsVariableToContext} variable -
+     * The variable for which the index is to be retrieved.
+     *
+     * @returns {number} The index of the variable in the method parameters, or -1 if not found.
+     *
+     * @throws {Error} Throws an error if the variable is invalid or if there is an issue
+     * retrieving its key.
+     */
     function getVariableIndexInMethodParameters(variable: DataClumpsVariableFromContext | DataClumpsVariableToContext): number {
         let key = getVariableKeyForMethodParameter(variable);
         return dict_method_parameter_positions[key] || -1;
@@ -378,6 +523,16 @@ function calculateVariableLength(position: Position): number {
     return position.endColumn - position.startColumn;
 }
 
+/**
+ * Calculates the lengths of variables based on their positions and returns a record
+ * mapping each length to its occurrence count.
+ *
+ * @param {Position[]} positions - An array of Position objects from which variable lengths are calculated.
+ * @returns {Record<string, number>} A record where the keys are the lengths of the variables as strings,
+ *                                    and the values are the counts of how many times each length occurs.
+ *
+ * @throws {Error} Throws an error if the input is not an array of Position objects.
+ */
 export function calculateVariableLengths(positions: Position[]): Record<string, number> {
     let lengths: Record<string, number> = {};
     for(let i = 0; i < positions.length; i++){
@@ -388,6 +543,17 @@ export function calculateVariableLengths(positions: Position[]): Record<string, 
     return lengths;
 }
 
+/**
+ * Merges two sets of distances by adding the values of the second set to the first.
+ * If a distance key exists in both sets, the values will be summed. If a key exists
+ * only in the second set, it will be added to the first set with its corresponding value.
+ *
+ * @param {Record<string, number>} distances - The initial set of distances to be updated.
+ * @param {Record<string, number>} newDistances - The set of new distances to be added.
+ * @returns {Record<string, number>} The updated set of distances after merging.
+ *
+ * @throws {TypeError} Throws an error if either parameter is not an object.
+ */
 function addDistances(distances: Record<string, number>, newDistances: Record<string, number>): Record<string, number> {
     for (const key in newDistances) {
         if (newDistances.hasOwnProperty(key)) {
@@ -397,6 +563,19 @@ function addDistances(distances: Record<string, number>, newDistances: Record<st
     return distances;
 }
 
+/**
+ * Calculates the number of variables that are in the wrong order compared to other variables
+ * within a given data clump context.
+ *
+ * This function takes a DataClumpTypeContext object, extracts the relevant variables, sorts them,
+ * and compares their order to another set of variables derived from the same context. It counts
+ * how many variables are out of order based on their expected positions.
+ *
+ * @param {DataClumpTypeContext} data_clump - The data clump context containing the variables to analyze.
+ * @returns {number} The count of variables that are in the wrong order.
+ *
+ * @throws {Error} Throws an error if the input data_clump is invalid or does not contain the expected structure.
+ */
 function getNumberVariablesInWrongOrderAsOtherVariables(data_clump: DataClumpTypeContext): number {
     let data_clump_data = data_clump.data_clump_data;
     const variables = Object.values(data_clump_data);
@@ -419,6 +598,20 @@ function getNumberVariablesInWrongOrderAsOtherVariables(data_clump: DataClumpTyp
     return numberOfVariablesInWrongOrder;
 }
 
+/**
+ * Analyzes data clumps in the specified report folder and generates statistical analysis.
+ *
+ * This function reads report files from the given folder, processes the data clumps found within,
+ * and computes various distance metrics related to parameters and fields. It also generates a boxplot
+ * visualization of the computed distances.
+ *
+ * @async
+ * @param {string} report_folder - The path to the folder containing report files to analyze.
+ * @param {Object} options - Options for analysis (currently unused).
+ * @throws {Error} Will throw an error if the specified report folder does not exist.
+ * @returns {Promise<string>} A promise that resolves to a string containing the generated file content
+ * for statistical analysis and visualization.
+ */
 async function analyse(report_folder, options){
     console.log("Analysing Detected Data-Clumps");
     if (!fs.existsSync(report_folder)) {
