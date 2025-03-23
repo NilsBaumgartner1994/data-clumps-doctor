@@ -31,6 +31,18 @@ program
     .option('--report_folder <path>', 'Output path', current_working_directory+'/data-clumps-results/'+Analyzer.project_name_variable_placeholder+'/') // Default value is './data-clumps.json'
     .option('--output <path>', 'Output path for script', current_working_directory+'/DistributionDataClumpFileDistance.py') // Default value is './data-clumps.json'
 
+/**
+ * Merges a new set of amounts into an existing amount dictionary by adding the values for each key.
+ *
+ * This function takes two dictionaries: one representing the current amounts and another representing
+ * the new amounts to be added. It updates the current amounts in place and returns the updated dictionary.
+ *
+ * @param {Record<string, number>} amountDict - The existing dictionary of amounts where new amounts will be added.
+ * @param {Record<string, number>} newAdditionalAmount - The dictionary containing new amounts to be added to the existing amounts.
+ * @returns {Record<string, number>} The updated dictionary of amounts after merging.
+ *
+ * @throws {TypeError} If either parameter is not a valid object or if they contain non-numeric values.
+ */
 function addAmount(amountDict: Record<string, number>, newAdditionalAmount: Record<string, number>): Record<string, number> {
     for (const key in newAdditionalAmount) {
         if (newAdditionalAmount.hasOwnProperty(key)) {
@@ -40,6 +52,17 @@ function addAmount(amountDict: Record<string, number>, newAdditionalAmount: Reco
     return amountDict;
 }
 
+/**
+ * Analyzes data clumps from report files located in the specified folder.
+ * This function reads JSON report files, processes data clumps, and generates statistical analysis
+ * including frequency distributions for classes and methods. It also visualizes the results using a box plot.
+ *
+ * @async
+ * @param {string} report_folder - The path to the folder containing report files.
+ * @param {object} options - Additional options for analysis (currently unused).
+ * @returns {Promise<string>} A string containing the generated file content for analysis.
+ * @throws {Error} Throws an error if the specified report folder does not exist.
+ */
 async function analyse(report_folder, options){
     console.log("Analysing Detected Data-Clumps");
     if (!fs.existsSync(report_folder)) {
