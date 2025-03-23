@@ -171,6 +171,12 @@ export class DetectorDataClumpsMethodsToOtherMethods {
 
         }
 
+        let otherMethodIsInherited = otherMethod.isInheritedFromParentClassOrInterface(softwareProjectDicts);
+        if(otherMethodIsInherited) { // if the method is inherited
+            // then skip this method
+            return;
+        }
+
 
         let ignoreParameterToFieldModifiers = true; // From https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5328371 "These parameters should have same signatures (same names, same data types)." since parameters can't have modifiers, we have to ignore them. And we shall only check names and data types
         let commonMethodParameterPairKeys = DetectorUtils.getCommonParameterPairKeys(method.parameters, otherMethod.parameters, this.options.similarityModifierOfVariablesWithUnknownType, ignoreParameterToFieldModifiers);

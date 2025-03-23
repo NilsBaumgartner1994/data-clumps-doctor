@@ -201,7 +201,7 @@ function printDataClumpsClusterDistribution(all_report_files_paths){
         "import math\n" +
         "import csv\n" +
         "import matplotlib\n" +
-        "matplotlib.rcParams.update({'font.size': 18})\n" +
+        "#matplotlib.rcParams.update({'font.size': 18})\n" +
         "NaN = nan\n" +
         "";
 
@@ -215,7 +215,15 @@ function printDataClumpsClusterDistribution(all_report_files_paths){
     fileContent += "all_data['Type 3'] = largerGroups\n"
     fileContent += "\n"
     fileContent += "labels, data = all_data.keys(), all_data.values()\n"
-    fileContent += "\n"
+    fileContent += "# Berechnung der Statistik-Werte\n" +
+        "statistics = {}\n" +
+        "for label, values in all_data.items():\n" +
+        "    values_sorted = np.sort(values)\n" +
+        "    q1 = np.percentile(values_sorted, 25)\n" +
+        "    median = np.median(values_sorted)\n" +
+        "    q3 = np.percentile(values_sorted, 75)\n" +
+        "    statistics[label] = {'Q1': q1, 'Median': median, 'Q3': q3}\n" +
+        "    print(f\"{label}: Q1 = {q1:.2f}, Median = {median:.2f}, Q3 = {q3:.2f}\")\n"
     fileContent += "fig, ax1 = plt.subplots()\n"
     fileContent += "plt.boxplot(data)\n"
     fileContent += "ax1.set(ylabel='Percentage of Data Clumps Groups')\n"

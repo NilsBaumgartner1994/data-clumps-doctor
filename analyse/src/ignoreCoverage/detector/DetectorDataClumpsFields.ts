@@ -69,8 +69,8 @@ export class DetectorDataClumpsFields {
 
         let currentClassWholeHierarchyKnown = currentClass.isWholeHierarchyKnown(softwareProjectDicts)
         if(!currentClassWholeHierarchyKnown){
-            console.log("currentClassWholeHierarchyKnown: "+currentClassWholeHierarchyKnown)
-            console.log("currentClass.name: "+currentClass.name+ " - "+currentClass.file_path)
+            //console.log("currentClassWholeHierarchyKnown: "+currentClassWholeHierarchyKnown)
+            //console.log("currentClass.name: "+currentClass.name+ " - "+currentClass.file_path)
             currentClass.isWholeHierarchyKnownPrintUnknown(softwareProjectDicts)
         }
 
@@ -85,7 +85,7 @@ export class DetectorDataClumpsFields {
 
 
         let analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces = this.options.analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces;
-        let memberFieldParameters = DetectorDataClumpsFields.getMemberParametersFromClassOrInterface(currentClass, softwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces);
+        let memberFieldParameters = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(currentClass, softwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces);
         let amountOfMemberFields = memberFieldParameters.length;
         if(amountOfMemberFields < this.options.sharedFieldsToFieldsAmountMinimum){
             return;
@@ -133,18 +133,15 @@ export class DetectorDataClumpsFields {
             }
         }
 
-        let ignoreClassOrInterfacesInSameHierarchy = true;
-        if(ignoreClassOrInterfacesInSameHierarchy){
-            // we can always ignore classes in the same hierarchy.
-            // when class A is subclass of class B --> A will always have all fields of class B.
-            // Although class A can override a field already inherited, this then must be intended.
-            let hasCurrentClassOrInterfaceOtherClassOrInterfaceAsParent = currentClass.isSubClassOrInterfaceOrParentOfOtherClassOrInterface(otherClass, softwareProjectDicts);
+        // we can always ignore classes in the same hierarchy.
+        // when class A is subclass of class B --> A will always have all fields of class B.
+        // Although class A can override a field already inherited, this then must be intended.
+        let hasCurrentClassOrInterfaceOtherClassOrInterfaceAsParent = currentClass.isSubClassOrInterfaceOrParentOfOtherClassOrInterface(otherClass, softwareProjectDicts);
 
-            if(debug) console.log("hasCurrentClassOrInterfaceOtherClassOrInterfaceAsParent: "+hasCurrentClassOrInterfaceOtherClassOrInterfaceAsParent)
+        if(debug) console.log("hasCurrentClassOrInterfaceOtherClassOrInterfaceAsParent: "+hasCurrentClassOrInterfaceOtherClassOrInterfaceAsParent)
 
-            if(hasCurrentClassOrInterfaceOtherClassOrInterfaceAsParent){
-                return;
-            }
+        if(hasCurrentClassOrInterfaceOtherClassOrInterfaceAsParent){
+            return;
         }
 
         /**
@@ -155,11 +152,11 @@ export class DetectorDataClumpsFields {
          */
 
         let analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces = this.options.analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces;
-        let currentClassParameters = DetectorDataClumpsFields.getMemberParametersFromClassOrInterface(currentClass, softwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces);
+        let currentClassParameters = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(currentClass, softwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces);
         if(debug) console.log("currentClassParameters: "+currentClassParameters.length)
         if(debug) console.log(JSON.stringify(currentClassParameters, null, 2))
 
-        let otherClassParameters = DetectorDataClumpsFields.getMemberParametersFromClassOrInterface(otherClass, softwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces);
+        let otherClassParameters = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(otherClass, softwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces);
         if(debug) console.log("otherClassParameters: "+otherClassParameters.length)
         if(debug) console.log(JSON.stringify(otherClassParameters, null, 2))
 
@@ -206,16 +203,16 @@ export class DetectorDataClumpsFields {
         dataClumpsFieldParameters[dataClumpContext.key] = dataClumpContext;
     }
 
-    public static getMemberParametersFromClassOrInterface(currentClassOrInterface: ClassOrInterfaceTypeContext, softwareProjectDicts: SoftwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces): MemberFieldParameterTypeContext[]{
-        let classParameters: MemberFieldParameterTypeContext[] = [];
+    public static getMemberFieldsFromClassOrInterface(currentClassOrInterface: ClassOrInterfaceTypeContext, softwareProjectDicts: SoftwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces): MemberFieldParameterTypeContext[]{
+        let totalClassFields: MemberFieldParameterTypeContext[] = [];
 
-        let fieldParameters = currentClassOrInterface.fields;
-        let fieldParameterKeys = Object.keys(fieldParameters);
-        for (let fieldKey of fieldParameterKeys) {
-            let fieldParameter = fieldParameters[fieldKey];
-            if(!fieldParameter.ignore){
+        let currentClassFields = currentClassOrInterface.fields;
+        let currentClassFieldKeys = Object.keys(currentClassFields);
+        for (let fieldKey of currentClassFieldKeys) {
+            let currentClassField = currentClassFields[fieldKey];
+            if(!currentClassField.ignore){
                 // DONE: The parser itself should set the Flag if we should ignore this field.
-                classParameters.push(fieldParameter);
+                totalClassFields.push(currentClassField);
             }
         }
 
@@ -229,11 +226,11 @@ export class DetectorDataClumpsFields {
                 let superClassKey = superclassesDict[superclassName];
                 // superClassKey = 'Batman.java/class/Batman'
                 let superclass = softwareProjectDicts.dictClassOrInterface[superClassKey];
-                let superclassParameters = DetectorDataClumpsFields.getMemberParametersFromClassOrInterface(superclass, softwareProjectDicts, true);
-                classParameters = classParameters.concat(superclassParameters);
+                let superclassFields = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(superclass, softwareProjectDicts, true);
+                totalClassFields = totalClassFields.concat(superclassFields);
             }
         }
 
-        return classParameters;
+        return totalClassFields;
     }
 }

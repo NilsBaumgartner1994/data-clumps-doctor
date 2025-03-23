@@ -1,5 +1,6 @@
 import {Dictionary} from "./UtilTypes";
 import {SoftwareProjectDicts} from "./SoftwareProject";
+import {SimilarityHelper} from "./detector/SimilarityHelper";
 
 export class AstPosition{
     public startLine: any;
@@ -47,20 +48,22 @@ export class VariableTypeContext extends AstElementTypeContext{
         // signatures (same name, same data type, same access
         // modifier), but also data fields with similar signatures (similar
         // name, same data type, same access modifier)
-        let sameType = (!!this.type && !!otherParameter.type && this.type === otherParameter.type) || (!this.type && !otherParameter.type);
-
         similarityModifierOfVariablesWithUnknownType = similarityModifierOfVariablesWithUnknownType > 0 ? similarityModifierOfVariablesWithUnknownType : 0;
 
         let baseSimilarity = 1;
         baseSimilarity *= this.getSimilarityModifierOfSameVariableModifiers(otherParameter, ignoreParameterModifiers)
         baseSimilarity *= baseSimilarity *= this.getSimilarityModifierOfTypeComparison(this.type, otherParameter.type, similarityModifierOfVariablesWithUnknownType);
-        baseSimilarity *= this.isSimilarName(this.name, otherParameter.name);
+        baseSimilarity *= SimilarityHelper.isSimilarName(this.name, otherParameter.name);
         return baseSimilarity
     }
 
     public getSimilarityModifierOfTypeComparison(typeA: any, typeB: any, similarityModifierOfVariablesWithUnknownType: number){
         similarityModifierOfVariablesWithUnknownType = similarityModifierOfVariablesWithUnknownType > 0 ? similarityModifierOfVariablesWithUnknownType : 0;
-        let sameType = (!!typeA && !!typeB && typeA === typeB) || (!typeA && !typeB);
+        let bothHaveType = !!typeA && !!typeB;
+        let bothHaveNoType = !typeA && !typeB;
+        let bothHaveHaveTypeAndAreEqual = bothHaveType && typeA === typeB;
+
+        let sameType = bothHaveHaveTypeAndAreEqual || bothHaveNoType;
         if(!sameType){
             return similarityModifierOfVariablesWithUnknownType
         } else {
@@ -82,11 +85,7 @@ export class VariableTypeContext extends AstElementTypeContext{
     }
 
     public isSimilarName(nameA: string, nameB: string){
-        let sameName = nameA === nameB;
-        if(!sameName){
-            return 0;
-        }
-        return 1;
+
     }
 
     public haveSameModifiers(otherParameter: VariableTypeContext){
@@ -235,18 +234,18 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext{
 
     public isWholeHierarchyKnownPrintUnknown(softwareProjectDicts: SoftwareProjectDicts){
         let currentClassOrInterface = this;
-        console.log("-- currentClassOrInterface.key: "+currentClassOrInterface?.key)
+        //console.log("-- currentClassOrInterface.key: "+currentClassOrInterface?.key)
         let superClassesOrInterfacesKeys = currentClassOrInterface.getSuperClassesAndInterfacesKeys(softwareProjectDicts, true);
-        console.log("-- superClassesOrInterfacesKeys");
-        console.log(superClassesOrInterfacesKeys);
+        //console.log("-- superClassesOrInterfacesKeys");
+        //console.log(superClassesOrInterfacesKeys);
         for(let superClassesOrInterfaceKey of superClassesOrInterfacesKeys){
             // remove generics from key --> no we dont do that --> fix the AST parser instead
             //let superClassesOrInterfaceKeyWithoutGenerics = superClassesOrInterfaceKey.split("<")[0];
             //superClassesOrInterfaceKey = superClassesOrInterfaceKeyWithoutGenerics;
             let superClassesOrInterface = softwareProjectDicts.dictClassOrInterface[superClassesOrInterfaceKey];
             if(!superClassesOrInterface){
-                console.log("Found no superClassesOrInterface for: "+superClassesOrInterfaceKey);
-                console.log("The hierarchy is therefore not complete");
+                //console.log("Found no superClassesOrInterface for: "+superClassesOrInterfaceKey);
+                //console.log("The hierarchy is therefore not complete");
                 return false;
             }
         }

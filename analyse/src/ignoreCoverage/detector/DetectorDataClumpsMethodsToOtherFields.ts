@@ -93,7 +93,7 @@ export class DetectorDataClumpsMethodsToOtherFields {
         }
 
         let analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces = this.options.analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces;
-        let otherClassParameters = DetectorDataClumpsFields.getMemberParametersFromClassOrInterface(otherClassOrInterface, softwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces);
+        let otherClassParameters = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(otherClassOrInterface, softwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces);
         //console.log("- Found data clumps between method " + method.key + " and method " + otherMethod.key);
 
         let ignoreParameterToFieldModifiers = true; // From https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5328371 "These parameters should have same signatures (same names, same data types)." since parameters can't have modifiers, we have to ignore them. And we shall only check names and data types
