@@ -7,6 +7,7 @@ import {Timer} from "./Timer";
 import path from "path";
 import {ParserHelper} from "./ParserHelper";
 import {ParserHelperXmlVisualParadigm} from "./ParserHelperXmlVisualParadigm";
+import {DataClumpsTypeContext} from "data-clumps-type-context";
 
 export class Analyzer {
 
@@ -307,11 +308,51 @@ export class Analyzer {
         }
     }
 
-    static async analyseSoftwareProjectDicts(softwareProjectDicts, project_url, project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, detectorOptions){
-        let detector = new Detector(softwareProjectDicts, detectorOptions, progressCallback, project_url, project_name, project_version, commit, commit_tag, commit_date);
+    static async stringifyBigObjectToStream(obj: Record<string, any>, stream: fs.WriteStream) {
+        stream.write('{\n');
 
-        let dataClumpsContext = await detector.detect();
+        const keys = Object.keys(obj);
+        const lastIndex = keys.length - 1;
 
+        for (let i = 0; i < keys.length; i++) {
+            const key = keys[i];
+            const isLast = i === lastIndex;
+
+            stream.write(`  ${JSON.stringify(key)}: `);
+
+            if (key === 'data_clumps') {
+                // Begin data_clumps dictionary
+                stream.write('{\n');
+                const entries = Object.entries(obj[key]);
+                const lastEntryIndex = entries.length - 1;
+
+                for (let j = 0; j < entries.length; j++) {
+                    const [entryKey, entryValue] = entries[j];
+                    const isLastEntry = j === lastEntryIndex;
+                    stream.write(`    ${JSON.stringify(entryKey)}: ${JSON.stringify(entryValue)}${isLastEntry ? '\n' : ',\n'}`);
+                }
+
+                stream.write(`  }${isLast ? '\n' : ',\n'}`);
+            } else {
+                try {
+                    const value = obj[key];
+                    const serialized = JSON.stringify(value, null, 2);
+                    // Indent every line by 2 spaces
+                    const indented = serialized.split('\n').map(line => '  ' + line).join('\n');
+                    stream.write(indented + (isLast ? '\n' : ',\n'));
+                } catch (err) {
+                    console.error(`Error serializing property ${key}:`, err);
+                    stream.write('"[Unserializable Object]"' + (isLast ? '\n' : ',\n'));
+                }
+            }
+        }
+
+        stream.write('}\n');
+        stream.end();
+    }
+
+
+    static async saveDataClumpsContextToFile(dataClumpsContext, path_to_result) {
         // delete file if exists
         if(fs.existsSync(path_to_result)){
             fs.unlinkSync(path_to_result);
@@ -322,13 +363,20 @@ export class Analyzer {
             fs.mkdirSync(dir, { recursive: true });
         }
 
-        // save to file
-        try {
-            fs.writeFileSync(path_to_result, JSON.stringify(dataClumpsContext, null, 2), 'utf8');
-            console.log('Results saved to '+path_to_result);
+        const outputStream = fs.createWriteStream(path_to_result, "utf-8");
+        try{
+            await Analyzer.stringifyBigObjectToStream(dataClumpsContext, outputStream);
         } catch (err) {
             console.error('An error occurred while writing to file:', err);
         }
+    }
+
+    static async analyseSoftwareProjectDicts(softwareProjectDicts, project_url, project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, detectorOptions){
+        let detector = new Detector(softwareProjectDicts, detectorOptions, progressCallback, project_url, project_name, project_version, commit, commit_tag, commit_date);
+
+        let dataClumpsContext: DataClumpsTypeContext = await detector.detect();
+
+        await Analyzer.saveDataClumpsContextToFile(dataClumpsContext, path_to_result);
 
         return dataClumpsContext;
 
