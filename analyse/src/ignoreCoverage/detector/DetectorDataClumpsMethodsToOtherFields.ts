@@ -68,11 +68,20 @@ export class DetectorDataClumpsMethodsToOtherFields {
 
 
     /**
-     * DataclumpsInspection.java line 547
-     * @param method
-     * @param otherClassOrInterface
-     * @param softwareProjectDicts
-     * @param dataClumpsMethodParameterDataClumps
+     * Analyzes the parameters of a method against another class or interface to identify potential data clumps.
+     * This method checks if the parameters of the given method share similarities with the fields of another class or interface,
+     * and determines if they form a data clump based on defined thresholds.
+     *
+     * @param {MethodTypeContext} method - The method context to analyze for data clumps.
+     * @param {ClassOrInterfaceTypeContext} otherClassOrInterface - The class or interface context to compare against.
+     * @param {SoftwareProjectDicts} softwareProjectDicts - A collection of project-wide dictionaries for classes, interfaces, and other entities.
+     * @param {Dictionary<DataClumpTypeContext>} dataClumpsMethodParameterDataClumps - A dictionary to store identified data clumps.
+     * @param {boolean} wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod - Indicates if the complete hierarchy of the current method's class or interface is known.
+     *
+     * @returns {void} This method does not return a value. It modifies the provided dictionary to include any identified data clumps.
+     *
+     * @throws {Error} Throws an error if there is an issue accessing the necessary project dictionaries or if the method parameters are invalid.
+     *
      * @private
      */
     private checkMethodParametersForDataClumps(method: MethodTypeContext,otherClassOrInterface: ClassOrInterfaceTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod: boolean){
