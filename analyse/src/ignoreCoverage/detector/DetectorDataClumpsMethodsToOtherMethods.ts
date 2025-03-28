@@ -137,49 +137,10 @@ export class DetectorDataClumpsMethodsToOtherMethods {
          * "Expert 1A suggests that in Situation 2 we should exclude methods inherited from parent-classes. This expert’s reason is that the inheritance features of OO programming allow a method from subclasses using the same signature to override a method from parent-classes. In this situation, we should not count the same parameters in these methods as a Data Clump, because they are not duplication.
          * "These methods should not in a same inheritance hierarchy and with a same method signature."
          *
-         *
+         * --> The papers definition has some issues, where a method between two classes with the same signature is false, negative detected. As between these methods, altough they have the same signature, they are not inherited from each other. So this would still be a valid data clump.
          */
-        if(method.hasSameSignatureAs(otherMethod)) { // if the methods have the same signature
 
-            /**
-             * This does not work, because it can be for example
-             * Class A
-             * Class B extends A with method foo()
-             * Class C extends A with method foo()
-             * Class D extends B with method foo() overriding foo() from B
-             * Class E extends C with method foo() overriding foo() from C
-             * Then foo() from D and foo() from E are not in the same inheritance hierarchy, but they are overriding foo() from B and C respectively
-             * Therefore we should skip these methods. But checking isSubClassOrInterfaceOrParentOfOtherClassOrInterface is not enough
-            let isInSameInheritanceHierarchy = currentClassOrInterface.isSubClassOrInterfaceOrParentOfOtherClassOrInterface(otherClassOrInterface, softwareProjectDicts);
-            if(isInSameInheritanceHierarchy){
-                return; // then skip this method
-            }
-             */
-
-
-             // Other methods in the same class or interface should be checked, so these are not skipped
-            /**
-             * Problem in definition: "Expert 1A suggests that in Situation 2 we should exclude methods inherited from parent-classes."
-             * This says we shall exclude all methods which are overridden.
-             * But then "These methods should not in a same inheritance hierarchy and with a same method signature." says we only shall exclude methods which are in the same hierarchy with same signature
-             * This is a contradiction, because we could have
-             * Class A
-             * Class B extends A with method foo()
-             * Class C extends A with method foo()
-             * Class D extends B with method foo() overriding foo() from B
-             * Class E extends C with method foo() overriding foo() from C
-             * Then foo() from D and foo() from E are not in the same inheritance hierarchy, but they are overriding foo() from B and C respectively
-             * But this would still count from D and E as Dataclumps, because they are not dublicated, but overridden, so the root of the problem is in the definition in B and C
-             */
-
-            let otherMethodIsInherited = otherMethod.isInheritedFromParentClassOrInterface(softwareProjectDicts);
-             if(otherMethodIsInherited) { // if the method is inherited
-                // then skip this method
-                return;
-            }
-
-        }
-
+            // Therefore we switch to the definition of Expert 1A which is more precise and correct. As we only ignore inherited methods.
         let otherMethodIsInherited = otherMethod.isInheritedFromParentClassOrInterface(softwareProjectDicts);
         if(otherMethodIsInherited) { // if the method is inherited
             // then skip this method

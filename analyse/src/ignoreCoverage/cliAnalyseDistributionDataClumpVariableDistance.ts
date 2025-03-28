@@ -1,56 +1,16 @@
 #!/usr/bin/env node
 
 import fs from 'fs';
-import path from 'path';
-
-import {Command} from 'commander';
-import {Analyzer} from "./Analyzer";
-import {AnalyseHelper} from "./AnalyseHelper";
+import {AnalyseHelper, NumberOccurenceDict, StringOccurenceDict} from "./AnalyseHelper";
 import {
     DataClumpsTypeContext,
-    DataClumpsVariableFromContext, DataClumpsVariableToContext,
+    DataClumpsVariableFromContext,
+    DataClumpsVariableToContext,
     DataClumpTypeContext,
-    Dictionary, Position
+    Dictionary,
+    Position
 } from "data-clumps-type-context";
 import {Timer} from "./Timer";
-
-const packageJsonPath = path.join(__dirname, '..','..', 'package.json');
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-const version = packageJson.version;
-
-
-const program = new Command();
-
-const current_working_directory = process.cwd();
-
-program
-    .description('Analyse Detected Data-Clumps\n\n' +
-        'This script performs data clumps detection in a given directory.\n\n' +
-        'npx data-clumps-doctor [options] <path_to_folder>')
-    .version(version)
-    .option('--report_folder <path>', 'Output path', current_working_directory+'/data-clumps-results/'+Analyzer.project_name_variable_placeholder+'/') // Default value is './data-clumps.json'
-    .option('--output <path>', 'Output path for script', current_working_directory+'/DistributionDataClumpFileDistance.py') // Default value is './data-clumps.json'
-
-function getAllReportFilesRecursiveInFolder(folder_path){
-    let all_report_files = fs.readdirSync(folder_path);
-    let all_report_files_paths: any = [];
-    for (let i = 0; i < all_report_files.length; i++) {
-        let report_file = all_report_files[i];
-        let report_file_path = path.join(folder_path, report_file);
-        if(fs.lstatSync(report_file_path).isDirectory()){
-            let all_report_files_paths_in_subfolder = getAllReportFilesRecursiveInFolder(report_file_path);
-            all_report_files_paths = all_report_files_paths.concat(all_report_files_paths_in_subfolder);
-        }
-        else{
-            if(report_file.endsWith(".json")){
-                let report_file_path = path.join(folder_path, report_file);
-                all_report_files_paths.push(report_file_path);
-            }
-        }
-    }
-    return all_report_files_paths;
-
-}
 
 /**
  * Calculates the absolute distances (in lines) between each pair of clumped fields based on their starting line positions.
@@ -72,13 +32,14 @@ function getAllReportFilesRecursiveInFolder(folder_path){
  *
  * @throws Error if the input is not an array of Position objects.
  */
-function calculateLinePairwiseDistances(positions: Position[]): Record<string, number> {
+function calculateLinePairwiseDistances(positions: Position[]): NumberOccurenceDict {
     // sort the positions by start line
     const startLines = positions.map(pos => pos.startLine).sort((a, b) => a - b);
-    const distances: Record<string, number> = {};
+    const distances = new NumberOccurenceDict();
     for(let i = 1; i < startLines.length; i++){
         let distance = Math.abs(startLines[i] - startLines[i - 1]);
-        distances[distance.toString()] = (distances[distance.toString()] || 0) + 1;
+        let distance_key = parseInt(distance.toString());
+        distances.addOccurence(distance_key, 1);
     }
     return distances;
 }
@@ -99,12 +60,13 @@ function calculateLinePairwiseDistances(positions: Position[]): Record<string, n
  *
  * @throws Will throw an error if the positions array is empty.
  */
-function calculateLineSpread(positions: Position[]): Record<string, number> {
+function calculateLineSpread(positions: Position[]): NumberOccurenceDict {
     const startLines = positions.map(pos => pos.startLine);
-    let distances: Record<string, number> = {};
+    let distances = new NumberOccurenceDict();
     for(let i = 1; i < startLines.length; i++){
         let distance = Math.max(...startLines) - Math.min(...startLines);
-        distances[distance.toString()] = (distances[distance.toString()] || 0) + 1;
+        let distance_key = parseInt(distance.toString());
+        distances.addOccurence(distance_key, 1);
     }
     return distances;
 }
@@ -123,13 +85,14 @@ function calculateLineSpread(positions: Position[]): Record<string, number> {
  *
  * @throws {Error} Throws an error if the positions array is empty.
  */
-function calculateLineDistancesToMedian(positions: Position[]): Record<string, number> {
+function calculateLineDistancesToMedian(positions: Position[]): NumberOccurenceDict {
     const startLines = positions.map(pos => pos.startLine).sort((a, b) => a - b);
     const median = startLines[Math.floor(startLines.length / 2)];
-    let distances: Record<string, number> = {};
+    let distances = new NumberOccurenceDict();
     for(let i = 0; i < positions.length; i++){
         let distance = Math.abs(positions[i].startLine - median);
-        distances[distance.toString()] = (distances[distance.toString()] || 0) + 1;
+        let distance_key = parseInt(distance.toString());
+        distances.addOccurence(distance_key, 1);
     }
     return distances;
 }
@@ -320,7 +283,7 @@ export function getFixedAdjustedPositionFromDataClumpTypeContext(variables: Data
  */
 function calculateFieldDistances(
     variables: DataClumpsVariableFromContext[] | DataClumpsVariableToContext[]
-): { pairwise: Record<string, number>; spread: Record<string, number>; toMedian: Record<string, number> } {
+): { pairwise: NumberOccurenceDict; spread: NumberOccurenceDict; toMedian: NumberOccurenceDict } {
     let positions = getFixedAdjustedPositionFromDataClumpTypeContext(variables, false);
 
     return {
@@ -356,7 +319,7 @@ function calculateFieldDistances(
 function calculateParameterDistances(
     data_clump: DataClumpTypeContext,
     data_clump_variables: DataClumpsVariableFromContext[] | DataClumpsVariableToContext[],
-): { pairwise: Record<string, number>; spread: Record<string, number>; spread_normalized: Record<string, number>; toMedian: Record<string, number>; toMedian_normalized: Record<string, number> } {
+): { pairwise: NumberOccurenceDict; spread: NumberOccurenceDict; spread_normalized: NumberOccurenceDict; toMedian: NumberOccurenceDict; toMedian_normalized: NumberOccurenceDict } {
     // Extract parameters from the data clump
 
     // Da wir im Data Clumps Dataset keine Informationen haben (zumindest direkt) welche anderen Parameter vorhanden sind
@@ -365,31 +328,30 @@ function calculateParameterDistances(
     // "from_method_key": "com.nostra13.universalimageloader.core.ImageLoader/method/displayImage(java.lang.String uri, com.nostra13.universalimageloader.core.com.nostra13.universalimageloader.core.imageaware.ImageAware imageAware, com.nostra13.universalimageloader.core.DisplayImageOptions options, com.nostra13.universalimageloader.core.com.nostra13.universalimageloader.core.assist.ImageLoadingListener listener, com.nostra13.universalimageloader.core.com.nostra13.universalimageloader.core.assist.ImageLoadingProgressListener progressListener)",
     // Die idee ist, dass wir die Position der variables aus dem from_method_key extrahieren und dann schauen ob die in der richtigen Reihenfolge sind, bzw. die Information davon ableiten
     let method_parameters_list = AnalyseHelper.getUnsafeMethodParameterListFromMethod(data_clump);
-    if(!method_parameters_list){
+    const methodParameterListNull = !method_parameters_list
+    if(methodParameterListNull){
         console.error("ERROR: Could not extract method parameters from fromMethodKey for data clump: "+data_clump.key)
-        return {
-            pairwise: {},
-            spread: {},
-            spread_normalized: {},
-            toMedian: {},
-            toMedian_normalized: {}
-        };
     }
-
-    if(method_parameters_list.length<=0){
+    let emptyMethodParameterList = false;
+    if(!!method_parameters_list){
+        emptyMethodParameterList = method_parameters_list.length <= 0;
+    }
+    if(emptyMethodParameterList){
         console.error("ERROR: Could not extract method parameters from fromMethodKey: "+data_clump.from_method_key+ " for data clump: "+data_clump.key)
+    }
+    if(!method_parameters_list || emptyMethodParameterList){
         return {
-            pairwise: {},
-            spread: {},
-            spread_normalized: {},
-            toMedian: {},
-            toMedian_normalized: {}
+            pairwise: new NumberOccurenceDict(),
+            spread: new NumberOccurenceDict(),
+            spread_normalized: new NumberOccurenceDict(),
+            toMedian: new NumberOccurenceDict(),
+            toMedian_normalized: new NumberOccurenceDict()
         };
     }
 
     // method_parameters_list = ["java.lang.String uri", "com.nostra13.universalimageloader.core.com.nostra13.universalimageloader.core.imageaware.ImageAware imageAware", "com.nostra13.universalimageloader.core.DisplayImageOptions options", "com.nostra13.universalimageloader.core.com.nostra13.universalimageloader.core.assist.ImageLoadingListener listener", "com.nostra13.universalimageloader.core.com.nostra13.universalimageloader.core.assist.ImageLoadingProgressListener progressListener"]
 
-    let dict_method_parameter_positions: Record<string, number> = {};
+    let dict_method_parameter_positions = new StringOccurenceDict();
     for(let i = 0; i < method_parameters_list.length; i++){
         let method_parameter = method_parameters_list[i];
         dict_method_parameter_positions[method_parameter] = i
@@ -404,7 +366,7 @@ function calculateParameterDistances(
 
     // variables sind z. B. nur 3 von den 5 Parametern
 
-    let variables_index_position: Record<string, number> = {};
+    let variables_index_position = new StringOccurenceDict();
 
     /**
      * Generates a key string for a given method parameter variable.
@@ -460,30 +422,32 @@ function calculateParameterDistances(
         return position_a - position_b;
     });
 
-    let pairwise: Record<string, number> = {};
-    let spread: Record<string, number> = {};
-    let spread_normalized: Record<string, number> = {};
-    let toMedian: Record<string, number> = {};
-    let toMedian_normalized: Record<string, number> = {};
+    let pairwise = new NumberOccurenceDict();
+    let spread = new NumberOccurenceDict();
+    let spread_normalized = new NumberOccurenceDict();
+    let toMedian = new NumberOccurenceDict();
+    let toMedian_normalized = new NumberOccurenceDict();
 
     // Calculate pairwise distances
     for(let i = 1; i < sortedVariables.length; i++){
         let position_a = getVariableIndexInMethodParameters(sortedVariables[i-1]);
         let position_b = getVariableIndexInMethodParameters(sortedVariables[i]);
         let pairwise_distance = Math.abs(position_a - position_b);
-        pairwise[pairwise_distance.toString()] = (pairwise[pairwise_distance.toString()] || 0) + 1;
+        let pairwise_key = parseInt(pairwise_distance.toString());
+        pairwise.addOccurence(pairwise_key, 1);
     }
 
     // Calculate spread
     let start = getVariableIndexInMethodParameters(sortedVariables[0]);
     let end = getVariableIndexInMethodParameters(sortedVariables[sortedVariables.length-1]);
     let spread_distance = Math.abs(end - start);
-    spread[spread_distance.toString()] = (spread[spread_distance.toString()] || 0) + 1;
+    let spread_key = parseInt(spread_distance.toString());
+    spread.addOccurence(spread_key, 1);
 
     // Calculate normalized spread
     // Normalize the spread by dividing by the number of parameters - 1
     let normalized_spread_distance = spread_distance / (sortedVariables.length - 1);
-    spread_normalized[normalized_spread_distance.toString()] = (spread_normalized[normalized_spread_distance.toString()] || 0) + 1;
+    spread_normalized.addOccurence(normalized_spread_distance, 1);
 
     // Calculate distances to median
     let median_index = Math.floor(sortedVariables.length / 2);
@@ -491,13 +455,15 @@ function calculateParameterDistances(
     for(let i = 0; i < sortedVariables.length; i++){
         let position = getVariableIndexInMethodParameters(sortedVariables[i]);
         let distance = Math.abs(position - median);
-        toMedian[distance.toString()] = (toMedian[distance.toString()] || 0) + 1;
+        let distanceToMedianKey = parseInt(distance.toString());
+        toMedian.addOccurence(distanceToMedianKey, 1);
 
         // Calculate normalized distances to median
         // Normalize the distance by dividing by ((the number of parameters - 1) / 2)
         // so that the minimum distance is 1 and we are referencing the median
         let normalized_distance = distance / ((sortedVariables.length - 1) / 2);
-        toMedian_normalized[normalized_distance.toString()] = (toMedian_normalized[normalized_distance.toString()] || 0) + 1;
+        let normalized_distance_key = parseFloat(normalized_distance.toString());
+        toMedian_normalized.addOccurence(normalized_distance_key, 1);
     }
 
     return {
@@ -519,49 +485,6 @@ function sortVariablesByPosition(variables: DataClumpsVariableFromContext[] | Da
     });
 }
 
-function calculateVariableLength(position: Position): number {
-    return position.endColumn - position.startColumn;
-}
-
-/**
- * Calculates the lengths of variables based on their positions and returns a record
- * mapping each length to its occurrence count.
- *
- * @param {Position[]} positions - An array of Position objects from which variable lengths are calculated.
- * @returns {Record<string, number>} A record where the keys are the lengths of the variables as strings,
- *                                    and the values are the counts of how many times each length occurs.
- *
- * @throws {Error} Throws an error if the input is not an array of Position objects.
- */
-export function calculateVariableLengths(positions: Position[]): Record<string, number> {
-    let lengths: Record<string, number> = {};
-    for(let i = 0; i < positions.length; i++){
-        let position = positions[i];
-        let length = calculateVariableLength(position);
-        lengths[length.toString()] = (lengths[length.toString()] || 0) + 1;
-    }
-    return lengths;
-}
-
-/**
- * Merges two sets of distances by adding the values of the second set to the first.
- * If a distance key exists in both sets, the values will be summed. If a key exists
- * only in the second set, it will be added to the first set with its corresponding value.
- *
- * @param {Record<string, number>} distances - The initial set of distances to be updated.
- * @param {Record<string, number>} newDistances - The set of new distances to be added.
- * @returns {Record<string, number>} The updated set of distances after merging.
- *
- * @throws {TypeError} Throws an error if either parameter is not an object.
- */
-function addDistances(distances: Record<string, number>, newDistances: Record<string, number>): Record<string, number> {
-    for (const key in newDistances) {
-        if (newDistances.hasOwnProperty(key)) {
-            distances[key] = (distances[key] || 0) + newDistances[key];
-        }
-    }
-    return distances;
-}
 
 /**
  * Calculates the number of variables that are in the wrong order compared to other variables
@@ -619,46 +542,26 @@ async function analyse(report_folder, options){
         process.exit(1);
     }
 
-    let fileContent = "" +
-        "import matplotlib.pyplot as plt\n" +
-        "import numpy as np\n" +
-        "import textwrap\n" +
-        "from numpy import nan\n" +
-        "import pandas as pd\n" +
-        "import math\n" +
-        "import csv\n" +
-        "import matplotlib\n" +
-        "#matplotlib.rcParams.update({'font.size': 18})\n" +
-        "NaN = nan\n" +
-        "def expand_frequency_dict(freq_dict):\n" +
-        "    expanded_list = []\n" +
-        "    for number, count in freq_dict.items():\n" +
-        "        number = float(number)  # Convert keys to integers\n" +
-        "        expanded_list.extend([number] * count)\n" +
-        "    return expanded_list\n" +
-        "\n";
+    let fields_distance_pairwise = new NumberOccurenceDict()
+    let fields_distance_spread = new NumberOccurenceDict()
+    let fields_distance_to_median = new NumberOccurenceDict()
+    let fields_in_different_order_as_other_variables = new NumberOccurenceDict()
+    let fields_3_or_less_in_different_order_as_other_variables = new NumberOccurenceDict()
+    let fields_4_or_more_in_different_order_as_other_variables = new NumberOccurenceDict()
 
-    let fields_distance_pairwise: Record<string, number> = {}; // key:distance, value:amount
-    let fields_distance_spread: Record<string, number> = {}; // key:distance, value:amount
-    let fields_distance_to_median: Record<string, number> = {}; // key:distance, value:amount
-    let fields_in_different_order_as_other_variables: Record<string, number> = {}; // key:distance, value:amount
-
-    let parameters_distance_with_delimiters_pairwise: Record<string, number> = {}; // key:distance, value:amount
-    let parameters_distance_with_delimiters_spread: Record<string, number> = {}; // key:distance, value:amount
-    let parameters_distance_with_delimiters_spread_normalized: Record<string, number> = {}; // key:distance, value:amount
-    let parameters_distance_with_delimiters_to_median: Record<string, number> = {}; // key:distance, value:amount
-    let parameters_distance_with_delimiters_to_median_normalized: Record<string, number> = {}; // key:distance, value:amount
-    let parameters_in_different_order_as_other_variables: Record<string, number> = {}; // key:distance, value:amount
-
-    let parameter_length_with_type_and_modifiers: Record<string, number> = {}; // key:distance, value:amount
-    let parameter_length_without_type_and_modifiers: Record<string, number> = {}; // key:distance, value:amount
-
+    let parameters_distance_with_delimiters_pairwise = new NumberOccurenceDict()
+    let parameters_distance_with_delimiters_spread = new NumberOccurenceDict()
+    let parameters_distance_with_delimiters_spread_normalized = new NumberOccurenceDict()
+    let parameters_distance_with_delimiters_to_median = new NumberOccurenceDict()
+    let parameters_distance_with_delimiters_to_median_normalized = new NumberOccurenceDict()
+    let parameters_in_different_order_as_other_variables = new NumberOccurenceDict()
+    let parameters_3_or_less_in_different_order_as_other_variables = new NumberOccurenceDict()
+    let parameters_4_or_more_in_different_order_as_other_variables = new NumberOccurenceDict()
 
     let timer = new Timer()
     timer.start();
-    let lastElapsedTime = 0;
 
-    let all_report_files_paths = getAllReportFilesRecursiveInFolder(report_folder);
+    let all_report_files_paths = AnalyseHelper.getAllReportFilesRecursiveInFolder(report_folder);
     let total_amount_of_report_files = all_report_files_paths.length;
     let dict_of_analysed_data_clumps_keys = {};
     let project_names: Dictionary<boolean> = {};
@@ -667,6 +570,7 @@ async function analyse(report_folder, options){
     //let field_data_clump_found = false;
     for(let i = 0; i < total_amount_of_report_files; i++){
         let progress_files = i+1;
+        timer.printEstimatedTimeRemaining(i, total_amount_of_report_files);
         let report_file_path = all_report_files_paths[i];
 
         let report_file = fs.readFileSync(report_file_path, 'utf8');
@@ -678,15 +582,8 @@ async function analyse(report_folder, options){
 
         for(let j = 0; j < amount_of_data_clumps; j++){
             let progress_data_clumps = j+1;
-
-            let elaspedTime = timer.getElapsedTime();
-            if(elaspedTime > lastElapsedTime + 1000){
-                console.log("Analysing file: "+report_file_path);
-                AnalyseHelper.printProgress(progress_files, total_amount_of_report_files, progress_data_clumps, amount_of_data_clumps);
-                timer.printElapsedTime()
-                timer.printEstimatedTimeRemaining(progress_files, total_amount_of_report_files)
-                lastElapsedTime = elaspedTime
-            }
+            let suffix = progress_data_clumps+"/"+amount_of_data_clumps;
+            timer.printEstimatedTimeRemainingAfter1Second(i, total_amount_of_report_files, null, suffix);
 
             let data_clump_key = data_clump_keys[j]
             if(dict_of_analysed_data_clumps_keys[data_clump_key] === true){ // Skip already analysed data clumps
@@ -699,34 +596,40 @@ async function analyse(report_folder, options){
                 let data_clump_type = data_clump.data_clump_type; // 'parameters_to_parameters_data_clump' or 'fields_to_fields_data_clump' or "parameters_to_fields_data_clump"
 
 
-                if(data_clump_type === "parameters_to_parameters_data_clump"){
+                if(data_clump_type === AnalyseHelper.DataClumpType.PARAMETER_PARAMETER){
                     const variables = Object.values(data_clump.data_clump_data);
 
                     let parameters_distance_with_delimiters = calculateParameterDistances(data_clump, variables);
-                    addDistances(parameters_distance_with_delimiters_pairwise, parameters_distance_with_delimiters.pairwise);
-                    addDistances(parameters_distance_with_delimiters_spread, parameters_distance_with_delimiters.spread);
-                    addDistances(parameters_distance_with_delimiters_spread_normalized, parameters_distance_with_delimiters.spread_normalized);
-                    addDistances(parameters_distance_with_delimiters_to_median, parameters_distance_with_delimiters.toMedian);
-                    addDistances(parameters_distance_with_delimiters_to_median_normalized, parameters_distance_with_delimiters.toMedian_normalized);
-
-                    let positionsWithTypes = getFixedAdjustedPositionFromDataClumpTypeContext(variables, true);
-                    let positionsWithoutTypes = getFixedAdjustedPositionFromDataClumpTypeContext(variables, false);
-                    addDistances(parameter_length_with_type_and_modifiers, calculateVariableLengths(positionsWithTypes));
-                    addDistances(parameter_length_without_type_and_modifiers, calculateVariableLengths(positionsWithoutTypes));
+                    parameters_distance_with_delimiters_pairwise.concat(parameters_distance_with_delimiters.pairwise);
+                    parameters_distance_with_delimiters_spread.concat(parameters_distance_with_delimiters.spread);
+                    parameters_distance_with_delimiters_spread_normalized.concat(parameters_distance_with_delimiters.spread_normalized);
+                    parameters_distance_with_delimiters_to_median.concat(parameters_distance_with_delimiters.toMedian);
+                    parameters_distance_with_delimiters_to_median_normalized.concat(parameters_distance_with_delimiters.toMedian_normalized);
 
                     let numberOfVariablesInWrongOrder = getNumberVariablesInWrongOrderAsOtherVariables(data_clump);
-                    parameters_in_different_order_as_other_variables[numberOfVariablesInWrongOrder.toString()] = (parameters_in_different_order_as_other_variables[numberOfVariablesInWrongOrder.toString()] || 0) + 1;
-                } else if(data_clump_type === "fields_to_fields_data_clump"){
+                    parameters_in_different_order_as_other_variables.addOccurence(numberOfVariablesInWrongOrder, 1);
+                    if(variables.length <= 3){
+                        parameters_3_or_less_in_different_order_as_other_variables.addOccurence(numberOfVariablesInWrongOrder, 1);
+                    } else {
+                        parameters_4_or_more_in_different_order_as_other_variables.addOccurence(numberOfVariablesInWrongOrder, 1);
+                    }
+                } else if(data_clump_type === AnalyseHelper.DataClumpType.FIELD_FIELD){
                     const variables = Object.values(data_clump.data_clump_data);
 
                     let fields_distances = calculateFieldDistances(variables);
-                    addDistances(fields_distance_pairwise, fields_distances.pairwise);
-                    addDistances(fields_distance_spread, fields_distances.spread);
-                    addDistances(fields_distance_to_median, fields_distances.toMedian);
+                    fields_distance_pairwise.concat(fields_distances.pairwise);
+                    fields_distance_spread.concat(fields_distances.spread);
+                    fields_distance_to_median.concat(fields_distances.toMedian);
 
                     let numberOfVariablesInWrongOrder = getNumberVariablesInWrongOrderAsOtherVariables(data_clump);
-                    fields_in_different_order_as_other_variables[numberOfVariablesInWrongOrder.toString()] = (fields_in_different_order_as_other_variables[numberOfVariablesInWrongOrder.toString()] || 0) + 1;
-                } else if(data_clump_type === "parameters_to_fields_data_clump"){
+                    fields_in_different_order_as_other_variables.addOccurence(numberOfVariablesInWrongOrder, 1);
+                    if(variables.length <= 3){
+                        fields_3_or_less_in_different_order_as_other_variables.addOccurence(numberOfVariablesInWrongOrder, 1);
+                    } else {
+                        fields_4_or_more_in_different_order_as_other_variables.addOccurence(numberOfVariablesInWrongOrder, 1);
+                    }
+
+                } else if(data_clump_type === AnalyseHelper.DataClumpType.PARAMETER_FIELD){
                     let parameters = Object.values(data_clump.data_clump_data);
                     let fields: DataClumpsVariableToContext[] = [];
                     for(let variable_key in data_clump_data){
@@ -736,25 +639,24 @@ async function analyse(report_folder, options){
                     }
 
                     let parameters_distance_with_delimiters = calculateParameterDistances(data_clump, parameters);
-                    addDistances(parameters_distance_with_delimiters_pairwise, parameters_distance_with_delimiters.pairwise);
-                    addDistances(parameters_distance_with_delimiters_spread, parameters_distance_with_delimiters.spread);
-                    addDistances(parameters_distance_with_delimiters_to_median_normalized, parameters_distance_with_delimiters.spread_normalized);
-                    addDistances(parameters_distance_with_delimiters_to_median, parameters_distance_with_delimiters.toMedian);
-                    addDistances(parameters_distance_with_delimiters_to_median_normalized, parameters_distance_with_delimiters.toMedian_normalized);
-
-                    let positionsWithTypes = getFixedAdjustedPositionFromDataClumpTypeContext(parameters, true);
-                    let positionsWithoutTypes = getFixedAdjustedPositionFromDataClumpTypeContext(parameters, false);
-                    addDistances(parameter_length_with_type_and_modifiers, calculateVariableLengths(positionsWithTypes));
-                    addDistances(parameter_length_without_type_and_modifiers, calculateVariableLengths(positionsWithoutTypes));
-
+                    parameters_distance_with_delimiters_pairwise.concat(parameters_distance_with_delimiters.pairwise);
+                    parameters_distance_with_delimiters_spread.concat(parameters_distance_with_delimiters.spread);
+                    parameters_distance_with_delimiters_spread_normalized.concat(parameters_distance_with_delimiters.spread_normalized);
+                    parameters_distance_with_delimiters_to_median.concat(parameters_distance_with_delimiters.toMedian);
+                    parameters_distance_with_delimiters_to_median_normalized.concat(parameters_distance_with_delimiters.toMedian_normalized);
 
                     let fields_distance_with_modifiers = calculateFieldDistances(fields);
-                    addDistances(fields_distance_pairwise, fields_distance_with_modifiers.pairwise);
-                    addDistances(fields_distance_spread, fields_distance_with_modifiers.spread);
-                    addDistances(fields_distance_to_median, fields_distance_with_modifiers.toMedian);
+                    fields_distance_pairwise.concat(fields_distance_with_modifiers.pairwise);
+                    fields_distance_spread.concat(fields_distance_with_modifiers.spread);
+                    fields_distance_to_median.concat(fields_distance_with_modifiers.toMedian);
 
                     let numberOfVariablesInWrongOrder = getNumberVariablesInWrongOrderAsOtherVariables(data_clump);
-                    parameters_in_different_order_as_other_variables[numberOfVariablesInWrongOrder.toString()] = (parameters_in_different_order_as_other_variables[numberOfVariablesInWrongOrder.toString()] || 0) + 1;
+                    parameters_in_different_order_as_other_variables.addOccurence(numberOfVariablesInWrongOrder, 1);
+                    if(parameters.length <= 3){
+                        parameters_3_or_less_in_different_order_as_other_variables.addOccurence(numberOfVariablesInWrongOrder, 1);
+                    } else {
+                        parameters_4_or_more_in_different_order_as_other_variables.addOccurence(numberOfVariablesInWrongOrder, 1);
+                    }
                 }
             }
         }
@@ -763,69 +665,51 @@ async function analyse(report_folder, options){
 
     console.log("Start analysing distances");
 
-    let analysis_objects: Record<string, Record<string, number>> = {
+    let analysis_objects: Record<string, NumberOccurenceDict> = {
         "fields_pairwise": fields_distance_pairwise,
         "fields_spread": fields_distance_spread,
         "fields_to_median": fields_distance_to_median,
         "fields_in_different_order_as_other_variables": fields_in_different_order_as_other_variables,
+        "fields_3_or_less_in_different_order_as_other_variables": fields_3_or_less_in_different_order_as_other_variables,
+        "fields_4_or_more_in_different_order_as_other_variables": fields_4_or_more_in_different_order_as_other_variables,
         "parameters_with_delimiters_pairwise": parameters_distance_with_delimiters_pairwise,
         "parameters_with_delimiters_spread": parameters_distance_with_delimiters_spread,
         "parameters_with_delimiters_spread_normalized": parameters_distance_with_delimiters_spread_normalized,
         "parameters_with_delimiters_to_median": parameters_distance_with_delimiters_to_median,
         "parameters_with_delimiters_to_median_normalized": parameters_distance_with_delimiters_to_median_normalized,
         "parameters_in_different_order_as_other_variables_in_same_class_or_interface": parameters_in_different_order_as_other_variables,
-        "parameter_length_with_type_and_modifiers": parameter_length_with_type_and_modifiers,
-        "parameter_length_without_type_and_modifiers": parameter_length_without_type_and_modifiers
+        "parameters_3_or_less_in_different_order_as_other_variables_in_same_class_or_interface": parameters_3_or_less_in_different_order_as_other_variables,
+        "parameters_4_or_more_in_different_order_as_other_variables_in_same_class_or_interface": parameters_4_or_more_in_different_order_as_other_variables,
     }
 
+    let fileContent = AnalyseHelper.getPythonLibrariesFileContent()
+
+    fileContent += "all_data = {}\n";
+    fileContent += "manual_labels_array = []\n";
     let anylsis_keys = Object.keys(analysis_objects);
+    let labels: string[] = [];
     for(let i = 0; i < anylsis_keys.length; i++){
         let analysis_name = anylsis_keys[i];
         let values = analysis_objects[analysis_name];
-        fileContent += AnalyseHelper.getValuesForRecord("values_"+analysis_name, values);
+        fileContent += AnalyseHelper.getPythonAllDataValuesForOccurenceDict("values_"+analysis_name, values);
+        labels.push(analysis_name);
     }
 
-    fileContent += "all_data = {}\n";
-    for (let i = 0; i < anylsis_keys.length; i++) {
-        let analysis_name = anylsis_keys[i];
-        fileContent += "all_data['" + analysis_name + "'] = " + "expand_frequency_dict(values_"+analysis_name + ")\n";
-    }
     fileContent += "\n";
     fileContent += "labels, data = all_data.keys(), all_data.values()\n";
-    fileContent += "\n" +
-        "# Berechnung der Statistik-Werte\n" +
-        "statistics = {}\n" +
-        "for label, values in all_data.items():\n" +
-        "    values_sorted = np.sort(values)\n" +
-        "    q1 = np.percentile(values_sorted, 25)\n" +
-        "    median = np.median(values_sorted)\n" +
-        "    q3 = np.percentile(values_sorted, 75)\n" +
-        "    # Whisker-Berechnung\n" +
-        "    iqr = q3 - q1\n" +
-        "    lower_whisker = np.min(values_sorted[values_sorted >= (q1 - 1.5 * iqr)])\n" +
-        "    upper_whisker = np.max(values_sorted[values_sorted <= (q3 + 1.5 * iqr)])\n" +
-        "    statistics[label] = {\n" +
-        "        'Q1': q1, 'Median': median, 'Q3': q3,\n" +
-        "        'Lower Whisker': lower_whisker, 'Upper Whisker': upper_whisker\n" +
-        "    }\n" +
-        "\n" +
-        "    print(f\"{label}: Q1 = {q1:.2f}, Median = {median:.2f}, Q3 = {q3:.2f}, \"\n" +
-        "          f\"Lower Whisker = {lower_whisker:.2f}, Upper Whisker = {upper_whisker:.2f}\")" +
-        "\n";
-    fileContent += "fig, ax1 = plt.subplots()\n";
-    fileContent += "plt.boxplot(data, medianprops={'color': (172/255, 6/255, 52/255)})  # RGB umgerechnet auf 0-1 Skala\n";
-    fileContent += "ax1.set(ylabel='Distance Line/Column')\n";
-    // Replace underscores with spaces in labels
-    fileContent += "wrapped_labels = ['\\n'.join(textwrap.wrap(label.replace('_', ' '), width=15)) for label in labels]\n";
-    fileContent += "plt.xticks(range(1, len(labels) + 1), wrapped_labels)\n";
-    // Set the visible y-axis range
-    fileContent += "ax1.set_ylim([0, 100])\n"; // Adjust range to your desired limits
-
-    fileContent += "plt.subplots_adjust(left=0.15, right=0.95, top=0.98, bottom=0.10)\n"; // Adjust bottom for better label display
-    fileContent += "fig.set_size_inches(6, 4, forward=True)\n";
-    fileContent += "fig.set_dpi(200)\n";
-    fileContent += "plt.show()\n";
-
+    fileContent += AnalyseHelper.getPythonStatisticsForDataValues();
+    fileContent += AnalyseHelper.getPythonPlot({
+        output_filename_without_extension: options.output_filename_without_extension,
+        y_label: "Distance",
+        y_max: 50,
+        offset_left: 0.15,
+        offset_right: 0.95,
+        offset_top: 0.98,
+        offset_bottom: 0.10,
+        width_inches: 6,
+        height_inches: 4,
+        use_manual_labels: true,
+    });
     return fileContent
 
 }
@@ -833,10 +717,12 @@ async function analyse(report_folder, options){
 async function main() {
     console.log("Data-Clumps-Doctor Detection");
 
-    program.parse(process.argv);
-
     // Get the options and arguments
-    const options = program.opts();
+    const options = AnalyseHelper.getCommandForAnalysis(process, {
+        require_report_path: true,
+        require_output_path: false,
+        default_output_filename_without_extension: "AnalyseDistributionDataClumpVariableDistance",
+    })
 
     const report_folder = options.report_folder;
 

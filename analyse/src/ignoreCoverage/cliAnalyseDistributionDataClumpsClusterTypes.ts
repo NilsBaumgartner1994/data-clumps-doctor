@@ -2,26 +2,8 @@
 
 import fs from 'fs';
 import path from 'path';
-
-import {Command} from 'commander';
-import {Analyzer} from "./Analyzer";
-
-const packageJsonPath = path.join(__dirname, '..','..', 'package.json');
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-const version = packageJson.version;
-
-
-const program = new Command();
-
-const current_working_directory = process.cwd();
-
-program
-    .description('Analyse Detected Data-Clumps\n\n' +
-        'This script performs data clumps detection in a given directory.\n\n' +
-        'npx data-clumps-doctor [options] <path_to_folder>')
-    .version(version)
-    .option('--report_folder <path>', 'Report path', current_working_directory+'/data-clumps-results/'+Analyzer.project_name_variable_placeholder+'/') // Default value is './data-clumps.json'
-    .option('--output <path>', 'Output path for script', current_working_directory+'/DataClumpsClusterDistribution.py') // Default value is './data-clumps.json'
+import {AnalyseHelper} from "./AnalyseHelper";
+import {Timer} from "./Timer";
 
 function getAllReportFilesRecursiveInFolder(folder_path){
     let all_report_files = fs.readdirSync(folder_path);
@@ -161,7 +143,7 @@ export function getValuesFor(nameOfVariable, listOfValues){
  *
  * @throws {Error} Throws an error if a report file cannot be read or if the JSON parsing fails.
  */
-function printDataClumpsClusterDistribution(all_report_files_paths){
+function printDataClumpsClusterDistribution(all_report_files_paths, output_filename?: string){
 
     console.log("Counting data clumps cluster distribution ...")
 
@@ -171,55 +153,46 @@ function printDataClumpsClusterDistribution(all_report_files_paths){
         largerGroups: []
     };
 
+    let timer = new Timer()
+    timer.start();
     for(let i = 0; i < all_report_files_paths.length; i++){
+        timer.printEstimatedTimeRemaining(i, all_report_files_paths.length);
         let report_file_path = all_report_files_paths[i];
-        console.log("Processing report_file_path: "+i+" with "+all_report_files_paths.length+" report files")
+        let report_file_json = AnalyseHelper.getReportFileJson(report_file_path)
 
-            let report_file = fs.readFileSync(report_file_path, 'utf8');
-            let report_file_json = JSON.parse(report_file);
+        let data_clumps_dict = report_file_json?.data_clumps;
+        let groups = countDataClumpsGroups(data_clumps_dict)
 
-            let data_clumps_dict = report_file_json?.data_clumps;
-            let groups = countDataClumpsGroups(data_clumps_dict)
+        let singleNodeGroups = groups.singleNodeGroups;
 
-            let singleNodeGroups = groups.singleNodeGroups;
+        let twoNodeGroups = groups.twoNodeGroups;
 
-            let twoNodeGroups = groups.twoNodeGroups;
+        let largerGroups = groups.largerGroups;
 
-            let largerGroups = groups.largerGroups;
+        let amountGroups = singleNodeGroups + twoNodeGroups + largerGroups;
+        if(amountGroups>0){
+            let singleNodeGroupsPercentage = (singleNodeGroups / amountGroups) * 100;
+            singleNodeGroupsPercentage = parseFloat(singleNodeGroupsPercentage.toFixed(2))
 
-            let amountGroups = singleNodeGroups + twoNodeGroups + largerGroups;
-            if(amountGroups>0){
-                let singleNodeGroupsPercentage = (singleNodeGroups / amountGroups) * 100;
-                singleNodeGroupsPercentage = parseFloat(singleNodeGroupsPercentage.toFixed(2))
+            let twoNodeGroupsPercentage = (twoNodeGroups / amountGroups) * 100;
+            twoNodeGroupsPercentage = parseFloat(twoNodeGroupsPercentage.toFixed(2))
 
-                let twoNodeGroupsPercentage = (twoNodeGroups / amountGroups) * 100;
-                twoNodeGroupsPercentage = parseFloat(twoNodeGroupsPercentage.toFixed(2))
+            let largerGroupsPercentage = (largerGroups / amountGroups) * 100;
+            largerGroupsPercentage = parseFloat(largerGroupsPercentage.toFixed(2))
 
-                let largerGroupsPercentage = (largerGroups / amountGroups) * 100;
-                largerGroupsPercentage = parseFloat(largerGroupsPercentage.toFixed(2))
-
-                data_clumps_cluster_distribution.singleNodeGroups.push(singleNodeGroupsPercentage);
-                data_clumps_cluster_distribution.twoNodeGroups.push(twoNodeGroupsPercentage);
-                data_clumps_cluster_distribution.largerGroups.push(largerGroupsPercentage);
-            }
+            data_clumps_cluster_distribution.singleNodeGroups.push(singleNodeGroupsPercentage);
+            data_clumps_cluster_distribution.twoNodeGroups.push(twoNodeGroupsPercentage);
+            data_clumps_cluster_distribution.largerGroups.push(largerGroupsPercentage);
+        }
     }
 
     console.log("Generating python file to generate boxplot ...")
 
-    let fileContent = "import matplotlib.pyplot as plt\n" +
-        "import numpy as np\n" +
-        "from numpy import nan\n" +
-        "import pandas as pd\n" +
-        "import math\n" +
-        "import csv\n" +
-        "import matplotlib\n" +
-        "#matplotlib.rcParams.update({'font.size': 18})\n" +
-        "NaN = nan\n" +
-        "";
+    let fileContent = AnalyseHelper.getPythonLibrariesFileContent();
 
-    fileContent += getValuesFor("singleNodeGroups", data_clumps_cluster_distribution.singleNodeGroups);
-    fileContent += getValuesFor("twoNodeGroups", data_clumps_cluster_distribution.twoNodeGroups);
-    fileContent += getValuesFor("largerGroups", data_clumps_cluster_distribution.largerGroups);
+    fileContent += AnalyseHelper.getPythonValuesFor("singleNodeGroups", data_clumps_cluster_distribution.singleNodeGroups);
+    fileContent += AnalyseHelper.getPythonValuesFor("twoNodeGroups", data_clumps_cluster_distribution.twoNodeGroups);
+    fileContent += AnalyseHelper.getPythonValuesFor("largerGroups", data_clumps_cluster_distribution.largerGroups);
 
     fileContent += "all_data = {}\n"
     fileContent += "all_data['Type 1'] = singleNodeGroups\n"
@@ -227,29 +200,23 @@ function printDataClumpsClusterDistribution(all_report_files_paths){
     fileContent += "all_data['Type 3'] = largerGroups\n"
     fileContent += "\n"
     fileContent += "labels, data = all_data.keys(), all_data.values()\n"
-    fileContent += "# Berechnung der Statistik-Werte\n" +
-        "statistics = {}\n" +
-        "for label, values in all_data.items():\n" +
-        "    values_sorted = np.sort(values)\n" +
-        "    q1 = np.percentile(values_sorted, 25)\n" +
-        "    median = np.median(values_sorted)\n" +
-        "    q3 = np.percentile(values_sorted, 75)\n" +
-        "    statistics[label] = {'Q1': q1, 'Median': median, 'Q3': q3}\n" +
-        "    print(f\"{label}: Q1 = {q1:.2f}, Median = {median:.2f}, Q3 = {q3:.2f}\")\n"
-    fileContent += "fig, ax1 = plt.subplots()\n"
-    fileContent += "plt.boxplot(data)\n"
-    fileContent += "ax1.set(ylabel='Percentage of Data Clumps Groups')\n"
-    fileContent += "plt.xticks(range(1, len(labels) + 1), labels)\n"
-    fileContent += "plt.subplots_adjust(left=0.15, right=0.95, top=0.98, bottom=0.10)\n"
-    fileContent += "fig.set_size_inches(6, 4, forward=True)\n"
-    fileContent += "fig.set_dpi(200)\n"
-    fileContent += "plt.show()\n"
+    fileContent += AnalyseHelper.getPythonStatisticsForDataValues();
+    fileContent += AnalyseHelper.getPythonPlot({
+        output_filename_without_extension: output_filename,
+        offset_left: 0.15,
+        offset_right: 0.95,
+        offset_bottom: 0.10,
+        offset_top: 0.98,
+        width_inches: 6,
+        height_inches: 4,
+        y_label: 'Percentage of Data Clumps',
+    })
 
     return fileContent;
 
 }
 
-async function analyse(report_folder, options){
+async function analyse(report_folder, options) {
     console.log("Analysing Detected Data-Clumps-Clusters");
     if (!fs.existsSync(report_folder)) {
         console.log("ERROR: Specified path to report folder does not exist: "+report_folder);
@@ -259,18 +226,20 @@ async function analyse(report_folder, options){
     let all_report_files_paths = getAllReportFilesRecursiveInFolder(report_folder);
     console.log("all_report_files_paths: "+all_report_files_paths.length);
 
-    //printHistogram(sorted_timestamps, timestamp_to_file_paths);
-    let filecontent = printDataClumpsClusterDistribution(all_report_files_paths);
+    let filecontent = printDataClumpsClusterDistribution(all_report_files_paths, options.output_filename_without_extension);
     return filecontent;
 }
 
 async function main() {
     console.log("Data-Clumps-Doctor Detection");
 
-    program.parse(process.argv);
+    let defaultFilenameWithoutExtension = "AnalyseDistributionDataClumpsClusterTypes";
 
-    // Get the options and arguments
-    const options = program.opts();
+    let options = AnalyseHelper.getCommandForAnalysis(process, {
+        require_report_path: true,
+        require_output_path: true,
+        default_output_filename_without_extension: defaultFilenameWithoutExtension,
+    })
 
     const report_folder = options.report_folder;
     let filecontent = await analyse(report_folder, options);

@@ -1,7 +1,10 @@
+import {AnalyseHelper} from "./AnalyseHelper";
+
 export class Timer {
 
     public startTime: number = 0;
     public endTime: number = 0;
+    public lastElapsedTime: number = 0;
 
     public Timer() {
         this.resetTimer()
@@ -36,13 +39,27 @@ export class Timer {
         console.log(prefix+`Elapsed time: ${this.formatTimeToString(elapsed)}`+suffix);
     }
 
+    public printEstimatedTimeRemainingAfter1Second(progress: number, total: number, prefix?: string | null, suffix?: string | null) {
+        let elaspedTime = this.getElapsedTime();
+        if(elaspedTime > this.lastElapsedTime + 1000){
+            this.printEstimatedTimeRemaining(progress, total, prefix, suffix);
+            this.lastElapsedTime = elaspedTime;
+        }
+    }
+
     public printEstimatedTimeRemaining(progress: number, total: number, prefix?: string | null, suffix?: string | null) {
+        let elaspedTime = this.getElapsedTime();
+        this.lastElapsedTime = elaspedTime;
+
         let remaining = total - progress;
-        let estimatedTime = this.getElapsedTime() / progress * remaining;
-        let estimatedTimeStr = this.formatTimeToString(estimatedTime);
+        let estimatedTotalTime = (elaspedTime / (progress)) * total;
+        let estimatedTimeStr = `[total: ${this.formatTimeToString(estimatedTotalTime)}]`;
+        let remainingTime = (elaspedTime / (progress)) * remaining;
+        let remainingTimeStr = `[remaining: ${this.formatTimeToString(remainingTime)}]`;
         prefix = prefix ? `${prefix}: ` : "";
         suffix = suffix ? `: ${suffix}` : "";
-        console.log(prefix+`Estimated time remaining: ${estimatedTimeStr}`+suffix);
+        let progressString = `(${progress}/${total})`;
+        console.log(prefix+`${remainingTimeStr} ${progressString}`+suffix);
     }
 
     public formatTimeToString(duration: number) {

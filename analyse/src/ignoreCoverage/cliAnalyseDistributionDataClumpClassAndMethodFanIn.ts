@@ -1,56 +1,9 @@
 #!/usr/bin/env node
 
 import fs from 'fs';
-import path from 'path';
-
-import {Command} from 'commander';
-import {Analyzer} from "./Analyzer";
-import {AnalyseHelper} from "./AnalyseHelper";
-import {
-    DataClumpsTypeContext,
-    DataClumpsVariableFromContext, DataClumpsVariableToContext,
-    DataClumpTypeContext,
-    Dictionary, Position
-} from "data-clumps-type-context";
+import {AnalyseHelper, NumberOccurenceDict, StringOccurenceDict} from "./AnalyseHelper";
+import {DataClumpsVariableFromContext, DataClumpTypeContext, Dictionary} from "data-clumps-type-context";
 import {Timer} from "./Timer";
-
-const packageJsonPath = path.join(__dirname, '..','..', 'package.json');
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-const version = packageJson.version;
-
-
-const program = new Command();
-
-const current_working_directory = process.cwd();
-
-program
-    .description('Analyse Detected Data-Clumps\n\n' +
-        'This script performs data clumps detection in a given directory.\n\n' +
-        'npx data-clumps-doctor [options] <path_to_folder>')
-    .version(version)
-    .option('--report_folder <path>', 'Output path', current_working_directory+'/data-clumps-results/'+Analyzer.project_name_variable_placeholder+'/') // Default value is './data-clumps.json'
-    .option('--output <path>', 'Output path for script', current_working_directory+'/DistributionDataClumpFileDistance.py') // Default value is './data-clumps.json'
-
-/**
- * Merges a new set of amounts into an existing amount dictionary by adding the values for each key.
- *
- * This function takes two dictionaries: one representing the current amounts and another representing
- * the new amounts to be added. It updates the current amounts in place and returns the updated dictionary.
- *
- * @param {Record<string, number>} amountDict - The existing dictionary of amounts where new amounts will be added.
- * @param {Record<string, number>} newAdditionalAmount - The dictionary containing new amounts to be added to the existing amounts.
- * @returns {Record<string, number>} The updated dictionary of amounts after merging.
- *
- * @throws {TypeError} If either parameter is not a valid object or if they contain non-numeric values.
- */
-function addAmount(amountDict: Record<string, number>, newAdditionalAmount: Record<string, number>): Record<string, number> {
-    for (const key in newAdditionalAmount) {
-        if (newAdditionalAmount.hasOwnProperty(key)) {
-            amountDict[key] = (amountDict[key] || 0) + newAdditionalAmount[key];
-        }
-    }
-    return amountDict;
-}
 
 /**
  * Analyzes data clumps from report files located in the specified folder.
@@ -63,53 +16,34 @@ function addAmount(amountDict: Record<string, number>, newAdditionalAmount: Reco
  * @returns {Promise<string>} A string containing the generated file content for analysis.
  * @throws {Error} Throws an error if the specified report folder does not exist.
  */
-async function analyse(report_folder, options){
+async function analyse(report_folder, options): Promise<string> {
     console.log("Analysing Detected Data-Clumps");
     if (!fs.existsSync(report_folder)) {
         console.log("ERROR: Specified path to report folder does not exist: "+report_folder);
         process.exit(1);
     }
 
-    let fileContent = "" +
-        "import matplotlib.pyplot as plt\n" +
-        "import numpy as np\n" +
-        "import textwrap\n" +
-        "from numpy import nan\n" +
-        "import pandas as pd\n" +
-        "import math\n" +
-        "import csv\n" +
-        "import matplotlib\n" +
-        "#matplotlib.rcParams.update({'font.size': 18})\n" +
-        "NaN = nan\n" +
-        "def expand_frequency_dict(freq_dict):\n" +
-        "    expanded_list = []\n" +
-        "    for number, count in freq_dict.items():\n" +
-        "        number = float(number)  # Convert keys to integers\n" +
-        "        expanded_list.extend([number] * count)\n" +
-        "    return expanded_list\n" +
-        "\n";
-
-    let class_amount_data_clumps: Record<string, number> = {}; // key:distance, value:amount
-    let method_amount_data_clumps: Record<string, number> = {}; // key:distance, value:amount
 
 
-    let timer = new Timer()
-    timer.start();
-    let lastElapsedTime = 0;
+    let class_amount_data_clumps = new StringOccurenceDict()
+    let method_amount_data_clumps = new StringOccurenceDict()
+
 
     let all_report_files_paths = AnalyseHelper.getAllReportFilesRecursiveInFolder(report_folder);
     let total_amount_of_report_files = all_report_files_paths.length;
     let dict_of_analysed_data_clumps_keys = {};
-    let project_names: Dictionary<boolean> = {};
 
     //let parameter_data_clump_found = false;
     //let field_data_clump_found = false;
+    let timer = new Timer();
+    timer.start();
     for(let i = 0; i < total_amount_of_report_files; i++){
+        timer.printEstimatedTimeRemaining(i, total_amount_of_report_files);
+
         let progress_files = i+1;
         let report_file_path = all_report_files_paths[i];
 
-        let report_file = fs.readFileSync(report_file_path, 'utf8');
-        let report_file_json: DataClumpsTypeContext = JSON.parse(report_file);
+        let report_file_json = AnalyseHelper.getReportFileJson(report_file_path)
 
         let data_clumps = report_file_json?.data_clumps;
         let data_clump_keys = Object.keys(data_clumps);
@@ -118,14 +52,8 @@ async function analyse(report_folder, options){
         for(let j = 0; j < amount_of_data_clumps; j++){
             let progress_data_clumps = j+1;
 
-            let elaspedTime = timer.getElapsedTime();
-            if(elaspedTime > lastElapsedTime + 1000){
-                console.log("Analysing file: "+report_file_path);
-                AnalyseHelper.printProgress(progress_files, total_amount_of_report_files, progress_data_clumps, amount_of_data_clumps);
-                timer.printElapsedTime()
-                timer.printEstimatedTimeRemaining(progress_files, total_amount_of_report_files)
-                lastElapsedTime = elaspedTime
-            }
+            let suffix = " - Data Clumps: "+progress_data_clumps+"/"+amount_of_data_clumps;
+            timer.printEstimatedTimeRemainingAfter1Second(progress_files, total_amount_of_report_files, "Analysing", suffix);
 
             let data_clump_key = data_clump_keys[j]
             if(dict_of_analysed_data_clumps_keys[data_clump_key] === true){ // Skip already analysed data clumps
@@ -141,17 +69,17 @@ async function analyse(report_folder, options){
                 if(data_clump_type === "parameters_to_parameters_data_clump"){
                     let method_key = data_clump.from_method_key;
                     if(!!method_key){
-                        addAmount(method_amount_data_clumps, {[method_key]: 1});
+                        method_amount_data_clumps.addOccurence(method_key, 1);
                     }
                 } else if(data_clump_type === "fields_to_fields_data_clump"){
                     let class_key = data_clump.from_class_or_interface_key
                     if(!!class_key){
-                        addAmount(class_amount_data_clumps, {[class_key]: 1});
+                        class_amount_data_clumps.addOccurence(class_key, 1);
                     }
                 } else if(data_clump_type === "parameters_to_fields_data_clump"){
                     let method_key = data_clump.from_method_key;
                     if(!!method_key){
-                        addAmount(method_amount_data_clumps, {[method_key]: 1});
+                        method_amount_data_clumps.addOccurence(method_key, 1);
                     }
                     // Not needed as the data clump is from parameters to fields
                     //let class_key = data_clump.to_class_or_interface_key´
@@ -166,27 +94,29 @@ async function analyse(report_folder, options){
 
     console.log("Start analysing distances");
 
-    let distributionNumberOfDataClumpsPerClass: Record<number, number> = {};
-    let distributionNumberOfDataClumpsPerMethod: Record<number, number> = {};
+    let distributionNumberOfDataClumpsPerClass = new NumberOccurenceDict();
+    let distributionNumberOfDataClumpsPerMethod = new NumberOccurenceDict();
 
-    let class_keys = Object.keys(class_amount_data_clumps);
+    let class_keys = class_amount_data_clumps.getKeys()
     for(let i = 0; i < class_keys.length; i++) {
         let class_key = class_keys[i];
-        let amount = class_amount_data_clumps[class_key];
-        addAmount(distributionNumberOfDataClumpsPerClass, {[amount]: 1});
+        let amount = class_amount_data_clumps.getOccurence(class_key);
+        distributionNumberOfDataClumpsPerClass.addOccurence(amount, 1);
     }
 
-    let method_keys = Object.keys(method_amount_data_clumps);
+    let method_keys = method_amount_data_clumps.getKeys();
     for(let i = 0; i < method_keys.length; i++) {
         let method_key = method_keys[i];
-        let amount = method_amount_data_clumps[method_key];
-        addAmount(distributionNumberOfDataClumpsPerMethod, {[amount]: 1});
+        let amount = method_amount_data_clumps.getOccurence(method_key);
+        distributionNumberOfDataClumpsPerMethod.addOccurence(amount, 1);
     }
 
     let analysis_objects: Record<string, Record<string, number>> = {
-        "Classes_with_Field_Field_Data_Clumps": distributionNumberOfDataClumpsPerClass,
-        "Methods_with_Parameter_Parameter_and_Parameter_Field_Data_Clumps": distributionNumberOfDataClumpsPerMethod
+        "Classes_with_Field_Field_Data_Clumps": distributionNumberOfDataClumpsPerClass.occurenceDict,
+        "Methods_with_Parameter_Parameter_and_Parameter_Field_Data_Clumps": distributionNumberOfDataClumpsPerMethod.occurenceDict
     }
+
+    let fileContent = AnalyseHelper.getPythonLibrariesFileContent();
 
     let anylsis_keys = Object.keys(analysis_objects);
     for(let i = 0; i < anylsis_keys.length; i++){
@@ -202,33 +132,10 @@ async function analyse(report_folder, options){
     }
     fileContent += "\n";
     fileContent += "labels, data = all_data.keys(), all_data.values()\n";
-    fileContent += "\n" +
-        "# Berechnung der Statistik-Werte\n" +
-        "statistics = {}\n" +
-        "for label, values in all_data.items():\n" +
-        "    values_sorted = np.sort(values)\n" +
-        "    sum_value = sum(values_sorted)\n" +
-        "    q1 = np.percentile(values_sorted, 25)\n" +
-        "    median = np.median(values_sorted)\n" +
-        "    q3 = np.percentile(values_sorted, 75)\n" +
-        "    # Whisker-Berechnung\n" +
-        "    iqr = q3 - q1\n" +
-        "    lower_whisker = np.min(values_sorted[values_sorted >= (q1 - 1.5 * iqr)])\n" +
-        "    upper_whisker = np.max(values_sorted[values_sorted <= (q3 + 1.5 * iqr)])\n" +
-        "    min_value = np.min(values_sorted)\n" +
-        "    max_value = np.max(values_sorted)\n" +
-        "    statistics[label] = {\n" +
-        "        'Q1': q1, 'Median': median, 'Q3': q3,\n" +
-        "        'Lower Whisker': lower_whisker, 'Upper Whisker': upper_whisker,\n" +
-        "        'Min': min_value, 'Max': max_value, 'Sum': sum_value\n" +
-        "    }\n" +
-        "\n" +
-        "    print(f\"{label}: Q1 = {q1:.2f}, Median = {median:.2f}, Q3 = {q3:.2f}, \"\n" +
-        "          f\"Lower Whisker = {lower_whisker:.2f}, Upper Whisker = {upper_whisker:.2f}, \"\n" +
-        "          f\"Min = {min_value:.2f}, Max = {max_value:.2f}, Sum = {sum_value:.2f}\")" +
-        "\n";
-    fileContent += "fig, ax1 = plt.subplots()\n";
-    fileContent += "plt.boxplot(data, vert=False, widths=0.5, medianprops={'color': (172/255, 6/255, 52/255)})  # RGB umgerechnet auf 0-1 Skala\n";
+    fileContent += AnalyseHelper.getPythonStatisticsForDataValues();
+    fileContent += `fig, ax1 = ${AnalyseHelper.getPythonSubplot(options.output_filename_without_extension)}\n`;
+    fileContent += `plt.boxplot(data, vert=False, widths=0.5, ${AnalyseHelper.getPythonMedianColor()})  # RGB umgerechnet auf 0-1 Skala
+`;
     fileContent += "ax1.set(xlabel='Number of Data Clumps')\n";
     // Replace underscores with spaces in labels
     fileContent += "wrapped_labels = ['\\n'.join(textwrap.wrap(label.replace('_', ' '), width=20)) for label in labels]\n";
@@ -240,8 +147,7 @@ async function analyse(report_folder, options){
 
     fileContent += "plt.subplots_adjust(left=0.28, right=0.95, top=0.98, bottom=0.23)\n"; // Adjust bottom for better label display
     fileContent += "fig.set_size_inches(6, 2, forward=True)\n";
-    fileContent += "fig.set_dpi(200)\n";
-    fileContent += "plt.show()\n";
+    fileContent += AnalyseHelper.getPythonFigDpiSetttingsAndShow();
 
     return fileContent
 
@@ -250,10 +156,12 @@ async function analyse(report_folder, options){
 async function main() {
     console.log("Data-Clumps-Doctor Detection");
 
-    program.parse(process.argv);
-
     // Get the options and arguments
-    const options = program.opts();
+    const options = AnalyseHelper.getCommandForAnalysis(process, {
+        require_report_path: true,
+        require_output_path: false,
+        default_output_filename_without_extension: "AnalyseDistributionDataClumpClassAndMethodFanIn"
+    })
 
     const report_folder = options.report_folder;
 
