@@ -4,7 +4,7 @@ import {Dictionary} from "./../UtilTypes";
 import {DataClumpTypeContext} from "data-clumps-type-context";
 import {ClassOrInterfaceTypeContext, MemberFieldParameterTypeContext, MethodTypeContext} from "./../ParsedAstTypes";
 import {SoftwareProjectDicts} from "./../SoftwareProject";
-import {DetectorOptions} from "./Detector";
+import {DetectorOptions, InvertedIndexSoftwareProject} from "./Detector";
 
 // TODO refactor this method to Detector since there is already the creation, so why not the refactoring
 function getParsedValuesFromPartialOptions(rawOptions: DetectorOptions): DetectorOptions{
@@ -34,7 +34,7 @@ export class DetectorDataClumpsFields {
         this.progressCallback = progressCallback;
     }
 
-    public async detect(softwareProjectDicts: SoftwareProjectDicts): Promise<Dictionary<DataClumpTypeContext> | null>{
+    public async detect(softwareProjectDicts: SoftwareProjectDicts, invertedIndexSoftwareProject: InvertedIndexSoftwareProject): Promise<Dictionary<DataClumpTypeContext> | null>{
         console.log("DetectorDataClumpsFields: detect")
 
         //let classesDict = DetectorUtils.getClassesDict(softwareProjectDicts); // in java also interfaces can have fields
@@ -56,7 +56,7 @@ export class DetectorDataClumpsFields {
                 continue;
             }
 
-            this.generateMemberFieldParametersRelatedToForClass(currentClass, classesDict, dataClumpsFieldParameters, softwareProjectDicts);
+            this.generateMemberFieldParametersRelatedToForClass(currentClass, classesDict, dataClumpsFieldParameters, softwareProjectDicts, invertedIndexSoftwareProject);
             index++;
         }
         return dataClumpsFieldParameters;
@@ -81,7 +81,7 @@ export class DetectorDataClumpsFields {
      * @example
      * // Example usage of the method would go here, showcasing how to call it with appropriate parameters.
      */
-    private generateMemberFieldParametersRelatedToForClass(currentClass: ClassOrInterfaceTypeContext, classesDict: Dictionary<ClassOrInterfaceTypeContext>, dataClumpsFieldParameters: Dictionary<DataClumpTypeContext>, softwareProjectDicts: SoftwareProjectDicts){
+    private generateMemberFieldParametersRelatedToForClass(currentClass: ClassOrInterfaceTypeContext, classesDict: Dictionary<ClassOrInterfaceTypeContext>, dataClumpsFieldParameters: Dictionary<DataClumpTypeContext>, softwareProjectDicts: SoftwareProjectDicts, invertedIndexSoftwareProject: InvertedIndexSoftwareProject){
 
         let currentClassWholeHierarchyKnown = currentClass.isWholeHierarchyKnown(softwareProjectDicts)
         if(!currentClassWholeHierarchyKnown){
@@ -106,10 +106,33 @@ export class DetectorDataClumpsFields {
         if(amountOfMemberFields < this.options.sharedFieldsToFieldsAmountMinimum){
             return;
         }
-        let otherClassKeys = Object.keys(classesDict);
-        for (let otherClassKey of otherClassKeys) {
-            let otherClass = classesDict[otherClassKey];
 
+        let currentClassFields: Dictionary<MemberFieldParameterTypeContext> = currentClass.fields;
+        let recordClassesNumberFound: Record<string, {
+            amountFound: number,
+            fields: Dictionary<MemberFieldParameterTypeContext>
+        }> = {};
+        for(let memberFieldParameter of memberFieldParameters){
+            let invertedFieldKey = InvertedIndexSoftwareProject.getFieldKey(memberFieldParameter);
+            let classesHavingField = invertedIndexSoftwareProject.fieldToClassOrInterfaceKey[invertedFieldKey];
+            let classesHavingFieldKeys = Object.keys(classesHavingField);
+            for(let classHavingFieldKey of classesHavingFieldKeys){
+                if(!recordClassesNumberFound[classHavingFieldKey]){
+                    recordClassesNumberFound[classHavingFieldKey] = {
+                        amountFound: 0,
+                        fields: {}
+                    }
+                }
+                recordClassesNumberFound[classHavingFieldKey].amountFound++;
+                recordClassesNumberFound[classHavingFieldKey].fields[invertedFieldKey] = memberFieldParameter;
+            }
+        }
+        // now we have for all classes that have a field in common with the current class
+        // now check how many fields are in common > 3
+        let otherClassesToCheck = Object.keys(recordClassesNumberFound);
+        for(let otherClassKey of otherClassesToCheck){
+            let record = recordClassesNumberFound[otherClassKey];
+            let otherClass = classesDict[otherClassKey];
             this.generateMemberFieldParametersRelatedToForClassToOtherClass(currentClass, otherClass, dataClumpsFieldParameters, softwareProjectDicts, currentClassWholeHierarchyKnown);
         }
     }

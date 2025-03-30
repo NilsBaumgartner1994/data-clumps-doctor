@@ -2,7 +2,7 @@ import {DetectorUtils} from "./DetectorUtils";
 import {DataClumpTypeContext, Dictionary} from "data-clumps-type-context";
 import {MethodTypeContext} from "./../ParsedAstTypes";
 import {SoftwareProjectDicts} from "./../SoftwareProject";
-import {DetectorOptions, DetectorOptionsInformation} from "./Detector";
+import {DetectorOptions, DetectorOptionsInformation, InvertedIndexSoftwareProject} from "./Detector";
 
 // TODO refactor this method to Detector since there is already the creation, so why not the refactoring
 function getParsedValuesFromPartialOptions(rawOptions: DetectorOptions): DetectorOptions{
@@ -38,7 +38,8 @@ export class DetectorDataClumpsMethodsToOtherMethods {
      * @param methodToClassOrInterfaceDict
      * @private
      */
-    public checkParameterDataClumps(method: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, methodWholeHierarchyKnown: boolean){
+    public checkParameterDataClumps(method: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, methodWholeHierarchyKnown: boolean, invertedIndexSoftwareProject: InvertedIndexSoftwareProject
+                                    ){
         //console.log("Checking parameter data clumps for method " + method.key);
 
         let methodParameters = method.parameters;

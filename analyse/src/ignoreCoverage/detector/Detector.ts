@@ -7,6 +7,12 @@ import path from "path";
 import fs from "fs";
 import {DetectorDataClumpsMethodsToOtherFields} from "./DetectorDataClumpsMethodsToOtherFields";
 import {DetectorDataClumpsMethodsToOtherMethods} from "./DetectorDataClumpsMethodsToOtherMethods";
+import {
+    ClassOrInterfaceTypeContext,
+    MemberFieldParameterTypeContext,
+    MethodParameterTypeContext,
+    MethodTypeContext
+} from "../ParsedAstTypes";
 
 let detector_version = "unknown";
 let reportVersion = "unknown";
@@ -186,6 +192,49 @@ function getDefaultValuesFromPartialOptions(partialOptions: Partial<DetectorOpti
     return result;
 }
 
+/**
+ * The idea is to have all fields to show to their class and all parameters to show to their method.
+ */
+export class InvertedIndexSoftwareProject {
+
+    public softwareProjectDicts: SoftwareProjectDicts;
+    public fieldToClassOrInterfaceKey: Record<string, Record<string, string>> = {};
+    public parameterToMethodKey: Record<string, Record<string, string>> = {};
+
+    static getFieldKey(field: MemberFieldParameterTypeContext){
+        return field.type + " " + field.name;
+    }
+
+    static getParameterKey(parameter: MethodParameterTypeContext){
+        return parameter.type + " " + parameter.name;
+    }
+
+    public constructor(softwareProjectDicts: SoftwareProjectDicts){
+        this.softwareProjectDicts = softwareProjectDicts;
+        let fieldKeys = Object.keys(softwareProjectDicts.dictMemberFieldParameters);
+        for(let fieldKey of fieldKeys){
+            let field = softwareProjectDicts.dictMemberFieldParameters[fieldKey];
+            let invertedIndexFieldKey = InvertedIndexSoftwareProject.getFieldKey(field);
+            if(!this.fieldToClassOrInterfaceKey[invertedIndexFieldKey]){
+                this.fieldToClassOrInterfaceKey[invertedIndexFieldKey] = {};
+            }
+            let classOrInterfaceKey = field.classOrInterfaceKey;
+            this.fieldToClassOrInterfaceKey[invertedIndexFieldKey][classOrInterfaceKey] = classOrInterfaceKey;
+        }
+
+        let parameterKeys = Object.keys(softwareProjectDicts.dictMethodParameters);
+        for(let parameterKey of parameterKeys){
+            let parameter = softwareProjectDicts.dictMethodParameters[parameterKey];
+            let invertedIndexParameterKey = InvertedIndexSoftwareProject.getParameterKey(parameter);
+            if(!this.parameterToMethodKey[invertedIndexParameterKey]){
+                this.parameterToMethodKey[invertedIndexParameterKey] = {};
+            }
+            let methodKey = parameter.methodKey;
+            this.parameterToMethodKey[invertedIndexParameterKey][methodKey] = methodKey;
+        }
+    }
+}
+
 export class Detector {
 
     public options: DetectorOptions;
@@ -287,10 +336,12 @@ export class Detector {
             data_clumps: {}
         };
 
+        let invertedIndexSoftwareProject = new InvertedIndexSoftwareProject(this.softwareProjectDicts);
+
         //console.log("Detecting software project for data clumps");
         //console.log(softwareProjectDicts);
         let detectorDataClumpsMethods = new DetectorDataClumpsMethods(this.options, this.progressCallback);
-        let commonMethodParameters = await detectorDataClumpsMethods.detect(this.softwareProjectDicts);
+        let commonMethodParameters = await detectorDataClumpsMethods.detect(this.softwareProjectDicts, invertedIndexSoftwareProject);
         let commonMethodParametersKeys: any[] = []
         if(!!commonMethodParameters){
             commonMethodParametersKeys = Object.keys(commonMethodParameters);
@@ -301,7 +352,7 @@ export class Detector {
         }
 
         let detectorDataClumpsFields = new DetectorDataClumpsFields(this.options, this.progressCallback);
-        let commonFields = await detectorDataClumpsFields.detect(this.softwareProjectDicts);
+        let commonFields = await detectorDataClumpsFields.detect(this.softwareProjectDicts, invertedIndexSoftwareProject);
         let commonFieldsKeys: any[] = []
         if(!!commonFields){
             commonFieldsKeys = Object.keys(commonFields);

@@ -2,7 +2,7 @@ import {DetectorUtils} from "./DetectorUtils";
 import {DataClumpTypeContext, Dictionary} from "data-clumps-type-context";
 import {ClassOrInterfaceTypeContext, MethodTypeContext} from "./../ParsedAstTypes";
 import {SoftwareProjectDicts} from "./../SoftwareProject";
-import {DetectorOptions, DetectorOptionsInformation} from "./Detector";
+import {DetectorOptions, DetectorOptionsInformation, InvertedIndexSoftwareProject} from "./Detector";
 import {DetectorDataClumpsFields} from "./DetectorDataClumpsFields";
 
 // TODO refactor this method to Detector since there is already the creation, so why not the refactoring
@@ -42,7 +42,7 @@ export class DetectorDataClumpsMethodsToOtherFields {
      * @param methodToClassOrInterfaceDict
      * @private
      */
-    public checkFieldDataClumps(method: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, methodWholeHierarchyKnown: boolean){
+    public checkFieldDataClumps(method: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, methodWholeHierarchyKnown: boolean, invertedIndexSoftwareProject: InvertedIndexSoftwareProject){
         //console.log("Checking parameter data clumps for method " + method.key);
 
         let methodParameters = method.parameters;
@@ -62,7 +62,7 @@ export class DetectorDataClumpsMethodsToOtherFields {
                 return;
             }
 
-            let foundDataClumps = this.checkMethodParametersForDataClumps(method, otherClassOrInterface, softwareProjectDicts, dataClumpsMethodParameterDataClumps, methodWholeHierarchyKnown);
+            let foundDataClumps = this.checkMethodParametersForDataClumps(method, otherClassOrInterface, softwareProjectDicts, dataClumpsMethodParameterDataClumps, methodWholeHierarchyKnown, invertedIndexSoftwareProject);
         }
     }
 
@@ -84,7 +84,7 @@ export class DetectorDataClumpsMethodsToOtherFields {
      *
      * @private
      */
-    private checkMethodParametersForDataClumps(method: MethodTypeContext,otherClassOrInterface: ClassOrInterfaceTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod: boolean){
+    private checkMethodParametersForDataClumps(method: MethodTypeContext,otherClassOrInterface: ClassOrInterfaceTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod: boolean, invertedIndexSoftwareProject: InvertedIndexSoftwareProject){
         //console.log("--- otherMethod"+ otherMethod.key)
 
 

@@ -2,7 +2,7 @@ import {DetectorUtils} from "./DetectorUtils";
 import {DataClumpTypeContext, Dictionary} from "data-clumps-type-context";
 import {MethodTypeContext} from "./../ParsedAstTypes";
 import {SoftwareProjectDicts} from "./../SoftwareProject";
-import {DetectorOptions, DetectorOptionsInformation} from "./Detector";
+import {DetectorOptions, DetectorOptionsInformation, InvertedIndexSoftwareProject} from "./Detector";
 import {DetectorDataClumpsMethodsToOtherMethods} from "./DetectorDataClumpsMethodsToOtherMethods";
 import {DetectorDataClumpsMethodsToOtherFields} from "./DetectorDataClumpsMethodsToOtherFields";
 
@@ -35,7 +35,7 @@ export class DetectorDataClumpsMethods {
         this.toOtherFieldsDetector = new DetectorDataClumpsMethodsToOtherFields(options, progressCallback);
     }
 
-    public async detect(softwareProjectDicts: SoftwareProjectDicts): Promise<Dictionary<DataClumpTypeContext> | null>{
+    public async detect(softwareProjectDicts: SoftwareProjectDicts,  invertedIndexSoftwareProject: InvertedIndexSoftwareProject): Promise<Dictionary<DataClumpTypeContext> | null>{
         //console.log("Detecting software project for data clumps in methods");
         let methodsDict = softwareProjectDicts.dictMethod;
         let methodKeys = Object.keys(methodsDict);
@@ -49,7 +49,7 @@ export class DetectorDataClumpsMethods {
             }
             let method = methodsDict[methodKey];
 
-            this.analyzeMethod(method, softwareProjectDicts, detectedDataClumpsDict);
+            this.analyzeMethod(method, softwareProjectDicts, detectedDataClumpsDict, invertedIndexSoftwareProject);
             index++;
         }
         return detectedDataClumpsDict;
@@ -61,7 +61,7 @@ export class DetectorDataClumpsMethods {
      * @param methodToClassOrInterfaceDict
      * @private
      */
-    private analyzeMethod(method: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>){
+    private analyzeMethod(method: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, invertedIndexSoftwareProject: InvertedIndexSoftwareProject){
 
         let currentClassOrInterface = MethodTypeContext.getClassOrInterface(method, softwareProjectDicts);
         if(currentClassOrInterface.auxclass){ // ignore auxclasses as are not important for our project
@@ -86,8 +86,8 @@ export class DetectorDataClumpsMethods {
 
 
         // we assume that all methods are not constructors
-        this.toOtherMethodsDetector.checkParameterDataClumps(method, softwareProjectDicts, dataClumpsMethodParameterDataClumps, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod);
-        this.toOtherFieldsDetector.checkFieldDataClumps(method, softwareProjectDicts, dataClumpsMethodParameterDataClumps, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod)
+        this.toOtherMethodsDetector.checkParameterDataClumps(method, softwareProjectDicts, dataClumpsMethodParameterDataClumps, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod, invertedIndexSoftwareProject)
+        this.toOtherFieldsDetector.checkFieldDataClumps(method, softwareProjectDicts, dataClumpsMethodParameterDataClumps, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod, invertedIndexSoftwareProject)
     }
 
 }
