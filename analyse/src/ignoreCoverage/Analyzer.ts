@@ -265,10 +265,12 @@ export class Analyzer {
             await ParserHelper.removeGeneratedAst(this.path_to_ast_output);
             fs.mkdirSync(this.path_to_ast_output, { recursive: true });
 
-            console.log("Generate AST");
-
             if(this.source_type === "java"){
+                let astTimer = new Timer();
+                astTimer.start();
                 await ParserHelperJavaSourceCode.parseSourceCodeToAst(this.path_to_source, this.path_to_ast_output, this.path_to_ast_generator_folder);
+                astTimer.stop();
+                astTimer.printElapsedTime("Ast generation time");
             } else if(this.source_type === "uml"){
                 await ParserHelperXmlVisualParadigm.parseXmlToAst(this.path_to_source, this.path_to_ast_output);
             } else if(this.source_type === "ast"){
@@ -296,7 +298,13 @@ export class Analyzer {
             let path_to_result = Analyzer.replaceOutputVariables(this.path_to_output_with_variables, this.project_name, commit);
             let progressCallback = null
             //let progressCallback = this.generateAstCallback.bind(this);
-            await Analyzer.analyseSoftwareProjectDicts(softwareProjectDicts, this.project_url, this.project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, this.detectorOptions);
+
+            let analyseTime = new Timer();
+            analyseTime.start();
+            let dataClumpsContext = await Analyzer.analyseSoftwareProjectDicts(softwareProjectDicts, this.project_url, this.project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, this.detectorOptions);
+            analyseTime.stop();
+            analyseTime.printElapsedTime("Analysis time");
+            console.log(JSON.stringify(dataClumpsContext.report_summary, null, 2));
 
             if(!this.preserve_ast_output){
                 await ParserHelper.removeGeneratedAst(this.path_to_ast_output);

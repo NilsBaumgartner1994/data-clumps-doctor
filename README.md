@@ -77,6 +77,7 @@ node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub
 All Git Tags
 ```
 --commit_selection tags
+node ./build/ignoreCoverage/cli.js --git_project_url_to_analyse https://github.com/argouml-tigris-org/argouml.git --commit_selection be952fcfa77451e594a41779db83e1a0d7221002 --output /Users/nilsbaumgartner/Desktop/argoUml.json
 ```
 
 
