@@ -107,24 +107,20 @@ export class DetectorDataClumpsFields {
             return;
         }
 
-        let currentClassFields: Dictionary<MemberFieldParameterTypeContext> = currentClass.fields;
         let recordClassesNumberFound: Record<string, {
             amountFound: number,
-            fields: Dictionary<MemberFieldParameterTypeContext>
         }> = {};
         for(let memberFieldParameter of memberFieldParameters){
-            let invertedFieldKey = InvertedIndexSoftwareProject.getFieldKey(memberFieldParameter);
-            let classesHavingField = invertedIndexSoftwareProject.fieldToClassOrInterfaceKey[invertedFieldKey];
+            let invertedFieldKey = InvertedIndexSoftwareProject.getFieldFieldKeyForField(memberFieldParameter);
+            let classesHavingField = invertedIndexSoftwareProject.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedFieldKey];
             let classesHavingFieldKeys = Object.keys(classesHavingField);
             for(let classHavingFieldKey of classesHavingFieldKeys){
                 if(!recordClassesNumberFound[classHavingFieldKey]){
                     recordClassesNumberFound[classHavingFieldKey] = {
                         amountFound: 0,
-                        fields: {}
                     }
                 }
                 recordClassesNumberFound[classHavingFieldKey].amountFound++;
-                recordClassesNumberFound[classHavingFieldKey].fields[invertedFieldKey] = memberFieldParameter;
             }
         }
         // now we have for all classes that have a field in common with the current class

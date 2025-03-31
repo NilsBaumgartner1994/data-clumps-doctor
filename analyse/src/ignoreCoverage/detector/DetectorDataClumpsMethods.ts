@@ -84,6 +84,13 @@ export class DetectorDataClumpsMethods {
             return;
         }
 
+        let methodParameters = method.parameters;
+        let methodParametersKeys = Object.keys(methodParameters);
+        let methodParametersAmount = methodParametersKeys.length;
+        if(methodParametersAmount < this.options.sharedParametersToFieldsAmountMinimum){ // avoid checking methods with less than 3 parameters
+            //console.log("Method " + otherMethod.key + " has less than " + this.options.sharedParametersToParametersAmountMinimum + " parameters. Skipping this method.")
+            return;
+        }
 
         // we assume that all methods are not constructors
         this.toOtherMethodsDetector.checkParameterDataClumps(method, softwareProjectDicts, dataClumpsMethodParameterDataClumps, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod, invertedIndexSoftwareProject)

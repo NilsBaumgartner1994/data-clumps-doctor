@@ -42,31 +42,30 @@ export class DetectorDataClumpsMethodsToOtherMethods {
                                     ){
         //console.log("Checking parameter data clumps for method " + method.key);
 
+        let methodRecordCounting: Record<string, {
+            amountFound: number,
+        }> = {};
         let methodParameters = method.parameters;
-        let methodParametersKeys = Object.keys(methodParameters);
-        let methodParametersAmount = methodParametersKeys.length;
-        if(methodParametersAmount < this.options.sharedParametersToParametersAmountMinimum){ // avoid checking methods with less than 3 parameters
-            //console.log("Method " + otherMethod.key + " has less than " + this.options.sharedParametersToParametersAmountMinimum + " parameters. Skipping this method.")
-            return;
+        for(let methodParameter of methodParameters){
+            let invertedFieldKey = InvertedIndexSoftwareProject.getParameterParameterKeyForParameter(methodParameter);
+            let methodsHavingParameter = invertedIndexSoftwareProject.parameterKeyForParameterParameterDataClumpToMethodKey[invertedFieldKey];
+            let methodsHavingParameterKeys = Object.keys(methodsHavingParameter);
+            for(let methodHavingParameterKey of methodsHavingParameterKeys){
+                if(!methodRecordCounting[methodHavingParameterKey]){
+                    methodRecordCounting[methodHavingParameterKey] = {
+                        amountFound: 0,
+                    }
+                }
+                methodRecordCounting[methodHavingParameterKey].amountFound++;
+            }
         }
 
-        let classesOrInterfacesDict = softwareProjectDicts.dictClassOrInterface;
-        let otherClassesOrInterfacesKeys = Object.keys(classesOrInterfacesDict);
-        for (let classOrInterfaceKey of otherClassesOrInterfacesKeys) {
-            let otherClassOrInterface = classesOrInterfacesDict[classOrInterfaceKey];
-
-            if(otherClassOrInterface.auxclass){ // ignore auxclasses as are not important for our project
-                return;
-            }
-
-            let otherMethods = otherClassOrInterface.methods;
-            let otherMethodsKeys = Object.keys(otherMethods);
-            for (let otherMethodKey of otherMethodsKeys) {
-                let otherMethod = otherMethods[otherMethodKey];
-                // DataclumpsInspection.java line 511
-                let foundDataClumps = this.checkMethodParametersForDataClumps(method, otherMethod, softwareProjectDicts, dataClumpsMethodParameterDataClumps, methodWholeHierarchyKnown);
-                // TODO: DataclumpsInspection.java line 512
-            }
+        let otherMethodKeys = Object.keys(methodRecordCounting);
+        for (let otherMethodKey of otherMethodKeys) {
+            let otherMethod = softwareProjectDicts.dictMethod[otherMethodKey];
+            // DataclumpsInspection.java line 511
+            let foundDataClumps = this.checkMethodParametersForDataClumps(method, otherMethod, softwareProjectDicts, dataClumpsMethodParameterDataClumps, methodWholeHierarchyKnown);
+            // TODO: DataclumpsInspection.java line 512
         }
     }
 

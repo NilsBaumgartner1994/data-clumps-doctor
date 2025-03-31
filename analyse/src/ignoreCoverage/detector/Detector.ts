@@ -198,39 +198,66 @@ function getDefaultValuesFromPartialOptions(partialOptions: Partial<DetectorOpti
 export class InvertedIndexSoftwareProject {
 
     public softwareProjectDicts: SoftwareProjectDicts;
-    public fieldToClassOrInterfaceKey: Record<string, Record<string, string>> = {};
-    public parameterToMethodKey: Record<string, Record<string, string>> = {};
+    public fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey: Record<string, Record<string, string>> = {};
+    public parameterKeyForParameterParameterDataClumpToMethodKey: Record<string, Record<string, string>> = {};
+    public fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey: Record<string, Record<string, string>> = {};
 
-    static getFieldKey(field: MemberFieldParameterTypeContext){
+    static getFieldFieldKeyForField(field: MemberFieldParameterTypeContext){
+        let modifiers = field.modifiers;
+        let modifiersString = "";
+        if(!!modifiers){
+            modifiersString = modifiers.join(" ");
+        }
+        let signature = "";
+        if(modifiersString.length>0){
+            signature = modifiersString + " ";
+        }
+        return signature+field.type + " " + field.name;
+    }
+
+    static getParameterParameterKeyForParameter(parameter: MethodParameterTypeContext){
+        return parameter.type + " " + parameter.name;
+    }
+
+    static getParameterFieldKeyForParameter(parameter: MethodParameterTypeContext){
+        return parameter.type + " " + parameter.name;
+    }
+
+    static getParameterFieldKeyForField(field: MemberFieldParameterTypeContext){
         return field.type + " " + field.name;
     }
 
-    static getParameterKey(parameter: MethodParameterTypeContext){
-        return parameter.type + " " + parameter.name;
-    }
+
 
     public constructor(softwareProjectDicts: SoftwareProjectDicts){
         this.softwareProjectDicts = softwareProjectDicts;
         let fieldKeys = Object.keys(softwareProjectDicts.dictMemberFieldParameters);
         for(let fieldKey of fieldKeys){
             let field = softwareProjectDicts.dictMemberFieldParameters[fieldKey];
-            let invertedIndexFieldKey = InvertedIndexSoftwareProject.getFieldKey(field);
-            if(!this.fieldToClassOrInterfaceKey[invertedIndexFieldKey]){
-                this.fieldToClassOrInterfaceKey[invertedIndexFieldKey] = {};
-            }
             let classOrInterfaceKey = field.classOrInterfaceKey;
-            this.fieldToClassOrInterfaceKey[invertedIndexFieldKey][classOrInterfaceKey] = classOrInterfaceKey;
+
+            let invertedIndexFieldKey = InvertedIndexSoftwareProject.getFieldFieldKeyForField(field);
+            if(!this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedIndexFieldKey]){
+                this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedIndexFieldKey] = {};
+            }
+            this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedIndexFieldKey][classOrInterfaceKey] = classOrInterfaceKey;
+
+            let invertedIndexParameterFieldKey = InvertedIndexSoftwareProject.getParameterFieldKeyForField(field);
+            if(!this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedIndexParameterFieldKey]){
+                this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedIndexParameterFieldKey] = {};
+            }
+            this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedIndexParameterFieldKey][classOrInterfaceKey] = classOrInterfaceKey;
         }
 
         let parameterKeys = Object.keys(softwareProjectDicts.dictMethodParameters);
         for(let parameterKey of parameterKeys){
             let parameter = softwareProjectDicts.dictMethodParameters[parameterKey];
-            let invertedIndexParameterKey = InvertedIndexSoftwareProject.getParameterKey(parameter);
-            if(!this.parameterToMethodKey[invertedIndexParameterKey]){
-                this.parameterToMethodKey[invertedIndexParameterKey] = {};
+            let invertedIndexParameterKey = InvertedIndexSoftwareProject.getParameterParameterKeyForParameter(parameter);
+            if(!this.parameterKeyForParameterParameterDataClumpToMethodKey[invertedIndexParameterKey]){
+                this.parameterKeyForParameterParameterDataClumpToMethodKey[invertedIndexParameterKey] = {};
             }
             let methodKey = parameter.methodKey;
-            this.parameterToMethodKey[invertedIndexParameterKey][methodKey] = methodKey;
+            this.parameterKeyForParameterParameterDataClumpToMethodKey[invertedIndexParameterKey][methodKey] = methodKey;
         }
     }
 }
