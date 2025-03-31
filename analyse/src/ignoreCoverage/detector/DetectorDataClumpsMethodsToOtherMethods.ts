@@ -42,27 +42,30 @@ export class DetectorDataClumpsMethodsToOtherMethods {
                                     ){
         //console.log("Checking parameter data clumps for method " + method.key);
 
-        let methodRecordCounting: Record<string, {
-            amountFound: number,
-        }> = {};
-        let methodParameters = method.parameters;
-        for(let methodParameter of methodParameters){
-            let invertedFieldKey = InvertedIndexSoftwareProject.getParameterParameterKeyForParameter(methodParameter);
-            let methodsHavingParameter = invertedIndexSoftwareProject.parameterKeyForParameterParameterDataClumpToMethodKey[invertedFieldKey];
-            let methodsHavingParameterKeys = Object.keys(methodsHavingParameter);
-            for(let methodHavingParameterKey of methodsHavingParameterKeys){
-                if(!methodRecordCounting[methodHavingParameterKey]){
-                    methodRecordCounting[methodHavingParameterKey] = {
-                        amountFound: 0,
-                    }
+        let otherMethods: MethodTypeContext[] = [];
+
+        let useFastSearch = this.options.fastDetection
+        if(useFastSearch){
+            otherMethods = invertedIndexSoftwareProject.getPossibleMethodsForParameterParameterDataClump(method, softwareProjectDicts);
+        } else {
+            let classesOrInterfacesDict = softwareProjectDicts.dictClassOrInterface;
+            let otherClassesOrInterfacesKeys = Object.keys(classesOrInterfacesDict);
+            for (let classOrInterfaceKey of otherClassesOrInterfacesKeys) {
+                let otherClassOrInterface = classesOrInterfacesDict[classOrInterfaceKey];
+
+                if(otherClassOrInterface.auxclass){ // ignore auxclasses as are not important for our project
+                    return;
                 }
-                methodRecordCounting[methodHavingParameterKey].amountFound++;
+
+                let methodsOfOtherClass = otherClassOrInterface.methods;
+                let otherMethodsKeys = Object.keys(methodsOfOtherClass);
+                for (let otherMethodKey of otherMethodsKeys) {
+                    let otherMethod = methodsOfOtherClass[otherMethodKey];
+                    otherMethods.push(otherMethod);
+                }
             }
         }
-
-        let otherMethodKeys = Object.keys(methodRecordCounting);
-        for (let otherMethodKey of otherMethodKeys) {
-            let otherMethod = softwareProjectDicts.dictMethod[otherMethodKey];
+        for (let otherMethod of otherMethods) {
             // DataclumpsInspection.java line 511
             let foundDataClumps = this.checkMethodParametersForDataClumps(method, otherMethod, softwareProjectDicts, dataClumpsMethodParameterDataClumps, methodWholeHierarchyKnown);
             // TODO: DataclumpsInspection.java line 512
@@ -147,9 +150,7 @@ export class DetectorDataClumpsMethodsToOtherMethods {
             return;
         }
 
-
-        let ignoreParameterToFieldModifiers = true; // From https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5328371 "These parameters should have same signatures (same names, same data types)." since parameters can't have modifiers, we have to ignore them. And we shall only check names and data types
-        let commonMethodParameterPairKeys = DetectorUtils.getCommonParameterPairKeys(method.parameters, otherMethod.parameters, this.options.similarityModifierOfVariablesWithUnknownType, ignoreParameterToFieldModifiers);
+        let commonMethodParameterPairKeys = DetectorUtils.getCommonParameterParameterPairKeys(method.parameters, otherMethod.parameters, this.options);
 
         let amountCommonParameters = commonMethodParameterPairKeys.length;
         //console.log("Amount of common parameters: "+amountCommonParameters);
@@ -163,7 +164,7 @@ export class DetectorDataClumpsMethodsToOtherMethods {
 
             let fileKey = currentClassOrInterface.file_path;
 
-            let probability = DetectorUtils.calculateProbabilityOfDataClumpsMethodsToMethods(wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod, wholeHierarchyKnownOfOtherClassOrInterfaceOfCurrentMethod, commonMethodParameterPairKeys, this.options.methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier);
+            let probability = DetectorUtils.calculateProbabilityOfDataClumpsMethodsToMethods(wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod, wholeHierarchyKnownOfOtherClassOrInterfaceOfCurrentMethod, commonMethodParameterPairKeys, this.options);
 
             let data_clump_type = DetectorDataClumpsMethodsToOtherMethods.TYPE
             let dataClumpContext: DataClumpTypeContext = {

@@ -7,6 +7,7 @@ import {Timer} from "./Timer";
 import path from "path";
 import {ParserHelper} from "./ParserHelper";
 import {ParserHelperXmlVisualParadigm} from "./ParserHelperXmlVisualParadigm";
+import {DetectorUtils} from "./detector/DetectorUtils";
 
 export class Analyzer {
 

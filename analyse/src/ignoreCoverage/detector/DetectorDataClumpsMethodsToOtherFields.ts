@@ -45,33 +45,22 @@ export class DetectorDataClumpsMethodsToOtherFields {
     public checkFieldDataClumps(method: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, methodWholeHierarchyKnown: boolean, invertedIndexSoftwareProject: InvertedIndexSoftwareProject){
         //console.log("Checking parameter data clumps for method " + method.key);
 
-        let recordClassesNumberFound: Record<string, {
-            amountFound: number,
-        }> = {};
-        let methodParameters = method.parameters;
-        for(let methodParameter of methodParameters){
-            let invertedFieldKey = InvertedIndexSoftwareProject.getParameterFieldKeyForParameter(methodParameter);
-            let classesHavingField = invertedIndexSoftwareProject.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedFieldKey] || {};
-            let classesHavingFieldKeys = Object.keys(classesHavingField);
-            for(let classHavingFieldKey of classesHavingFieldKeys){
-                if(!recordClassesNumberFound[classHavingFieldKey]){
-                    recordClassesNumberFound[classHavingFieldKey] = {
-                        amountFound: 0,
-                    }
-                }
-                recordClassesNumberFound[classHavingFieldKey].amountFound++;
+        // now we have for all classes that have a field in common with the current class
+        let classesOrInterfacesToCheck: ClassOrInterfaceTypeContext[] = [];
+
+        let useFastSearch = this.options.fastDetection
+        if(useFastSearch){
+            classesOrInterfacesToCheck = invertedIndexSoftwareProject.getPossibleClassesOrInterfacesForParameterFieldDataClump(method, softwareProjectDicts);
+        } else {
+            // This will cause a N*N complexity, as we have to check all classes with all classes
+            let otherClassKeys = Object.keys(softwareProjectDicts.dictClassOrInterface);
+            for (let otherClassKey of otherClassKeys) {
+                let otherClass = softwareProjectDicts.dictClassOrInterface[otherClassKey];
+                classesOrInterfacesToCheck.push(otherClass);
             }
         }
-        // now we have for all classes that have a field in common with the current class
-        let classesOrInterfacesDict = softwareProjectDicts.dictClassOrInterface;
-        let otherClassesOrInterfacesKeys = Object.keys(recordClassesNumberFound);
-        for (let classOrInterfaceKey of otherClassesOrInterfacesKeys) {
-            let otherClassOrInterface = classesOrInterfacesDict[classOrInterfaceKey];
 
-            if(otherClassOrInterface.auxclass){ // ignore auxclasses as are not important for our project
-                return;
-            }
-
+        for (let otherClassOrInterface of classesOrInterfacesToCheck) {
             let foundDataClumps = this.checkMethodParametersForDataClumps(method, otherClassOrInterface, softwareProjectDicts, dataClumpsMethodParameterDataClumps, methodWholeHierarchyKnown, invertedIndexSoftwareProject);
         }
     }
@@ -97,6 +86,9 @@ export class DetectorDataClumpsMethodsToOtherFields {
     private checkMethodParametersForDataClumps(method: MethodTypeContext,otherClassOrInterface: ClassOrInterfaceTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod: boolean, invertedIndexSoftwareProject: InvertedIndexSoftwareProject){
         //console.log("--- otherMethod"+ otherMethod.key)
 
+        if(otherClassOrInterface.auxclass){ // ignore auxclasses as are not important for our project
+            return;
+        }
 
         let currentClassOrInterfaceKey = method.classOrInterfaceKey;
         let currentClassOrInterface = softwareProjectDicts.dictClassOrInterface[currentClassOrInterfaceKey];
@@ -105,18 +97,16 @@ export class DetectorDataClumpsMethodsToOtherFields {
         let otherClassWholeHierarchyKnown = otherClassOrInterface.isWholeHierarchyKnown(softwareProjectDicts)
         if(!this.options.fieldsOfClassesWithUnknownHierarchyProbabilityModifier){
             //console.log("- check if hierarchy is complete")
-            if(!otherClassWholeHierarchyKnown){ // since we dont the complete hierarchy, we can't detect if a class is inherited or not
+            if(!otherClassWholeHierarchyKnown){ // since we dont know the complete hierarchy, we can't detect if a class is inherited or not
                 //console.log("-- check if hierarchy is complete")
                 return; // therefore we stop here
             }
         }
 
-        let analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces = this.options.analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces;
-        let otherClassParameters = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(otherClassOrInterface, softwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces);
+        let otherClassParameters = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(otherClassOrInterface, softwareProjectDicts, this.options);
         //console.log("- Found data clumps between method " + method.key + " and method " + otherMethod.key);
 
-        let ignoreParameterToFieldModifiers = true; // From https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5328371 "These parameters should have same signatures (same names, same data types)." since parameters can't have modifiers, we have to ignore them. And we shall only check names and data types
-        let commonMethodParameterPairKeys = DetectorUtils.getCommonParameterPairKeys(method.parameters, otherClassParameters, this.options.similarityModifierOfVariablesWithUnknownType, ignoreParameterToFieldModifiers);
+        let commonMethodParameterPairKeys = DetectorUtils.getCommonParameterFieldPairKeys(method.parameters, otherClassParameters, this.options);
 
         let amountCommonParameters = commonMethodParameterPairKeys.length;
 

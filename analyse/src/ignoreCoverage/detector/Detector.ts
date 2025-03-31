@@ -13,6 +13,7 @@ import {
     MethodParameterTypeContext,
     MethodTypeContext
 } from "../ParsedAstTypes";
+import {DetectorUtils} from "./DetectorUtils";
 
 let detector_version = "unknown";
 let reportVersion = "unknown";
@@ -68,6 +69,14 @@ export class DetectorOptionsInformation {
     /**
      * TODO: Probability threshold for data clumps?
      */
+
+    public static fastDetection: DetectorOptionInformationParameter = {
+        label: "Use Fast Detection",
+        description: "If set to true, the detector will use a fast detection algorithm. Default value is true. Names, Types and other variables are only equal if they are exactly the same.",
+        defaultValue: true,
+        group: "all",
+        type: "boolean"
+    }
 
     /**
      * Fields
@@ -227,27 +236,115 @@ export class InvertedIndexSoftwareProject {
         return field.type + " " + field.name;
     }
 
+    public getPossibleMethodsForParameterParameterDataClump(currentMethod: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts){
+        let methodRecordCounting: Record<string, {
+            amountFound: number,
+        }> = {};
+        let methodParameters = currentMethod.parameters;
+        for(let methodParameter of methodParameters){
+            let invertedFieldKey = InvertedIndexSoftwareProject.getParameterParameterKeyForParameter(methodParameter);
+            let methodsHavingParameter = this.parameterKeyForParameterParameterDataClumpToMethodKey[invertedFieldKey];
+            let methodsHavingParameterKeys = Object.keys(methodsHavingParameter);
+            for(let methodHavingParameterKey of methodsHavingParameterKeys){
+                if(!methodRecordCounting[methodHavingParameterKey]){
+                    methodRecordCounting[methodHavingParameterKey] = {
+                        amountFound: 0,
+                    }
+                }
+                methodRecordCounting[methodHavingParameterKey].amountFound++;
+            }
+        }
+
+        let otherMethodKeys = Object.keys(methodRecordCounting);
+        let otherMethods: MethodTypeContext[] = [];
+        for(let otherMethodKey of otherMethodKeys){
+            let otherMethod = softwareProjectDicts.dictMethod[otherMethodKey];
+            if(otherMethod.key!==currentMethod.key){
+                otherMethods.push(otherMethod);
+            }
+        }
+        return otherMethods;
+    }
+
+    public getPossibleClassesOrInterfacesForParameterFieldDataClump(currentMethod: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts){
+        let recordClassesNumberFound: Record<string, {
+            amountFound: number,
+        }> = {};
+        let methodParameters = currentMethod.parameters;
+        for(let methodParameter of methodParameters){
+            let invertedFieldKey = InvertedIndexSoftwareProject.getParameterFieldKeyForParameter(methodParameter);
+            let classesHavingField = this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedFieldKey];
+            if(!!classesHavingField){
+                let classesHavingFieldKeys = Object.keys(classesHavingField);
+                for(let classHavingFieldKey of classesHavingFieldKeys){
+                    if(!recordClassesNumberFound[classHavingFieldKey]){
+                        recordClassesNumberFound[classHavingFieldKey] = {
+                            amountFound: 0,
+                        }
+                    }
+                    recordClassesNumberFound[classHavingFieldKey].amountFound++;
+                }
+            }
+        }
+        let otherClassesOrInterfaces: ClassOrInterfaceTypeContext[] = [];
+        let otherClassOrInterfaceKeys = Object.keys(recordClassesNumberFound);
+        for(let otherClassOrInterfaceKey of otherClassOrInterfaceKeys){
+            let otherClassOrInterface = softwareProjectDicts.dictClassOrInterface[otherClassOrInterfaceKey];
+            otherClassesOrInterfaces.push(otherClassOrInterface);
+        }
+        return otherClassesOrInterfaces;
+    }
+
+    public getPossibleClassesOrInterfacesForFieldFieldDataClump(currentClass: ClassOrInterfaceTypeContext, memberFieldParameters: MemberFieldParameterTypeContext[], softwareProjectDicts: SoftwareProjectDicts){
+        let recordClassesNumberFound: Record<string, {
+            amountFound: number,
+        }> = {};
+        for(let memberFieldParameter of memberFieldParameters){
+            let invertedFieldKey = InvertedIndexSoftwareProject.getFieldFieldKeyForField(memberFieldParameter);
+            let classesHavingField = this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedFieldKey];
+            let classesHavingFieldKeys = Object.keys(classesHavingField);
+            for(let classHavingFieldKey of classesHavingFieldKeys){
+                if(!recordClassesNumberFound[classHavingFieldKey]){
+                    recordClassesNumberFound[classHavingFieldKey] = {
+                        amountFound: 0,
+                    }
+                }
+                recordClassesNumberFound[classHavingFieldKey].amountFound++;
+            }
+        }
+        let otherClassesOrInterfaces: ClassOrInterfaceTypeContext[] = [];
+        let otherClassOrInterfaceKeys = Object.keys(recordClassesNumberFound);
+        for(let otherClassOrInterfaceKey of otherClassOrInterfaceKeys){
+            let otherClassOrInterface = softwareProjectDicts.dictClassOrInterface[otherClassOrInterfaceKey];
+            if(otherClassOrInterface.key!==currentClass.key){
+                otherClassesOrInterfaces.push(otherClassOrInterface);
+            }
+        }
+        return otherClassesOrInterfaces;
+    }
 
 
-    public constructor(softwareProjectDicts: SoftwareProjectDicts){
+    public constructor(softwareProjectDicts: SoftwareProjectDicts, options: DetectorOptions){
         this.softwareProjectDicts = softwareProjectDicts;
-        let fieldKeys = Object.keys(softwareProjectDicts.dictMemberFieldParameters);
-        for(let fieldKey of fieldKeys){
-            let field = softwareProjectDicts.dictMemberFieldParameters[fieldKey];
-            let classOrInterfaceKey = field.classOrInterfaceKey;
+        let classOrInterfaceKeys = Object.keys(softwareProjectDicts.dictClassOrInterface);
+        for(let classOrInterfaceKey of classOrInterfaceKeys){
+            let classOrInterface = softwareProjectDicts.dictClassOrInterface[classOrInterfaceKey];
 
-            let invertedIndexFieldKey = InvertedIndexSoftwareProject.getFieldFieldKeyForField(field);
-            if(!this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedIndexFieldKey]){
-                this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedIndexFieldKey] = {};
-            }
-            this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedIndexFieldKey][classOrInterfaceKey] = classOrInterfaceKey;
+            let fields = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(classOrInterface, softwareProjectDicts, options);
+            for(let field of fields){
+                let invertedIndexFieldKey = InvertedIndexSoftwareProject.getFieldFieldKeyForField(field);
+                if(!this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedIndexFieldKey]){
+                    this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedIndexFieldKey] = {};
+                }
+                this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedIndexFieldKey][classOrInterfaceKey] = classOrInterfaceKey;
 
-            let invertedIndexParameterFieldKey = InvertedIndexSoftwareProject.getParameterFieldKeyForField(field);
-            if(!this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedIndexParameterFieldKey]){
-                this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedIndexParameterFieldKey] = {};
+                let invertedIndexParameterFieldKey = InvertedIndexSoftwareProject.getParameterFieldKeyForField(field);
+                if(!this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedIndexParameterFieldKey]){
+                    this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedIndexParameterFieldKey] = {};
+                }
+                // @ts-ignore
+                this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedIndexParameterFieldKey][classOrInterfaceKey] = classOrInterfaceKey;
             }
-            // @ts-ignore
-            this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedIndexParameterFieldKey][classOrInterfaceKey] = classOrInterfaceKey;
         }
 
         let parameterKeys = Object.keys(softwareProjectDicts.dictMethodParameters);
@@ -309,6 +406,9 @@ export class Detector {
         this.project_commit_date = project_commit_date || null;
         this.additional = additional || {};
         this.detector_version = detector_version;
+
+
+        DetectorUtils.checkIfIncompatibleOptions(this.options);
     }
 
     public async detect(): Promise<DataClumpsTypeContext>{
@@ -364,7 +464,7 @@ export class Detector {
             data_clumps: {}
         };
 
-        let invertedIndexSoftwareProject = new InvertedIndexSoftwareProject(this.softwareProjectDicts);
+        let invertedIndexSoftwareProject = new InvertedIndexSoftwareProject(this.softwareProjectDicts, this.options);
 
         //console.log("Detecting software project for data clumps");
         //console.log(softwareProjectDicts);
@@ -438,7 +538,6 @@ export class Detector {
         this.timer.stop();
 
         //console.log("Detecting software project for data clumps (done)")
-        this.timer.printElapsedTime("Detector.detect");
 
         console.log("Amount of data clumps: " + Object.keys(dataClumpsTypeContext.data_clumps).length);
 

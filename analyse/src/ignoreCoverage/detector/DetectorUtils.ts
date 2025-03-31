@@ -1,7 +1,7 @@
-import {SoftwareProjectDicts} from "../SoftwareProject";
 import {Dictionary} from "../UtilTypes";
 import {DataClumpsVariableFromContext, DataClumpsVariableToContext,} from "data-clumps-type-context";
-import {ClassOrInterfaceTypeContext, MemberFieldParameterTypeContext, VariableTypeContext} from "../ParsedAstTypes";
+import {MemberFieldParameterTypeContext, MethodParameterTypeContext, VariableTypeContext} from "../ParsedAstTypes";
+import {DetectorOptions} from "./Detector";
 
 type ParameterPair = {
     parameterKey: string;
@@ -10,6 +10,16 @@ type ParameterPair = {
 }
 
 export class DetectorUtils {
+
+    public static checkIfIncompatibleOptions(options: DetectorOptions){
+        // fast Detection cannot be used with similarityModifierOfVariablesWithUnknownType > 0
+        if(options.fastDetection){
+            if(options.similarityModifierOfVariablesWithUnknownType > 0){
+                console.error("Fast detection is enabled, but similarityModifierOfVariablesWithUnknownType is greater than 0. This will cause a N*N complexity. Please disable fast detection or set similarityModifierOfVariablesWithUnknownType to 0.")
+                throw new Error("Fast detection is enabled, but similarityModifierOfVariablesWithUnknownType is greater than 0. This will cause a N*N complexity. Please disable fast detection or set similarityModifierOfVariablesWithUnknownType to 0.")
+            }
+        }
+    }
 
     private static calculateProbabilityOfDataClumps(currentProbabilityModifier: number, otherProbabilityModifier: number, parameterPairs: ParameterPair[]){
         let modifierCurrentClassKnown = currentProbabilityModifier
@@ -46,14 +56,14 @@ export class DetectorUtils {
         return probabilityOfDataClumps;
     }
 
-    public static calculateProbabilityOfDataClumpsMethodsToMethods(currentClassWholeHierarchyKnown: boolean, otherClassWholeHierarchyKnown: boolean, parameterPairs: ParameterPair[], methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier: number){
+    public static calculateProbabilityOfDataClumpsMethodsToMethods(currentClassWholeHierarchyKnown: boolean, otherClassWholeHierarchyKnown: boolean, parameterPairs: ParameterPair[], options: DetectorOptions){
         let currentModifier = 1;
         if(!currentClassWholeHierarchyKnown){
-            currentModifier = methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier * currentModifier
+            currentModifier = options.methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier * currentModifier
         }
         let otherModifier = 1;
         if(!otherClassWholeHierarchyKnown){
-            otherModifier = methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier * otherModifier
+            otherModifier = options.methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier * otherModifier
         }
 
         let probabilityOfDataClumps = DetectorUtils.calculateProbabilityOfDataClumps(currentModifier, otherModifier, parameterPairs);
@@ -71,18 +81,30 @@ export class DetectorUtils {
             otherModifier = fieldsOfClassesWithUnknownHierarchyProbabilityModifier * otherModifier
         }
 
-        let probabilityOfDataClumps = DetectorUtils.calculateProbabilityOfDataClumps(currentModifier, otherModifier, parameterPairs);
-        return probabilityOfDataClumps;
+        return DetectorUtils.calculateProbabilityOfDataClumps(currentModifier, otherModifier, parameterPairs);
     }
 
+    public static getCommonFieldFieldPairKeys(fields: MemberFieldParameterTypeContext[], otherFields: MemberFieldParameterTypeContext[], options: DetectorOptions){
+        let ignoreFieldModifiers = false; // From: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5328371 "These data fields should have same signatures (same names, same data types, and same access modifiers)."
+        return DetectorUtils.getCommonParameterPairKeys(fields, otherFields, options, ignoreFieldModifiers);
+    }
 
-    public static getCommonParameterPairKeys(parameters: VariableTypeContext[], otherParameters: VariableTypeContext[], similarityModifierOfVariablesWithUnknownType, ignoreParameterModifiers: boolean){
+    public static getCommonParameterFieldPairKeys(parameters: MethodParameterTypeContext[], fields: MemberFieldParameterTypeContext[], options: DetectorOptions){
+        let ignoreParameterToFieldModifiers = true; // From https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5328371 "These parameters should have same signatures (same names, same data types)." since parameters can't have modifiers, we have to ignore them. And we shall only check names and data types
+        return DetectorUtils.getCommonParameterPairKeys(parameters, fields, options, ignoreParameterToFieldModifiers);
+    }
 
+    public static getCommonParameterParameterPairKeys(parameters: MethodParameterTypeContext[], otherParameters: MethodParameterTypeContext[], options: DetectorOptions){
+        let ignoreParameterToFieldModifiers = true; // From https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5328371 "These parameters should have same signatures (same names, same data types)." since parameters can't have modifiers, we have to ignore them. And we shall only check names and data types
+        return DetectorUtils.getCommonParameterPairKeys(parameters, otherParameters, options, ignoreParameterToFieldModifiers);
+    }
+
+    private static getCommonParameterPairKeys(parameters: VariableTypeContext[], otherParameters: VariableTypeContext[], options: DetectorOptions, ignoreParameterModifiers: boolean){
 
         let commonParameterPairKeys: ParameterPair[] = [];
         for(let parameter of parameters){
             for(let otherParameter of otherParameters){
-                let probabilityOfSimilarity = parameter.isSimilarTo(otherParameter, similarityModifierOfVariablesWithUnknownType, ignoreParameterModifiers)
+                let probabilityOfSimilarity = parameter.isSimilarTo(otherParameter, options.similarityModifierOfVariablesWithUnknownType, ignoreParameterModifiers)
 
                 if(probabilityOfSimilarity > 0.5){
                     let commonParameterPairKey = {

@@ -56,7 +56,7 @@ export class DetectorDataClumpsFields {
                 continue;
             }
 
-            this.generateMemberFieldParametersRelatedToForClass(currentClass, classesDict, dataClumpsFieldParameters, softwareProjectDicts, invertedIndexSoftwareProject);
+            this.generateMemberFieldParametersRelatedToForClass(currentClass, dataClumpsFieldParameters, softwareProjectDicts, invertedIndexSoftwareProject);
             index++;
         }
         return dataClumpsFieldParameters;
@@ -81,7 +81,7 @@ export class DetectorDataClumpsFields {
      * @example
      * // Example usage of the method would go here, showcasing how to call it with appropriate parameters.
      */
-    private generateMemberFieldParametersRelatedToForClass(currentClass: ClassOrInterfaceTypeContext, classesDict: Dictionary<ClassOrInterfaceTypeContext>, dataClumpsFieldParameters: Dictionary<DataClumpTypeContext>, softwareProjectDicts: SoftwareProjectDicts, invertedIndexSoftwareProject: InvertedIndexSoftwareProject){
+    private generateMemberFieldParametersRelatedToForClass(currentClass: ClassOrInterfaceTypeContext, dataClumpsFieldParameters: Dictionary<DataClumpTypeContext>, softwareProjectDicts: SoftwareProjectDicts, invertedIndexSoftwareProject: InvertedIndexSoftwareProject){
 
         let currentClassWholeHierarchyKnown = currentClass.isWholeHierarchyKnown(softwareProjectDicts)
         if(!currentClassWholeHierarchyKnown){
@@ -101,34 +101,31 @@ export class DetectorDataClumpsFields {
 
 
         let analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces = this.options.analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces;
-        let memberFieldParameters = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(currentClass, softwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces);
+        let memberFieldParameters = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(currentClass, softwareProjectDicts, this.options);
         let amountOfMemberFields = memberFieldParameters.length;
         if(amountOfMemberFields < this.options.sharedFieldsToFieldsAmountMinimum){
             return;
         }
 
-        let recordClassesNumberFound: Record<string, {
-            amountFound: number,
-        }> = {};
-        for(let memberFieldParameter of memberFieldParameters){
-            let invertedFieldKey = InvertedIndexSoftwareProject.getFieldFieldKeyForField(memberFieldParameter);
-            let classesHavingField = invertedIndexSoftwareProject.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedFieldKey];
-            let classesHavingFieldKeys = Object.keys(classesHavingField);
-            for(let classHavingFieldKey of classesHavingFieldKeys){
-                if(!recordClassesNumberFound[classHavingFieldKey]){
-                    recordClassesNumberFound[classHavingFieldKey] = {
-                        amountFound: 0,
-                    }
-                }
-                recordClassesNumberFound[classHavingFieldKey].amountFound++;
-            }
-        }
         // now we have for all classes that have a field in common with the current class
         // now check how many fields are in common > 3
-        let otherClassesToCheck = Object.keys(recordClassesNumberFound);
-        for(let otherClassKey of otherClassesToCheck){
-            let record = recordClassesNumberFound[otherClassKey];
-            let otherClass = classesDict[otherClassKey];
+        let otherClassesToCheck: ClassOrInterfaceTypeContext[] = [];
+
+        let useFastSearch = this.options.fastDetection
+        if(useFastSearch){
+            // this will reduce the complexity drastically, as the inverted index will only return classes that have fields in common
+            // and the inverted index dict is only created once.
+            otherClassesToCheck = invertedIndexSoftwareProject.getPossibleClassesOrInterfacesForFieldFieldDataClump(currentClass, memberFieldParameters, softwareProjectDicts);
+        } else {
+            // This will cause a N*N complexity, as we have to check all classes with all classes
+            let otherClassKeys = Object.keys(softwareProjectDicts.dictClassOrInterface);
+            for (let otherClassKey of otherClassKeys) {
+                let otherClass = softwareProjectDicts.dictClassOrInterface[otherClassKey];
+                otherClassesToCheck.push(otherClass);
+            }
+        }
+
+        for(let otherClass of otherClassesToCheck){
             this.generateMemberFieldParametersRelatedToForClassToOtherClass(currentClass, otherClass, dataClumpsFieldParameters, softwareProjectDicts, currentClassWholeHierarchyKnown);
         }
     }
@@ -215,17 +212,15 @@ export class DetectorDataClumpsFields {
          * In both cases, we need to check them
          */
 
-        let analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces = this.options.analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces;
-        let currentClassParameters = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(currentClass, softwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces);
+        let currentClassParameters = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(currentClass, softwareProjectDicts, this.options);
         if(debug) console.log("currentClassParameters: "+currentClassParameters.length)
         if(debug) console.log(JSON.stringify(currentClassParameters, null, 2))
 
-        let otherClassParameters = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(otherClass, softwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces);
+        let otherClassParameters = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(otherClass, softwareProjectDicts, this.options);
         if(debug) console.log("otherClassParameters: "+otherClassParameters.length)
         if(debug) console.log(JSON.stringify(otherClassParameters, null, 2))
 
-        let ignoreFieldModifiers = false; // From: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5328371 "These data fields should have same signatures (same names, same data types, and same access modifiers)."
-        let commonFieldParameterPairKeys = DetectorUtils.getCommonParameterPairKeys(currentClassParameters, otherClassParameters, this.options.similarityModifierOfVariablesWithUnknownType, ignoreFieldModifiers);
+        let commonFieldParameterPairKeys = DetectorUtils.getCommonFieldFieldPairKeys(currentClassParameters, otherClassParameters, this.options);
 
         let amountOfCommonFieldParameters = commonFieldParameterPairKeys.length;
 
@@ -272,12 +267,14 @@ export class DetectorDataClumpsFields {
      *
      * @param {ClassOrInterfaceTypeContext} currentClassOrInterface - The class or interface context from which to retrieve member fields.
      * @param {SoftwareProjectDicts} softwareProjectDicts - A dictionary containing the project's classes and interfaces for reference.
-     * @param {boolean} analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces - A flag indicating whether to include fields inherited from superclasses or superinterfaces.
+     * @param options DetectorOptions - The options to control the analysis behavior.
      * @returns {MemberFieldParameterTypeContext[]} An array of member field parameter contexts that belong to the specified class or interface, including inherited fields if applicable.
      *
      * @throws {Error} Throws an error if the provided class or interface context is invalid or if there is an issue accessing the superclass fields.
      */
-    public static getMemberFieldsFromClassOrInterface(currentClassOrInterface: ClassOrInterfaceTypeContext, softwareProjectDicts: SoftwareProjectDicts, analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces): MemberFieldParameterTypeContext[]{
+    public static getMemberFieldsFromClassOrInterface(currentClassOrInterface: ClassOrInterfaceTypeContext, softwareProjectDicts: SoftwareProjectDicts, options: DetectorOptions): MemberFieldParameterTypeContext[]{
+        let analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces = options.analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces;
+
         let totalClassFields: MemberFieldParameterTypeContext[] = [];
 
         let currentClassFields = currentClassOrInterface.fields;
@@ -300,7 +297,7 @@ export class DetectorDataClumpsFields {
                 let superClassKey = superclassesDict[superclassName];
                 // superClassKey = 'Batman.java/class/Batman'
                 let superclass = softwareProjectDicts.dictClassOrInterface[superClassKey];
-                let superclassFields = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(superclass, softwareProjectDicts, true);
+                let superclassFields = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(superclass, softwareProjectDicts, options);
                 totalClassFields = totalClassFields.concat(superclassFields);
             }
         }
