@@ -11,7 +11,7 @@ import {
     ClassOrInterfaceTypeContext,
     MemberFieldParameterTypeContext,
     MethodParameterTypeContext,
-    MethodTypeContext
+    MethodTypeContext, VariableTypeContext
 } from "../ParsedAstTypes";
 import {DetectorUtils} from "./DetectorUtils";
 
@@ -211,7 +211,18 @@ export class InvertedIndexSoftwareProject {
     public parameterKeyForParameterParameterDataClumpToMethodKey: Record<string, Record<string, string>> = {};
     public fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey: Record<string, Record<string, string> | undefined> = {};
 
-    static getFieldFieldKeyForField(field: MemberFieldParameterTypeContext){
+    public options: DetectorOptions;
+
+    private getVariableKeyForIndex(variable: VariableTypeContext){
+        let key = "";
+        if(this.options.similarityModifierOfVariablesWithUnknownType!==1){
+            key += variable.type + " ";
+        }
+        key += variable.name;
+        return key;
+    }
+
+    private getFieldFieldKeyForField(field: MemberFieldParameterTypeContext){
         let modifiers = field.modifiers;
         let modifiersString = "";
         if(!!modifiers){
@@ -221,19 +232,19 @@ export class InvertedIndexSoftwareProject {
         if(modifiersString.length>0){
             signature = modifiersString + " ";
         }
-        return signature+field.type + " " + field.name;
+        return signature+this.getVariableKeyForIndex(field);
     }
 
-    static getParameterParameterKeyForParameter(parameter: MethodParameterTypeContext){
-        return parameter.type + " " + parameter.name;
+    private getParameterParameterKeyForParameter(parameter: MethodParameterTypeContext){
+        return this.getVariableKeyForIndex(parameter);
     }
 
-    static getParameterFieldKeyForParameter(parameter: MethodParameterTypeContext){
-        return parameter.type + " " + parameter.name;
+    private getParameterFieldKeyForParameter(parameter: MethodParameterTypeContext){
+        return this.getVariableKeyForIndex(parameter);
     }
 
-    static getParameterFieldKeyForField(field: MemberFieldParameterTypeContext){
-        return field.type + " " + field.name;
+    private getParameterFieldKeyForField(field: MemberFieldParameterTypeContext){
+        return this.getVariableKeyForIndex(field);
     }
 
     public getPossibleMethodsForParameterParameterDataClump(currentMethod: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts){
@@ -242,7 +253,7 @@ export class InvertedIndexSoftwareProject {
         }> = {};
         let methodParameters = currentMethod.parameters;
         for(let methodParameter of methodParameters){
-            let invertedFieldKey = InvertedIndexSoftwareProject.getParameterParameterKeyForParameter(methodParameter);
+            let invertedFieldKey = this.getParameterParameterKeyForParameter(methodParameter);
             let methodsHavingParameter = this.parameterKeyForParameterParameterDataClumpToMethodKey[invertedFieldKey];
             let methodsHavingParameterKeys = Object.keys(methodsHavingParameter);
             for(let methodHavingParameterKey of methodsHavingParameterKeys){
@@ -272,7 +283,7 @@ export class InvertedIndexSoftwareProject {
         }> = {};
         let methodParameters = currentMethod.parameters;
         for(let methodParameter of methodParameters){
-            let invertedFieldKey = InvertedIndexSoftwareProject.getParameterFieldKeyForParameter(methodParameter);
+            let invertedFieldKey = this.getParameterFieldKeyForParameter(methodParameter);
             let classesHavingField = this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedFieldKey];
             if(!!classesHavingField){
                 let classesHavingFieldKeys = Object.keys(classesHavingField);
@@ -300,7 +311,7 @@ export class InvertedIndexSoftwareProject {
             amountFound: number,
         }> = {};
         for(let memberFieldParameter of memberFieldParameters){
-            let invertedFieldKey = InvertedIndexSoftwareProject.getFieldFieldKeyForField(memberFieldParameter);
+            let invertedFieldKey = this.getFieldFieldKeyForField(memberFieldParameter);
             let classesHavingField = this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedFieldKey];
             let classesHavingFieldKeys = Object.keys(classesHavingField);
             for(let classHavingFieldKey of classesHavingFieldKeys){
@@ -326,19 +337,20 @@ export class InvertedIndexSoftwareProject {
 
     public constructor(softwareProjectDicts: SoftwareProjectDicts, options: DetectorOptions){
         this.softwareProjectDicts = softwareProjectDicts;
+        this.options = options;
         let classOrInterfaceKeys = Object.keys(softwareProjectDicts.dictClassOrInterface);
         for(let classOrInterfaceKey of classOrInterfaceKeys){
             let classOrInterface = softwareProjectDicts.dictClassOrInterface[classOrInterfaceKey];
 
-            let fields = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(classOrInterface, softwareProjectDicts, options);
+            let fields = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(classOrInterface, this.softwareProjectDicts, this.options);
             for(let field of fields){
-                let invertedIndexFieldKey = InvertedIndexSoftwareProject.getFieldFieldKeyForField(field);
+                let invertedIndexFieldKey = this.getFieldFieldKeyForField(field);
                 if(!this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedIndexFieldKey]){
                     this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedIndexFieldKey] = {};
                 }
                 this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey[invertedIndexFieldKey][classOrInterfaceKey] = classOrInterfaceKey;
 
-                let invertedIndexParameterFieldKey = InvertedIndexSoftwareProject.getParameterFieldKeyForField(field);
+                let invertedIndexParameterFieldKey = this.getParameterFieldKeyForField(field);
                 if(!this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedIndexParameterFieldKey]){
                     this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedIndexParameterFieldKey] = {};
                 }
@@ -347,10 +359,10 @@ export class InvertedIndexSoftwareProject {
             }
         }
 
-        let parameterKeys = Object.keys(softwareProjectDicts.dictMethodParameters);
+        let parameterKeys = Object.keys(this.softwareProjectDicts.dictMethodParameters);
         for(let parameterKey of parameterKeys){
             let parameter = softwareProjectDicts.dictMethodParameters[parameterKey];
-            let invertedIndexParameterKey = InvertedIndexSoftwareProject.getParameterParameterKeyForParameter(parameter);
+            let invertedIndexParameterKey = this.getParameterParameterKeyForParameter(parameter);
             if(!this.parameterKeyForParameterParameterDataClumpToMethodKey[invertedIndexParameterKey]){
                 this.parameterKeyForParameterParameterDataClumpToMethodKey[invertedIndexParameterKey] = {};
             }

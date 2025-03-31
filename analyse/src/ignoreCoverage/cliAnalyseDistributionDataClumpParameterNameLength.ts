@@ -65,7 +65,10 @@ async function analyse(report_folder, options){
     //let field_data_clump_found = false;
     for(let i = 0; i < total_amount_of_report_files; i++){
         let progress_files = i+1;
-        timer.printEstimatedTimeRemaining(i, total_amount_of_report_files);
+        timer.printEstimatedTimeRemaining({
+            progress: progress_files,
+            total: total_amount_of_report_files
+        });
         let report_file_path = all_report_files_paths[i];
 
         let report_file = fs.readFileSync(report_file_path, 'utf8');
@@ -78,7 +81,12 @@ async function analyse(report_folder, options){
         for(let j = 0; j < amount_of_data_clumps; j++){
             let progress_data_clumps = j+1;
             let suffix = progress_data_clumps+"/"+amount_of_data_clumps;
-            timer.printEstimatedTimeRemainingAfter1Second(i, total_amount_of_report_files, null, suffix);
+            timer.printEstimatedTimeRemainingAfter1Second({
+                progress: progress_files,
+                total: total_amount_of_report_files,
+                prefix: "Data-Clumps",
+                suffix: suffix
+            });
 
             let data_clump_key = data_clump_keys[j]
             if(dict_of_analysed_data_clumps_keys[data_clump_key] === true){ // Skip already analysed data clumps

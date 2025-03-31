@@ -9,14 +9,23 @@ type ParameterPair = {
     probability: number | null;
 }
 
+export type ProbabilityContext = {
+    currentClassWholeHierarchyKnown: boolean,
+    otherClassWholeHierarchyKnown: boolean,
+    parameterPairs: ParameterPair[],
+    options: DetectorOptions
+}
+
 export class DetectorUtils {
 
     public static checkIfIncompatibleOptions(options: DetectorOptions){
         // fast Detection cannot be used with similarityModifierOfVariablesWithUnknownType > 0
         if(options.fastDetection){
             if(options.similarityModifierOfVariablesWithUnknownType > 0){
-                console.error("Fast detection is enabled, but similarityModifierOfVariablesWithUnknownType is greater than 0. This will cause a N*N complexity. Please disable fast detection or set similarityModifierOfVariablesWithUnknownType to 0.")
-                throw new Error("Fast detection is enabled, but similarityModifierOfVariablesWithUnknownType is greater than 0. This will cause a N*N complexity. Please disable fast detection or set similarityModifierOfVariablesWithUnknownType to 0.")
+                if(options.similarityModifierOfVariablesWithUnknownType!==1){
+                    console.error("Fast detection is enabled, but similarityModifierOfVariablesWithUnknownType is not 1. This is not allowed. Please set similarityModifierOfVariablesWithUnknownType to 1 or disable fast detection.");
+                    throw new Error("Fast detection is enabled, but similarityModifierOfVariablesWithUnknownType is not 1. This is not allowed. Please set similarityModifierOfVariablesWithUnknownType to 1 or disable fast detection.");
+                }
             }
         }
     }
@@ -41,7 +50,10 @@ export class DetectorUtils {
         return probabilityOfDataClumps;
     }
 
-    public static calculateProbabilityOfDataClumpsFields(currentClassWholeHierarchyKnown: boolean, otherClassWholeHierarchyKnown: boolean, parameterPairs: ParameterPair[], fieldsOfClassesWithUnknownHierarchyProbabilityModifier: number){
+    public static calculateProbabilityOfDataClumpsFields(probabilityContext: ProbabilityContext){
+        const {currentClassWholeHierarchyKnown, otherClassWholeHierarchyKnown, parameterPairs, options} = probabilityContext;
+        const fieldsOfClassesWithUnknownHierarchyProbabilityModifier = options.fieldsOfClassesWithUnknownHierarchyProbabilityModifier;
+
         let currentModifier = 1
         if(!currentClassWholeHierarchyKnown){
             currentModifier = fieldsOfClassesWithUnknownHierarchyProbabilityModifier * currentModifier
@@ -56,7 +68,9 @@ export class DetectorUtils {
         return probabilityOfDataClumps;
     }
 
-    public static calculateProbabilityOfDataClumpsMethodsToMethods(currentClassWholeHierarchyKnown: boolean, otherClassWholeHierarchyKnown: boolean, parameterPairs: ParameterPair[], options: DetectorOptions){
+    public static calculateProbabilityOfDataClumpsMethodsToMethods(probabilityContext: ProbabilityContext){
+        const {currentClassWholeHierarchyKnown, otherClassWholeHierarchyKnown, parameterPairs, options} = probabilityContext;
+
         let currentModifier = 1;
         if(!currentClassWholeHierarchyKnown){
             currentModifier = options.methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier * currentModifier

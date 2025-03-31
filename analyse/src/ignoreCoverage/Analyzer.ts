@@ -185,7 +185,12 @@ export class Analyzer {
                     let progress_excludes_skipped = i-amount_skipped;
                     let total_excludes_skipped = amount_commits-amount_skipped;
                     this.timer.printElapsedTime("", " - "+progress_excludes_skipped+"/"+total_excludes_skipped);
-                    this.timer.printEstimatedTimeRemaining(progress_excludes_skipped, total_excludes_skipped, "", "");
+                    this.timer.printEstimatedTimeRemaining({
+                        progress: progress_excludes_skipped,
+                        total: total_excludes_skipped,
+                        prefix: "",
+                        suffix: ""
+                    });
 
                     let checkoutWorked = true;
                     if(!!commit){

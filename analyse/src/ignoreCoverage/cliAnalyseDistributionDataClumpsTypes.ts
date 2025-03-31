@@ -19,7 +19,10 @@ function analyseProjects(all_report_files_paths, ignore_without_data_clumps, out
     timer.start();
 
     for(let i = 0; i < all_report_files_paths.length; i++){
-        timer.printEstimatedTimeRemaining(i, all_report_files_paths.length);
+        timer.printEstimatedTimeRemaining({
+            progress: i,
+            total: all_report_files_paths.length
+        });
         let report_file_path = all_report_files_paths[i];
         let report_file_json = AnalyseHelper.getReportFileJson(report_file_path);
 

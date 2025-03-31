@@ -73,7 +73,10 @@ async function analyse(report_folder, options) {
         const report_file_path = all_report_files_paths[i];
         const progress_files = i + 1;
 
-        timer.printEstimatedTimeRemaining(progress_files, total_amount_of_report_files);
+        timer.printEstimatedTimeRemaining({
+            progress: progress_files,
+            total: total_amount_of_report_files
+        });
 
         try {
             await analyseFileStream(report_file_path, data_clump_from_file_distribution, dict_of_analysed_data_clumps_keys);

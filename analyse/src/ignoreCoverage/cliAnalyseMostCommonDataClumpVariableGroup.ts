@@ -110,7 +110,10 @@ function analyseForAllPairs(data_clump_data: Dictionary<DataClumpsVariableFromCo
             if(elaspedTime > lastElapsedTime + 1000){
                 printProgress(progress_files, total_amount_of_report_files, progress_data_clumps, amount_of_data_clumps);
                 timer.printElapsedTime()
-                timer.printEstimatedTimeRemaining(progress_files, total_amount_of_report_files)
+                timer.printEstimatedTimeRemaining({
+                    progress: progress_files,
+                    total: total_amount_of_report_files
+                });
                 console.log("Get Combinations for "+i+"/"+amountVariables+" variables | progress_files: "+progress_files+" | combo: "+combo_index+"/"+max_combos);
                 lastElapsedTime = elaspedTime
             }
@@ -347,7 +350,10 @@ async function analyse(report_folder, options, largest_prefix: number | undefine
             if(elaspedTime > lastElapsedTime + 1000){
                 printProgress(progress_files, total_amount_of_report_files, progress_data_clumps, amount_of_data_clumps);
                 timer.printElapsedTime()
-                timer.printEstimatedTimeRemaining(progress_files, total_amount_of_report_files)
+                timer.printEstimatedTimeRemaining({
+                    progress: progress_files,
+                    total: total_amount_of_report_files
+                });
                 lastElapsedTime = elaspedTime
             }
 
@@ -399,7 +405,10 @@ async function analyse(report_folder, options, largest_prefix: number | undefine
 
     let i = 0;
     for (let pair_file_name of file_names_for_analyzed_variable_groups) {
-        timerFindMostCommonVariable.printEstimatedTimeRemaining((i + 1), amount_data_clump_pairs_keys);
+        timerFindMostCommonVariable.printEstimatedTimeRemaining({
+            progress: (i + 1),
+            total: amount_data_clump_pairs_keys
+        });
 
         let path_to_pair_file_name = path.join(default_path_to_counted_variable_groups, pair_file_name);
         console.log("Read analyzed file: " + path_to_pair_file_name);
@@ -526,7 +535,12 @@ function deleteLastUncompleteFileAllAnalyzedReportsOfLastAnalyzedReportFile(): n
     let largest_prefix: number | undefined = undefined;
     let i=0;
     for(let file_name_for_analyzed_variable_groups of file_names_for_analyzed_variable_groups){
-        timerForDeletion.printEstimatedTimeRemaining((i+1), file_names_for_analyzed_variable_groups.length, "Search largest prefix: ");
+        timerForDeletion.printEstimatedTimeRemaining(
+            {
+                progress: (i+1),
+                total: file_names_for_analyzed_variable_groups.length,
+                prefix: "Search largest prefix: "
+            });
         i++;
 
         // Split the files by AnalyzedResultFileSplit
@@ -551,7 +565,11 @@ function deleteLastUncompleteFileAllAnalyzedReportsOfLastAnalyzedReportFile(): n
     if (largest_prefix !== undefined) {
         i=0;
         for (let file_name_for_analyzed_variable_groups of file_names_for_analyzed_variable_groups) {
-            timerForDeletion.printEstimatedTimeRemaining((i+1), file_names_for_analyzed_variable_groups.length, "Delete files with largest prefix: ");
+            timerForDeletion.printEstimatedTimeRemaining({
+                progress: (i+1),
+                total: file_names_for_analyzed_variable_groups.length,
+                prefix: "Delete files with largest prefix: "
+            });
             i++;
 
             let splits = file_name_for_analyzed_variable_groups.split(AnalyzedResultFileSplit);

@@ -40,7 +40,8 @@ export class SimilarityHelper {
             return 0;
         }
 
-
+        // TODO: Adapt this stragegy in the Detector.ts in InvertedIndexSoftwareProject
+        // we need to save the parameter names there as well good.
 
         let nameA_sanitized = SimilarityHelper.sanitizeNameForNameSimilarity(nameA);
         let nameB_sanitized = SimilarityHelper.sanitizeNameForNameSimilarity(nameB);

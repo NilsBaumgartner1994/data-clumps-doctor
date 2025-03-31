@@ -1,7 +1,10 @@
+// noinspection dataclump.DataClumpDetection
+
 import {Dictionary} from "./UtilTypes";
 import {SoftwareProjectDicts} from "./SoftwareProject";
 import {SimilarityHelper} from "./detector/SimilarityHelper";
 
+// noinspection dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection
 export class AstPosition{
     public startLine: any;
     public startColumn: any;
@@ -9,6 +12,7 @@ export class AstPosition{
     public endColumn: any
 }
 
+// noinspection dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection
 export class AstElementTypeContext {
     public name: string;
     public key: string;
@@ -24,6 +28,7 @@ export class AstElementTypeContext {
     }
 }
 
+// noinspection dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection
 export class VariableTypeContext extends AstElementTypeContext{
     public modifiers: string[] | undefined;
     public ignore: boolean;
@@ -173,6 +178,7 @@ export class ParameterTypeContextUtils{
     }
 }
 
+// noinspection dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection
 export class ClassOrInterfaceTypeContext extends AstElementTypeContext{
     public modifiers: string[] | undefined;
     public fields: Dictionary<MemberFieldParameterTypeContext>;
@@ -384,6 +390,7 @@ export class MethodParameterTypeContext extends VariableTypeContext{
     }
 }
 
+// noinspection dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection
 export class MethodTypeContext extends AstElementTypeContext{
     public modifiers: string[];
     public overrideAnnotation: boolean

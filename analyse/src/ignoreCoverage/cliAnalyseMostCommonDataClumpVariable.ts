@@ -38,7 +38,10 @@ async function analyse(report_folder, options){
     let project_names: Dictionary<boolean> = {};
 
     for(let i = 0; i < total_amount_of_report_files; i++){
-        timer.printEstimatedTimeRemaining(i, total_amount_of_report_files);
+        timer.printEstimatedTimeRemaining({
+            progress: i,
+            total: total_amount_of_report_files
+        });
         let progress_files = i+1;
         let report_file_path = all_report_files_paths[i];
         let report_file_json = AnalyseHelper.getReportFileJson(report_file_path)
@@ -50,7 +53,13 @@ async function analyse(report_folder, options){
         for(let j = 0; j < amount_of_data_clumps; j++){
             let progress_data_clumps = j+1;
             let suffix = " - "+progress_data_clumps+"/"+amount_of_data_clumps;
-            timer.printEstimatedTimeRemainingAfter1Second(progress_files, total_amount_of_report_files, null, suffix);
+            timer.printEstimatedTimeRemainingAfter1Second(
+                {
+                    progress: progress_data_clumps,
+                    total: amount_of_data_clumps,
+                    prefix: null,
+                    suffix: suffix
+                });
 
             let data_clump_key = data_clump_keys[j]
             if(dict_of_analysed_data_clumps_keys[data_clump_key] === true){

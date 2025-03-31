@@ -6,6 +6,7 @@ import {
 } from "./ParsedAstTypes";
 import {Dictionary} from "./UtilTypes";
 
+// noinspection dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection
 export class SoftwareProjectDicts {
   public dictClassOrInterface: Dictionary<ClassOrInterfaceTypeContext> = {};
   public dictMemberFieldParameters: Dictionary<MemberFieldParameterTypeContext> = {};

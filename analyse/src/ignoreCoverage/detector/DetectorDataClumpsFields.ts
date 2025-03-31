@@ -1,4 +1,4 @@
-import {DetectorUtils} from "./DetectorUtils";
+import {DetectorUtils, ProbabilityContext} from "./DetectorUtils";
 import {Dictionary} from "./../UtilTypes";
 
 import {DataClumpTypeContext} from "data-clumps-type-context";
@@ -20,6 +20,13 @@ function getParsedValuesFromPartialOptions(rawOptions: DetectorOptions): Detecto
     rawOptions.similarityModifierOfVariablesWithUnknownType = parseFloat(rawOptions.similarityModifierOfVariablesWithUnknownType);
 
     return rawOptions;
+}
+
+type ContextAnalyseDataClumpFieldField = {
+    currentClass: ClassOrInterfaceTypeContext,
+    dataClumpsFieldParameters: Dictionary<DataClumpTypeContext>
+    softwareProjectDicts: SoftwareProjectDicts,
+    invertedIndexSoftwareProject: InvertedIndexSoftwareProject,
 }
 
 export class DetectorDataClumpsFields {
@@ -56,7 +63,14 @@ export class DetectorDataClumpsFields {
                 continue;
             }
 
-            this.generateMemberFieldParametersRelatedToForClass(currentClass, dataClumpsFieldParameters, softwareProjectDicts, invertedIndexSoftwareProject);
+            let detectContext: ContextAnalyseDataClumpFieldField = {
+                currentClass: currentClass,
+                dataClumpsFieldParameters: dataClumpsFieldParameters,
+                softwareProjectDicts: softwareProjectDicts,
+                invertedIndexSoftwareProject: invertedIndexSoftwareProject,
+            }
+
+            this.generateMemberFieldParametersRelatedToForClass(detectContext);
             index++;
         }
         return dataClumpsFieldParameters;
@@ -69,10 +83,6 @@ export class DetectorDataClumpsFields {
      * with other classes. It utilizes the provided dictionaries to gather necessary information and applies certain
      * options to control the analysis behavior.
      *
-     * @param {ClassOrInterfaceTypeContext} currentClass - The class or interface context for which member fields are being analyzed.
-     * @param {Dictionary<ClassOrInterfaceTypeContext>} classesDict - A dictionary containing other classes/interfaces for comparison.
-     * @param {Dictionary<DataClumpTypeContext>} dataClumpsFieldParameters - A dictionary to store the resulting data clump field parameters.
-     * @param {SoftwareProjectDicts} softwareProjectDicts - A collection of software project-related dictionaries used for context.
      *
      * @returns {void} This method does not return a value. It modifies the dataClumpsFieldParameters dictionary directly.
      *
@@ -80,8 +90,14 @@ export class DetectorDataClumpsFields {
      *
      * @example
      * // Example usage of the method would go here, showcasing how to call it with appropriate parameters.
+     * @param contextAnalyseDataClumpFieldField
      */
-    private generateMemberFieldParametersRelatedToForClass(currentClass: ClassOrInterfaceTypeContext, dataClumpsFieldParameters: Dictionary<DataClumpTypeContext>, softwareProjectDicts: SoftwareProjectDicts, invertedIndexSoftwareProject: InvertedIndexSoftwareProject){
+    private generateMemberFieldParametersRelatedToForClass(contextAnalyseDataClumpFieldField: ContextAnalyseDataClumpFieldField){
+
+        let currentClass = contextAnalyseDataClumpFieldField.currentClass;
+        let dataClumpsFieldParameters = contextAnalyseDataClumpFieldField.dataClumpsFieldParameters;
+        let softwareProjectDicts = contextAnalyseDataClumpFieldField.softwareProjectDicts;
+        let invertedIndexSoftwareProject = contextAnalyseDataClumpFieldField.invertedIndexSoftwareProject;
 
         let currentClassWholeHierarchyKnown = currentClass.isWholeHierarchyKnown(softwareProjectDicts)
         if(!currentClassWholeHierarchyKnown){
@@ -100,7 +116,6 @@ export class DetectorDataClumpsFields {
         }
 
 
-        let analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces = this.options.analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces;
         let memberFieldParameters = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(currentClass, softwareProjectDicts, this.options);
         let amountOfMemberFields = memberFieldParameters.length;
         if(amountOfMemberFields < this.options.sharedFieldsToFieldsAmountMinimum){
@@ -126,7 +141,7 @@ export class DetectorDataClumpsFields {
         }
 
         for(let otherClass of otherClassesToCheck){
-            this.generateMemberFieldParametersRelatedToForClassToOtherClass(currentClass, otherClass, dataClumpsFieldParameters, softwareProjectDicts, currentClassWholeHierarchyKnown);
+            this.generateMemberFieldParametersRelatedToForClassToOtherClass(contextAnalyseDataClumpFieldField, otherClass, currentClassWholeHierarchyKnown);
         }
     }
 
@@ -135,13 +150,11 @@ export class DetectorDataClumpsFields {
      * This function analyzes the fields of the current class and the other class to identify
      * potential data clumps based on their member fields.
      *
-     * @param {ClassOrInterfaceTypeContext} currentClass - The context of the current class
      * being analyzed.
+     * @param contextAnalyseDataClumpFieldField
      * @param {ClassOrInterfaceTypeContext} otherClass - The context of the other class
      * to which the current class is being compared.
-     * @param {Dictionary<DataClumpTypeContext>} dataClumpsFieldParameters - A dictionary
      * to store identified data clump parameters.
-     * @param {SoftwareProjectDicts} softwareProjectDicts - A collection of dictionaries
      * related to the software project, used for hierarchy and field analysis.
      * @param {boolean} currentClassWholeHierarchyKnown - Indicates whether the whole
      * hierarchy of the current class is known.
@@ -159,9 +172,13 @@ export class DetectorDataClumpsFields {
      * field parameters. If certain conditions are met, it creates a data clump context
      * and adds it to the provided dictionary.
      */
-    private generateMemberFieldParametersRelatedToForClassToOtherClass(currentClass: ClassOrInterfaceTypeContext, otherClass: ClassOrInterfaceTypeContext, dataClumpsFieldParameters: Dictionary<DataClumpTypeContext>, softwareProjectDicts: SoftwareProjectDicts, currentClassWholeHierarchyKnown: boolean){
+    private generateMemberFieldParametersRelatedToForClassToOtherClass(contextAnalyseDataClumpFieldField: ContextAnalyseDataClumpFieldField, otherClass: ClassOrInterfaceTypeContext, currentClassWholeHierarchyKnown: boolean){
 
         let debug = false;
+
+        let currentClass = contextAnalyseDataClumpFieldField.currentClass;
+        let dataClumpsFieldParameters = contextAnalyseDataClumpFieldField.dataClumpsFieldParameters;
+        let softwareProjectDicts = contextAnalyseDataClumpFieldField.softwareProjectDicts;
 
         if(debug) console.log("------------------")
         if(debug) console.log("generateMemberFieldParametersRelatedToForClassToOtherClass: "+currentClass.name+" to "+otherClass.name)
@@ -234,7 +251,14 @@ export class DetectorDataClumpsFields {
         let fileKey = currentClass.file_path;
         let data_clump_type = DetectorDataClumpsFields.TYPE;
 
-        let probability = DetectorUtils.calculateProbabilityOfDataClumpsFields(currentClassWholeHierarchyKnown, otherClassWholeHierarchyKnown, commonFieldParameterPairKeys, this.options.fieldsOfClassesWithUnknownHierarchyProbabilityModifier);
+        const probabilityContext: ProbabilityContext = {
+            currentClassWholeHierarchyKnown: currentClassWholeHierarchyKnown,
+            otherClassWholeHierarchyKnown: otherClassWholeHierarchyKnown,
+            parameterPairs: commonFieldParameterPairKeys,
+            options: this.options,
+        }
+
+        let probability = DetectorUtils.calculateProbabilityOfDataClumpsFields(probabilityContext);
 
         if(debug) console.log("probability: "+probability)
 

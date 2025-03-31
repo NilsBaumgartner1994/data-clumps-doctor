@@ -120,7 +120,11 @@ function printDataClumpsClusterDistribution(all_report_files_paths){
     timer.start();
     for(let i = 0; i < all_report_files_paths.length; i++){
         let prefix = "Proccessing report file";
-        timer.printEstimatedTimeRemaining(i, all_report_files_paths.length, prefix);
+        timer.printEstimatedTimeRemaining({
+            progress: i,
+            total: all_report_files_paths.length,
+            prefix: prefix
+        });
         let report_file_path = all_report_files_paths[i];
 
         let report_file_json = AnalyseHelper.getReportFileJson(report_file_path);

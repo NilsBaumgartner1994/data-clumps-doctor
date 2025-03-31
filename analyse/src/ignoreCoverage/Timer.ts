@@ -1,5 +1,12 @@
 import {AnalyseHelper} from "./AnalyseHelper";
 
+export type ProgressObject = {
+    progress: number,
+    total: number,
+    prefix?: string | null,
+    suffix?: string | null
+}
+
 export class Timer {
 
     public startTime: number = 0;
@@ -39,17 +46,22 @@ export class Timer {
         console.log(prefix+`Elapsed time: ${this.formatTimeToString(elapsed)}`+suffix);
     }
 
-    public printEstimatedTimeRemainingAfter1Second(progress: number, total: number, prefix?: string | null, suffix?: string | null) {
+    public printEstimatedTimeRemainingAfter1Second(progressObject: ProgressObject) {
         let elaspedTime = this.getElapsedTime();
         if(elaspedTime > this.lastElapsedTime + 1000){
-            this.printEstimatedTimeRemaining(progress, total, prefix, suffix);
+            this.printEstimatedTimeRemaining(progressObject);
             this.lastElapsedTime = elaspedTime;
         }
     }
 
-    public printEstimatedTimeRemaining(progress: number, total: number, prefix?: string | null, suffix?: string | null) {
+    public printEstimatedTimeRemaining(progressObject: ProgressObject) {
         let elaspedTime = this.getElapsedTime();
         this.lastElapsedTime = elaspedTime;
+
+        let progress = progressObject.progress;
+        let total = progressObject.total;
+        let prefix = progressObject.prefix;
+        let suffix = progressObject.suffix;
 
         let remaining = total - progress;
         let estimatedTotalTime = (elaspedTime / (progress)) * total;

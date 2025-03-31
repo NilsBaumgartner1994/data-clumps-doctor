@@ -1,6 +1,7 @@
 import { spawn } from 'child_process';
 import {exec} from 'child_process';
 
+// noinspection dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection
 export class ParserHelperJavaSourceCode {
 
     /**

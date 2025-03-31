@@ -1,6 +1,6 @@
 import {DetectorUtils} from "./DetectorUtils";
 import {DataClumpTypeContext, Dictionary} from "data-clumps-type-context";
-import {MethodTypeContext} from "./../ParsedAstTypes";
+import {ClassOrInterfaceTypeContext, MethodTypeContext} from "./../ParsedAstTypes";
 import {SoftwareProjectDicts} from "./../SoftwareProject";
 import {DetectorOptions, DetectorOptionsInformation, InvertedIndexSoftwareProject} from "./Detector";
 import {DetectorDataClumpsMethodsToOtherMethods} from "./DetectorDataClumpsMethodsToOtherMethods";
@@ -19,6 +19,13 @@ function getParsedValuesFromPartialOptions(rawOptions: DetectorOptions): Detecto
     rawOptions.similarityModifierOfVariablesWithUnknownType = parseFloat(rawOptions.similarityModifierOfVariablesWithUnknownType);
 
     return rawOptions;
+}
+
+export type ContextAnalyseDataClumpParameter = {
+    currentMethod: MethodTypeContext,
+    detectedDataClumpsDict: Dictionary<DataClumpTypeContext>,
+    softwareProjectDicts: SoftwareProjectDicts,
+    invertedIndexSoftwareProject: InvertedIndexSoftwareProject,
 }
 
 export class DetectorDataClumpsMethods {
@@ -49,7 +56,14 @@ export class DetectorDataClumpsMethods {
             }
             let method = methodsDict[methodKey];
 
-            this.analyzeMethod(method, softwareProjectDicts, detectedDataClumpsDict, invertedIndexSoftwareProject);
+            let detectContext: ContextAnalyseDataClumpParameter = {
+                currentMethod: method,
+                detectedDataClumpsDict: detectedDataClumpsDict,
+                softwareProjectDicts: softwareProjectDicts,
+                invertedIndexSoftwareProject: invertedIndexSoftwareProject,
+            }
+
+            this.analyzeMethod(detectContext);
             index++;
         }
         return detectedDataClumpsDict;
@@ -57,18 +71,19 @@ export class DetectorDataClumpsMethods {
 
     /**
      * DataclumpsInspection.java line 370
-     * @param method
-     * @param methodToClassOrInterfaceDict
      * @private
+     * @param detectContext
      */
-    private analyzeMethod(method: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, invertedIndexSoftwareProject: InvertedIndexSoftwareProject){
+    private analyzeMethod(detectContext: ContextAnalyseDataClumpParameter){
 
-        let currentClassOrInterface = MethodTypeContext.getClassOrInterface(method, softwareProjectDicts);
+        let {currentMethod, detectedDataClumpsDict, softwareProjectDicts, invertedIndexSoftwareProject} = detectContext;
+
+        let currentClassOrInterface = MethodTypeContext.getClassOrInterface(currentMethod, softwareProjectDicts);
         if(currentClassOrInterface.auxclass){ // ignore auxclasses as are not important for our project
             return;
         }
 
-        let wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod = MethodTypeContext.isWholeHierarchyKnown(method, softwareProjectDicts);
+        let wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod = MethodTypeContext.isWholeHierarchyKnown(currentMethod, softwareProjectDicts);
         if(!this.options.methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier){
             //console.log("- check if methods hierarchy is complete")
 //            let wholeHierarchyKnown = method.isWholeHierarchyKnown(softwareProjectDicts)
@@ -78,13 +93,13 @@ export class DetectorDataClumpsMethods {
             }
         }
 
-        let methodIsInherited = method.isInheritedFromParentClassOrInterface(softwareProjectDicts);
+        let methodIsInherited = currentMethod.isInheritedFromParentClassOrInterface(softwareProjectDicts);
         if(methodIsInherited) { // if the method is inherited
             // then skip this method
             return;
         }
 
-        let methodParameters = method.parameters;
+        let methodParameters = currentMethod.parameters;
         let methodParametersKeys = Object.keys(methodParameters);
         let methodParametersAmount = methodParametersKeys.length;
         if(methodParametersAmount < this.options.sharedParametersToFieldsAmountMinimum){ // avoid checking methods with less than 3 parameters
@@ -93,8 +108,8 @@ export class DetectorDataClumpsMethods {
         }
 
         // we assume that all methods are not constructors
-        this.toOtherMethodsDetector.checkParameterDataClumps(method, softwareProjectDicts, dataClumpsMethodParameterDataClumps, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod, invertedIndexSoftwareProject)
-        this.toOtherFieldsDetector.checkFieldDataClumps(method, softwareProjectDicts, dataClumpsMethodParameterDataClumps, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod, invertedIndexSoftwareProject)
+        this.toOtherMethodsDetector.checkParameterDataClumps(detectContext, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod)
+        this.toOtherFieldsDetector.checkFieldDataClumps(detectContext, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod)
     }
 
 }

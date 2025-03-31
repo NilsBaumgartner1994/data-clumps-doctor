@@ -4,6 +4,7 @@ import {ClassOrInterfaceTypeContext, MethodTypeContext} from "./../ParsedAstType
 import {SoftwareProjectDicts} from "./../SoftwareProject";
 import {DetectorOptions, DetectorOptionsInformation, InvertedIndexSoftwareProject} from "./Detector";
 import {DetectorDataClumpsFields} from "./DetectorDataClumpsFields";
+import {ContextAnalyseDataClumpParameter} from "./DetectorDataClumpsMethods";
 
 // TODO refactor this method to Detector since there is already the creation, so why not the refactoring
 function getParsedValuesFromPartialOptions(rawOptions: DetectorOptions): DetectorOptions{
@@ -38,19 +39,21 @@ export class DetectorDataClumpsMethodsToOtherFields {
 
     /**
      * DataclumpsInspection.java line 487
-     * @param method
-     * @param methodToClassOrInterfaceDict
      * @private
+     * @param detectContext
+     * @param methodWholeHierarchyKnown
      */
-    public checkFieldDataClumps(method: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, methodWholeHierarchyKnown: boolean, invertedIndexSoftwareProject: InvertedIndexSoftwareProject){
+    public checkFieldDataClumps(detectContext: ContextAnalyseDataClumpParameter, methodWholeHierarchyKnown: boolean){
         //console.log("Checking parameter data clumps for method " + method.key);
+
+        const {currentMethod, detectedDataClumpsDict, softwareProjectDicts, invertedIndexSoftwareProject} = detectContext;
 
         // now we have for all classes that have a field in common with the current class
         let classesOrInterfacesToCheck: ClassOrInterfaceTypeContext[] = [];
 
         let useFastSearch = this.options.fastDetection
         if(useFastSearch){
-            classesOrInterfacesToCheck = invertedIndexSoftwareProject.getPossibleClassesOrInterfacesForParameterFieldDataClump(method, softwareProjectDicts);
+            classesOrInterfacesToCheck = invertedIndexSoftwareProject.getPossibleClassesOrInterfacesForParameterFieldDataClump(currentMethod, softwareProjectDicts);
         } else {
             // This will cause a N*N complexity, as we have to check all classes with all classes
             let otherClassKeys = Object.keys(softwareProjectDicts.dictClassOrInterface);
@@ -61,7 +64,7 @@ export class DetectorDataClumpsMethodsToOtherFields {
         }
 
         for (let otherClassOrInterface of classesOrInterfacesToCheck) {
-            let foundDataClumps = this.checkMethodParametersForDataClumps(method, otherClassOrInterface, softwareProjectDicts, dataClumpsMethodParameterDataClumps, methodWholeHierarchyKnown, invertedIndexSoftwareProject);
+            let foundDataClumps = this.checkMethodParametersForDataClumps(detectContext, otherClassOrInterface, methodWholeHierarchyKnown);
         }
     }
 
@@ -71,10 +74,8 @@ export class DetectorDataClumpsMethodsToOtherFields {
      * This method checks if the parameters of the given method share similarities with the fields of another class or interface,
      * and determines if they form a data clump based on defined thresholds.
      *
-     * @param {MethodTypeContext} method - The method context to analyze for data clumps.
+     * @param detectContext
      * @param {ClassOrInterfaceTypeContext} otherClassOrInterface - The class or interface context to compare against.
-     * @param {SoftwareProjectDicts} softwareProjectDicts - A collection of project-wide dictionaries for classes, interfaces, and other entities.
-     * @param {Dictionary<DataClumpTypeContext>} dataClumpsMethodParameterDataClumps - A dictionary to store identified data clumps.
      * @param {boolean} wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod - Indicates if the complete hierarchy of the current method's class or interface is known.
      *
      * @returns {void} This method does not return a value. It modifies the provided dictionary to include any identified data clumps.
@@ -83,16 +84,18 @@ export class DetectorDataClumpsMethodsToOtherFields {
      *
      * @private
      */
-    private checkMethodParametersForDataClumps(method: MethodTypeContext,otherClassOrInterface: ClassOrInterfaceTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod: boolean, invertedIndexSoftwareProject: InvertedIndexSoftwareProject){
+    private checkMethodParametersForDataClumps(detectContext: ContextAnalyseDataClumpParameter ,otherClassOrInterface: ClassOrInterfaceTypeContext, wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod: boolean){
         //console.log("--- otherMethod"+ otherMethod.key)
+
+        const {currentMethod, detectedDataClumpsDict, softwareProjectDicts, invertedIndexSoftwareProject} = detectContext;
 
         if(otherClassOrInterface.auxclass){ // ignore auxclasses as are not important for our project
             return;
         }
 
-        let currentClassOrInterfaceKey = method.classOrInterfaceKey;
+        let currentClassOrInterfaceKey = currentMethod.classOrInterfaceKey;
         let currentClassOrInterface = softwareProjectDicts.dictClassOrInterface[currentClassOrInterfaceKey];
-        let parameters = method.parameters;
+        let parameters = currentMethod.parameters;
 
         let otherClassWholeHierarchyKnown = otherClassOrInterface.isWholeHierarchyKnown(softwareProjectDicts)
         if(!this.options.fieldsOfClassesWithUnknownHierarchyProbabilityModifier){
@@ -106,7 +109,7 @@ export class DetectorDataClumpsMethodsToOtherFields {
         let otherClassParameters = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(otherClassOrInterface, softwareProjectDicts, this.options);
         //console.log("- Found data clumps between method " + method.key + " and method " + otherMethod.key);
 
-        let commonMethodParameterPairKeys = DetectorUtils.getCommonParameterFieldPairKeys(method.parameters, otherClassParameters, this.options);
+        let commonMethodParameterPairKeys = DetectorUtils.getCommonParameterFieldPairKeys(currentMethod.parameters, otherClassParameters, this.options);
 
         let amountCommonParameters = commonMethodParameterPairKeys.length;
 
@@ -119,7 +122,7 @@ export class DetectorDataClumpsMethodsToOtherFields {
 
 
 
-        let [currentParameters, commonFieldParamterKeysAsKey] = DetectorUtils.getCurrentAndOtherParametersFromCommonParameterPairKeys(commonMethodParameterPairKeys, method.parameters, otherClassParameters)
+        let [currentParameters, commonFieldParamterKeysAsKey] = DetectorUtils.getCurrentAndOtherParametersFromCommonParameterPairKeys(commonMethodParameterPairKeys, currentMethod.parameters, otherClassParameters)
 
         let fileKey = currentClassOrInterface.file_path;
 
@@ -128,15 +131,15 @@ export class DetectorDataClumpsMethodsToOtherFields {
         let data_clump_type = DetectorDataClumpsMethodsToOtherFields.TYPE;
         let dataClumpContext: DataClumpTypeContext = {
             type: "data_clump",
-            key: data_clump_type+"-"+fileKey+"-"+method.key+"-"+otherClassOrInterface.key+"-"+commonFieldParamterKeysAsKey, // typically the file path + class name + method name + parameter names
+            key: data_clump_type+"-"+fileKey+"-"+currentMethod.key+"-"+otherClassOrInterface.key+"-"+commonFieldParamterKeysAsKey, // typically the file path + class name + method name + parameter names
 
             probability: probability,
 
             from_file_path: fileKey,
             from_class_or_interface_name: currentClassOrInterface.name,
             from_class_or_interface_key: currentClassOrInterface.key,
-            from_method_name: method.name,
-            from_method_key: method.key,
+            from_method_name: currentMethod.name,
+            from_method_key: currentMethod.key,
 
             to_file_path: otherClassOrInterface.file_path,
             to_class_or_interface_name: otherClassOrInterface.name,
@@ -147,7 +150,7 @@ export class DetectorDataClumpsMethodsToOtherFields {
             data_clump_type: data_clump_type, // "parameter_data_clump" or "field_data_clump"
             data_clump_data: currentParameters
         }
-        dataClumpsMethodParameterDataClumps[dataClumpContext.key] = dataClumpContext;
+        detectedDataClumpsDict[dataClumpContext.key] = dataClumpContext;
 
     }
 
