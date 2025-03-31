@@ -200,7 +200,7 @@ export class InvertedIndexSoftwareProject {
     public softwareProjectDicts: SoftwareProjectDicts;
     public fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey: Record<string, Record<string, string>> = {};
     public parameterKeyForParameterParameterDataClumpToMethodKey: Record<string, Record<string, string>> = {};
-    public fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey: Record<string, Record<string, string>> = {};
+    public fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey: Record<string, Record<string, string> | undefined> = {};
 
     static getFieldFieldKeyForField(field: MemberFieldParameterTypeContext){
         let modifiers = field.modifiers;
@@ -246,6 +246,7 @@ export class InvertedIndexSoftwareProject {
             if(!this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedIndexParameterFieldKey]){
                 this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedIndexParameterFieldKey] = {};
             }
+            // @ts-ignore
             this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedIndexParameterFieldKey][classOrInterfaceKey] = classOrInterfaceKey;
         }
 

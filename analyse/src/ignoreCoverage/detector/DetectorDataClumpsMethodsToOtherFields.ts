@@ -45,16 +45,26 @@ export class DetectorDataClumpsMethodsToOtherFields {
     public checkFieldDataClumps(method: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts, dataClumpsMethodParameterDataClumps: Dictionary<DataClumpTypeContext>, methodWholeHierarchyKnown: boolean, invertedIndexSoftwareProject: InvertedIndexSoftwareProject){
         //console.log("Checking parameter data clumps for method " + method.key);
 
+        let recordClassesNumberFound: Record<string, {
+            amountFound: number,
+        }> = {};
         let methodParameters = method.parameters;
-        let methodParametersKeys = Object.keys(methodParameters);
-        let methodParametersAmount = methodParametersKeys.length;
-        if(methodParametersAmount < this.options.sharedParametersToFieldsAmountMinimum){ // avoid checking methods with less than 3 parameters
-            //console.log("Method " + otherMethod.key + " has less than " + this.options.sharedParametersToParametersAmountMinimum + " parameters. Skipping this method.")
-            return;
+        for(let methodParameter of methodParameters){
+            let invertedFieldKey = InvertedIndexSoftwareProject.getParameterFieldKeyForParameter(methodParameter);
+            let classesHavingField = invertedIndexSoftwareProject.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey[invertedFieldKey] || {};
+            let classesHavingFieldKeys = Object.keys(classesHavingField);
+            for(let classHavingFieldKey of classesHavingFieldKeys){
+                if(!recordClassesNumberFound[classHavingFieldKey]){
+                    recordClassesNumberFound[classHavingFieldKey] = {
+                        amountFound: 0,
+                    }
+                }
+                recordClassesNumberFound[classHavingFieldKey].amountFound++;
+            }
         }
-
+        // now we have for all classes that have a field in common with the current class
         let classesOrInterfacesDict = softwareProjectDicts.dictClassOrInterface;
-        let otherClassesOrInterfacesKeys = Object.keys(classesOrInterfacesDict);
+        let otherClassesOrInterfacesKeys = Object.keys(recordClassesNumberFound);
         for (let classOrInterfaceKey of otherClassesOrInterfacesKeys) {
             let otherClassOrInterface = classesOrInterfacesDict[classOrInterfaceKey];
 
