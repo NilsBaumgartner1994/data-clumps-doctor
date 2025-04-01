@@ -29,10 +29,29 @@ export class Timer {
         this.elapsedTimes.push(this.getCurrentElapsedTime());
     }
 
+    /**
+     * Retrieves the most recent elapsed time from the collection of elapsed times.
+     * If no elapsed times are recorded, it returns 0.
+     *
+     * @returns {number} The latest elapsed time, or 0 if no elapsed times are available.
+     */
     public getLatestElapsedTime() {
         return this.elapsedTimes[this.elapsedTimes.length - 1] || 0;
     }
 
+    /**
+     * Calculates the total elapsed time by summing up all the values in the
+     * `elapsedTimes` array.
+     *
+     * This method iterates through the `elapsedTimes` array and accumulates
+     * the total time. It is assumed that `elapsedTimes` is an array of numbers.
+     *
+     * @returns {number} The total elapsed time as a sum of all elements in
+     * the `elapsedTimes` array.
+     *
+     * @throws {TypeError} If `elapsedTimes` is not an array or contains
+     * non-numeric values.
+     */
     public getTotalElapsedTime() {
         let total = 0;
         for(let i = 0; i < this.elapsedTimes.length; i++){
