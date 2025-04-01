@@ -66,7 +66,7 @@ async function analyse(report_folder, options) {
     timer.start();
     let lastElapsedTime = 0;
 
-    const all_report_files_paths = AnalyseHelper.getAllReportFilesRecursiveInFolder(report_folder);
+    const all_report_files_paths = AnalyseHelper.getAllReportFilePathsRecursiveInFolder(report_folder);
     const total_amount_of_report_files = all_report_files_paths.length;
 
     for (let i = 0; i < total_amount_of_report_files; i++) {

@@ -32,7 +32,7 @@ async function analyse(report_folder, options){
     let timer = new Timer()
     timer.start();
 
-    let all_report_files_paths = AnalyseHelper.getAllReportFilesRecursiveInFolder(report_folder);
+    let all_report_files_paths = AnalyseHelper.getAllReportFilePathsRecursiveInFolder(report_folder);
     let total_amount_of_report_files = all_report_files_paths.length;
     let dict_of_analysed_data_clumps_keys = {};
 

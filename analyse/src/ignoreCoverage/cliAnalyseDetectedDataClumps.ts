@@ -7,56 +7,6 @@ import {Command} from 'commander';
 import {Analyzer} from "./Analyzer";
 import {AnalyseHelper} from "./AnalyseHelper";
 
-const packageJsonPath = path.join(__dirname, '..','..', 'package.json');
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-const version = packageJson.version;
-
-
-const program = new Command();
-
-const current_working_directory = process.cwd();
-
-program
-    .description('Analyse Detected Data-Clumps\n\n' +
-        'This script performs data clumps detection in a given directory.\n\n' +
-        'npx data-clumps-doctor [options] <path_to_folder>')
-    .version(version)
-    .option('--report_folder <path>', 'Output path', current_working_directory+'/data-clumps-results/'+Analyzer.project_name_variable_placeholder+'/') // Default value is './data-clumps.json'
-    .option('--output <path>', 'Output path', current_working_directory+'/data-clumps-results/'+Analyzer.project_name_variable_placeholder+'/'+Analyzer.project_commit_variable_placeholder+'.json') // Default value is './data-clumps.json'
-
-function getSortedTimestamps(timestamp_to_file_path){
-    let sorted_timestamps = Object.keys(timestamp_to_file_path)
-    return sorted_timestamps;
-}
-
-
-function getAllDataClumpsKeys(sorted_timestamps, timestamp_to_file_paths){
-    let all_data_clump_keys = {};
-
-    for(let i = 0; i < sorted_timestamps.length; i++){
-        let report_file_paths = timestamp_to_file_paths[sorted_timestamps[i]];
-
-        for(let j = 0; j < report_file_paths.length; j++){
-            let report_file_path = report_file_paths[j];
-            let report_file = fs.readFileSync(report_file_path, 'utf8');
-            let report_file_json = JSON.parse(report_file);
-
-            let data_clumps_dict = report_file_json?.data_clumps;
-            let data_clumps_keys = Object.keys(data_clumps_dict);
-
-            // check if data clump key is already in histogram and if not add it
-            for(let j = 0; j < data_clumps_keys.length; j++){
-                let data_clump_key = data_clumps_keys[j];
-
-                all_data_clump_keys[data_clump_key] = true;
-            }
-        }
-
-    }
-
-    return all_data_clump_keys;
-}
-
 function countDataClumpsGroups(data_clumps_dict){
     let data_clumps_keys = Object.keys(data_clumps_dict);
 
@@ -180,7 +130,7 @@ function printTableRow(rowPrintOptions, row){
     console.log(row_string);
 }
 
-function printAmountDataClumpsOverTime(sorted_timestamps, timestamp_to_file_paths){
+function printAmountDataClumpsOverTime(sorted_report_file_paths: string[]){
 
     let rowPrintOptions = {
         date_string: {
@@ -253,76 +203,61 @@ function printAmountDataClumpsOverTime(sorted_timestamps, timestamp_to_file_path
 
     printTableHeader(rowPrintOptions);
 
-    for(let i = 0; i < sorted_timestamps.length; i++){
-        let report_file_paths = timestamp_to_file_paths[sorted_timestamps[i]];
+    for(let i = 0; i < sorted_report_file_paths.length; i++){
+        let report_file_path = sorted_report_file_paths[i];
+        let report_file_json = AnalyseHelper.getReportFileJson(report_file_path)
 
-        for(let j = 0; j < report_file_paths.length; j++){
-            let report_file_path = report_file_paths[j];
+        let amount_data_clumps = report_file_json?.report_summary?.amount_data_clumps;
+        let date_string: any = AnalyseHelper.getDateFromDataClumpsContext(report_file_json)?.toISOString();
 
-            let report_file_json = AnalyseHelper.getReportFileJson(report_file_path)
-
-            let amount_data_clumps = report_file_json?.report_summary?.amount_data_clumps;
-            let project_commit_date = 0
-            const project_commit_date_raw = report_file_json?.project_info?.project_commit_date;
-            if(!!project_commit_date_raw){
-                parseInt(project_commit_date_raw);
-            }
-
-            let date_string: any = project_commit_dateToDate(project_commit_date);
-            //date_string = project_commit_date;
-
-            let project_tag = report_file_json?.project_info?.project_tag;
-            // pad project_tag with spaces to make it 10 characters long
-            if(!!project_tag){
-                project_tag = project_tag.padEnd(35, "_");
-            }
-
-            let number_of_classes_or_interfaces = report_file_json?.project_info?.number_of_classes_or_interfaces;
-            let number_of_methods = report_file_json?.project_info?.number_of_methods;
-            let number_of_data_fields = report_file_json?.project_info?.number_of_data_fields;
-            let number_of_method_parameters = report_file_json?.project_info?.number_of_method_parameters;
-
-            let data_clumps_dict = report_file_json?.data_clumps;
-            let groups = countDataClumpsGroups(data_clumps_dict)
-            let singleNodeGroups = groups.singleNodeGroups;
-            let twoNodeGroups = groups.twoNodeGroups;
-            let largerGroups = groups.largerGroups;
-
-            let amountGroups = singleNodeGroups + twoNodeGroups + largerGroups;
-
-            let rowInfo = {
-                date_string: date_string,
-                project_tag: project_tag,
-                amount_data_clumps: amount_data_clumps,
-                number_of_classes_or_interfaces: number_of_classes_or_interfaces,
-                number_of_methods: number_of_methods,
-                number_of_data_fields: number_of_data_fields,
-                number_of_method_parameters: number_of_method_parameters,
-                singleNodeGroups: singleNodeGroups,
-                twoNodeGroups: twoNodeGroups,
-                largerGroups: largerGroups,
-                amountGroups: amountGroups
-            }
-
-            printTableRow(rowPrintOptions, rowInfo);
-
+        let project_tag = report_file_json?.project_info?.project_tag;
+        // pad project_tag with spaces to make it 10 characters long
+        if(!!project_tag){
+            project_tag = project_tag.padEnd(35, "_");
         }
+
+        let number_of_classes_or_interfaces = report_file_json?.project_info?.number_of_classes_or_interfaces;
+        let number_of_methods = report_file_json?.project_info?.number_of_methods;
+        let number_of_data_fields = report_file_json?.project_info?.number_of_data_fields;
+        let number_of_method_parameters = report_file_json?.project_info?.number_of_method_parameters;
+
+        let data_clumps_dict = report_file_json?.data_clumps;
+        let groups = countDataClumpsGroups(data_clumps_dict)
+        let singleNodeGroups = groups.singleNodeGroups;
+        let twoNodeGroups = groups.twoNodeGroups;
+        let largerGroups = groups.largerGroups;
+
+        let amountGroups = singleNodeGroups + twoNodeGroups + largerGroups;
+
+        let rowInfo = {
+            date_string: date_string,
+            project_tag: project_tag,
+            amount_data_clumps: amount_data_clumps,
+            number_of_classes_or_interfaces: number_of_classes_or_interfaces,
+            number_of_methods: number_of_methods,
+            number_of_data_fields: number_of_data_fields,
+            number_of_method_parameters: number_of_method_parameters,
+            singleNodeGroups: singleNodeGroups,
+            twoNodeGroups: twoNodeGroups,
+            largerGroups: largerGroups,
+            amountGroups: amountGroups
+        }
+
+        printTableRow(rowPrintOptions, rowInfo);
     }
 }
 
-async function analyse(report_folder, options){
+async function analyse(report_project_folder_path, options){
     console.log("Analysing Detected Data-Clumps");
-    if (!fs.existsSync(report_folder)) {
-        console.log("ERROR: Specified path to report folder does not exist: "+report_folder);
+    if (!fs.existsSync(report_project_folder_path)) {
+        console.log("ERROR: Specified path to report folder does not exist: "+report_project_folder_path);
         process.exit(1);
     }
 
-    let timestamp_to_file_paths = AnalyseHelper.time_stamp_to_file_paths(report_folder);
-    let sorted_timestamps = getSortedTimestamps(timestamp_to_file_paths);
-    console.log("sorted_timestamps: "+sorted_timestamps.length);
+    let sorted_report_file_paths = AnalyseHelper.getSortedReportFilePathsByTimestamps(report_project_folder_path);
 
     //printHistogram(sorted_timestamps, timestamp_to_file_paths);
-    printAmountDataClumpsOverTime(sorted_timestamps, timestamp_to_file_paths);
+    printAmountDataClumpsOverTime(sorted_report_file_paths);
 
 
 }
@@ -330,15 +265,14 @@ async function analyse(report_folder, options){
 async function main() {
     console.log("Data-Clumps-Doctor Detection");
 
-    program.parse(process.argv);
-
     // Get the options and arguments
-    const options = program.opts();
+    const options = AnalyseHelper.getCommandForAnalysis(process, {
+        require_report_path: true,
+        require_output_path: false,
+        default_output_filename_without_extension: "AnalyseDetectedDataClumps",
+    })
 
     const report_folder = options.report_folder;
-
-
-
     await analyse(report_folder, options);
 }
 

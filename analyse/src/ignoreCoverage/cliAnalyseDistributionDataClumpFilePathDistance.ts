@@ -52,7 +52,7 @@ async function analyse(report_folder, options){
     let data_clump_type_specific_distances: Dictionary<NumberOccurenceDict> = {};
     let all_data_clump_distances = new NumberOccurenceDict();
 
-    let all_report_files_paths = AnalyseHelper.getAllReportFilesRecursiveInFolder(report_folder);
+    let all_report_files_paths = AnalyseHelper.getAllReportFilePathsRecursiveInFolder(report_folder);
     let total_amount_of_report_files = all_report_files_paths.length;
     let dict_of_analysed_data_clumps_keys = {};
 

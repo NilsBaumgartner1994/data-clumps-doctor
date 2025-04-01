@@ -106,7 +106,7 @@ function analyseForAllPairs(data_clump_data: Dictionary<DataClumpsVariableFromCo
         let combo_index = 0;
         let max_combos = combinations.length;
         for (let combo of combinations) {
-            let elaspedTime = timer.getElapsedTime();
+            let elaspedTime = timer.getCurrentElapsedTime();
             if(elaspedTime > lastElapsedTime + 1000){
                 printProgress(progress_files, total_amount_of_report_files, progress_data_clumps, amount_of_data_clumps);
                 timer.printElapsedTime()
@@ -346,7 +346,7 @@ async function analyse(report_folder, options, largest_prefix: number | undefine
         for(let j = 0; j < amount_of_data_clumps; j++){
             let progress_data_clumps = j+1;
 
-            let elaspedTime = timer.getElapsedTime();
+            let elaspedTime = timer.getCurrentElapsedTime();
             if(elaspedTime > lastElapsedTime + 1000){
                 printProgress(progress_files, total_amount_of_report_files, progress_data_clumps, amount_of_data_clumps);
                 timer.printElapsedTime()

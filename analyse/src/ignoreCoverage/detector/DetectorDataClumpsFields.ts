@@ -42,15 +42,12 @@ export class DetectorDataClumpsFields {
     }
 
     public async detect(softwareProjectDicts: SoftwareProjectDicts, invertedIndexSoftwareProject: InvertedIndexSoftwareProject): Promise<Dictionary<DataClumpTypeContext> | null>{
-        console.log("DetectorDataClumpsFields: detect")
-
         //let classesDict = DetectorUtils.getClassesDict(softwareProjectDicts); // in java also interfaces can have fields
         let classesDict = softwareProjectDicts.dictClassOrInterface;
 
         let dataClumpsFieldParameters: Dictionary<DataClumpTypeContext> = {};
         let classKeys = Object.keys(classesDict);
         let amountOfClasses = classKeys.length;
-        console.log("amountOfClasses: "+amountOfClasses)
 
         let index = 0;
         for (let classKey of classKeys) {

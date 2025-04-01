@@ -551,9 +551,6 @@ export class Detector {
 
         //console.log("Detecting software project for data clumps (done)")
 
-        console.log("Amount of data clumps: " + Object.keys(dataClumpsTypeContext.data_clumps).length);
-
-
         return dataClumpsTypeContext;
     }
 

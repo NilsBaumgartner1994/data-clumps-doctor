@@ -10,8 +10,8 @@ export type ProgressObject = {
 export class Timer {
 
     public startTime: number = 0;
-    public endTime: number = 0;
     public lastElapsedTime: number = 0;
+    public elapsedTimes: number[] = [];
 
     public Timer() {
         this.resetTimer()
@@ -19,7 +19,6 @@ export class Timer {
 
     public resetTimer() {
         this.startTime = 0;
-        this.endTime = 0;
     }
 
     public start() {
@@ -27,27 +26,37 @@ export class Timer {
     }
 
     public stop() {
-        this.endTime = new Date().getTime()
+        this.elapsedTimes.push(this.getCurrentElapsedTime());
     }
 
-    public getElapsedTime() {
-        if(this.endTime === 0){
-            let now = new Date().getTime();
-            return now - this.startTime;
+    public getTotalElapsedTime() {
+        let total = 0;
+        for(let i = 0; i < this.elapsedTimes.length; i++){
+            total += this.elapsedTimes[i];
         }
+        return total;
+    }
 
-        return this.endTime - this.startTime;
+    public getCurrentElapsedTime() {
+        return new Date().getTime() - this.startTime;
+    }
+
+    public printTotalElapsedTime(prefix?: string | null, suffix?: string | null) {
+        prefix = prefix ? `${prefix}: ` : "";
+        suffix = suffix ? `: ${suffix}` : "";
+        let elapsed = this.getTotalElapsedTime();
+        console.log(prefix+`Total elapsed time: ${this.formatTimeToString(elapsed)}`+suffix);
     }
 
     public printElapsedTime(prefix?: string | null, suffix?: string | null) {
         prefix = prefix ? `${prefix}: ` : "";
         suffix = suffix ? `: ${suffix}` : "";
-        let elapsed = this.getElapsedTime();
+        let elapsed = this.getCurrentElapsedTime();
         console.log(prefix+`Elapsed time: ${this.formatTimeToString(elapsed)}`+suffix);
     }
 
     public printEstimatedTimeRemainingAfter1Second(progressObject: ProgressObject) {
-        let elaspedTime = this.getElapsedTime();
+        let elaspedTime = this.getCurrentElapsedTime();
         if(elaspedTime > this.lastElapsedTime + 1000){
             this.printEstimatedTimeRemaining(progressObject);
             this.lastElapsedTime = elaspedTime;
@@ -55,7 +64,7 @@ export class Timer {
     }
 
     public printEstimatedTimeRemaining(progressObject: ProgressObject) {
-        let elaspedTime = this.getElapsedTime();
+        let elaspedTime = this.getCurrentElapsedTime();
         this.lastElapsedTime = elaspedTime;
 
         let progress = progressObject.progress;

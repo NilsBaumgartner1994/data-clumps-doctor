@@ -5,10 +5,17 @@ import path from "path";
 import {DataClumpsTypeContext, DataClumpTypeContext} from "data-clumps-type-context";
 import {Command} from 'commander';
 import {Analyzer} from "./Analyzer";
+import {Timer} from "./Timer";
 
 const packageJsonPath = path.join(__dirname, '..','..', 'package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 const version = packageJson.version;
+
+export type PartialTimerProgressObject = {
+    progressOffset: number,
+    totalAmountFiles: number,
+    timer: Timer
+}
 
 export class AnalyseHelper {
 
@@ -29,6 +36,7 @@ export class AnalyseHelper {
      * @param {string[]} all_report_files_paths - An array of strings representing the
      * paths to the report files to be processed.
      *
+     * @param partialTimerProgressObject
      * @returns {Object<number, string[]>} An object where each key is a Unix timestamp
      * representing the project commit date, and the value is an array of file paths
      * associated with that timestamp.
@@ -36,12 +44,17 @@ export class AnalyseHelper {
      * @throws {Error} Throws an error if a report file cannot be read or if the JSON
      * parsing fails.
      */
-    static time_stamp_to_file_paths(all_report_files_paths: string[]){
+    private static time_stamp_to_file_paths(all_report_files_paths: string[], partialTimerProgressObject?: PartialTimerProgressObject): Record<number, string[]> {
 
-        console.log("Get timestamps for all report files");
         let timestamp_to_file_path = {};
         for(let i = 0; i <all_report_files_paths.length; i++){
-            console.log("Progress: "+(i+1)+"/"+all_report_files_paths.length);
+            if(partialTimerProgressObject){
+                partialTimerProgressObject.timer.printEstimatedTimeRemaining({
+                    progress: partialTimerProgressObject.progressOffset+i,
+                    total: partialTimerProgressObject.totalAmountFiles
+                })
+            }
+
             let report_file_path = all_report_files_paths[i];
             let report_file = fs.readFileSync(report_file_path, 'utf8');
             let report_file_json = JSON.parse(report_file);
@@ -52,13 +65,32 @@ export class AnalyseHelper {
                 timestamp_to_file_path[project_commit_date] = [report_file_path]
             }
             else{
-                timestamp_to_file_path[project_commit_date].push(report_file_path)
+                console.log("WARNING: Multiple reports with the same timestamp: "+project_commit_date);
+                console.log(" - "+report_file_path);
+                console.log(" - "+timestamp_to_file_path[project_commit_date]);
+                //timestamp_to_file_path[project_commit_date].push(report_file_path)
             }
         }
 
-        console.log("Amount of timestamps: "+Object.keys(timestamp_to_file_path).length);
-
         return timestamp_to_file_path;
+    }
+
+    private static getSortedTimestamps(timestamp_to_file_path: Record<number, string[]>){
+        let sorted_timestamps = Object.keys(timestamp_to_file_path)
+        return sorted_timestamps;
+    }
+
+    static getSortedReportFilePathsByTimestamps(folder_path: string, partialTimerProgressObject?: PartialTimerProgressObject){
+        let all_report_files_paths = AnalyseHelper.getAllReportFilePathsRecursiveInFolder(folder_path);
+        let timestamp_to_file_paths = AnalyseHelper.time_stamp_to_file_paths(all_report_files_paths, partialTimerProgressObject);
+        let sorted_timestamps = AnalyseHelper.getSortedTimestamps(timestamp_to_file_paths);
+        let sorted_report_file_paths = [];
+        for(let i = 0; i < sorted_timestamps.length; i++){
+            let timestamp = sorted_timestamps[i];
+            let file_paths = timestamp_to_file_paths[timestamp];
+            sorted_report_file_paths = sorted_report_file_paths.concat(file_paths);
+        }
+        return sorted_report_file_paths;
     }
 
     /**
@@ -73,14 +105,14 @@ export class AnalyseHelper {
      *
      * @throws {Error} Throws an error if the folder_path is invalid or if there are issues reading the directory.
      */
-    static getAllReportFilesRecursiveInFolder(folder_path): string[]{
+    static getAllReportFilePathsRecursiveInFolder(folder_path): string[]{
         let all_report_files = fs.readdirSync(folder_path);
         let all_report_files_paths: any = [];
         for (let i = 0; i < all_report_files.length; i++) {
             let report_file = all_report_files[i];
             let report_file_path = path.join(folder_path, report_file);
             if(fs.lstatSync(report_file_path).isDirectory()){
-                let all_report_files_paths_in_subfolder = AnalyseHelper.getAllReportFilesRecursiveInFolder(report_file_path);
+                let all_report_files_paths_in_subfolder = AnalyseHelper.getAllReportFilePathsRecursiveInFolder(report_file_path);
                 all_report_files_paths = all_report_files_paths.concat(all_report_files_paths_in_subfolder);
             }
             else{
@@ -91,7 +123,6 @@ export class AnalyseHelper {
             }
         }
         return all_report_files_paths;
-
     }
 
     /**

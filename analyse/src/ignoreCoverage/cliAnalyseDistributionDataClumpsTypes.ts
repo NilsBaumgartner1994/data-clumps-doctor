@@ -90,7 +90,7 @@ async function analyse(report_folder, options, defaultFilenameWithoutExtension) 
         process.exit(1);
     }
 
-    let all_report_files_paths = AnalyseHelper.getAllReportFilesRecursiveInFolder(report_folder);
+    let all_report_files_paths = AnalyseHelper.getAllReportFilePathsRecursiveInFolder(report_folder);
     console.log("all_report_files_paths: "+all_report_files_paths.length);
 
     //printHistogram(sorted_timestamps, timestamp_to_file_paths);

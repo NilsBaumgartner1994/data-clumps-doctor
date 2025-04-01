@@ -56,6 +56,17 @@ export class GitHelper {
         }
     }
 
+    static async getGitObjectType(path_to_folder: string, hash: string): Promise<string | null> {
+        try {
+            const git: SimpleGit = simpleGit(path_to_folder);
+            const type = await git.raw(['cat-file', '-t', hash]);
+            return type.trim(); // e.g. 'commit', 'tag', etc.
+        } catch (error) {
+            console.error(`Error checking git object type for ${hash}:`, error);
+            return null;
+        }
+    }
+
     static async getCommitHashForTag(path_to_folder: string, tagName: string): Promise<string | null> {
         return new Promise((resolve, reject) => {
             const git: SimpleGit = simpleGit(path_to_folder);
@@ -79,27 +90,31 @@ export class GitHelper {
         });
     }
 
-    static async getTagFromCommitHash(path_to_folder: string, commitHash: string): Promise<string | null> {
-        // 1. get all Tags: GitHelper.getAllTagsFromGitProject(path_to_folder)
-        let tags = await GitHelper.getAllTagsFromGitProject(path_to_folder);
-
-        // 2. get all commits for each tag: GitHelper.getCommitsForTag(path_to_folder, tag)
-        if(!!tags){
-            for (let tag of tags){
-                let commit = await GitHelper.getCommitHashForTag(path_to_folder, tag);
-                if(commit === commitHash){             // 3. check if commitHash is in commits for tag
-                    return tag;
-                }
-            }
-        }
-        return null;
-
-    }
-
-    static async getCommitDateUnixTimestamp(path_to_folder: string, identifier: string): Promise<string | null> {
+    static async getTagsPointingAtCommit(path_to_folder: string, commitHash: string): Promise<string[]> {
         try {
             const git: SimpleGit = simpleGit(path_to_folder);
-            const options = ['-s', '--format=%ct', identifier];
+            const tags = await git.raw(['tag', '--points-at', commitHash]);
+            return tags.trim().split('\n').filter(t => t.length > 0);
+        } catch (error) {
+            console.error(`Error getting tags for commit ${commitHash}:`, error);
+            return [];
+        }
+    }
+
+
+    static async getTagFromCommitHash(path_to_folder: string, commitHash: string): Promise<string | null> {
+        const tags = await GitHelper.getTagsPointingAtCommit(path_to_folder, commitHash);
+        return tags.length > 0 ? tags[0] : null;
+    }
+
+    static async getCommitDateUnixTimestamp(path_to_folder: string, identifier: string | undefined | null): Promise<string | null> {
+        if (!identifier) {
+            console.error('No identifier provided');
+            return null;
+        }
+        try {
+            const git: SimpleGit = simpleGit(path_to_folder);
+            const options = ['-s', '--format=%ct', `${identifier}^{}`];
             const result = await git.show(options);
             const lines = result.trim().split('\n');
             const lastLine = lines[lines.length - 1];
@@ -110,6 +125,7 @@ export class GitHelper {
             return null;
         }
     }
+
 
 
     static async getProjectName(path_to_folder: string): Promise<string | null> {
