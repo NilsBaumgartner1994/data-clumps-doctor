@@ -8,6 +8,7 @@ import path from "path";
 import {ParserHelper} from "./ParserHelper";
 import {ParserHelperXmlVisualParadigm} from "./ParserHelperXmlVisualParadigm";
 import {DetectorUtils} from "./detector/DetectorUtils";
+import os from "os";
 
 export class Analyzer {
 
@@ -345,7 +346,19 @@ export class Analyzer {
 
             let timerInformation = {
                 ast_generation_time: this.astTimer.getLatestElapsedTime(),
-                detection_time: this.detectTimer.getLatestElapsedTime()
+                detection_time: this.detectTimer.getLatestElapsedTime(),
+                machine_information: {
+                    os: os.type(),
+                    os_release: os.release(),
+                    os_platform: os.platform(),
+                    os_arch: os.arch(),
+                    os_uptime: os.uptime(),
+                    os_memory_free: os.freemem(),
+                    os_memory_total: os.totalmem(),
+                    os_cpu_cores: os.cpus().length,
+                    os_cpu_model: os.cpus()[0].model,
+                    os_cpu_speed: os.cpus()[0].speed
+                }
             }
             dataClumpsContext.report_summary.additional = {
                 timer_information: timerInformation
