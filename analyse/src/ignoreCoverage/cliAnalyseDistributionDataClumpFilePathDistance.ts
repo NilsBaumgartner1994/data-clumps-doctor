@@ -42,6 +42,20 @@ function getFilePathDistance(file_path_a: string, file_path_b: string){
     return amount_folders_a + amount_folders_b;
 }
 
+/**
+ * Analyzes data clumps from report files located in the specified folder.
+ * This function reads JSON report files, extracts data clump information,
+ * and calculates distances between data clumps. It generates a Python script
+ * that contains the analyzed data and statistics.
+ *
+ * @param {string} report_folder - The path to the folder containing report files.
+ * @param {Object} options - Options for the analysis.
+ * @param {string} options.output_filename_without_extension - The base name for the output file.
+ *
+ * @returns {Promise<string>} A promise that resolves to a string containing the generated Python script.
+ *
+ * @throws {Error} Throws an error if the specified report folder does not exist.
+ */
 async function analyse(report_folder, options){
     console.log("Analysing Detected Data-Clumps");
     if (!fs.existsSync(report_folder)) {
