@@ -148,6 +148,25 @@ export class Analyzer {
         return project_name;
     }
 
+    /**
+     * Initiates the analysis process for a project by loading the project name,
+     * configuring commit selection, and performing analysis on each commit.
+     *
+     * This method handles both scenarios where a git checkout is needed and where
+     * a single commit analysis is performed. It tracks the progress of the analysis,
+     * skipping commits based on certain conditions, such as existing analysis output
+     * or being below a specified git tag start offset.
+     *
+     * @async
+     * @returns {Promise<void>} A promise that resolves when the analysis process is complete.
+     *
+     * @throws {Error} Throws an error if there is an issue during the checkout or analysis of a commit.
+     *
+     * @example
+     * // Example usage:
+     * const analyzer = new ProjectAnalyzer();
+     * await analyzer.start();
+     */
     async start(){
         this.timer.start();
 
