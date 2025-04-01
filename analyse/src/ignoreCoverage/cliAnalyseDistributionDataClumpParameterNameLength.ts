@@ -41,6 +41,21 @@ export function calculateVariableLengths(positions: Position[]): NumberOccurence
 }
 
 
+/**
+ * Analyzes data clumps from report files located in the specified folder.
+ * This function reads JSON report files, processes data clumps, and generates
+ * statistical analysis on parameter and field lengths.
+ *
+ * @async
+ * @param {string} report_folder - The path to the folder containing report files.
+ * @param {Object} options - Options for the analysis.
+ * @param {string} options.output_filename_without_extension - The base name for the output file.
+ * @returns {Promise<string>} A promise that resolves to a string containing the generated file content.
+ * @throws {Error} Throws an error if the specified report folder does not exist.
+ *
+ * @example
+ * const content = await analyse('/path/to/reports', { output_filename_without_extension: 'output' });
+ */
 async function analyse(report_folder, options){
     console.log("Analysing Detected Data-Clumps");
     if (!fs.existsSync(report_folder)) {
