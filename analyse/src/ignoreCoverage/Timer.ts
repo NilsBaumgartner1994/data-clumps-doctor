@@ -29,6 +29,10 @@ export class Timer {
         this.elapsedTimes.push(this.getCurrentElapsedTime());
     }
 
+    public getLatestElapsedTime() {
+        return this.elapsedTimes[this.elapsedTimes.length - 1] || 0;
+    }
+
     public getTotalElapsedTime() {
         let total = 0;
         for(let i = 0; i < this.elapsedTimes.length; i++){

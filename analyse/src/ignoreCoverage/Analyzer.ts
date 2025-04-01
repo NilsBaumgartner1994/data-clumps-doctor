@@ -342,8 +342,35 @@ export class Analyzer {
             let dataClumpsContext = await Analyzer.analyseSoftwareProjectDicts(softwareProjectDicts, this.project_url, this.project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, this.detectorOptions);
             this.detectTimer.stop();
             this.detectTimer.printElapsedTime("Detect time for commit: "+commit);
+
+            let timerInformation = {
+                ast_generation_time: this.astTimer.getLatestElapsedTime(),
+                detection_time: this.detectTimer.getLatestElapsedTime()
+            }
+            dataClumpsContext.report_summary.additional = {
+                timer_information: timerInformation
+            }
+
             console.log(JSON.stringify(dataClumpsContext.report_summary, null, 2));
             console.log("----------------------");
+
+            // delete file if exists
+            if(fs.existsSync(path_to_result)){
+                fs.unlinkSync(path_to_result);
+            }
+
+            const dir = path.dirname(path_to_result);
+            if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir, { recursive: true });
+            }
+
+            // save to file
+            try {
+                fs.writeFileSync(path_to_result, JSON.stringify(dataClumpsContext, null, 2), 'utf8');
+                console.log('Results saved to '+path_to_result);
+            } catch (err) {
+                console.error('An error occurred while writing to file:', err);
+            }
 
             if(!this.preserve_ast_output){
                 await ParserHelper.removeGeneratedAst(this.path_to_ast_output);
@@ -357,24 +384,6 @@ export class Analyzer {
         let detector = new Detector(softwareProjectDicts, detectorOptions, progressCallback, project_url, project_name, project_version, commit, commit_tag, commit_date);
 
         let dataClumpsContext = await detector.detect();
-
-        // delete file if exists
-        if(fs.existsSync(path_to_result)){
-            fs.unlinkSync(path_to_result);
-        }
-
-        const dir = path.dirname(path_to_result);
-        if (!fs.existsSync(dir)) {
-            fs.mkdirSync(dir, { recursive: true });
-        }
-
-        // save to file
-        try {
-            fs.writeFileSync(path_to_result, JSON.stringify(dataClumpsContext, null, 2), 'utf8');
-            console.log('Results saved to '+path_to_result);
-        } catch (err) {
-            console.error('An error occurred while writing to file:', err);
-        }
 
         return dataClumpsContext;
 
