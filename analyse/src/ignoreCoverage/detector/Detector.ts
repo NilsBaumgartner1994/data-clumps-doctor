@@ -247,6 +247,19 @@ export class InvertedIndexSoftwareProject {
         return this.getVariableKeyForIndex(field);
     }
 
+    /**
+     * Retrieves a list of methods that contain parameters similar to those of the specified method.
+     * This function analyzes the parameters of the given method and counts how many times each parameter
+     * appears in other methods within the provided software project dictionaries.
+     *
+     * @param {MethodTypeContext} currentMethod - The method context for which similar parameter methods are being searched.
+     * @param {SoftwareProjectDicts} softwareProjectDicts - A collection of dictionaries representing the software project,
+     *        including method definitions.
+     * @returns {MethodTypeContext[]} An array of method contexts that have parameters similar to those of the current method,
+     *          excluding the current method itself.
+     *
+     * @throws {Error} Throws an error if the currentMethod is not found in the softwareProjectDicts.
+     */
     public getPossibleMethodsForParameterParameterDataClump(currentMethod: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts){
         let methodRecordCounting: Record<string, {
             amountFound: number,
