@@ -41,6 +41,21 @@ export class DetectorDataClumpsFields {
         this.progressCallback = progressCallback;
     }
 
+    /**
+     * Analyzes the provided software project dictionaries to detect data clumps within class fields.
+     *
+     * This method processes each class or interface in the provided dictionaries, ignoring auxiliary classes,
+     * and generates parameters related to data clumps found in member fields.
+     *
+     * @param {SoftwareProjectDicts} softwareProjectDicts - The dictionaries containing information about software projects,
+     * including classes and interfaces.
+     * @param {InvertedIndexSoftwareProject} invertedIndexSoftwareProject - An inverted index of the software project,
+     * used for efficient lookups during analysis.
+     * @returns {Promise<Dictionary<DataClumpTypeContext> | null>} A promise that resolves to a dictionary containing
+     * detected data clump contexts for each class field, or null if no data clumps are found.
+     *
+     * @throws {Error} Throws an error if the analysis encounters unexpected data structures or issues during processing.
+     */
     public async detect(softwareProjectDicts: SoftwareProjectDicts, invertedIndexSoftwareProject: InvertedIndexSoftwareProject): Promise<Dictionary<DataClumpTypeContext> | null>{
         console.log("DetectorDataClumpsFields: detect")
 
