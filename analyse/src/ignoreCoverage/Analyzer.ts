@@ -345,8 +345,8 @@ export class Analyzer {
             this.detectTimer.printElapsedTime("Detect time for commit: "+commit);
 
             let timerInformation = {
-                ast_generation_time: this.astTimer.getLatestElapsedTime(),
-                detection_time: this.detectTimer.getLatestElapsedTime(),
+                ast_generation_time_ms: this.astTimer.getLatestElapsedTime(),
+                detection_time_ms: this.detectTimer.getLatestElapsedTime(),
                 machine_information: {
                     os: os.type(),
                     os_release: os.release(),
