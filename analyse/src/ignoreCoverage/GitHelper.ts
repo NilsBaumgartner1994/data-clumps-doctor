@@ -76,6 +76,9 @@ export class GitHelper {
         try {
             const git: SimpleGit = simpleGit(path_to_folder);
             const commitHash = await git.revparse([`${tagName}^{commit}`]); // get the commit hash for the tag, despite the tag being a lightweight tag or an annotated tag
+            console.log(`commitHash: ${commitHash}`);
+            console.log("path_to_folder: "+path_to_folder);
+            console.log("git command: "+`git rev-parse ${tagName}^{commit}`);
             return commitHash.trim();
         } catch (err) {
             console.error(`Error fetching commit hash for tag ${tagName}:`, err);

@@ -128,9 +128,11 @@ export class Analyzer {
             //console.log("amount tag commits: "+allTags.length)
 
             for (const tag of allTags) {
-                //console.log("check tag: " + tag);
+                console.log("check tag: " + tag);
                 let commit_hash = await GitHelper.getCommitHashForTag(this.path_to_project, tag);
+                console.log("commit_hash: "+commit_hash);
                 let type = await GitHelper.getGitObjectType(this.path_to_project, commit_hash);
+                console.log("type: "+type);
 
                 if(!commit_hash){
                     console.log("No commit hash found for tag: "+tag);
