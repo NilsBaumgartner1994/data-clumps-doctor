@@ -188,7 +188,7 @@ async function main() {
         let path_to_project = path.resolve(options.git_project_temp_folder);
         //console.log("Clearing temp folder "+path_to_project);
         if(fs.existsSync(path_to_project)){ // delete folder if exists
-            fs.rmSync(path_to_project, { recursive: true });
+            fs.rmSync(path_to_project, { recursive: true, force: true, maxRetries: 10 });
         }
         // create temp folder recursively
         fs.mkdirSync(path_to_project, { recursive: true });
@@ -199,7 +199,7 @@ async function main() {
         // Delete the project folder
         //console.log("Deleting clones project folder "+path_to_project);
         if(fs.existsSync(path_to_project)){ // delete folder if exists
-            fs.rmSync(path_to_project, { recursive: true });
+            fs.rmSync(path_to_project, { recursive: true, force: true, maxRetries: 10 });
         }
     }
 }

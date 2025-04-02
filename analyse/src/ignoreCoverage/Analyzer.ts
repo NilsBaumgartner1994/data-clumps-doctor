@@ -375,7 +375,7 @@ export class Analyzer {
 
             const dir = path.dirname(path_to_result);
             if (!fs.existsSync(dir)) {
-                fs.mkdirSync(dir, { recursive: true });
+                fs.mkdirSync(dir, { recursive: true});
             }
 
             // save to file

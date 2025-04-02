@@ -37,13 +37,15 @@ export class ParserHelper {
             if(fs.existsSync(path_to_folder_of_parsed_ast)){
                 console.log("Started removing generated ASTs: try: "+tries+" path_to_folder_of_parsed_ast: "+path_to_folder_of_parsed_ast);
                 try{
-                    fs.rmSync(path_to_folder_of_parsed_ast, { recursive: true });
+                    fs.rmSync(path_to_folder_of_parsed_ast, { recursive: true, force: true, maxRetries: 10 });
                 } catch (e) {
                     console.log("Error removing generated ASTs", e);
                     console.log("additionalMessageToLog", additionalMessageToLog);
                 }
             }
+            tries++;
         }
+        console.log("Finished removing generated ASTs: "+additionalMessageToLog);
     }
 
 }
