@@ -33,19 +33,25 @@ export class ParserHelper {
     static async removeGeneratedAst(path_to_folder_of_parsed_ast: string, additionalMessageToLog: string): Promise<void> {
         // delete file if exists
         let tries = 1;
-        while(fs.existsSync(path_to_folder_of_parsed_ast) && tries <= 10){
+        let lastError: any = null;
+        let maxTriesManual = 10;
+        while(fs.existsSync(path_to_folder_of_parsed_ast) && tries <= maxTriesManual){
             if(fs.existsSync(path_to_folder_of_parsed_ast)){
-                console.log("Started removing generated ASTs: try: "+tries+" path_to_folder_of_parsed_ast: "+path_to_folder_of_parsed_ast);
+                //console.log("Started removing generated ASTs: try: "+tries+" path_to_folder_of_parsed_ast: "+path_to_folder_of_parsed_ast);
                 try{
                     fs.rmSync(path_to_folder_of_parsed_ast, { recursive: true, force: true, maxRetries: 10 });
-                } catch (e) {
-                    console.log("Error removing generated ASTs", e);
-                    console.log("additionalMessageToLog", additionalMessageToLog);
+                } catch (e: any) {
+                    lastError = e;
+                    //console.log("Error removing generated ASTs", e);
+                    //console.log("additionalMessageToLog", additionalMessageToLog);
                 }
             }
             tries++;
         }
-        console.log("Finished removing generated ASTs: "+additionalMessageToLog);
+        if(fs.existsSync(path_to_folder_of_parsed_ast)){
+            console.error("Error removing generated ASTs: "+additionalMessageToLog)
+            console.error("lastError", lastError);
+        }
     }
 
 }
