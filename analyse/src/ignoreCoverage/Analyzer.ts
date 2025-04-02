@@ -350,7 +350,6 @@ export class Analyzer {
             this.detectTimer.printElapsedTime("Detect time for commit: "+commit);
 
             console.log("Project Name: "+this.project_name);
-            console.log(JSON.stringify(dataClumpsContext.project_info.project_name, null, 2));
             console.log(JSON.stringify(dataClumpsContext.report_summary, null, 2));
 
             let timerInformation = {
@@ -373,8 +372,8 @@ export class Analyzer {
                 timer_information: timerInformation
             }
 
-            console.log("Ast generation time: "+dataClumpsContext.report_summary.additional.ast_generation_time_ms+" ms");
-            console.log("Detection time: "+dataClumpsContext.report_summary.additional.detection_time_ms+" ms");
+            console.log("Ast generation time: "+timerInformation.ast_generation_time_ms+" ms");
+            console.log("Detection time: "+timerInformation.detection_time_ms+" ms");
             console.log("----------------------");
 
             // delete file if exists
