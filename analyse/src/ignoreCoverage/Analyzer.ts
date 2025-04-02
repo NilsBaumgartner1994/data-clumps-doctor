@@ -306,7 +306,6 @@ export class Analyzer {
             //console.log("commit_tag: "+commit_tag);
             //console.log("commit_date: "+commit_date);
 
-            console.log("Remove previous ast output: "+this.path_to_ast_output);
             this.path_to_ast_output = Analyzer.replaceOutputVariables(this.path_to_ast_output, this.project_name, commit_to_analyse_obj.commit);
             await ParserHelper.removeGeneratedAst(this.path_to_ast_output, "before analysis");
             fs.mkdirSync(this.path_to_ast_output, { recursive: true });
