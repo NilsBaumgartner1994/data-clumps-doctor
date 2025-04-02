@@ -290,11 +290,12 @@ export class Analyzer {
 
     async analyse(commit_to_analyse_obj: { commit: string; tag: string | undefined | null; }){
         const commit = commit_to_analyse_obj.commit;
+        console.log("Analyse commit: "+commit);
 
         let project_version = this.project_version || commit_to_analyse_obj.commit || commit_to_analyse_obj.tag || "unknown_project_version";
 
         if (!fs.existsSync(this.path_to_source)) {
-            //console.log(`The path to source files ${this.path_to_source_folder} does not exist.`);
+            console.log(`The path to source files ${this.path_to_source} does not exist.`);
             return;
         } else {
             let commit_date = await GitHelper.getCommitDateUnixTimestamp(this.path_to_project, commit_to_analyse_obj.commit);
@@ -305,8 +306,9 @@ export class Analyzer {
             //console.log("commit_tag: "+commit_tag);
             //console.log("commit_date: "+commit_date);
 
+            console.log("Remove previous ast output: "+this.path_to_ast_output);
             this.path_to_ast_output = Analyzer.replaceOutputVariables(this.path_to_ast_output, this.project_name, commit_to_analyse_obj.commit);
-            await ParserHelper.removeGeneratedAst(this.path_to_ast_output);
+            await ParserHelper.removeGeneratedAst(this.path_to_ast_output, "before analysis");
             fs.mkdirSync(this.path_to_ast_output, { recursive: true });
 
             if(this.source_type === "java"){
@@ -330,8 +332,7 @@ export class Analyzer {
 
             if (!fs.existsSync(this.path_to_ast_output)) {
                 console.log(`The path to ast output ${this.path_to_ast_output} does not exist. Creating it.`)
-                // in order when the ast generator does not find any files, it does not create the folder
-                fs.mkdirSync(this.path_to_ast_output, { recursive: true });
+                return;
             }
 
             let softwareProjectDicts: SoftwareProjectDicts = await ParserHelper.getSoftwareProjectDictsFromParsedAstFolder(this.path_to_ast_output);
@@ -386,7 +387,7 @@ export class Analyzer {
             }
 
             if(!this.preserve_ast_output){
-                await ParserHelper.removeGeneratedAst(this.path_to_ast_output);
+                await ParserHelper.removeGeneratedAst(this.path_to_ast_output, "after analysis");
             } else {
                 console.log("Preserving generated AST Output");
             }

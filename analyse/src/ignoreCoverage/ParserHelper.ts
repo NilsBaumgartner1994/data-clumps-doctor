@@ -30,11 +30,19 @@ export class ParserHelper {
         return softwareProjectDicts
     }
 
-    static async removeGeneratedAst(path_to_folder_of_parsed_ast: string): Promise<void> {
-        //console.log("Started removing generated ASTs");
+    static async removeGeneratedAst(path_to_folder_of_parsed_ast: string, additionalMessageToLog: string): Promise<void> {
         // delete file if exists
-        if(fs.existsSync(path_to_folder_of_parsed_ast)){
-            fs.rmSync(path_to_folder_of_parsed_ast, { recursive: true });
+        let tries = 1;
+        while(fs.existsSync(path_to_folder_of_parsed_ast) && tries <= 10){
+            if(fs.existsSync(path_to_folder_of_parsed_ast)){
+                console.log("Started removing generated ASTs: try: "+tries+" path_to_folder_of_parsed_ast: "+path_to_folder_of_parsed_ast);
+                try{
+                    fs.rmSync(path_to_folder_of_parsed_ast, { recursive: true });
+                } catch (e) {
+                    console.log("Error removing generated ASTs", e);
+                    console.log("additionalMessageToLog", additionalMessageToLog);
+                }
+            }
         }
     }
 
