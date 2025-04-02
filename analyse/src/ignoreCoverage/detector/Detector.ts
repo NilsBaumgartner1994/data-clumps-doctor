@@ -14,26 +14,42 @@ import {
     MethodTypeContext, VariableTypeContext
 } from "../ParsedAstTypes";
 import {DetectorUtils} from "./DetectorUtils";
+import {packageUp} from 'package-up';
 
-let detector_version = "unknown";
-let reportVersion = "unknown";
-
-try {
-    const packageJsonPath = path.join(__dirname, '..','..', '..', 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
-    detector_version = packageJson.version;
-} catch (e) {
-    console.log("Could not read package.json to get version of detector");
+async function getPackageJson(){
+    let packageJsonPath = await packageUp();
+    if(!packageJsonPath){
+        return null;
+    }
+    let packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+    return packageJson;
 }
 
-try {
-    const packageJsonLockPath = path.join(__dirname, '..','..', '..', 'package-lock.json');
-    const packageJsonLock = JSON.parse(fs.readFileSync(packageJsonLockPath, 'utf8'));
-    reportVersion = packageJsonLock?.dependencies?.["data-clumps-type-context"]?.version || "unknown";
-} catch (e) {
-    console.log("Could not read package-lock.json to get version of report");
+async function getDetectorVersion(){
+    let packageJson = await getPackageJson();
+    if(!packageJson){
+        return "unknown";
+    }
+    return packageJson.version;
 }
 
+async function getReportFormat(){
+    // data-clumps-type-context
+    let packageJson = await getPackageJson();
+    if(!packageJson){
+        return "unknown";
+    }
+    // get dependencies
+    let dependencies = packageJson.dependencies;
+    if(!dependencies){
+        return "unknown";
+    }
+    let dataClumpsTypeContextVersion = dependencies["data-clumps-type-context"];
+    if(!dataClumpsTypeContextVersion){
+        return "unknown";
+    }
+    return dataClumpsTypeContextVersion;
+}
 
 const defaultValueField = "defaultValue";
 
@@ -386,7 +402,6 @@ export class Detector {
     public project_tag: string | null;
     public project_commit_date: string | null;
     public additional: any;
-    public detector_version: string;
 
     static getDefaultOptions(options?: Partial<DetectorOptions>){
         return getDefaultValuesFromPartialOptions(options || {});
@@ -417,7 +432,6 @@ export class Detector {
         this.project_tag = project_tag || null;
         this.project_commit_date = project_commit_date || null;
         this.additional = additional || {};
-        this.detector_version = detector_version;
 
 
         DetectorUtils.checkIfIncompatibleOptions(this.options);
@@ -438,6 +452,9 @@ export class Detector {
         let number_of_methods = Object.keys(this.softwareProjectDicts.dictMethod).length;
         let number_of_data_fields = Object.keys(this.softwareProjectDicts.dictMemberFieldParameters).length;
         let number_of_method_parameters = Object.keys(this.softwareProjectDicts.dictMethodParameters).length;
+
+        let reportVersion = await getReportFormat();
+        let detectorVersion = await getDetectorVersion();
 
         let dataClumpsTypeContext: DataClumpsTypeContext = {
             report_version: reportVersion,
@@ -470,7 +487,7 @@ export class Detector {
             detector: {
                 name: "data-clumps-doctor",
                 url: "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
-                version: this.detector_version,
+                version: detectorVersion,
                 options: JSON.parse(JSON.stringify(this.options))
             },
             data_clumps: {}
