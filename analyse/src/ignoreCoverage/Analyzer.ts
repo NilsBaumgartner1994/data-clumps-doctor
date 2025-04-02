@@ -38,6 +38,8 @@ export class Analyzer {
     public detectTimer: Timer;
     public gitTimer: Timer;
 
+    public couldNotGenerateAstForCommits: string[] = [];
+
     constructor(
         path_to_project: string,
         path_to_ast_generator_folder: string,
@@ -128,6 +130,8 @@ export class Analyzer {
             for (const tag of allTags) {
                 //console.log("check tag: " + tag);
                 let commit_hash = await GitHelper.getCommitHashForTag(this.path_to_project, tag);
+                let type = await GitHelper.getGitObjectType(this.path_to_project, commit_hash);
+
                 if(!commit_hash){
                     console.log("No commit hash found for tag: "+tag);
                     continue;
@@ -263,6 +267,11 @@ export class Analyzer {
         this.timer.printTotalElapsedTime("Total time");
         this.astTimer.printTotalElapsedTime("Total Ast generation time");
         this.detectTimer.printTotalElapsedTime("Total Analysis time");
+
+        for(let commit of this.couldNotGenerateAstForCommits) {
+            console.log("Could not generate AST for commit: " + commit);
+        }
+
     }
 
     static replaceOutputVariables(path_to_output_with_variables, project_name="project_name", project_commit="project_commit"){
@@ -314,6 +323,11 @@ export class Analyzer {
                 console.error("Error creating directory: "+this.path_to_ast_output);
                 console.error(e);
             }
+            // check if folder to ast output exists
+            if (!fs.existsSync(this.path_to_ast_output)) {
+                console.error(`The folder to ast output ${this.path_to_ast_output} does not exist. Therefore, we cannot generate the AST.`);
+                return;
+            }
 
             if(this.source_type === "java"){
                 this.astTimer.start();
@@ -335,7 +349,8 @@ export class Analyzer {
 
 
             if (!fs.existsSync(this.path_to_ast_output)) {
-                console.log(`The path to ast output ${this.path_to_ast_output} does not exist. Creating it.`)
+                console.error(`The path to ast output ${this.path_to_ast_output} does not exist. Therefore, no AST will be found.`);
+                this.couldNotGenerateAstForCommits.push(commit);
                 return;
             }
 

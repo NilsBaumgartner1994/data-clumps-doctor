@@ -5,7 +5,7 @@ import {Timer} from "./Timer";
 import {AnalyseHelper, NumberOccurenceDict} from "./AnalyseHelper";
 
 
-function printDataClumpsClusterDistribution(all_report_files_paths){
+function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
 
     console.log("Counting data clumps cluster distribution ...")
 
@@ -202,6 +202,7 @@ function printDataClumpsClusterDistribution(all_report_files_paths){
         console.log("----")
     }
 
+    console.log("Total amount of reports: "+all_report_files_paths.length);
     console.log("total_amount_classes_or_interfaces: "+total_amount_classes_or_interfaces);
     console.log("total_amount_methods: "+total_amount_methods);
     console.log("reports_with_data_clumps: "+reports_with_data_clumps);

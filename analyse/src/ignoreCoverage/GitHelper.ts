@@ -56,7 +56,12 @@ export class GitHelper {
         }
     }
 
-    static async getGitObjectType(path_to_folder: string, hash: string): Promise<string | null> {
+    static async getGitObjectType(path_to_folder: string, hash: string | null | undefined): Promise<string | null> {
+        if(!hash){
+            console.error('No hash provided');
+            return null;
+        }
+
         try {
             const git: SimpleGit = simpleGit(path_to_folder);
             const type = await git.raw(['cat-file', '-t', hash]);
@@ -68,27 +73,16 @@ export class GitHelper {
     }
 
     static async getCommitHashForTag(path_to_folder: string, tagName: string): Promise<string | null> {
-        return new Promise((resolve, reject) => {
+        try {
             const git: SimpleGit = simpleGit(path_to_folder);
-            git.raw(['show-ref', '--tags', tagName], (err: Error | null, data: string) => {
-                if (err) {
-                    console.error(`Error fetching commit hash for tag ${tagName}:`, err);
-                    resolve(null);
-                } else {
-                    const lines = data.trim().split('\n');
-                    for (const line of lines) {
-                        const parts = line.split(' ');
-                        if (parts.length > 1 && parts[1] === `refs/tags/${tagName}`) {
-                            resolve(parts[0]);
-                            return;
-                        }
-                    }
-                    console.warn(`No commit hash found for tag ${tagName}`);
-                    resolve(null);
-                }
-            });
-        });
+            const commitHash = await git.revparse([`${tagName}^{commit}`]); // get the commit hash for the tag, despite the tag being a lightweight tag or an annotated tag
+            return commitHash.trim();
+        } catch (err) {
+            console.error(`Error fetching commit hash for tag ${tagName}:`, err);
+            return null;
+        }
     }
+
 
     static async getTagsPointingAtCommit(path_to_folder: string, commitHash: string): Promise<string[]> {
         try {

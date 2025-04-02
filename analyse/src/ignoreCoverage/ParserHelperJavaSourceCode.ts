@@ -52,6 +52,7 @@ export class ParserHelperJavaSourceCode {
         try {
             //await ParserHelperJavaSourceCode.runMakeCommand(path_to_ast_generator_folder, path_to_source_code, path_to_save_parsed_ast);
             const { stdout } = await ParserHelperJavaSourceCode.execAsync('cd '+path_to_ast_generator_folder+' && make run SOURCE="'+path_to_source_code+'" DESTINATION="'+path_to_save_parsed_ast+'"');
+            //console.log(`stdout: ${stdout}`);
         } catch (error) {
             console.error(`Error executing make: ${error}`);
         }
