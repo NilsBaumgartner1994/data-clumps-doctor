@@ -116,6 +116,20 @@ export class Analyzer {
         return missing_commit_results;
     }
 
+    /**
+     * Asynchronously retrieves the commit hashes associated with all tags in the specified Git project.
+     *
+     * This method checks each tag in the Git repository and collects the corresponding commit hashes.
+     * If a tag does not have an associated commit hash, it is skipped. The results are returned as an array
+     * of objects containing the commit hash and the tag name.
+     *
+     * @returns {Promise<Array<{ commit: string, tag: string | undefined | null }>>}
+     * A promise that resolves to an array of objects, each containing:
+     * - `commit`: The commit hash associated with the tag.
+     * - `tag`: The name of the tag.
+     *
+     * @throws {Error} Throws an error if there is an issue retrieving tags or commit hashes from the Git project.
+     */
     async getGitTagCommitsHashes(){
         //console.log("Perform a full check of the whole project");
         const allTags = await GitHelper.getAllTagsFromGitProject(this.path_to_project);
