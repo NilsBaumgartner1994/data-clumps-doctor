@@ -14,9 +14,9 @@ import {
     MethodTypeContext, VariableTypeContext
 } from "../ParsedAstTypes";
 import {DetectorUtils} from "./DetectorUtils";
-import {packageUp} from 'package-up';
 
 async function getPackageJson(){
+    const { packageUp } = await import('package-up');
     let packageJsonPath = await packageUp();
     if(!packageJsonPath){
         return null;
