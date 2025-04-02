@@ -206,7 +206,7 @@ export class Analyzer {
             for (const commit_to_analyse_obj of commits_to_analyse) {
                 let elapsed_time = this.timer.getCurrentElapsedTime();
                 let elapsed_time_formatted = this.timer.formatTimeToString(elapsed_time);
-                let suffix = "Commit ["+(i+1)+"/"+amount_commits+"] - elapsed: "+elapsed_time_formatted+" - commit: "+commit_to_analyse_obj.commit;
+                let suffix = "Commit ["+(i+1)+"/"+amount_commits+"] - project: "+this.project_name + " - commit: "+commit_to_analyse_obj.commit;
                 this.timer.printEstimatedTimeRemaining({
                     progress: i-amount_skipped,
                     total: amount_commits-amount_skipped,
@@ -308,7 +308,12 @@ export class Analyzer {
 
             this.path_to_ast_output = Analyzer.replaceOutputVariables(this.path_to_ast_output, this.project_name, commit_to_analyse_obj.commit);
             await ParserHelper.removeGeneratedAst(this.path_to_ast_output, "before analysis");
-            fs.mkdirSync(this.path_to_ast_output, { recursive: true });
+            try{
+                fs.mkdirSync(this.path_to_ast_output, { recursive: true });
+            } catch (e: any) {
+                console.error("Error creating directory: "+this.path_to_ast_output);
+                console.error(e);
+            }
 
             if(this.source_type === "java"){
                 this.astTimer.start();
@@ -344,6 +349,10 @@ export class Analyzer {
             this.detectTimer.stop();
             this.detectTimer.printElapsedTime("Detect time for commit: "+commit);
 
+            console.log("Project Name: "+this.project_name);
+            console.log(JSON.stringify(dataClumpsContext.project_info.project_name, null, 2));
+            console.log(JSON.stringify(dataClumpsContext.report_summary, null, 2));
+
             let timerInformation = {
                 ast_generation_time_ms: this.astTimer.getLatestElapsedTime(),
                 detection_time_ms: this.detectTimer.getLatestElapsedTime(),
@@ -364,7 +373,8 @@ export class Analyzer {
                 timer_information: timerInformation
             }
 
-            console.log(JSON.stringify(dataClumpsContext.report_summary, null, 2));
+            console.log("Ast generation time: "+dataClumpsContext.report_summary.additional.ast_generation_time_ms+" ms");
+            console.log("Detection time: "+dataClumpsContext.report_summary.additional.detection_time_ms+" ms");
             console.log("----------------------");
 
             // delete file if exists
