@@ -16,6 +16,20 @@ import {
 import {DetectorUtils} from "./DetectorUtils";
 import {packageUp} from 'package-up';
 
+/**
+ * Asynchronously retrieves the contents of the package.json file.
+ *
+ * This function first attempts to locate the package.json file using the
+ * `packageUp` utility. If the file is found, it reads the file's contents
+ * and parses it as JSON. If the package.json file cannot be found, the
+ * function returns null.
+ *
+ * @returns {Promise<Object|null>} A promise that resolves to the parsed
+ * package.json object if found, or null if the file does not exist.
+ *
+ * @throws {Error} Throws an error if there is an issue reading or parsing
+ * the package.json file.
+ */
 async function getPackageJson(){
     let packageJsonPath = await packageUp();
     if(!packageJsonPath){
@@ -25,6 +39,18 @@ async function getPackageJson(){
     return packageJson;
 }
 
+/**
+ * Asynchronously retrieves the version of the detector from the package.json file.
+ *
+ * This function calls `getPackageJson` to obtain the package information. If the package
+ * information is not available, it returns "unknown". Otherwise, it returns the version
+ * specified in the package.json.
+ *
+ * @returns {Promise<string>} A promise that resolves to the version string of the detector,
+ *                            or "unknown" if the version cannot be determined.
+ *
+ * @throws {Error} Throws an error if there is an issue retrieving the package.json.
+ */
 async function getDetectorVersion(){
     let packageJson = await getPackageJson();
     if(!packageJson){
@@ -33,6 +59,18 @@ async function getDetectorVersion(){
     return packageJson.version;
 }
 
+/**
+ * Asynchronously retrieves the version of the "data-clumps-type-context" dependency
+ * from the project's package.json file. If the package.json or the dependency is not found,
+ * it returns "unknown".
+ *
+ * @async
+ * @function getReportFormat
+ * @returns {Promise<string>} A promise that resolves to the version of the
+ * "data-clumps-type-context" dependency, or "unknown" if the dependency is not found.
+ *
+ * @throws {Error} Throws an error if there is an issue retrieving the package.json.
+ */
 async function getReportFormat(){
     // data-clumps-type-context
     let packageJson = await getPackageJson();
@@ -403,6 +441,17 @@ export class Detector {
     public project_commit_date: string | null;
     public additional: any;
 
+    /**
+     * Retrieves the default options for the detector, merging them with any provided options.
+     *
+     * This method accepts an optional parameter that allows for partial customization of the default options.
+     * If no options are provided, the method will return the complete set of default values.
+     *
+     * @param {Partial<DetectorOptions>} [options] - An optional object containing properties to override the default options.
+     * @returns {DetectorOptions} The complete set of options after merging with the provided partial options.
+     *
+     * @throws {Error} Throws an error if the provided options are invalid or cannot be processed.
+     */
     static getDefaultOptions(options?: Partial<DetectorOptions>){
         return getDefaultValuesFromPartialOptions(options || {});
     }
@@ -437,6 +486,18 @@ export class Detector {
         DetectorUtils.checkIfIncompatibleOptions(this.options);
     }
 
+    /**
+     * Analyzes the software project for data clumps and generates a report context.
+     * This method performs the detection of data clumps by examining classes, interfaces,
+     * methods, and their parameters within the provided software project dictionaries.
+     *
+     * @returns {Promise<DataClumpsTypeContext>} A promise that resolves to a context object
+     * containing information about detected data clumps, project details, and a summary report.
+     *
+     * @throws {Error} Throws an error if the detection process fails at any point.
+     *
+     * @async
+     */
     public async detect(): Promise<DataClumpsTypeContext>{
         this.timer.start();
 
