@@ -16,7 +16,16 @@ import {
 import {DetectorUtils} from "./DetectorUtils";
 
 /**
- * Recursively walks up directories to find the nearest package.json.
+ * Recursively searches for the nearest `package.json` file starting from a specified directory.
+ *
+ * This function traverses up the directory tree from the given starting directory until it finds
+ * a `package.json` file or reaches the root directory. If a `package.json` file is found, its path
+ * is returned; otherwise, the function returns `null`.
+ *
+ * @param {string} [startDir=__dirname] - The directory from which to start the search. Defaults to the current directory.
+ * @returns {string | null} The path to the nearest `package.json` file, or `null` if none is found.
+ *
+ * @throws {Error} Throws an error if there is an issue accessing the file system.
  */
 function findNearestPackageJson(startDir = __dirname): string | null {
     let dir = startDir;
@@ -34,6 +43,20 @@ function findNearestPackageJson(startDir = __dirname): string | null {
 }
 
 
+/**
+ * Asynchronously retrieves the contents of the nearest package.json file.
+ *
+ * This function searches for the nearest package.json file in the directory
+ * hierarchy starting from the current working directory. If a package.json file
+ * is found, its contents are read and parsed into a JavaScript object. If no
+ * package.json file is found, the function returns null.
+ *
+ * @returns {Promise<Object|null>} A promise that resolves to the parsed package.json
+ * object if found, or null if no package.json file is located.
+ *
+ * @throws {Error} Throws an error if there is an issue reading the file or parsing
+ * its contents.
+ */
 async function getPackageJson(){
     let packageJsonPath = await findNearestPackageJson();
     if(!packageJsonPath){
