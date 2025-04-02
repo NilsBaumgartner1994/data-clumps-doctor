@@ -72,7 +72,6 @@
     "data-clumps-type-context": "^0.1.102",
     "eslint": "^7.32.0",
     "levenshtein": "^1.0.5",
-    "package-up": "^5.0.0",
     "simple-git": "^3.19.0",
     "stream-chain": "^3.4.0",
     "stream-json": "^1.9.1",

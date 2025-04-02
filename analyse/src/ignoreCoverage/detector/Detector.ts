@@ -15,9 +15,27 @@ import {
 } from "../ParsedAstTypes";
 import {DetectorUtils} from "./DetectorUtils";
 
+/**
+ * Recursively walks up directories to find the nearest package.json.
+ */
+function findNearestPackageJson(startDir = __dirname): string | null {
+    let dir = startDir;
+
+    while (true) {
+        const candidate = path.join(dir, 'package.json');
+        if (fs.existsSync(candidate)) return candidate;
+
+        const parent = path.dirname(dir);
+        if (parent === dir) break; // Reached root
+        dir = parent;
+    }
+
+    return null;
+}
+
+
 async function getPackageJson(){
-    const { packageUp } = await import('package-up');
-    let packageJsonPath = await packageUp();
+    let packageJsonPath = await findNearestPackageJson();
     if(!packageJsonPath){
         return null;
     }
