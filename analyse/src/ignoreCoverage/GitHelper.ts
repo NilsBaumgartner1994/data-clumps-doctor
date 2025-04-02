@@ -72,6 +72,19 @@ export class GitHelper {
         }
     }
 
+    /**
+     * Retrieves the commit hash associated with a specified Git tag from a given folder path.
+     *
+     * This method uses the `simple-git` library to execute a Git command that resolves the commit hash
+     * for the provided tag name. It handles both lightweight and annotated tags.
+     *
+     * @param {string} path_to_folder - The file system path to the Git repository folder.
+     * @param {string} tagName - The name of the tag for which to retrieve the commit hash.
+     * @returns {Promise<string | null>} A promise that resolves to the commit hash as a string,
+     *                                   or null if the retrieval fails.
+     *
+     * @throws {Error} Throws an error if the Git command fails or if the tag does not exist.
+     */
     static async getCommitHashForTag(path_to_folder: string, tagName: string): Promise<string | null> {
         try {
             const git: SimpleGit = simpleGit(path_to_folder);
