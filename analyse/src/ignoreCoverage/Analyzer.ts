@@ -116,6 +116,18 @@ export class Analyzer {
         return missing_commit_results;
     }
 
+    /**
+     * Asynchronously retrieves the commit hashes associated with all tags in the specified Git project.
+     *
+     * This method performs a full check of the project to gather all tags and their corresponding commit hashes.
+     * If a tag does not have an associated commit hash, it will be logged to the console.
+     *
+     * @returns {Promise<Array<{ commit: string, tag: string | undefined | null }>>}
+     * A promise that resolves to an array of objects, each containing the commit hash and the associated tag.
+     * The array may contain entries with undefined or null tags if no tag is found for a commit.
+     *
+     * @throws {Error} Throws an error if there is an issue retrieving tags or commit hashes from the Git project.
+     */
     async getGitTagCommitsHashes(){
         //console.log("Perform a full check of the whole project");
         const allTags = await GitHelper.getAllTagsFromGitProject(this.path_to_project);
@@ -191,6 +203,22 @@ export class Analyzer {
         return project_name;
     }
 
+    /**
+     * Initiates the analysis process for the project.
+     * This method starts a timer, loads the project name, and configures the commit selection mode.
+     * It then iterates over the commits to analyze, checking out each commit and performing analysis
+     * if certain conditions are met. The method handles skipping commits based on existing analysis
+     * results and the configured git tag start offset.
+     *
+     * @async
+     * @returns {Promise<void>} A promise that resolves when the analysis process is complete.
+     *
+     * @throws {Error} Throws an error if there is an issue during the analysis of a commit.
+     *
+     * @example
+     * const analyzer = new ProjectAnalyzer();
+     * await analyzer.start();
+     */
     async start(){
         this.timer.start();
 
@@ -297,6 +325,23 @@ export class Analyzer {
         return false;
     }
 
+    /**
+     * Analyzes a specific commit in the project repository.
+     *
+     * This asynchronous method processes the provided commit object, generates an Abstract Syntax Tree (AST) based on the source type, and performs analysis on the parsed AST data. It handles various source types including Java, UML, and AST. The results of the analysis are saved to a specified output path.
+     *
+     * @param {Object} commit_to_analyse_obj - The object containing commit information.
+     * @param {string} commit_to_analyse_obj.commit - The commit hash to analyze.
+     * @param {string|null|undefined} commit_to_analyse_obj.tag - An optional tag associated with the commit.
+     *
+     * @throws {Error} Throws an error if the source type is not supported.
+     *
+     * @returns {Promise<void>} A promise that resolves when the analysis is complete.
+     *
+     * @example
+     * const commitInfo = { commit: 'abc123', tag: 'v1.0' };
+     * await analyse(commitInfo);
+     */
     async analyse(commit_to_analyse_obj: { commit: string; tag: string | undefined | null; }){
         const commit = commit_to_analyse_obj.commit;
         console.log("Analyse commit: "+commit);
