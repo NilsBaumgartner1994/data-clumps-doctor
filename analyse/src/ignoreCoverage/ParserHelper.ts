@@ -30,6 +30,20 @@ export class ParserHelper {
         return softwareProjectDicts
     }
 
+    /**
+     * Asynchronously removes the generated Abstract Syntax Tree (AST) files from the specified folder.
+     * The function attempts to delete the folder up to 10 times if it exists.
+     *
+     * @param {string} path_to_folder_of_parsed_ast - The path to the folder containing the parsed AST files that need to be removed.
+     * @param {string} additionalMessageToLog - An additional message to log in case of an error during the removal process.
+     * @returns {Promise<void>} A promise that resolves when the removal process is complete.
+     *
+     * @throws {Error} Throws an error if the folder cannot be removed after 10 attempts.
+     *
+     * @example
+     * // Example usage:
+     * await removeGeneratedAst('/path/to/ast/folder', 'Failed to remove AST files');
+     */
     static async removeGeneratedAst(path_to_folder_of_parsed_ast: string, additionalMessageToLog: string): Promise<void> {
         // delete file if exists
         let tries = 1;
