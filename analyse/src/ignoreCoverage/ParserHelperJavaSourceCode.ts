@@ -1,5 +1,6 @@
 import { spawn } from 'child_process';
 import {exec} from 'child_process';
+import fs from "fs";
 
 // noinspection dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection
 export class ParserHelperJavaSourceCode {
@@ -53,6 +54,16 @@ export class ParserHelperJavaSourceCode {
             //await ParserHelperJavaSourceCode.runMakeCommand(path_to_ast_generator_folder, path_to_source_code, path_to_save_parsed_ast);
             const { stdout } = await ParserHelperJavaSourceCode.execAsync('cd '+path_to_ast_generator_folder+' && make run SOURCE="'+path_to_source_code+'" DESTINATION="'+path_to_save_parsed_ast+'"');
             //console.log(`stdout: ${stdout}`);
+            if (!fs.existsSync(path_to_save_parsed_ast)) {
+                // No parsable source code found, therefore create the directory to show the user, that the source code is not parsable.
+                try{
+                    fs.mkdirSync(path_to_save_parsed_ast, { recursive: true });
+                } catch (e: any) {
+                    console.error("Error creating directory: "+path_to_save_parsed_ast);
+                    console.error(e);
+                }
+            }
+
         } catch (error) {
             console.error(`Error executing make: ${error}`);
         }

@@ -94,11 +94,4 @@ export class SoftwareProjectDicts {
     }
   }
 
-  public printInfo() {
-    console.log("amount: dictClassOrInterface: " + Object.keys(this.dictClassOrInterface).length);
-    console.log("amount: dictMemberFieldParameters: " + Object.keys(this.dictMemberFieldParameters).length);
-    console.log("amount: dictMethod: " + Object.keys(this.dictMethod).length);
-    console.log("amount: dictMethodParameters: " + Object.keys(this.dictMethodParameters).length);
-  }
-
 }

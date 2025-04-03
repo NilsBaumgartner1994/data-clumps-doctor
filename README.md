@@ -44,6 +44,8 @@ cd data-clumps-doctor/analyse/src/ignoreCoverage/astGenerator && make build
 cd data-clumps-doctor/analyse && npm ci && npm run build
 ```
 
+--output /Users/nilsbaumgartner/Desktop/dataClumpsReportsUpdate/{project_name}/tags/{project_commit}.json
+
 ## Usage
 
 ```
@@ -76,8 +78,12 @@ node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub
 
 All Git Tags
 ```
---commit_selection tags
-node ./build/ignoreCoverage/cli.js --git_project_url_to_analyse https://github.com/argouml-tigris-org/argouml.git --commit_selection be952fcfa77451e594a41779db83e1a0d7221002 --output /Users/nilsbaumgartner/Desktop/argoUml.json
+node ./build/ignoreCoverage/cli.js --git_project_url_to_analyse https://github.com/argouml-tigris-org/argouml --commit_selection tags --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json
+```
+
+Specific commits
+```
+node ./build/ignoreCoverage/cli.js --git_project_url_to_analyse https://github.com/argouml-tigris-org/argouml --commit_selection be952fcfa77451e594a41779db83e1a0d7221002 --output /Users/nilsbaumgartner/Desktop/argoUml.json
 ```
 
 
@@ -101,6 +107,18 @@ node ./build/ignoreCoverage/cli.js --help
 ```
 
 
+### Analysis
+
+#### Statistic Overview
+```
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliCountTotalStatistics.js --report_folder /Users/nilsbaumgartner/Desktop/dataClumpsReports/Source_Code/Java_Projects
+```
+
+
+#### Chartline
+```
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliGenerateDetectedDataClumpsChartLine.js --report_folder /Users/nilsbaumgartner/Desktop/dataClumpsReports/Source_Code/Java_Projects
+```
 
 ## Roadmap
 

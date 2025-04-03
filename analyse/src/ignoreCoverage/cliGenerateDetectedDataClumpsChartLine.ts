@@ -33,6 +33,7 @@ async function analyse(report_folder, options){
                 progressOffset: progressOffset,
                 totalAmountFiles: totalAmountOfReportFiles,
                 timer: timer,
+                suffix: " - Project: "+report_project,
             }
 
             let sorted_report_file_paths = AnalyseHelper.getSortedReportFilePathsByTimestamps(report_project_folder_path, partialTimerProgressObject);

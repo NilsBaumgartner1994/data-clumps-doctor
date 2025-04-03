@@ -149,7 +149,8 @@ async function analyse(path_to_project, options){
         passed_project_name,
         project_version,
         preserve_ast_output,
-        detector_options
+        detector_options,
+        path_to_temp_folder
     );
 
     await analyzer.start()

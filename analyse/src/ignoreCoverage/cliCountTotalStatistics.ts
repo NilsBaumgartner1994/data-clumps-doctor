@@ -3,6 +3,7 @@
 import fs from 'fs';
 import {Timer} from "./Timer";
 import {AnalyseHelper, NumberOccurenceDict} from "./AnalyseHelper";
+import path from "path";
 
 
 function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
@@ -119,13 +120,16 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
     let timer = new Timer();
     timer.start();
     for(let i = 0; i < all_report_files_paths.length; i++){
+        let report_file_path = all_report_files_paths[i];
+        let file_name = path.basename(report_file_path);
+        let folder_name = path.dirname(report_file_path);
+
         let prefix = "Proccessing report file";
         timer.printEstimatedTimeRemaining({
             progress: i,
             total: all_report_files_paths.length,
-            prefix: prefix
+            suffix: " - "+folder_name+" - "+file_name,
         });
-        let report_file_path = all_report_files_paths[i];
 
         let report_file_json = AnalyseHelper.getReportFileJson(report_file_path);
 

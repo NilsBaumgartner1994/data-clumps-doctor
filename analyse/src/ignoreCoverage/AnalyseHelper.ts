@@ -14,7 +14,8 @@ const version = packageJson.version;
 export type PartialTimerProgressObject = {
     progressOffset: number,
     totalAmountFiles: number,
-    timer: Timer
+    timer: Timer,
+    suffix?: string,
 }
 
 export class AnalyseHelper {
@@ -48,14 +49,18 @@ export class AnalyseHelper {
 
         let timestamp_to_file_path = {};
         for(let i = 0; i <all_report_files_paths.length; i++){
+            let report_file_path = all_report_files_paths[i];
+            let report_file_name = path.basename(report_file_path);
+
             if(partialTimerProgressObject){
                 partialTimerProgressObject.timer.printEstimatedTimeRemaining({
                     progress: partialTimerProgressObject.progressOffset+i,
-                    total: partialTimerProgressObject.totalAmountFiles
+                    total: partialTimerProgressObject.totalAmountFiles,
+                    suffix: partialTimerProgressObject.suffix+" - File: "+report_file_name,
                 })
             }
 
-            let report_file_path = all_report_files_paths[i];
+
             let report_file = fs.readFileSync(report_file_path, 'utf8');
             let report_file_json = JSON.parse(report_file);
             let project_commit_date = report_file_json?.project_info?.project_commit_date;

@@ -112,6 +112,14 @@ export class DetectorOptionsInformation {
         type: "boolean"
     }
 
+    public static ignorePaths: DetectorOptionInformationParameter = {
+        label: "Ignore Paths",
+        description: "If set to true, the detector will ignore paths. Default value is an empty array. The paths are relative to the project root. For example: ['src/test/java', 'src/main/resources']. The paths can contain wildcards. For example: ['src/test/java/*', 'src/main/resources/*'] and will be ignored.",
+        defaultValue: [],
+        group: "all",
+        type: "string[]"
+    }
+
     /**
      * Fields
      */

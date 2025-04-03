@@ -9,6 +9,7 @@ import {ParserHelper} from "./ParserHelper";
 import {ParserHelperXmlVisualParadigm} from "./ParserHelperXmlVisualParadigm";
 import {DetectorUtils} from "./detector/DetectorUtils";
 import os from "os";
+import {DetectorOptions} from "../index";
 
 export class Analyzer {
 
@@ -26,9 +27,10 @@ export class Analyzer {
     public path_to_ast_output: string;
     public commit_selection_mode: string | undefined | null;
     public project_name: string = "unknown_project_name";
-    public detectorOptions: any;
+    public detectorOptions: DetectorOptions;
     public project_version: any;
     public preserve_ast_output: boolean;
+    public path_to_temp_folder: string;
 
     public passed_project_name: string | undefined | null;
 
@@ -53,7 +55,8 @@ export class Analyzer {
         project_name: string | undefined | null,
         project_version: any,
         preserve_ast_output: boolean,
-        detectorOptions: any
+        detectorOptions: any,
+        path_to_temp_folder: string
     ) {
         this.path_to_project = path_to_project;
         this.path_to_ast_generator_folder = path_to_ast_generator_folder;
@@ -67,7 +70,8 @@ export class Analyzer {
         this.passed_project_name = project_name;
         this.project_version = project_version;
         this.preserve_ast_output = preserve_ast_output
-        this.detectorOptions = detectorOptions;
+        this.detectorOptions = Detector.getDefaultOptions(detectorOptions || {});
+        this.path_to_temp_folder = path_to_temp_folder;
 
         this.timer = new Timer();
         this.astTimer = new Timer();
@@ -119,7 +123,9 @@ export class Analyzer {
     async getGitTagCommitsHashes(){
         //console.log("Perform a full check of the whole project");
         const allTags = await GitHelper.getAllTagsFromGitProject(this.path_to_project);
-        let missing_commit_results: {
+
+        let dublicateCommits: Record<string, string[]> = {};
+        let commit_results: {
             commit: string,
             tag: string | undefined | null
         }[] = [];
@@ -128,25 +134,41 @@ export class Analyzer {
             //console.log("amount tag commits: "+allTags.length)
 
             for (const tag of allTags) {
-                console.log("check tag: " + tag);
+                //console.log("check tag: " + tag);
                 let commit_hash = await GitHelper.getCommitHashForTag(this.path_to_project, tag);
-                console.log("commit_hash: "+commit_hash);
+                //console.log("commit_hash: "+commit_hash);
                 let type = await GitHelper.getGitObjectType(this.path_to_project, commit_hash);
-                console.log("type: "+type);
+                //console.log("type: "+type);
 
                 if(!commit_hash){
                     console.log("No commit hash found for tag: "+tag);
                     continue;
                 }
-                missing_commit_results.push({
+                commit_results.push({
                     commit: commit_hash,
                     tag: tag
                 });
+
+                if (dublicateCommits[commit_hash]) {
+                    dublicateCommits[commit_hash].push(tag);
+                } else {
+                    dublicateCommits[commit_hash] = [tag];
+                }
             }
         } else {
             //console.log("No tag commits found");
         }
-        return missing_commit_results;
+
+        // print dublicate commits
+        let commit_hashes = Object.keys(dublicateCommits);
+        for (const commit_hash of commit_hashes) {
+            let tags = dublicateCommits[commit_hash];
+            if(tags.length > 1){
+                console.log("Dublicate commit: "+commit_hash+" with tags: "+tags.join(", "));
+            }
+        }
+
+        return commit_results;
     }
 
     public async configureCommitSelectionMode(): Promise<{ git_checkout_needed: boolean; commits_to_analyse: { commit: string; tag: string | undefined | null }[]; }> {
@@ -209,6 +231,20 @@ export class Analyzer {
             let amount_skipped = 0;
             let amount_commits = commits_to_analyse.length;
             //console.log("Analysing amount commits: "+amount_commits);
+            let existingCommitsInFolder: Record<string, boolean> = {};
+            let pathToOutPutWithoutCommit = Analyzer.replaceOutputVariables(this.path_to_output_with_variables, this.project_name, "REPLACE_COMMIT");
+            pathToOutPutWithoutCommit = path.dirname(pathToOutPutWithoutCommit);
+            let filesInFolder = fs.readdirSync(pathToOutPutWithoutCommit);
+            for (const file of filesInFolder) {
+                if (file.endsWith(".json")) {
+                    let commit = file.substring(0, file.length - ".json".length);
+                    if(!!commit){
+                        //console.log("commit: "+commit);
+                        existingCommitsInFolder[commit] = false;
+                    }
+                }
+            }
+
             for (const commit_to_analyse_obj of commits_to_analyse) {
                 let elapsed_time = this.timer.getCurrentElapsedTime();
                 let elapsed_time_formatted = this.timer.formatTimeToString(elapsed_time);
@@ -221,13 +257,17 @@ export class Analyzer {
                 });
 
                 let output_exists = await this.doesAnalysisExist(commit_to_analyse_obj.commit);
+                if(output_exists){
+                    existingCommitsInFolder[commit_to_analyse_obj.commit] = true;
+                }
+
                 let amount_skipped_smaller_than_git_tag_start_offset = amount_skipped < this.git_tag_start_offset;
                 let skip_commit = amount_skipped_smaller_than_git_tag_start_offset || output_exists;
 
                 if(skip_commit){
-                    console.log("Skip "+commit_to_analyse_obj.commit);
+                    //console.log("Skip "+commit_to_analyse_obj.commit);
                     if(output_exists){
-                        console.log("Output exists");
+                        console.log("Skip, since output already exists: "+commit_to_analyse_obj.commit);
                     } else if (amount_skipped_smaller_than_git_tag_start_offset){
                         console.log("Skip since smaller than git_tag_start_offset: "+this.git_tag_start_offset);
                     }
@@ -256,6 +296,16 @@ export class Analyzer {
                     }
                 }
                 i++;
+            }
+
+            // print commits which are in the folder but not in the git repository
+            let commits_in_folder = Object.keys(existingCommitsInFolder);
+            let commits_in_folder_not_in_git: string[] = [];
+            for (const commit of commits_in_folder) {
+                if(!existingCommitsInFolder[commit]){
+                    commits_in_folder_not_in_git.push(commit);
+                    console.log("Commit in folder but not in git: "+commit);
+                }
             }
         } else {
             try{
@@ -356,7 +406,7 @@ export class Analyzer {
                 return;
             }
 
-            let softwareProjectDicts: SoftwareProjectDicts = await ParserHelper.getSoftwareProjectDictsFromParsedAstFolder(this.path_to_ast_output);
+            let softwareProjectDicts: SoftwareProjectDicts = await ParserHelper.getSoftwareProjectDictsFromParsedAstFolder(this.path_to_ast_output, this.detectorOptions);
 
             let path_to_result = Analyzer.replaceOutputVariables(this.path_to_output_with_variables, this.project_name, commit);
             let progressCallback = null
