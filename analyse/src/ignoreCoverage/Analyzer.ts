@@ -234,13 +234,15 @@ export class Analyzer {
             let existingCommitsInFolder: Record<string, boolean> = {};
             let pathToOutPutWithoutCommit = Analyzer.replaceOutputVariables(this.path_to_output_with_variables, this.project_name, "REPLACE_COMMIT");
             pathToOutPutWithoutCommit = path.dirname(pathToOutPutWithoutCommit);
-            let filesInFolder = fs.readdirSync(pathToOutPutWithoutCommit);
-            for (const file of filesInFolder) {
-                if (file.endsWith(".json")) {
-                    let commit = file.substring(0, file.length - ".json".length);
-                    if(!!commit){
-                        //console.log("commit: "+commit);
-                        existingCommitsInFolder[commit] = false;
+            if(!fs.existsSync(pathToOutPutWithoutCommit)){
+                let filesInFolder = fs.readdirSync(pathToOutPutWithoutCommit);
+                for (const file of filesInFolder) {
+                    if (file.endsWith(".json")) {
+                        let commit = file.substring(0, file.length - ".json".length);
+                        if(!!commit){
+                            //console.log("commit: "+commit);
+                            existingCommitsInFolder[commit] = false;
+                        }
                     }
                 }
             }
