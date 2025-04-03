@@ -99,6 +99,7 @@ async function analyse(path_to_project, options){
         }
     }
 
+    console.log("Detector options: ");
     let fast_detection = options.fast_detection;
     console.log("Fast detection: "+fast_detection);
     if(fast_detection === undefined || fast_detection === null || fast_detection === "null" || fast_detection === "true" || fast_detection === true){
