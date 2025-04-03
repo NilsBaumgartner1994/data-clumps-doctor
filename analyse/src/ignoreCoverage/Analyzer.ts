@@ -234,7 +234,7 @@ export class Analyzer {
             let existingCommitsInFolder: Record<string, boolean> = {};
             let pathToOutPutWithoutCommit = Analyzer.replaceOutputVariables(this.path_to_output_with_variables, this.project_name, "REPLACE_COMMIT");
             pathToOutPutWithoutCommit = path.dirname(pathToOutPutWithoutCommit);
-            if(!fs.existsSync(pathToOutPutWithoutCommit)){
+            if(fs.existsSync(pathToOutPutWithoutCommit)){
                 let filesInFolder = fs.readdirSync(pathToOutPutWithoutCommit);
                 for (const file of filesInFolder) {
                     if (file.endsWith(".json")) {
