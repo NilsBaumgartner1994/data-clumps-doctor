@@ -100,6 +100,7 @@ async function analyse(path_to_project, options){
     }
 
     let fast_detection = options.fast_detection;
+    console.log("Fast detection: "+fast_detection);
     if(fast_detection === undefined || fast_detection === null || fast_detection === "null" || fast_detection === "true" || fast_detection === true){
         detector_options.fastDetection = true;
     } else if(fast_detection === "false" || fast_detection === false){
