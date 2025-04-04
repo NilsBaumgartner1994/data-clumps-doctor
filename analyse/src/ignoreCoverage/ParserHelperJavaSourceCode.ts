@@ -64,8 +64,22 @@ export class ParserHelperJavaSourceCode {
                 }
             }
 
-        } catch (error) {
-            console.error(`Error executing make: ${error}`);
+        } catch (error: any){
+            let knownErrorWithoutEffects = [
+                "RangeError [ERR_CHILD_PROCESS_STDIO_MAXBUFFER]: stdout maxBuffer length exceeded" // As pmd prints a lot of data, Node.js will throw this error. We can ignore it, because the data is not useful and is being written to disk
+            ]
+            let knownErrorFound = false;
+            for(let i = 0; i < knownErrorWithoutEffects.length; i++){
+                if(error.message.includes(knownErrorWithoutEffects[i])){
+                    knownErrorFound = true;
+                    break;
+                }
+            }
+            if (!knownErrorFound){
+                console.error("Error parsing source code to AST: "+error);
+            } else {
+                // no need to show the user, that the source code is not parsable.
+            }
         }
     }
 }
