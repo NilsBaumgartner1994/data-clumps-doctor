@@ -117,8 +117,7 @@ async function analyse(report_folder, options){
     fileContent += AnalyseHelper.getPythonAllDataValuesForOccurenceDict("all_data_clumps", all_data_clump_distances);
     labels.push("All Data Clumps");
 
-    let data_clump_types = Object.keys(data_clump_type_specific_distances);
-
+    let data_clump_types = [AnalyseHelper.DataClumpType.PARAMETER_PARAMETER, AnalyseHelper.DataClumpType.FIELD_FIELD, AnalyseHelper.DataClumpType.PARAMETER_FIELD];
     for(let i = 0; i < data_clump_types.length; i++){
         let data_clump_type = data_clump_types[i];
         let data_clump_type_distances = data_clump_type_specific_distances[data_clump_type];
@@ -139,7 +138,7 @@ async function analyse(report_folder, options){
         offset_left: 0.15,
         offset_right: 0.95,
         offset_top: 0.98,
-        offset_bottom: 0.20,
+        offset_bottom: 0.10,
         x_labels: labels,
     });
 

@@ -124,9 +124,9 @@ async function analyse(report_folder, options){
 
     }
 
-    let analysis_objects: Record<string, NumberOccurenceDict> = {
-        "parameter_signature_length": parameter_signature_length,
-        "parameter_name_length": paramter_name_length,
+    let analysis_objects = {
+        parameter_signature_length: parameter_signature_length,
+        parameter_name_length: paramter_name_length,
     }
 
     let fileContent = AnalyseHelper.getPythonLibrariesFileContent()
@@ -134,14 +134,13 @@ async function analyse(report_folder, options){
 
     fileContent += "all_data = {}\n";
     fileContent += "manual_labels_array = []\n";
-    let anylsis_keys = Object.keys(analysis_objects);
     let labels: string[] = [];
-    for(let i = 0; i < anylsis_keys.length; i++){
-        let analysis_name = anylsis_keys[i];
-        let values = analysis_objects[analysis_name];
-        fileContent += AnalyseHelper.getPythonAllDataValuesForOccurenceDict("values_"+analysis_name, values);
-        labels.push(analysis_name);
-    }
+
+    fileContent += AnalyseHelper.getPythonAllDataValuesForOccurenceDict("values_"+"parameter_signature_length", analysis_objects.parameter_signature_length);
+    labels.push("Parameter\nSignature\nLength");
+
+    fileContent += AnalyseHelper.getPythonAllDataValuesForOccurenceDict("values_"+"parameter_name_length", analysis_objects.parameter_name_length);
+    labels.push("Parameter Name\nLength");
 
     fileContent += "\n";
     fileContent += "labels, data = all_data.keys(), all_data.values()\n";
@@ -150,11 +149,13 @@ async function analyse(report_folder, options){
         output_filename_without_extension: options.output_filename_without_extension,
         y_label: "Number of Characters",
         y_max: 100,
+        x_labels: labels,
         offset_left: 0.2,
         offset_right: 0.95,
         offset_top: 0.98,
         offset_bottom: 0.20,
         width_inches: 3,
+        w_bar_width: 0.6,
         height_inches: 4,
         use_manual_labels: true,
     });

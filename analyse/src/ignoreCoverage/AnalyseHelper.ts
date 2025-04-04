@@ -392,6 +392,11 @@ for label, values in all_data.items():
         return `medianprops={'color': (${rgb.r}/255, ${rgb.g}/255, ${rgb.b}/255)}`;
     }
 
+    static getPythonYLineColor(){
+        let rgb = AnalyseHelper.getPrimaryColorRGB();
+        return `(${rgb.r}/255, ${rgb.g}/255, ${rgb.b}/255)`;
+    }
+
     static getPythonSubplot(output_filename_without_extension?: string){
         return `plt.subplots(num='${output_filename_without_extension? output_filename_without_extension+".pdf" : "Figure_1"}')`
     }
@@ -410,44 +415,102 @@ for label, values in all_data.items():
         w_bar_width?: number,
         x_labels?: string[],
         use_manual_labels?: boolean,
-    }){
-        let pltXticks = "plt.xticks(range(1, len(labels) + 1), labels)";
-        if(options.x_labels){
-            pltXticks = "plt.xticks(range(1, len(labels) + 1), "+JSON.stringify(options.x_labels)+")";
-        } else if(options.use_manual_labels){
-            pltXticks = "plt.xticks(range(1, len(manual_labels_array) + 1), manual_labels_array)";
-        }
+        horizontal?: boolean,
+        log_scale?: boolean,
+        log_ticks?: number[],
+        y_lines?: number[],
+    }) {
+        const isHorizontal = options.horizontal ?? false;
+        const vertSetting = isHorizontal ? "False" : "True";
+        const axisLabel = isHorizontal ? `xlabel='${options.y_label}'` : `ylabel='${options.y_label}'`;
 
-        let pltYticks = "";
-        if(options.y_max){
-            pltYticks += `y_max = ${options.y_max}\n` +
-                "ax1.set_ylim([0, y_max])\n";
-        }
-        if(options.y_ticks){
-            if(!options.y_max){
-                pltYticks += `y_max = max([max(data[i]) for i in range(len(data))])\n`;
+        let pltTicks = "";
+
+        // ===== Achsenspezifische Einstellungen (log oder linear) =====
+        if (isHorizontal) {
+            if (options.log_scale) {
+                pltTicks += "ax1.set_xscale('log')\n";
             }
-            pltYticks += `y_steps = ${options.y_ticks || 1}\n` +
-            `ax1.set_yticks(range(0, y_max+1, y_steps))\n`;
+            if (options.log_ticks?.length) {
+                pltTicks += `ax1.set_xticks(${JSON.stringify(options.log_ticks)})\n`;
+            } else if (!options.log_scale) {
+                if (options.y_max) {
+                    pltTicks += `x_max = ${options.y_max}\nax1.set_xlim([0, x_max])\n`;
+                }
+                if (options.y_ticks) {
+                    if (!options.y_max) {
+                        pltTicks += `x_max = max([max(data[i]) for i in range(len(data))])\n`;
+                    }
+                    pltTicks += `x_steps = ${options.y_ticks}\nax1.set_xticks(range(0, x_max+1, x_steps))\n`;
+                }
+            }
+
+            if (options.x_labels) {
+                pltTicks += "plt.yticks(range(1, len(labels) + 1), " + JSON.stringify(options.x_labels) + ")\n";
+            } else if (options.use_manual_labels) {
+                pltTicks += "plt.yticks(range(1, len(manual_labels_array) + 1), manual_labels_array)\n";
+            } else {
+                pltTicks += "plt.yticks(range(1, len(labels) + 1), labels)\n";
+            }
+
+            // ✅ Horizontale Darstellung → y_lines = vertikale Linien
+            if (options.y_lines?.length) {
+                for (const line of options.y_lines) {
+                    pltTicks += `ax1.axvline(x=${line}, linestyle='dashed', color=${AnalyseHelper.getPythonYLineColor()}, zorder=0)\n`;
+                }
+            }
+
+        } else {
+            if (options.log_scale) {
+                pltTicks += "ax1.set_yscale('log')\n";
+            }
+            if (options.log_ticks?.length) {
+                pltTicks += `ax1.set_yticks(${JSON.stringify(options.log_ticks)})\n`;
+            } else if (!options.log_scale) {
+                if (options.y_max) {
+                    pltTicks += `y_max = ${options.y_max}\nax1.set_ylim([0, y_max])\n`;
+                }
+                if (options.y_ticks) {
+                    if (!options.y_max) {
+                        pltTicks += `y_max = max([max(data[i]) for i in range(len(data))])\n`;
+                    }
+                    pltTicks += `y_steps = ${options.y_ticks}\nax1.set_yticks(range(0, y_max+1, y_steps))\n`;
+                }
+            }
+
+            if (options.x_labels) {
+                pltTicks += "plt.xticks(range(1, len(labels) + 1), " + JSON.stringify(options.x_labels) + ")\n";
+            } else if (options.use_manual_labels) {
+                pltTicks += "plt.xticks(range(1, len(manual_labels_array) + 1), manual_labels_array)\n";
+            } else {
+                pltTicks += "plt.xticks(range(1, len(labels) + 1), labels)\n";
+            }
+
+            if (options.y_lines?.length) {
+                for (const line of options.y_lines) {
+                    pltTicks += `ax1.axhline(y=${line}, linestyle='dashed', color=${AnalyseHelper.getPythonYLineColor()}, zorder=0)\n`;
+                }
+            }
         }
 
         let pltBarWidth = "";
-        if(options.w_bar_width){
-            pltBarWidth = `width = ${options.w_bar_width}, `;
+        if (options.w_bar_width) {
+            pltBarWidth = `widths=${options.w_bar_width}, `;
         }
 
         return `
-\n        
 fig, ax1 = ${AnalyseHelper.getPythonSubplot(options.output_filename_without_extension)}
-plt.boxplot(data, ${pltBarWidth} ${AnalyseHelper.getPythonMedianColor()})  # RGB umgerechnet auf 0-1 Skala
-ax1.set(ylabel='${options.y_label}')
-${pltXticks}
-${pltYticks}
+plt.boxplot(data, vert=${vertSetting}, ${pltBarWidth}${AnalyseHelper.getPythonMedianColor()})  # RGB umgerechnet auf 0–1 Skala
+ax1.set(${axisLabel})
+${pltTicks}
 plt.subplots_adjust(left=${options.offset_left}, right=${options.offset_right}, top=${options.offset_top}, bottom=${options.offset_bottom})
 fig.set_size_inches(${options.width_inches}, ${options.height_inches}, forward=True)
 ${AnalyseHelper.getPythonFigDpiSetttingsAndShow()}
-`
+`;
     }
+
+
+
 
     static getPythonFigDpiSetttingsAndShow(){
         return "fig.set_dpi(400)\n"+

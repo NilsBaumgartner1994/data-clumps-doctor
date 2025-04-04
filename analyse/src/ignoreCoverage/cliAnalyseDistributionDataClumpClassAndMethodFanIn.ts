@@ -127,10 +127,12 @@ async function analyse(report_folder, options): Promise<string> {
     let fileContent = AnalyseHelper.getPythonLibrariesFileContent();
 
     let anylsis_keys = Object.keys(analysis_objects);
+    let x_labels: string[] = [];
     for(let i = 0; i < anylsis_keys.length; i++){
         let analysis_name = anylsis_keys[i];
         let values = analysis_objects[analysis_name];
         fileContent += AnalyseHelper.getValuesForRecord("values_"+analysis_name, values);
+        x_labels.push(analysis_name);
     }
 
     fileContent += "all_data = {}\n";
@@ -141,21 +143,21 @@ async function analyse(report_folder, options): Promise<string> {
     fileContent += "\n";
     fileContent += "labels, data = all_data.keys(), all_data.values()\n";
     fileContent += AnalyseHelper.getPythonStatisticsForDataValues();
-    fileContent += `fig, ax1 = ${AnalyseHelper.getPythonSubplot(options.output_filename_without_extension)}\n`;
-    fileContent += `plt.boxplot(data, vert=False, widths=0.5, ${AnalyseHelper.getPythonMedianColor()})  # RGB umgerechnet auf 0-1 Skala
-`;
-    fileContent += "ax1.set(xlabel='Number of Data Clumps')\n";
-    // Replace underscores with spaces in labels
-    fileContent += "wrapped_labels = ['\\n'.join(textwrap.wrap(label.replace('_', ' '), width=20)) for label in labels]\n";
-    fileContent += "plt.yticks(range(1, len(labels) + 1), wrapped_labels)  # Adjust y-axis labels\n";
-    // Set the visible y-axis range
-    fileContent += "x_max = 20\n" +
-        "ax1.set_xlim([0, x_max])  # Increase x-axis limit for better spacing\n" +
-        "ax1.set_xticks(range(0, x_max+1, 1))  # Setzt die x-Ticks in 1er-Schritten\n";
-
-    fileContent += "plt.subplots_adjust(left=0.28, right=0.95, top=0.98, bottom=0.23)\n"; // Adjust bottom for better label display
-    fileContent += "fig.set_size_inches(6, 2, forward=True)\n";
-    fileContent += AnalyseHelper.getPythonFigDpiSetttingsAndShow();
+    fileContent += AnalyseHelper.getPythonPlot({
+        output_filename_without_extension: options.output_filename_without_extension,
+        offset_left: 0.28,
+        offset_right: 0.95,
+        offset_bottom: 0.23,
+        offset_top: 0.98,
+        width_inches: 6,
+        height_inches: 2,
+        y_label: 'Number of Data Clumps',
+        x_labels: x_labels,
+        horizontal: true,
+        y_max: 20,
+        y_ticks: 1,
+        w_bar_width: 0.5
+    });
 
     return fileContent
 
