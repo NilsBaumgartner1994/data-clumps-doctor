@@ -47,10 +47,8 @@ export class SoftwareProjectDicts {
       this.dictMethod[method.key] = method;
 
       // Fill methodParameters
-      let methodParametersDictForMethod = method.parameters;
-      let methodParameterKeys = Object.keys(methodParametersDictForMethod);
-      for (let methodParameterKey of methodParameterKeys) {
-        let methodParameter = methodParametersDictForMethod[methodParameterKey];
+      let methodParametersList = method.parameters;
+      for (let methodParameter of methodParametersList) {
         this.dictMethodParameters[methodParameter.key] = methodParameter;
       }
     }

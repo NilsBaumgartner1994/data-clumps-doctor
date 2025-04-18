@@ -53,9 +53,9 @@ cd data-clumps-doctor/analyse
 node ./build/ignoreCoverage/cli.js <Path_to_your_project_to_analyse>
 ```
 
-Example to analyse local project completely:
+Example to analyse local project current:
 ```
-node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --path_to_project /Users/nbaumgartner/Desktop/argouml
+node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json --commit_selection current --path_to_project /Users/nbaumgartner/Desktop/argouml
 ```
 
 Example to analyse git ArgoUML completely:
@@ -154,6 +154,10 @@ node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ig
 node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpParameterNameLength.js --report_folder /Users/nilsbaumgartner/Desktop/dataClumpsReports/Source_Code/Java_Projects/
 ```
 
+#### Detectuib Time
+```
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsAnalyseTime.js --report_folder /Users/nilsbaumgartner/Desktop/dataClumpsReports/Source_Code/Java_Projects/
+```
 
 #### Chartline
 ```

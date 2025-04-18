@@ -106,10 +106,10 @@ export class DetectorDataClumpsMethodsToOtherFields {
             }
         }
 
-        let otherClassParameters = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(otherClassOrInterface, softwareProjectDicts, this.options);
+        let otherClassFields = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(otherClassOrInterface, softwareProjectDicts, this.options);
         //console.log("- Found data clumps between method " + method.key + " and method " + otherMethod.key);
 
-        let commonMethodParameterPairKeys = DetectorUtils.getCommonParameterFieldPairKeys(currentMethod.parameters, otherClassParameters, this.options);
+        let commonMethodParameterPairKeys = DetectorUtils.getCommonParameterFieldPairKeys(currentMethod.parameters, otherClassFields, this.options);
 
         let amountCommonParameters = commonMethodParameterPairKeys.length;
 
@@ -122,7 +122,7 @@ export class DetectorDataClumpsMethodsToOtherFields {
 
 
 
-        let [currentParameters, commonFieldParamterKeysAsKey] = DetectorUtils.getCurrentAndOtherParametersFromCommonParameterPairKeys(commonMethodParameterPairKeys, currentMethod.parameters, otherClassParameters)
+        let [currentParameters, commonFieldParamterKeysAsKey] = DetectorUtils.getCurrentAndOtherParametersFromCommonParameterPairKeys(commonMethodParameterPairKeys, currentMethod.parameters, otherClassFields)
 
         let fileKey = currentClassOrInterface.file_path;
 

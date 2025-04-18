@@ -243,7 +243,7 @@ export class DetectorDataClumpsFields {
             return; // DataclumpsInspection.java line 410
         }
 
-        let [currentParameters, commonFieldParamterKeysAsKey] = DetectorUtils.getCurrentAndOtherParametersFromCommonParameterPairKeys(commonFieldParameterPairKeys, currentClassParameters, otherClassParameters);
+        let [currentParameters, commonFieldParameterKeysAsKey] = DetectorUtils.getCurrentAndOtherParametersFromCommonParameterPairKeys(commonFieldParameterPairKeys, currentClassParameters, otherClassParameters);
 
         let fileKey = currentClass.file_path;
         let data_clump_type = DetectorDataClumpsFields.TYPE;
@@ -261,7 +261,7 @@ export class DetectorDataClumpsFields {
 
         let dataClumpContext: DataClumpTypeContext = {
             type: "data_clump",
-            key: data_clump_type+"-"+fileKey+"-"+currentClass.key+"-"+otherClass.key+"-"+commonFieldParamterKeysAsKey, // typically the file path + class name + method name + parameter names
+            key: data_clump_type+"-"+fileKey+"-"+currentClass.key+"-"+otherClass.key+"-"+commonFieldParameterKeysAsKey, // typically the file path + class name + method name + parameter names
 
             probability: probability,
 

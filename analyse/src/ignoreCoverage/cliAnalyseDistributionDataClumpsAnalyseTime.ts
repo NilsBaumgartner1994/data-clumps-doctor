@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import fs from 'fs';
-import {DataClumpsTypeContext} from "data-clumps-type-context";
 import {AnalyseHelper} from "./AnalyseHelper";
 import {Timer} from "./Timer";
 
@@ -42,7 +41,7 @@ function analyseProjects(all_report_files_paths, ignore_without_data_clumps, out
     let x_labels: string[] = [];
 
     fileContent += AnalyseHelper.getPythonValuesFor("ast_generation_time_ms", data_clumps_analyse_time.astGenerationTime);
-    x_labels.push("AST Generation");
+    x_labels.push("AST\nGeneration");
 
     fileContent += AnalyseHelper.getPythonValuesFor("detection_time_ms", data_clumps_analyse_time.detectionTime);
     x_labels.push("Detection");
@@ -66,8 +65,8 @@ function analyseProjects(all_report_files_paths, ignore_without_data_clumps, out
         w_bar_width: 0.6,
         horizontal: true,
         log_scale: true,
-        log_ticks: [1,10,100,1000,10000,100000],
-        y_lines: [1,10,100,1000,10000,100000],
+        log_ticks: [1,10,100,1000,10000,100000,1000000],
+        y_lines: [100,1000,10000],
     })
 
     return fileContent;
