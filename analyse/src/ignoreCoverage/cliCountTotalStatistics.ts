@@ -27,6 +27,8 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
 
     let total_amount_classes_or_interfaces = 0;
     let total_amount_methods = 0;
+    let total_amount_fields = 0;
+    let total_amount_parameters = 0;
 
     let amount_variables_in_data_clumps = new NumberOccurenceDict();
 
@@ -43,6 +45,8 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
         number_class_and_interfaces_total: number,
         number_methods_latest_commit: number,
         number_methods_total: number,
+        number_fields_total: number,
+        number_parameters_total: number,
         maturity_development_years: number,
         oldest_commit_date: Date,
         oldest_report_file_path: string,
@@ -65,6 +69,8 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
                         number_class_and_interfaces_total: 0,
                         number_methods_latest_commit: 0,
                         number_methods_total: 0,
+                        number_fields_total: 0,
+                        number_parameters_total: 0,
                         maturity_development_years: 0,
                         oldest_commit_date: project_commit_date,
                         oldest_report_file_path: report_file_path,
@@ -80,6 +86,8 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
 
                 statisticsForProject.number_class_and_interfaces_total += report_file_json?.project_info.number_of_classes_or_interfaces || 0;
                 statisticsForProject.number_methods_total += report_file_json?.project_info.number_of_methods || 0;
+                statisticsForProject.number_fields_total += report_file_json?.project_info.number_of_data_fields || 0;
+                statisticsForProject.number_parameters_total += report_file_json?.project_info.number_of_method_parameters || 0;
 
                 let saved_oldest_commit_date = statisticsForProject.oldest_commit_date;
                 if(project_commit_date.getTime() < saved_oldest_commit_date.getTime()){
@@ -143,6 +151,8 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
 
         let amount_methods = report_file_json?.project_info.number_of_methods || 0;
         total_amount_methods += amount_methods;
+        total_amount_fields += report_file_json?.project_info.number_of_data_fields || 0;
+        total_amount_parameters += report_file_json?.project_info.number_of_method_parameters || 0;
         numberOccurenceDictAmountMethods.addOccurence(amount_methods, 1);
 
 
@@ -209,6 +219,13 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
     console.log("Total amount of reports: "+all_report_files_paths.length);
     console.log("total_amount_classes_or_interfaces: "+total_amount_classes_or_interfaces);
     console.log("total_amount_methods: "+total_amount_methods);
+    console.log("total_amount_fields: "+total_amount_fields);
+    console.log("total_amount_parameters: "+total_amount_parameters);
+    const average_amount_fields_per_class = total_amount_fields / total_amount_classes_or_interfaces;
+    console.log("average_amount_fields_per_class: "+average_amount_fields_per_class);
+    const average_amount_parameters_per_method = total_amount_parameters / total_amount_methods;
+    console.log("average_amount_parameters_per_method: "+average_amount_parameters_per_method);
+
     console.log("reports_with_data_clumps: "+reports_with_data_clumps);
     console.log("Median amount classes or interfaces: "+numberOccurenceDictAmountClassesOrInterfaces.getMedian());
     console.log("Median amount methods: "+numberOccurenceDictAmountMethods.getMedian());
