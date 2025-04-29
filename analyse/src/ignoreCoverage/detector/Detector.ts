@@ -256,6 +256,12 @@ export class InvertedIndexSoftwareProject {
 
     public options: DetectorOptions;
 
+    /**
+     * Calculates statistics from a dictionary where each key maps to another record or undefined.
+     *
+     * @param dict - The input dictionary with string keys mapping to records of strings or undefined.
+     * @returns An object containing the median, average, total sum of occurrences, and number of unique keys in the dictionary.
+     */
     private getDictStatistics(dict: Record<string, Record<string, string> | undefined>){
         let numbersDict = new NumberOccurenceDict();
         let keys = Object.keys(dict);
@@ -276,6 +282,14 @@ export class InvertedIndexSoftwareProject {
         }
     }
 
+    /**
+     * Retrieves statistics related to various data clumps within the class.
+     *
+     * @returns {Object} An object containing statistics for different types of mappings.
+     * @property {Object} invertedFieldToClasses - Statistics about field-to-class mappings.
+     * @property {Object} invertedParameterToMethods - Statistics about parameter-to-method mappings.
+     * @property {Object} invertedParameterToClasses - Statistics about parameter-to-class mappings.
+     */
     public getStatistics(){
         return {
             invertedFieldToClasses: this.getDictStatistics(this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey),
@@ -284,6 +298,14 @@ export class InvertedIndexSoftwareProject {
         }
     }
 
+    /**
+     * Generates a key for a variable based on its type and name.
+     * The key includes the variable's type if the similarity modifier of variables with unknown types is not set to 1.
+     *
+     * @param {VariableTypeContext} variable - The context of the variable for which to generate the key.
+     * @returns {string} - A string representing the generated key.
+     * @throws {Error} - Throws an error if the input variable does not have a valid type or name.
+     */
     private getVariableKeyForIndex(variable: VariableTypeContext){
         let key = "";
         if(this.options.similarityModifierOfVariablesWithUnknownType!==1){
@@ -492,6 +514,20 @@ export class Detector {
         DetectorUtils.checkIfIncompatibleOptions(this.options);
     }
 
+    /**
+     * Detects data clumps in a software project.
+     *
+     * This method processes the software project dictionaries to identify and report data clumps,
+     * which are patterns where similar data structures appear repeatedly. It collects various metrics
+     * about the project, such as the number of files, classes, methods, fields, and parameters, and
+     * organizes this information into a structured report.
+     *
+     * @returns {Promise<DataClumpsTypeContext>} A promise that resolves to an object containing
+     *          the detection results and summary statistics.
+     *
+     * @throws Will throw an error if any asynchronous operations (e.g., fetching report or detector version)
+     *         fail.
+     */
     public async detect(): Promise<DataClumpsTypeContext>{
         this.timer.start();
 
