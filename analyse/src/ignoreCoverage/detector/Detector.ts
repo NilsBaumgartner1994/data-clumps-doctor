@@ -14,6 +14,7 @@ import {
     MethodTypeContext, VariableTypeContext
 } from "../ParsedAstTypes";
 import {DetectorUtils} from "./DetectorUtils";
+import {NumberOccurenceDict} from "../AnalyseHelper";
 
 /**
  * Recursively walks up directories to find the nearest package.json.
@@ -141,7 +142,7 @@ export class DetectorOptionsInformation {
 
     public static fieldsOfClassesWithUnknownHierarchyProbabilityModifier: DetectorOptionInformationParameter = {
         label: "Probability for Data Clumps in analyzed Classes with Unknown Hierarchy",
-        description: "If set not to 0, the detector will analyze classes that are not part of a known hierarchy of related classes. Range [0,1]. Default value is true. If set to 1, it may find more data clumps but they are maybe false positive, but they have a lower probability score.",
+        description: "If set to 0, the detector will not analyze classes that are not part of a known hierarchy of related classes. Range [0,1]. Default value is true. If set to 1, it may find more data clumps but they are maybe false positive, but they have a lower probability score.",
         defaultValue: 0,
         group: "method",
         type: "float"
@@ -204,7 +205,7 @@ export class DetectorOptionsInformation {
 
     public static methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier: DetectorOptionInformationParameter = {
         label: "Probability of Data Clumps in analyzed Methods of Classes with Unknown Hierarchy",
-        description: "If set not to 0, the detector will analyze methods of classes that are not part of a known hierarchy of related classes. Range [0,1]. Default value is 0. If set not to 0, it may find more data clumps but they are maybe false positive, but they have a lower probability score.",
+        description: "If set to 0, the detector will not analyze methods of classes that are not part of a known hierarchy of related classes. Range [0,1]. Default value is 0. If set not to 0, it may find more data clumps but they are maybe false positive, but they have a lower probability score.",
         defaultValue: 0,
         group: "method",
         type: "float"
@@ -254,6 +255,34 @@ export class InvertedIndexSoftwareProject {
     public fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey: Record<string, Record<string, string> | undefined> = {};
 
     public options: DetectorOptions;
+
+    private getDictStatistics(dict: Record<string, Record<string, string> | undefined>){
+        let numbersDict = new NumberOccurenceDict();
+        let keys = Object.keys(dict);
+        for(let key of keys){
+            let value = dict[key];
+            if(!value){
+                numbersDict.addOccurence(0, 1);
+            } else {
+                let amountClassesOrMethods = Object.keys(value).length;
+                numbersDict.addOccurence(amountClassesOrMethods, 1);
+            }
+        }
+        return {
+            median: numbersDict.getMedian(),
+            average: numbersDict.getAverage(),
+            amountSavedValuesForKeys: numbersDict.getSum(),
+            amountKeys: numbersDict.getAmountKeys(),
+        }
+    }
+
+    public getStatistics(){
+        return {
+            invertedFieldToClasses: this.getDictStatistics(this.fieldKeyForFieldFieldDataClumpToClassOrInterfaceKey),
+            invertedParameterToMethods: this.getDictStatistics(this.parameterKeyForParameterParameterDataClumpToMethodKey),
+            invertedParameterToClasses: this.getDictStatistics(this.fieldKeyForParameterFieldDataClumpToClassOrInterfaceKey),
+        }
+    }
 
     private getVariableKeyForIndex(variable: VariableTypeContext){
         let key = "";
@@ -487,7 +516,7 @@ export class Detector {
             report_timestamp: new Date().toISOString(),
             target_language: this.target_language || "unkown",
             report_summary: {
-                additional: null,
+                additional: {},
                 amount_classes_or_interfaces_with_data_clumps: null,
                 amount_files_with_data_clumps: null,
                 amount_methods_with_data_clumps: null,
@@ -586,7 +615,8 @@ export class Detector {
             dataClumpsTypeContext.report_summary[data_clump_type] = amount_for_type;
         }
 
-
+        //
+        dataClumpsTypeContext.report_summary.additional.invertedIndexSoftwareProjectStatistics = invertedIndexSoftwareProject.getStatistics();
 
         // timeout for testing
 

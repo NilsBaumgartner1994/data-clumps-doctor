@@ -437,9 +437,7 @@ export class Analyzer {
                     os_cpu_speed: os.cpus()[0].speed
                 }
             }
-            dataClumpsContext.report_summary.additional = {
-                timer_information: timerInformation
-            }
+            dataClumpsContext.report_summary.additional.timer_information = timerInformation;
 
             console.log("Ast generation time: "+timerInformation.ast_generation_time_ms+" ms");
             console.log("Detection time: "+timerInformation.detection_time_ms+" ms");

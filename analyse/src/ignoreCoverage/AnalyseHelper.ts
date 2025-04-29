@@ -563,6 +563,32 @@ export class NumberOccurenceDict extends GenericOccurenceDict<number> {
         super();
     }
 
+    public getAmountKeys(): number {
+        return Object.keys(this.occurenceDict).length;
+    }
+
+    public getSum(): number {
+        let valuesKeys = Object.keys(this.occurenceDict).map(Number);
+        let totalSum = 0;
+        for(let i = 0; i < valuesKeys.length; i++){
+            let value = valuesKeys[i];
+            let occurences = this.getOccurence(value);
+            totalSum += value * occurences;
+        }
+        return totalSum;
+    }
+
+    public getAverage(): number {
+        let valuesKeys = Object.keys(this.occurenceDict).map(Number);
+        let totalNumberOfOccuences = 0;
+        for(let i = 0; i < valuesKeys.length; i++){
+            let value = valuesKeys[i];
+            totalNumberOfOccuences += this.getOccurence(value);
+        }
+        let totalSum = this.getSum();
+        return totalSum / totalNumberOfOccuences;
+    }
+
     public getMedian(): number {
         let valuesKeys = Object.keys(this.occurenceDict).map(Number);
         let sortedValues = valuesKeys.sort((a, b) => a - b);
