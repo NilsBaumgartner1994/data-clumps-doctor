@@ -259,6 +259,7 @@ export class InvertedIndexSoftwareProject {
     private getDictStatistics(dict: Record<string, Record<string, string> | undefined>){
         let numbersDict = new NumberOccurenceDict();
         let keys = Object.keys(dict);
+        let max = 0;
         for(let key of keys){
             let value = dict[key];
             if(!value){
@@ -266,10 +267,14 @@ export class InvertedIndexSoftwareProject {
             } else {
                 let amountClassesOrMethods = Object.keys(value).length;
                 numbersDict.addOccurence(amountClassesOrMethods, 1);
+                if(amountClassesOrMethods>max){
+                    max = amountClassesOrMethods;
+                }
             }
         }
         return {
             median: numbersDict.getMedian(),
+            maximum: max,
             average: numbersDict.getAverage(),
             amountSavedValuesForKeys: numbersDict.getSum(),
             amountKeys: numbersDict.getAmountKeys(),
