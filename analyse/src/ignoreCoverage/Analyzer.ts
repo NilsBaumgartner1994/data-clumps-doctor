@@ -351,6 +351,28 @@ export class Analyzer {
         return false;
     }
 
+    /**
+     * Analyzes a specific commit in the project repository, generating an Abstract Syntax Tree (AST)
+     * and performing detection of data clumps based on the parsed AST.
+     *
+     * @param {Object} commit_to_analyse_obj - The object containing commit details.
+     * @param {string} commit_to_analyse_obj.commit - The commit identifier to analyze.
+     * @param {string|null|undefined} commit_to_analyse_obj.tag - An optional tag associated with the commit.
+     *
+     * @throws {Error} Throws an error if the source type is not supported.
+     *
+     * @returns {Promise<void>} A promise that resolves when the analysis is complete.
+     *
+     * @async
+     *
+     * This method performs the following steps:
+     * 1. Validates the existence of the source path.
+     * 2. Retrieves commit date and project URL.
+     * 3. Generates AST based on the source type (Java, UML, or existing AST).
+     * 4. Analyzes the software project dictionaries extracted from the AST.
+     * 5. Saves the analysis results to a specified output path.
+     * 6. Optionally preserves or removes the generated AST output based on configuration.
+     */
     async analyse(commit_to_analyse_obj: { commit: string; tag: string | undefined | null; }){
         const commit = commit_to_analyse_obj.commit;
         console.log("Analyse commit: "+commit);
@@ -469,6 +491,27 @@ export class Analyzer {
         }
     }
 
+    /**
+     * Analyzes a collection of software project dictionaries to detect data clumps.
+     *
+     * This asynchronous function initializes a detector with the provided parameters,
+     * performs the detection process, and returns the context of detected data clumps.
+     *
+     * @param {Array<Object>} softwareProjectDicts - An array of dictionaries representing software projects.
+     * @param {string} project_url - The URL of the project being analyzed.
+     * @param {string} project_name - The name of the project.
+     * @param {string} project_version - The version of the project.
+     * @param {string} commit - The commit identifier for the project.
+     * @param {string} commit_tag - The tag associated with the commit.
+     * @param {Date} commit_date - The date of the commit.
+     * @param {string} path_to_result - The file path where results should be saved.
+     * @param {function} progressCallback - A callback function to report progress during detection.
+     * @param {Object} detectorOptions - Options to configure the detection process.
+     *
+     * @returns {Promise<Object>} A promise that resolves to the context of detected data clumps.
+     *
+     * @throws {Error} Throws an error if the detection process fails or if invalid parameters are provided.
+     */
     static async analyseSoftwareProjectDicts(softwareProjectDicts, project_url, project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, detectorOptions){
         let detector = new Detector(softwareProjectDicts, detectorOptions, progressCallback, project_url, project_name, project_version, commit, commit_tag, commit_date);
 
