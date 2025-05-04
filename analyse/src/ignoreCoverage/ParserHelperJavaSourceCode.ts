@@ -49,6 +49,17 @@ export class ParserHelperJavaSourceCode {
         });
     };
 
+    /**
+     * Parses the source code located at the specified path and generates an Abstract Syntax Tree (AST).
+     * The generated AST is saved to the specified destination path.
+     *
+     * @param {string} path_to_source_code - The file path to the source code that needs to be parsed.
+     * @param {string} path_to_save_parsed_ast - The file path where the generated AST will be saved.
+     * @param {string} path_to_ast_generator_folder - The directory containing the AST generator tools.
+     * @returns {Promise<void>} A promise that resolves when the parsing is complete.
+     *
+     * @throws {Error} Throws an error if the execution of the make command fails.
+     */
     static async parseSourceCodeToAst(path_to_source_code: string, path_to_save_parsed_ast: string, path_to_ast_generator_folder: string): Promise<void> {
         try {
             //await ParserHelperJavaSourceCode.runMakeCommand(path_to_ast_generator_folder, path_to_source_code, path_to_save_parsed_ast);

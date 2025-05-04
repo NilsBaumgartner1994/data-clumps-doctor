@@ -6,6 +6,16 @@ import {AnalyseHelper, NumberOccurenceDict} from "./AnalyseHelper";
 import path from "path";
 
 
+/**
+ * Analyzes the distribution of data clumps across a set of report files.
+ * This function processes each report file to gather statistics about data clumps,
+ * classes, interfaces, and methods, and logs the results to the console.
+ *
+ * @param {string[]} all_report_files_paths - An array of file paths to the report files to be analyzed.
+ * @returns {void} This function does not return a value. It logs the analysis results directly to the console.
+ *
+ * @throws {Error} Throws an error if any report file cannot be processed or if the data structure is invalid.
+ */
 function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
 
     console.log("Counting data clumps cluster distribution ...")

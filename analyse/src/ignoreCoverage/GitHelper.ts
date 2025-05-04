@@ -56,6 +56,21 @@ export class GitHelper {
         }
     }
 
+    /**
+     * Retrieves the type of a Git object (e.g., commit, tag) based on the provided hash.
+     *
+     * This method interacts with the Git repository located at the specified path to folder.
+     * If no hash is provided, it logs an error and returns null. In case of an error during
+     * the retrieval process, it also logs the error and returns null.
+     *
+     * @param {string} path_to_folder - The path to the folder containing the Git repository.
+     * @param {string | null | undefined} hash - The hash of the Git object whose type is to be retrieved.
+     * @returns {Promise<string | null>} A promise that resolves to the type of the Git object as a string,
+     * or null if the hash is not provided or an error occurs.
+     *
+     * @throws {Error} Throws an error if there is an issue with accessing the Git repository or executing
+     * the command to retrieve the object type.
+     */
     static async getGitObjectType(path_to_folder: string, hash: string | null | undefined): Promise<string | null> {
         if(!hash){
             console.error('No hash provided');
@@ -72,6 +87,19 @@ export class GitHelper {
         }
     }
 
+    /**
+     * Retrieves the commit hash associated with a specified Git tag from a given folder path.
+     *
+     * This method uses the SimpleGit library to parse the commit hash for the provided tag name.
+     * It handles both lightweight and annotated tags.
+     *
+     * @param {string} path_to_folder - The file system path to the Git repository folder.
+     * @param {string} tagName - The name of the tag for which to retrieve the commit hash.
+     * @returns {Promise<string | null>} A promise that resolves to the commit hash as a string if found,
+     * or null if an error occurs or the tag does not exist.
+     *
+     * @throws {Error} Throws an error if there is an issue accessing the Git repository or parsing the tag.
+     */
     static async getCommitHashForTag(path_to_folder: string, tagName: string): Promise<string | null> {
         try {
             const git: SimpleGit = simpleGit(path_to_folder);
@@ -87,6 +115,19 @@ export class GitHelper {
     }
 
 
+    /**
+     * Retrieves a list of tags that point to a specific commit in a given Git repository.
+     *
+     * @param {string} path_to_folder - The path to the folder containing the Git repository.
+     * @param {string} commitHash - The hash of the commit for which to find associated tags.
+     * @returns {Promise<string[]>} A promise that resolves to an array of tag names associated with the specified commit.
+     *
+     * @throws {Error} Throws an error if there is an issue accessing the Git repository or retrieving tags.
+     *
+     * @example
+     * const tags = await getTagsPointingAtCommit('/path/to/repo', 'abc123');
+     * console.log(tags); // Outputs an array of tags pointing to the commit 'abc123'
+     */
     static async getTagsPointingAtCommit(path_to_folder: string, commitHash: string): Promise<string[]> {
         try {
             const git: SimpleGit = simpleGit(path_to_folder);
