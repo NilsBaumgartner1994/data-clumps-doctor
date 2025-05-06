@@ -35,6 +35,19 @@ function findNearestPackageJson(startDir = __dirname): string | null {
 }
 
 
+/**
+ * Asynchronously retrieves the contents of the package.json file from the nearest parent directory.
+ *
+ * This function uses the `package-up` library to locate the package.json file and reads its contents.
+ * If the package.json file is found, it is parsed and returned as a JavaScript object. If not found,
+ * the function returns null.
+ *
+ * @async
+ * @function getPackageJson
+ * @returns {Promise<Object|null>} A promise that resolves to the parsed package.json object or null if not found.
+ *
+ * @throws {Error} Throws an error if there is an issue reading the file or parsing the JSON.
+ */
 async function getPackageJson(){
     let packageJsonPath = await findNearestPackageJson();
     if(!packageJsonPath){
