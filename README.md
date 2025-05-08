@@ -98,6 +98,18 @@ Current
 ```
 
 
+### Example for Digital Twin Definition Language
+
+Download an example project from GitHub:
+```
+https://github.com/XMPro/Wind-Power-Plant-Wind-Turbine-DTDL-Models/tree/main
+```
+
+Then run the following command:
+```
+npm run build && node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/dtdl.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Downloads/Wind-Power-Plant-Wind-Turbine-DTDL-Models-main/Wind\ Power\ Plant;
+```
+
 
 ### Help
 

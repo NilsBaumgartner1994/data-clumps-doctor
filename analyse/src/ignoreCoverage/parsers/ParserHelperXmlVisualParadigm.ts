@@ -8,21 +8,22 @@ import {
     MethodParameterTypeContext,
     MethodTypeContext
 } from "./../ParsedAstTypes";
+import {ParserBase} from "./ParserBase";
 import {ParserInterface} from "./ParserInterface";
 
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser();
 
-export class ParserHelperXmlVisualParadigm implements ParserInterface{
+export class ParserHelperXmlVisualParadigm extends ParserBase implements ParserInterface{
 
     constructor() {
+        super();
     }
 
-
-    async parseSourceToAst(path_to_source: string, path_to_ast_output: string): Promise<void> {
-        await this.parseXmlToAst(path_to_source, path_to_ast_output);
+    async parseSourceToDictOfClassesOrInterfaces(path_to_source_folder: string): Promise<Map<string, ClassOrInterfaceTypeContext>> {
+        let dictOfClassesOrInterfaces: Map<string, ClassOrInterfaceTypeContext> = await this.parseXMlToDictClassOrInterface(path_to_source_folder);
+        return dictOfClassesOrInterfaces;
     }
-
 
     private parseXmlToJSON(xmlData): Promise<any> {
         return new Promise((resolve, reject) => {
@@ -361,31 +362,5 @@ export class ParserHelperXmlVisualParadigm implements ParserInterface{
         return dictOfClassesOrInterfaces;
     }
 
-    private async parseXmlToAst(path_to_xml_file: string, path_to_folder_of_parsed_ast: string){
 
-        let dictOfClassesOrInterfaces: Map<string, ClassOrInterfaceTypeContext> = await this.parseXMlToDictClassOrInterface(path_to_xml_file);
-        // Altough we already have the dictOfClassesOrInterfaces, we will save the ASTs to disk. This helps us to use other features of the tool (e.g. the search feature, saving the AST).
-        console.log("parseXmlToAst - dictOfClassesOrInterfaces")
-        console.log(dictOfClassesOrInterfaces)
-
-        let keys = Object.keys(dictOfClassesOrInterfaces);
-        fs.mkdirSync(path_to_folder_of_parsed_ast, { recursive: true });
-
-        for(let key of keys){
-            // Get the class or interface
-            let classOrInterface = dictOfClassesOrInterfaces[key];
-            // using the key as filename
-            let path_to_file = path.join(path_to_folder_of_parsed_ast, key + ".json");
-
-            //  Save the class or interface to disk as JSON file
-            try {
-                fs.writeFileSync(path_to_file, JSON.stringify(classOrInterface, null, 2), 'utf8');
-            } catch (err) {
-                console.error('An error occurred while writing parseXmlToAst to file:', err);
-            }
-
-        }
-        console.log('Results saved to '+path_to_folder_of_parsed_ast);
-
-    }
 }

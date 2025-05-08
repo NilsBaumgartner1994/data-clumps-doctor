@@ -1,5 +1,5 @@
 import fs from 'fs';
-import {ParserHelperXmlVisualParadigm} from "./ParserHelperXmlVisualParadigm";
+import {ParserHelperXmlVisualParadigm} from "./parsers/ParserHelperXmlVisualParadigm";
 import {Analyzer} from "./Analyzer";
 import {SoftwareProjectDicts} from "./SoftwareProject";
 import {ParserHelper} from "./ParserHelper";

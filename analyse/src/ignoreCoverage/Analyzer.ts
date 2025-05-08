@@ -385,16 +385,21 @@ export class Analyzer {
                 return;
             }
 
+            let target_language: string | undefined = undefined;
+
             if(this.source_type === "ast"){
                 // skip ast generation since ast is already provided
             } else {
                 let parser: ParserInterface | null = null;
 
                 if(this.source_type === "java"){
+                    target_language = "java";
                     parser = new ParserHelperJavaSourceCode(this.path_to_ast_generator_folder);
                 } else if(this.source_type === "uml"){
+                    target_language = "xml";
                     parser = new ParserHelperXmlVisualParadigm();
                 } else if(this.source_type === "digitalTwinsDefinitionLanguage"){
+                    target_language = "Digital Twin Definition Language";
                     parser = new ParserHelperDigitalTwinsDefinitionLanguage();
                 }
 
@@ -424,7 +429,7 @@ export class Analyzer {
             let progressCallback = null
 
             this.detectTimer.start();
-            let dataClumpsContext = await Analyzer.analyseSoftwareProjectDicts(softwareProjectDicts, this.project_url, this.project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, this.detectorOptions);
+            let dataClumpsContext = await Analyzer.analyseSoftwareProjectDicts(softwareProjectDicts, this.project_url, this.project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, this.detectorOptions, null, target_language);
             this.detectTimer.stop();
             this.detectTimer.printElapsedTime("Detect time for commit: "+commit);
 
@@ -479,8 +484,8 @@ export class Analyzer {
         }
     }
 
-    static async analyseSoftwareProjectDicts(softwareProjectDicts, project_url, project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, detectorOptions){
-        let detector = new Detector(softwareProjectDicts, detectorOptions, progressCallback, project_url, project_name, project_version, commit, commit_tag, commit_date);
+    static async analyseSoftwareProjectDicts(softwareProjectDicts, project_url, project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, detectorOptions, additional, target_language){
+        let detector = new Detector(softwareProjectDicts, detectorOptions, progressCallback, project_url, project_name, project_version, commit, commit_tag, commit_date, additional, target_language)
 
         let dataClumpsContext = await detector.detect();
 
