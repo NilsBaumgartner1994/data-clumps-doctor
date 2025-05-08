@@ -52,6 +52,19 @@ async function analyseFileStream(report_file_path: string, data_clump_from_file_
     });
 }
 
+/**
+ * Analyzes the specified report folder for data clumps and logs the results.
+ *
+ * This asynchronous function checks if the provided report folder exists,
+ * retrieves all report files within that folder, and processes each file to
+ * identify data clumps. It logs the top 20 files with the highest number of
+ * detected data clumps.
+ *
+ * @param {string} report_folder - The path to the folder containing report files.
+ * @param {Object} options - Additional options for analysis (currently unused).
+ * @throws {Error} Throws an error if the specified report folder does not exist.
+ * @returns {Promise<void>} A promise that resolves when the analysis is complete.
+ */
 async function analyse(report_folder, options) {
     console.log("Analysing Detected Data-Clumps");
     if (!fs.existsSync(report_folder)) {
