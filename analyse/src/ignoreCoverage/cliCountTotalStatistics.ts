@@ -57,6 +57,12 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
         number_of_data_clumps_latest_commit: number,
     }
 
+    /**
+     * Analyzes a report file for a given project and updates statistics accordingly.
+     *
+     * @param {string} report_file_path - The path to the report file to be analyzed.
+     * @param {string} project_name - The name of the project associated with the report file.
+     */
     function analyseReportFileForProject(report_file_path: string, project_name: string){
         let report_file_json = AnalyseHelper.getReportFileJson(report_file_path);
         let project_commit_date = AnalyseHelper.getDateFromDataClumpsContext(report_file_json);
