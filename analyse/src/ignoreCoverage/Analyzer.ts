@@ -2,14 +2,16 @@ import {GitHelper} from "./GitHelper";
 import fs from "fs";
 import {SoftwareProjectDicts} from "./SoftwareProject";
 import {Detector} from "./detector/Detector";
-import {ParserHelperJavaSourceCode} from "./ParserHelperJavaSourceCode";
+import {ParserHelperJavaSourceCode} from "./parsers/ParserHelperJavaSourceCode";
 import {Timer} from "./Timer";
 import path from "path";
 import {ParserHelper} from "./ParserHelper";
-import {ParserHelperXmlVisualParadigm} from "./ParserHelperXmlVisualParadigm";
+import {ParserHelperXmlVisualParadigm} from "./parsers/ParserHelperXmlVisualParadigm";
 import {DetectorUtils} from "./detector/DetectorUtils";
 import os from "os";
 import {DetectorOptions} from "../index";
+import {ParserInterface} from "./parsers/ParserInterface";
+import {ParserHelperDigitalTwinsDefinitionLanguage} from "./parsers/ParserHelperDigitalTwinsDefinitionLanguage";
 
 export class Analyzer {
 
@@ -383,23 +385,31 @@ export class Analyzer {
                 return;
             }
 
-            if(this.source_type === "java"){
+            if(this.source_type === "ast"){
+                // skip ast generation since ast is already provided
+            } else {
+                let parser: ParserInterface | null = null;
+
+                if(this.source_type === "java"){
+                    parser = new ParserHelperJavaSourceCode(this.path_to_ast_generator_folder);
+                } else if(this.source_type === "uml"){
+                    parser = new ParserHelperXmlVisualParadigm();
+                } else if(this.source_type === "digitalTwinsDefinitionLanguage"){
+                    parser = new ParserHelperDigitalTwinsDefinitionLanguage();
+                }
+
+                if(!parser){
+                    console.error("Parser not found for source type: "+this.source_type);
+                    return;
+                }
+
                 this.astTimer.start();
-                await ParserHelperJavaSourceCode.parseSourceCodeToAst(this.path_to_source, this.path_to_ast_output, this.path_to_ast_generator_folder);
+                await parser.parseSourceToAst(this.path_to_source, this.path_to_ast_output);
                 this.astTimer.stop();
                 this.astTimer.printElapsedTime("Ast generation time for commit: "+commit);
-            } else if(this.source_type === "uml"){
-                await ParserHelperXmlVisualParadigm.parseXmlToAst(this.path_to_source, this.path_to_ast_output);
-            } else if(this.source_type === "ast"){
-                console.log("Skip ast generation since ast is already provided")
-                this.path_to_ast_output = this.path_to_source;
-                this.preserve_ast_output = true; // since the ast is our input, we do not want to delete it
-                console.log("path_to_ast_output: "+this.path_to_ast_output)
-                console.log("path_to_source: "+this.path_to_source)
-                console.log("path_to_project: "+this.path_to_project)
-            } else {
-                throw new Error("Source type "+this.source_type+" not supported");
             }
+
+
 
 
             if (!fs.existsSync(this.path_to_ast_output)) {

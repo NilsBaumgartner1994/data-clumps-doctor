@@ -526,6 +526,11 @@ class GenericOccurenceDict<T extends string | number | symbol> {
         this.occurenceDict = {};
     }
 
+    public getMaxKey(): T {
+        let maxKey = Object.keys(this.occurenceDict).reduce((a, b) => this.occurenceDict[a] > this.occurenceDict[b] ? a : b);
+        return maxKey as T;
+    }
+
     public addOccurence(key: T, occurences: number) {
         if (this.occurenceDict[key] === undefined) {
             this.occurenceDict[key] = occurences;

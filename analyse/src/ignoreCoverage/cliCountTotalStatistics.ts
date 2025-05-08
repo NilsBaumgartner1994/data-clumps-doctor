@@ -25,6 +25,16 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
     let numberOccurenceDictAmountMethodsInReportsWithDataClumps = new NumberOccurenceDict();
     let numberOccurenceDictAmountDataClumpsInReportsWithDataClumps = new NumberOccurenceDict();
 
+    let numberOccurenceDictFieldToClasses = new NumberOccurenceDict();
+    let highestMedianFieldToClasses = 0;
+    let highestMaximumFieldToClasses = 0;
+    let numberOccurenceDictParameterToMethods = new NumberOccurenceDict();
+    let highestMedianParameterToMethods = 0;
+    let highestMaximumParameterToMethods = 0;
+    let numberOccurenceDictParameterToFields = new NumberOccurenceDict();
+    let highestMedianParameterToFields = 0;
+    let highestMaximumParameterToFields = 0;
+
     let total_amount_classes_or_interfaces = 0;
     let total_amount_methods = 0;
     let total_amount_fields = 0;
@@ -83,6 +93,78 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
                 }
 
                 let statisticsForProject = dictStatisticsForProject[project_name];
+
+                let reportSummaryAdditional = report_file_json.report_summary.additional;
+                if(!!reportSummaryAdditional){
+                    let invertedIndexSoftwareProjectStatistics = reportSummaryAdditional.invertedIndexSoftwareProjectStatistics;
+                    // "invertedIndexSoftwareProjectStatistics": {
+                    //         "invertedFieldToClasses": {
+                    //           "median": 1.5,
+                    //           "maximum": 4,
+                    //           "average": 1.11864406779661,
+                    //           "amountSavedValuesForKeys": 264,
+                    //           "amountKeys": 4
+                    //         },
+                    //         "invertedParameterToMethods": {
+                    //         },
+                    //         "invertedParameterToClasses": {
+                    //         }
+                    if(!!invertedIndexSoftwareProjectStatistics){
+                        //console.log("invertedIndexSoftwareProjectStatistics")
+                        //console.log(JSON.stringify(invertedIndexSoftwareProjectStatistics, null, 2));
+                        let invertedFieldToClasses = invertedIndexSoftwareProjectStatistics.invertedFieldToClasses;
+                        if(!!invertedFieldToClasses){
+                            let amountKeys = invertedFieldToClasses.amountKeys;
+                            let average = invertedFieldToClasses.average;
+                            let amountSavedValuesForKeys = invertedFieldToClasses.amountSavedValuesForKeys;
+                            if(!!average && !!amountSavedValuesForKeys){
+                                numberOccurenceDictFieldToClasses.addOccurence(average, amountSavedValuesForKeys);
+                            }
+                            let median = invertedFieldToClasses.median;
+                            if(median > highestMedianFieldToClasses){
+                                highestMedianFieldToClasses = median;
+                            }
+                            let maximum = invertedFieldToClasses.maximum;
+                            if(maximum > highestMaximumFieldToClasses){
+                                highestMaximumFieldToClasses = maximum;
+                            }
+                        }
+                        let invertedParameterToMethods = invertedIndexSoftwareProjectStatistics.invertedParameterToMethods;
+                        if(!!invertedParameterToMethods){
+                            let amountKeys = invertedParameterToMethods.amountKeys;
+                            let average = invertedParameterToMethods.average;
+                            let amountSavedValuesForKeys = invertedParameterToMethods.amountSavedValuesForKeys;
+                            if(!!average && !!amountSavedValuesForKeys){
+                                numberOccurenceDictParameterToMethods.addOccurence(average, amountSavedValuesForKeys);
+                            }
+                            let median = invertedParameterToMethods.median;
+                            if(median > highestMedianParameterToMethods){
+                                highestMedianParameterToMethods = median;
+                            }
+                            let maximum = invertedParameterToMethods.maximum;
+                            if(maximum > highestMaximumParameterToMethods){
+                                highestMaximumParameterToMethods = maximum;
+                            }
+                        }
+                        let invertedParameterToClasses = invertedIndexSoftwareProjectStatistics.invertedParameterToClasses;
+                        if(!!invertedParameterToClasses){
+                            let amountKeys = invertedParameterToClasses.amountKeys;
+                            let average = invertedParameterToClasses.average;
+                            let amountSavedValuesForKeys = invertedParameterToClasses.amountSavedValuesForKeys;
+                            if(!!average && !!amountSavedValuesForKeys){
+                                numberOccurenceDictParameterToFields.addOccurence(average, amountSavedValuesForKeys);
+                            }
+                            let median = invertedParameterToClasses.median;
+                            if(median > highestMedianParameterToFields){
+                                highestMedianParameterToFields = median;
+                            }
+                            let maximum = invertedParameterToClasses.maximum;
+                            if(maximum > highestMaximumParameterToFields){
+                                highestMaximumParameterToFields = maximum;
+                            }
+                        }
+                    }
+                }
 
                 statisticsForProject.number_class_and_interfaces_total += report_file_json?.project_info.number_of_classes_or_interfaces || 0;
                 statisticsForProject.number_methods_total += report_file_json?.project_info.number_of_methods || 0;
@@ -225,7 +307,20 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
     console.log("average_amount_fields_per_class: "+average_amount_fields_per_class);
     const average_amount_parameters_per_method = total_amount_parameters / total_amount_methods;
     console.log("average_amount_parameters_per_method: "+average_amount_parameters_per_method);
-
+    console.log("---");
+    console.log("invertedFieldToClasses: ");
+    console.log("  highestMedianFieldToClasses: "+highestMedianFieldToClasses);
+    console.log("  highestMaximumFieldToClasses: "+highestMaximumFieldToClasses);
+    console.log("  average: "+numberOccurenceDictFieldToClasses.getAverage());
+    console.log("invertedParameterToMethods: ");
+    console.log("  highestMedianParameterToMethods: "+highestMedianParameterToMethods);
+    console.log("  highestMaximumParameterToMethods: "+highestMaximumParameterToMethods);
+    console.log("  average: "+numberOccurenceDictParameterToMethods.getAverage());
+    console.log("invertedParameterToFields: ");
+    console.log("  highestMedianParameterToFields: "+highestMedianParameterToFields);
+    console.log("  highestMaximumParameterToFields: "+highestMaximumParameterToFields);
+    console.log("  average: "+numberOccurenceDictParameterToFields.getAverage());
+    console.log("----")
     console.log("reports_with_data_clumps: "+reports_with_data_clumps);
     console.log("Median amount classes or interfaces: "+numberOccurenceDictAmountClassesOrInterfaces.getMedian());
     console.log("Median amount methods: "+numberOccurenceDictAmountMethods.getMedian());

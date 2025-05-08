@@ -1,9 +1,20 @@
-import { spawn } from 'child_process';
 import {exec} from 'child_process';
 import fs from "fs";
+import {ParserInterface} from "./ParserInterface";
 
 // noinspection dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection
-export class ParserHelperJavaSourceCode {
+export class ParserHelperJavaSourceCode implements ParserInterface{
+
+    path_to_ast_generator_folder: string;
+
+    constructor(path_to_ast_generator_folder: string) {
+        this.path_to_ast_generator_folder = path_to_ast_generator_folder;
+    }
+
+
+    async parseSourceToAst(path_to_source: string, path_to_ast_output: string): Promise<void> {
+        await this.parseSourceCodeToAst(path_to_source, path_to_ast_output);
+    }
 
     /**
      * Allow large files to be parsed
@@ -37,7 +48,7 @@ export class ParserHelperJavaSourceCode {
     }
         */
 
-    private static async execAsync(command): Promise<{ stdout: string, stderr: string }> {
+    private async execAsync(command): Promise<{ stdout: string, stderr: string }> {
         return new Promise((resolve, reject) => {
             exec(command, (error, stdout, stderr) => {
                 if (error) {
@@ -49,10 +60,10 @@ export class ParserHelperJavaSourceCode {
         });
     };
 
-    static async parseSourceCodeToAst(path_to_source_code: string, path_to_save_parsed_ast: string, path_to_ast_generator_folder: string): Promise<void> {
+    private async parseSourceCodeToAst(path_to_source_code: string, path_to_save_parsed_ast: string): Promise<void> {
         try {
             //await ParserHelperJavaSourceCode.runMakeCommand(path_to_ast_generator_folder, path_to_source_code, path_to_save_parsed_ast);
-            const { stdout } = await ParserHelperJavaSourceCode.execAsync('cd '+path_to_ast_generator_folder+' && make run SOURCE="'+path_to_source_code+'" DESTINATION="'+path_to_save_parsed_ast+'"');
+            const { stdout } = await this.execAsync('cd '+this.path_to_ast_generator_folder+' && make run SOURCE="'+path_to_source_code+'" DESTINATION="'+path_to_save_parsed_ast+'"');
             //console.log(`stdout: ${stdout}`);
             if (!fs.existsSync(path_to_save_parsed_ast)) {
                 // No parsable source code found, therefore create the directory to show the user, that the source code is not parsable.
@@ -82,4 +93,5 @@ export class ParserHelperJavaSourceCode {
             }
         }
     }
+
 }

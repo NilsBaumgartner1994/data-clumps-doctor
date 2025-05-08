@@ -1,4 +1,4 @@
-import {SoftwareProjectDicts} from "./SoftwareProject";
+import {SoftwareProjectDicts} from "./../SoftwareProject";
 
 import fs from 'fs';
 import path from 'path';
@@ -7,16 +7,24 @@ import {
     MemberFieldParameterTypeContext,
     MethodParameterTypeContext,
     MethodTypeContext
-} from "./ParsedAstTypes";
-
-import {exec, spawn} from 'child_process';
+} from "./../ParsedAstTypes";
+import {ParserInterface} from "./ParserInterface";
 
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser();
 
-export class ParserHelperXmlVisualParadigm {
+export class ParserHelperXmlVisualParadigm implements ParserInterface{
 
-    static async parseXmlToJSON(xmlData): Promise<any> {
+    constructor() {
+    }
+
+
+    async parseSourceToAst(path_to_source: string, path_to_ast_output: string): Promise<void> {
+        await this.parseXmlToAst(path_to_source, path_to_ast_output);
+    }
+
+
+    private parseXmlToJSON(xmlData): Promise<any> {
         return new Promise((resolve, reject) => {
             parser.parseString(xmlData, (err, result) => {
                 if (err) {
@@ -30,7 +38,7 @@ export class ParserHelperXmlVisualParadigm {
         });
     }
 
-    static async parseUmlClassOrInterface(dictOfClassesOrInterfaces, ModelChild, RootModelRelationshipContainer){
+    private async parseUmlClassOrInterface(dictOfClassesOrInterfaces, ModelChild, RootModelRelationshipContainer){
         //console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++")
         //console.log("parseUmlClassOrInterface")
 //    console.log(ModelChild)
@@ -284,7 +292,7 @@ export class ParserHelperXmlVisualParadigm {
         //console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++")
     }
 
-    static async parseParsedXmlDataToDictClassesOrInterfaces(parsedXMLDataToJSON){
+    private async parseParsedXmlDataToDictClassesOrInterfaces(parsedXMLDataToJSON){
 
         let dictOfClassesOrInterfaces: Map<string, ClassOrInterfaceTypeContext> = new Map<string, ClassOrInterfaceTypeContext>();
 
@@ -312,7 +320,7 @@ export class ParserHelperXmlVisualParadigm {
         if(ModelChildrenClasses && ModelChildrenClasses.length > 0){
             for(let i=0; i<ModelChildrenClasses.length; i++){
                 let ModelChild = ModelChildrenClasses[i];
-                await ParserHelperXmlVisualParadigm.parseUmlClassOrInterface(dictOfClassesOrInterfaces, ModelChild, ModelRelationshipContainer);
+                await this.parseUmlClassOrInterface(dictOfClassesOrInterfaces, ModelChild, ModelRelationshipContainer);
             }
         }
 
@@ -341,21 +349,21 @@ export class ParserHelperXmlVisualParadigm {
         return softwareProjectDicts
     }
 
-    static async parseXMlToDictClassOrInterface(path_to_xml_file: string){
+    private async parseXMlToDictClassOrInterface(path_to_xml_file: string){
         const xmlData = fs.readFileSync(path_to_xml_file, 'utf8');
 
         // Parse XML to JSON
-        let parsedXMLDataToJSON = await ParserHelperXmlVisualParadigm.parseXmlToJSON(xmlData);
+        let parsedXMLDataToJSON = await this.parseXmlToJSON(xmlData);
         console.log("parsedXMLDataToJSON")
         console.log(parsedXMLDataToJSON)
 
-        let dictOfClassesOrInterfaces = await ParserHelperXmlVisualParadigm.parseParsedXmlDataToDictClassesOrInterfaces(parsedXMLDataToJSON);
+        let dictOfClassesOrInterfaces = await this.parseParsedXmlDataToDictClassesOrInterfaces(parsedXMLDataToJSON);
         return dictOfClassesOrInterfaces;
     }
 
-    static async parseXmlToAst(path_to_xml_file: string, path_to_folder_of_parsed_ast: string){
+    private async parseXmlToAst(path_to_xml_file: string, path_to_folder_of_parsed_ast: string){
 
-        let dictOfClassesOrInterfaces: Map<string, ClassOrInterfaceTypeContext> = await ParserHelperXmlVisualParadigm.parseXMlToDictClassOrInterface(path_to_xml_file);
+        let dictOfClassesOrInterfaces: Map<string, ClassOrInterfaceTypeContext> = await this.parseXMlToDictClassOrInterface(path_to_xml_file);
         // Altough we already have the dictOfClassesOrInterfaces, we will save the ASTs to disk. This helps us to use other features of the tool (e.g. the search feature, saving the AST).
         console.log("parseXmlToAst - dictOfClassesOrInterfaces")
         console.log(dictOfClassesOrInterfaces)
@@ -380,5 +388,4 @@ export class ParserHelperXmlVisualParadigm {
         console.log('Results saved to '+path_to_folder_of_parsed_ast);
 
     }
-
 }
