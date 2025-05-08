@@ -5,6 +5,9 @@ import path from 'path';
 
 export abstract class ParserBase implements ParserInterface {
 
+    /**
+     * Parses source files in a folder and saves their ASTs to disk.
+     */
     async parseSourceToAst(path_to_source_folder: string, path_to_ast_output: string){
         //console.log("Parsing source to AST");
         //console.log(`Loading source from ${path_to_source_folder}`);
@@ -36,6 +39,9 @@ export abstract class ParserBase implements ParserInterface {
         console.log('Results saved to '+path_to_ast_output);
     }
 
+    /**
+     * Parses source files in a folder to create a dictionary of classes or interfaces.
+     */
     abstract parseSourceToDictOfClassesOrInterfaces(path_to_source_folder: string): Promise<Map<string, ClassOrInterfaceTypeContext>>;
 
 }
