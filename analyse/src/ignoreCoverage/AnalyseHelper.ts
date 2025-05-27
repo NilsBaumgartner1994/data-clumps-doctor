@@ -370,7 +370,11 @@ export class AnalyseHelper {
          *         };
          */
         let numberOfFaultsUntilCommit = report_file_json?.report_summary?.additional?.fault_data?.number_of_bug_introducting_commits_until_commit;
-        return numberOfFaultsUntilCommit || undefined;
+        if(!isNaN(numberOfFaultsUntilCommit)){
+            return numberOfFaultsUntilCommit;
+        } else {
+            return undefined;
+        }
     }
 
     static setNumberOfBugIntroductingCommitsUntilCommit(report_file_json: DataClumpsTypeContext, numberOfFaultsUntilCommit: number | undefined){

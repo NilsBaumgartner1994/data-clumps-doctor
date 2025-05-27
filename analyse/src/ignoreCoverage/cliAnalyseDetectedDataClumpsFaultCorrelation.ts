@@ -210,7 +210,7 @@ async function analyseProject(projectData: ProjectData[], options: any): Promise
         relevantFileInformationDict[data.commitHash] = data;
     }
 
-    const folder = projectData[0].projectName;
+    const projectName = projectData[0].projectName;
     const gitProjectUrl = projectData[0].projectUrl;
 
     //console.log("Processing project:", folder, "with URL:", gitProjectUrl);
@@ -224,22 +224,18 @@ async function analyseProject(projectData: ProjectData[], options: any): Promise
     await GitHelper.getGitInstance(path_to_project).clone(gitProjectUrl, path_to_project, ['--no-single-branch']);
 
     // Holen Sie sich ALLE BICs für das gesamte Repository einmal
-    console.log("Now finding all faults for project:", folder);
+    console.log("Now finding all faults for project:", projectName);
     let timerForSZZ = new Timer();
     let partialTimerObject: Partial<ProgressObject> = {
-        suffix: `${folder}`
+        suffix: `${projectName}`
     }
 
     let allFaults: SzzResult[] = await GitHelper.runSZZ(path_to_project, undefined, timerForSZZ, partialTimerObject);
-    console.log(`Analysis finished for ${folder}. Number of total faults found: ${allFaults.length}`);
-
-
+    console.log(`Analysis finished for ${projectName}. Number of total faults found: ${allFaults.length}`);
     // Iteriere über die Commits, für die wir Data-Clump-Metriken haben
     let commitHashes = Object.keys(relevantFileInformationDict);
-
     let timerForCommitProcessing = new Timer();
     timerForCommitProcessing.start();
-
     const bugIntroducingCommitDict: Record<string, SzzResult[]> = {};
     for(const fault of allFaults) {
         if (fault.bugIntroducingCommit) {
@@ -249,28 +245,45 @@ async function analyseProject(projectData: ProjectData[], options: any): Promise
             bugIntroducingCommitDict[fault.bugIntroducingCommit].push(fault);
         }
     }
-
     let bugIntroducingCommits = Object.keys(bugIntroducingCommitDict);
 
-    const ancestorMap: Map<string, Set<string>> = new Map(); // Faster lookup for ancestors, instead of checking ancestry for each commit
 
+
+    const ancestorMap: Map<string, Set<string>> = new Map(); // Faster lookup for ancestors, instead of checking ancestry for each commit
     let git = await GitHelper.getGitInstance(path_to_project);
-    for (const commitHash of commitHashes) {
-        const revListOutput = await git.raw([
-            'rev-list',
-            '--parents',
-            commitHash
-        ]);
-        const ancestors = new Set(
-            revListOutput.split('\n')
-                .flatMap(line => line.split(' '))
-                .filter(h => h.match(/^[0-9a-f]{40}$/))
-        );
-        ancestorMap.set(commitHash, ancestors);
+    let timerForAncestorMapCreation = new Timer();
+    timerForAncestorMapCreation.start();
+    const totalCommits = commitHashes.length;
+    for (let i = 0; i < totalCommits; i++) {
+        const commitHash = commitHashes[i];
+        timerForAncestorMapCreation.printEstimatedTimeRemainingAfter1Second({
+            progress: (i+1),
+            total: totalCommits,
+            suffix: `Building ancestor map for: ${commitHash} - ${projectName}`
+        });
+
+        try {
+            const revListOutput = await git.raw([
+                'rev-list',
+                '--parents',
+                commitHash
+            ]);
+            const ancestors = new Set(
+                revListOutput
+                    .split('\n')
+                    .flatMap(line => line.split(' '))
+                    .filter(h => h.match(/^[0-9a-f]{40}$/))
+            );
+            ancestorMap.set(commitHash, ancestors);
+        } catch (err) {
+            console.warn(`Failed to get rev-list for ${commitHash}:`, err);
+        }
     }
 
 
 
+    let timerForBugIntroducingCommitLookup = new Timer();
+    timerForBugIntroducingCommitLookup.start();
     const numberOfBugIntroducingCommits = bugIntroducingCommits.length;
     const totalForCommitProcessing = commitHashes.length * numberOfBugIntroducingCommits;
     for (let indexCommitHash = 0; indexCommitHash < commitHashes.length; indexCommitHash++) {
@@ -278,10 +291,10 @@ async function analyseProject(projectData: ProjectData[], options: any): Promise
         let faultIndex = 0;
         let currentProgress = indexCommitHash * numberOfBugIntroducingCommits + faultIndex;
 
-        timerForCommitProcessing.printEstimatedTimeRemainingAfter1Second({
+        timerForBugIntroducingCommitLookup.printEstimatedTimeRemainingAfter1Second({
             progress: currentProgress,
             total: totalForCommitProcessing,
-            suffix: `Processing commit ${commitHash} for project ${folder}`
+            suffix: `Processing commit ${commitHash} for project ${projectName}`
         })
 
 
@@ -299,10 +312,10 @@ async function analyseProject(projectData: ProjectData[], options: any): Promise
 
             currentProgress = indexCommitHash * numberOfBugIntroducingCommits + faultIndex;
 
-             timerForCommitProcessing.printEstimatedTimeRemainingAfter1Second({
+            timerForBugIntroducingCommitLookup.printEstimatedTimeRemainingAfter1Second({
                  progress: currentProgress,
                  total: totalForCommitProcessing,
-                 suffix: `Checking BIC ancestry for commit ${commitHash} in project ${folder}`
+                 suffix: `Checking BIC ancestry for commit ${commitHash} in project ${projectName}`
              });
 
             // Prüfen, ob der Bug-Introducing Commit ein Vorfahre des aktuellen `commitHash` ist
@@ -321,7 +334,7 @@ async function analyseProject(projectData: ProjectData[], options: any): Promise
                 bicsUntilThisCommit += bugIntroducingCommitDict[bugIntroducingCommit].length;
             }
         }
-        console.log("All BICs checked for commit:", commitHash, "in project:", folder, "-> Total BICs until this commit:", bicsUntilThisCommit, "baseData.tag:", baseData.tag);
+        console.log("All BICs checked for commit:", commitHash, "in project:", projectName, "-> Total BICs until this commit:", bicsUntilThisCommit, "baseData.tag:", baseData.tag);
 
         baseData.numberOfBugIntroducingCommits = bicsUntilThisCommit;
 
