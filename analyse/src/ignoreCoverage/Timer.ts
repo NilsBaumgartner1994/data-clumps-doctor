@@ -9,6 +9,7 @@ export type ProgressObject = {
 
 export class Timer {
 
+    public logOutputDisabled: boolean = false;
     public startTime: number = 0;
     public lastElapsedTime: number = 0;
     public elapsedTimes: number[] = [];
@@ -49,6 +50,9 @@ export class Timer {
         prefix = prefix ? `${prefix}: ` : "";
         suffix = suffix ? `: ${suffix}` : "";
         let elapsed = this.getTotalElapsedTime();
+        if(this.logOutputDisabled) {
+            return;
+        }
         console.log(prefix+`Total elapsed time: ${this.formatTimeToString(elapsed)}`+suffix);
     }
 
@@ -56,6 +60,9 @@ export class Timer {
         prefix = prefix ? `${prefix}: ` : "";
         suffix = suffix ? `: ${suffix}` : "";
         let elapsed = this.getCurrentElapsedTime();
+        if(this.logOutputDisabled) {
+            return;
+        }
         console.log(prefix+`Elapsed time: ${this.formatTimeToString(elapsed)}`+suffix);
     }
 
@@ -84,6 +91,9 @@ export class Timer {
         prefix = prefix ? `${prefix}: ` : "";
         suffix = suffix ? `: ${suffix}` : "";
         let progressString = `(${progress}/${total})`;
+        if(this.logOutputDisabled) {
+            return;
+        }
         console.log(prefix+`${remainingTimeStr} ${progressString}`+suffix);
     }
 

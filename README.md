@@ -55,30 +55,46 @@ node ./build/ignoreCoverage/cli.js <Path_to_your_project_to_analyse>
 
 Example to analyse local project current:
 ```
-node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json --commit_selection current --path_to_project /Users/nbaumgartner/Desktop/argouml
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection current --path_to_project /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Desktop/argouml
 ```
 
 Example to analyse git ArgoUML completely:
 ```
-node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --git_project_url_to_analyse https://github.com/argouml-tigris-org/argouml
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --git_project_url_to_analyse https://github.com/argouml-tigris-org/argouml
 ```
 
 Example to analyse multiple git completely:
 ```
-node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --git_project_url_to_analyse https://github.com/argouml-tigris-org/argouml
-node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --git_project_url_to_analyse https://github.com/ben-manes/caffeine
-node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --git_project_url_to_analyse https://github.com/apache/dolphinscheduler
-node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --git_project_url_to_analyse https://github.com/jflex-de/jflex
-node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --git_project_url_to_analyse https://github.com/jfree/jfreechart
-node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --git_project_url_to_analyse https://github.com/apache/rocketmq
-node ./build/ignoreCoverage/cli.js --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --git_project_url_to_analyse https://github.com/apache/xerces2-j
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/argouml-tigris-org/argouml && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/apache/dolphinscheduler && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/apache/rocketmq && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/apache/xerces2-j && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/nostra13/Android-Universal-Image-Loader && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/antlr/antlr4 && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/BroadleafCommerce/BroadleafCommerce && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/ben-manes/caffeine && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/eclipse-archived/ceylon-ide-eclipse && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/elastic/elasticsearch && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/hazelcast/hazelcast && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/jflex-de/jflex && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/jfree/jfreechart && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/junit-team/junit4 && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/junit-team/junit5 && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/jankotek/mapdb && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/mcMMO-Dev/mcMMO && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/neo4j/neo4j && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/netty/netty && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/orientechnologies/orientdb && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/OryxProject/oryx && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/spring-projects/spring-boot && \
+node ./build/ignoreCoverage/cli.js --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/thinkaurelius/titan
 ```
 
 ### Commit Selection
 
 All Git Tags
 ```
-node ./build/ignoreCoverage/cli.js --git_project_url_to_analyse https://github.com/argouml-tigris-org/argouml --commit_selection tags --output /Users/nbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Projects/{project_name}/tags/{project_commit}.json
+node ./build/ignoreCoverage/cli.js --git_project_url_to_analyse https://github.com/argouml-tigris-org/argouml --commit_selection tags --output /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/{project_name}/tags/{project_commit}.json
 ```
 
 Specific commits
@@ -123,85 +139,78 @@ node ./build/ignoreCoverage/cli.js --help
 
 #### Statistic Overview
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliCountTotalStatistics.js --report_folder /Users/nilsbaumgartner/Desktop/dataClumpsReports/Source_Code/Java_Projects
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliCountTotalStatistics.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
 ```
 
 #### Types
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsTypes.js --report_folder /Users/nilsbaumgartner/Desktop/dataClumpsReports/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 ```
 
 #### Cluster Types
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsClusterTypes.js --report_folder /Users/nilsbaumgartner/Desktop/dataClumpsReports/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsClusterTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 ```
 
 #### Data Clumps Fan In
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpClassAndMethodFanIn.js --report_folder /Users/nilsbaumgartner/Desktop/dataClumpsReports/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpClassAndMethodFanIn.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 ```
 
 #### File Path Distance
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpFilePathDistance.js --report_folder /Users/nilsbaumgartner/Desktop/dataClumpsReports/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpFilePathDistance.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 ```
 
 ### Variable Distance
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableDistance.js --report_folder /Users/nilsbaumgartner/Desktop/dataClumpsReports/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableDistance.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 ```
 
 #### Variable Distribution to Types
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableAmount.js --report_folder /Users/nilsbaumgartner/Desktop/dataClumpsReports/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableAmount.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 ```
 
 #### Most Common Variables
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseMostCommonDataClumpVariable.js --report_folder /Users/nilsbaumgartner/Desktop/dataClumpsReports/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseMostCommonDataClumpVariable.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 ```
 
 #### Parameter Name Length
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpParameterNameLength.js --report_folder /Users/nilsbaumgartner/Desktop/dataClumpsReports/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpParameterNameLength.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 ```
 
-#### Detectuib Time
+#### Detection Time
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsAnalyseTime.js --report_folder /Users/nilsbaumgartner/Desktop/dataClumpsReports/Source_Code/Java_Projects/
-```
-
-#### Chartline
-```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliGenerateDetectedDataClumpsChartLine.js --report_folder /Users/nilsbaumgartner/Desktop/dataClumpsReports/Source_Code/Java_Projects
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsAnalyseTime.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 ```
 
-
-### Full Analysis of 23 Java Projects
+#### Diverging Log Scaled Bar Chart
 ```
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/argouml-tigris-org/argouml && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/apache/dolphinscheduler && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/apache/rocketmq && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/apache/xerces2-j && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/nostra13/Android-Universal-Image-Loader && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/antlr/antlr4 && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/BroadleafCommerce/BroadleafCommerce && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/ben-manes/caffeine && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/eclipse-archived/ceylon-ide-eclipse && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/elastic/elasticsearch && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/hazelcast/hazelcast && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/jflex-de/jflex && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/jfree/jfreechart && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/junit-team/junit4 && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/junit-team/junit5 && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/jankotek/mapdb && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/mcMMO-Dev/mcMMO && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/neo4j/neo4j && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/netty/netty && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/orientechnologies/orientdb && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/OryxProject/oryx && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/spring-projects/spring-boot && \
-node /home/nbaumgartner/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js --output /home/nbaumgartner/DataClumpsDataset/{project_name}/tags/{project_commit}.json --commit_selection tags --fast_detection true --git_project_url_to_analyse https://github.com/thinkaurelius/titan
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliGenerateDetectedDataClumpsChartDivergingLogScaledBarChart.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
+```
+
+#### Chartline Number Data Clumps
+```
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliGenerateDetectedDataClumpsChartLine.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
+```
+
+#### Chartline Number Faults
+```
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliGenerateDetectedDataClumpsNumberFaultsChartLine.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
+```
+
+#### Evolution Category
+```
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDetectedDataClumpsEvolution.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
+```
+
+
+#### Fault Correlation
+```
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDetectedDataClumpsFaultCorrelation.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
 ```
 
 

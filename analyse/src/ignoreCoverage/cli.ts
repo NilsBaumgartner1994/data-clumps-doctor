@@ -7,17 +7,17 @@ import {Command} from 'commander';
 import {Analyzer} from "./Analyzer";
 import {GitHelper} from "./GitHelper";
 import * as os from "os";
-import {DetectorOptions} from "./detector/Detector"; // import commander
+import {DetectorOptions} from "./detector/Detector";
+import {AnalyseHelper} from "./AnalyseHelper"; // import commander
 
 const packageJsonPath = path.join(__dirname, '..','..', 'package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
 const version = packageJson.version;
 
 // path to temp folder
-let path_to_temp_folder = os.tmpdir();
 
-let default_git_project_temp_folder = path.join(path_to_temp_folder, 'temp_git_cloned_'+Analyzer.project_name_variable_placeholder);
-let default_ast_output_temp_folder = path.join(path_to_temp_folder, 'temp_ast_output_'+Analyzer.project_name_variable_placeholder);
+let default_git_project_temp_folder = AnalyseHelper.getTempFolderPathToTempGitClonesProjectWithVariablePlaceholder();
+let default_ast_output_temp_folder = path.join(AnalyseHelper.getTempFolderPath(), "data_clumps_doctor",'temp_ast_output_'+Analyzer.project_name_variable_placeholder);
 let default_git_tag_start_offset = 0;
 
 const program = new Command();
@@ -127,8 +127,7 @@ async function analyse(path_to_project, options){
         passed_project_name,
         project_version,
         preserve_ast_output,
-        detector_options,
-        path_to_temp_folder
+        detector_options
     );
 
     await analyzer.start()
@@ -161,8 +160,7 @@ async function main() {
         await analyse(raw_path_to_project, options);
     } else{
 
-        let git_project_url_to_analyse_as_name = git_project_url_to_analyse.replace(/[^a-zA-Z0-9]/g, "_");
-        options.git_project_temp_folder = Analyzer.replaceOutputVariables(options.git_project_temp_folder, git_project_url_to_analyse_as_name, "");
+        options.git_project_temp_folder = AnalyseHelper.getTempFolderPathGotTempGitClonedProject(git_project_url_to_analyse, options.git_project_temp_folder);
 
         let path_to_project = path.resolve(options.git_project_temp_folder);
         //console.log("Clearing temp folder "+path_to_project);

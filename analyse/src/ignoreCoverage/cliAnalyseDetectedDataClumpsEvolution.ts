@@ -6,6 +6,8 @@ import path from 'path';
 import {Command} from 'commander';
 import {Analyzer} from "./Analyzer";
 import {DataClumpsTypeContext, DataClumpsVariableFromContext, DataClumpTypeContext} from "data-clumps-type-context";
+import {AnalyseHelper} from "./AnalyseHelper";
+import {Timer} from "./Timer";
 
 const packageJsonPath = path.join(__dirname, '..','..', 'package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
@@ -23,114 +25,63 @@ program
     .version(version)
     .option('--report_folder <path>', 'Output path', current_working_directory+'/data-clumps-results/'+Analyzer.project_name_variable_placeholder+'/') // Default value is './data-clumps.json'
 
-function time_stamp_to_file_paths(report_folder){
-    let all_report_files = fs.readdirSync(report_folder);
-    console.log("Amount of files in folder: "+all_report_files.length);
-    let all_report_files_paths: any = [];
-    for (let i = 0; i < all_report_files.length; i++) {
-        let report_file = all_report_files[i];
-        if(report_file.endsWith(".json")){
-            let report_file_path = path.join(report_folder, report_file);
-            all_report_files_paths.push(report_file_path);
-        }
-    }
-    console.log("Amount of report files: "+all_report_files_paths.length);
 
-    console.log("Reading all report files and extracting data clumps amount per commit date");
-    let timestamp_to_file_path = {};
-    for(let i = 0; i <all_report_files_paths.length; i++){
-        let report_file_path = all_report_files_paths[i];
-        let report_file = fs.readFileSync(report_file_path, 'utf8');
-        console.log("parsing report file: "+report_file_path+" ...")
-        let report_file_json = JSON.parse(report_file);
-        let project_commit_date = report_file_json?.project_info?.project_commit_date;
-        project_commit_date = parseInt(project_commit_date); // unix timestamp
-        let project_commit_date_date = project_commit_dateToDate(project_commit_date);
-        console.log("project_commit_date: "+project_commit_date);
+function myLog(prefixInformation: PrefixInformation, message: string) {
+    let project_name = prefixInformation.project_name;
+    let projectIndex = prefixInformation.projectIndex;
+    let totalProjects = prefixInformation.totalProjects;
 
-        if(timestamp_to_file_path[project_commit_date] === undefined){
-            timestamp_to_file_path[project_commit_date] = [report_file_path]
-        }
-        else{
-            timestamp_to_file_path[project_commit_date].push(report_file_path)
-        }
-    }
-
-    console.log("Amount of timestamps: "+Object.keys(timestamp_to_file_path).length);
-
-    return timestamp_to_file_path;
+    prefixInformation.timer.printEstimatedTimeRemaining({
+        prefix: `[${project_name}]: ${message}`,
+        progress: projectIndex,
+        total: totalProjects,
+    })
 }
 
-function getSortedTimestamps(timestamp_to_file_path){
-    let sorted_timestamps = Object.keys(timestamp_to_file_path)
-    return sorted_timestamps;
-}
-
-function getAllDataClumpsKeys(sorted_timestamps, timestamp_to_file_paths){
+async function getAllDataClumpsKeys(sorted_report_file_paths: string[], prefixInformation: PrefixInformation){
     let all_data_clump_keys = {};
-    console.log("Getting all data clump keys");
+    myLog(prefixInformation, "Getting all data clump keys");
 
-    for(let i = 0; i < sorted_timestamps.length; i++){
-        console.log("Total Keys: Timestamp: "+i+" / "+sorted_timestamps.length)
-        let report_file_paths = timestamp_to_file_paths[sorted_timestamps[i]];
+    for(let i = 0; i < sorted_report_file_paths.length; i++){
+        myLog(prefixInformation, "Total Keys: Timestamp: "+i+" / "+sorted_report_file_paths.length)
 
-        for(let j = 0; j < report_file_paths.length; j++){
-            let report_file_path = report_file_paths[j];
-            let report_file = fs.readFileSync(report_file_path, 'utf8');
-            let report_file_json = JSON.parse(report_file);
-
-            let data_clumps_dict = report_file_json?.data_clumps;
-            let data_clumps_keys = Object.keys(data_clumps_dict);
+            let report_file_path = sorted_report_file_paths[i];
+            let report_file_json = await AnalyseHelper.getReportFileJson(report_file_path);
+            let data_clumps_keys = Object.keys(report_file_json.data_clumps);
 
             // check if data clump key is already in histogram and if not add it
             for(let j = 0; j < data_clumps_keys.length; j++){
                 let data_clump_key = data_clumps_keys[j];
-
                 all_data_clump_keys[data_clump_key] = true;
             }
-        }
-
     }
 
     return all_data_clump_keys;
 }
 
-function getTypeAKeysDict(sorted_timestamps, timestamp_to_file_paths){
+async function getTypeAKeysDict_DataClumpsInAllTimestamps(sorted_report_file_paths: string[], prefixInformation: PrefixInformation){
 
-    console.log("Getting type A keys dict");
+    myLog(prefixInformation, "Getting type A keys dict");
 
     let keys_type_a = {};
 
-    let amount_timestamps = sorted_timestamps.length;
-    let amount_report_files = 0;
+    let amount_report_files = sorted_report_file_paths.length
 
     let dict_data_clump_key_to_amount_found: any = {};
 
-    let first_timestamp = sorted_timestamps[0];
+    for(let j = 0; j < amount_report_files; j++){
+        myLog(prefixInformation, "A Timestamp: "+j+" / "+sorted_report_file_paths.length)
 
-    for(let j = 0; j < amount_timestamps; j++){
-        console.log("A Timestamp: "+j+" / "+sorted_timestamps.length)
+        let report_file_path = sorted_report_file_paths[j];
+        let report_file_json = await AnalyseHelper.getReportFileJson(report_file_path);
 
-        let timestamp = sorted_timestamps[j];
-        let report_file_paths = timestamp_to_file_paths[timestamp];
-
-        let is_first_timestamp = timestamp === first_timestamp;
-
-        amount_report_files += report_file_paths.length;
-
-        for(let report_file_path of report_file_paths){
-            let report_file = fs.readFileSync(report_file_path, 'utf8');
-            let report_file_json: DataClumpsTypeContext = JSON.parse(report_file);
-
-            let data_clumps_dict = report_file_json?.data_clumps;
-            let data_clumps_keys = Object.keys(data_clumps_dict);
-            for(let data_clumps_key of data_clumps_keys){
-                let amount_found = dict_data_clump_key_to_amount_found[data_clumps_key] || 0;
-                amount_found += 1;
-                dict_data_clump_key_to_amount_found[data_clumps_key] = amount_found;
-            }
+        let data_clumps_dict = report_file_json.data_clumps;
+        let data_clumps_keys = Object.keys(data_clumps_dict);
+        for(let data_clumps_key of data_clumps_keys){
+            let amount_found = dict_data_clump_key_to_amount_found[data_clumps_key] || 0;
+            amount_found += 1;
+            dict_data_clump_key_to_amount_found[data_clumps_key] = amount_found;
         }
-
     }
 
     let data_clump_keys = Object.keys(dict_data_clump_key_to_amount_found);
@@ -145,37 +96,32 @@ function getTypeAKeysDict(sorted_timestamps, timestamp_to_file_paths){
 }
 
 // keys that are found in the last timestamp but not in the first timestamp
-function getTypeBKeysDict(sorted_timestamps, timestamp_to_file_paths){
+async function getTypeBKeysDict_DataClumpsAfterStartButTillEnd(sorted_report_file_paths: string[], prefixInformation: PrefixInformation){
 
-    console.log("Getting type B keys dict");
+    myLog(prefixInformation, "Getting type B keys dict");
 
     let keys_in_first_timestamp = {};
     let keys_in_last_timestamp = {};
 
-    let amount_timestamps = sorted_timestamps.length;
+    let amount_report_files = sorted_report_file_paths.length;
 
-    let first_timestamp = sorted_timestamps[0];
-    let last_timestamp = sorted_timestamps[amount_timestamps-1];
+    let first_timestamp = sorted_report_file_paths[0];
+    let last_timestamp = sorted_report_file_paths[amount_report_files-1];
 
-    for(let j = 0; j < amount_timestamps; j++){
-        console.log("B Timestamp: "+j+" / "+sorted_timestamps.length)
-        let timestamp = sorted_timestamps[j];
-        let report_file_paths = timestamp_to_file_paths[timestamp];
+    for(let j = 0; j < amount_report_files; j++){
+        myLog(prefixInformation, "B Timestamp: "+j+" / "+sorted_report_file_paths.length)
+        let report_file_path = sorted_report_file_paths[j];
+        let report_file = await AnalyseHelper.getReportFileJson(report_file_path);
 
-        for(let report_file_path of report_file_paths){
-            let report_file = fs.readFileSync(report_file_path, 'utf8');
-            let report_file_json: DataClumpsTypeContext = JSON.parse(report_file);
+        let data_clumps_dict = report_file?.data_clumps;
+        let data_clumps_keys = Object.keys(data_clumps_dict);
+        for(let data_clumps_key of data_clumps_keys){
+            if(report_file_path === first_timestamp){
+                keys_in_first_timestamp[data_clumps_key] = true;
+            }
 
-            let data_clumps_dict = report_file_json?.data_clumps;
-            let data_clumps_keys = Object.keys(data_clumps_dict);
-            for(let data_clumps_key of data_clumps_keys){
-                if(timestamp === first_timestamp){
-                    keys_in_first_timestamp[data_clumps_key] = true;
-                }
-
-                if(timestamp === last_timestamp){
-                    keys_in_last_timestamp[data_clumps_key] = true;
-                }
+            if(report_file_path === last_timestamp){
+                keys_in_last_timestamp[data_clumps_key] = true;
             }
         }
 
@@ -192,39 +138,34 @@ function getTypeBKeysDict(sorted_timestamps, timestamp_to_file_paths){
 }
 
 // keys that are found in the last but not in the first timestamp
-function getTypeCKeysDict(sorted_timestamps, timestamp_to_file_paths){
+async function getTypeCKeysDict_DataClumpsFromStartButNotTillEnd(sorted_report_file_paths: string[], prefixInformation: PrefixInformation){
 
-    console.log("Getting type C keys dict");
+    myLog(prefixInformation, "Getting type C keys dict");
 
     let keys_in_first_timestamp = {};
     let keys_in_last_timestamp = {};
 
-    let amount_timestamps = sorted_timestamps.length;
+    let amount_report_files = sorted_report_file_paths.length;
 
-    let first_timestamp = sorted_timestamps[0];
-    let last_timestamp = sorted_timestamps[amount_timestamps-1];
+    let first_timestamp = sorted_report_file_paths[0];
+    let last_timestamp = sorted_report_file_paths[amount_report_files-1];
 
-    for(let j = 0; j < amount_timestamps; j++){
-        console.log("C Timestamp: "+j+" / "+sorted_timestamps.length)
-        let timestamp = sorted_timestamps[j];
-        let report_file_paths = timestamp_to_file_paths[timestamp];
+    for(let j = 0; j < amount_report_files; j++){
+        myLog(prefixInformation, "C Timestamp: "+j+" / "+sorted_report_file_paths.length)
+        let report_file_path = sorted_report_file_paths[j];
+        let report_file = await AnalyseHelper.getReportFileJson(report_file_path);
 
-        for(let report_file_path of report_file_paths){
-            let report_file = fs.readFileSync(report_file_path, 'utf8');
-            let report_file_json: DataClumpsTypeContext = JSON.parse(report_file);
-
-            let data_clumps_dict = report_file_json?.data_clumps;
+            let data_clumps_dict = report_file?.data_clumps;
             let data_clumps_keys = Object.keys(data_clumps_dict);
             for(let data_clumps_key of data_clumps_keys){
-                if(timestamp === first_timestamp){
+                if(report_file_path === first_timestamp){
                     keys_in_first_timestamp[data_clumps_key] = true;
                 }
 
-                if(timestamp === last_timestamp){
+                if(report_file_path === last_timestamp){
                     keys_in_last_timestamp[data_clumps_key] = true;
                 }
             }
-        }
 
     }
 
@@ -238,41 +179,37 @@ function getTypeCKeysDict(sorted_timestamps, timestamp_to_file_paths){
     return keys_type_c;
 }
 
-function getTypeDKeysDict(sorted_timestamps, timestamp_to_file_paths){
-    console.log("Getting type D keys dict");
+async function getTypeDKeysDict_DataClumpsAfterStartAndBeforeEnd(sorted_report_file_paths: string[], prefixInformation: PrefixInformation){
+    myLog(prefixInformation, "Getting type D keys dict");
 
     let keys_type_d = {};
 
     let keys_in_first_timestamp = {};
     let keys_in_last_timestamp = {};
 
-    let amount_timestamps = sorted_timestamps.length;
+    let amount_report_files = sorted_report_file_paths.length;
 
-    let first_timestamp = sorted_timestamps[0];
-    let last_timestamp = sorted_timestamps[amount_timestamps-1];
+    let first_timestamp = sorted_report_file_paths[0];
+    let last_timestamp = sorted_report_file_paths[amount_report_files-1];
 
-    for(let j = 0; j < amount_timestamps; j++){
-        console.log("D Timestamp: "+j+" / "+sorted_timestamps.length)
-        let timestamp = sorted_timestamps[j];
-        let report_file_paths = timestamp_to_file_paths[timestamp];
+    for(let j = 0; j < amount_report_files; j++){
+        myLog(prefixInformation, "D Timestamp: "+j+" / "+sorted_report_file_paths.length)
+        let report_file_path = sorted_report_file_paths[j];
+        let report_file = await AnalyseHelper.getReportFileJson(report_file_path);
 
-        for(let report_file_path of report_file_paths){
-            let report_file = fs.readFileSync(report_file_path, 'utf8');
-            let report_file_json: DataClumpsTypeContext = JSON.parse(report_file);
 
-            let data_clumps_dict = report_file_json?.data_clumps;
-            let data_clumps_keys = Object.keys(data_clumps_dict);
-            for(let data_clumps_key of data_clumps_keys){
-                if(timestamp === first_timestamp){
-                    keys_in_first_timestamp[data_clumps_key] = true;
-                }
-
-                if(timestamp === last_timestamp){
-                    keys_in_last_timestamp[data_clumps_key] = true;
-                }
-
-                keys_type_d[data_clumps_key] = true;
+        let data_clumps_dict = report_file?.data_clumps;
+        let data_clumps_keys = Object.keys(data_clumps_dict);
+        for(let data_clumps_key of data_clumps_keys){
+            if(report_file_path === first_timestamp){
+                keys_in_first_timestamp[data_clumps_key] = true;
             }
+
+            if(report_file_path === last_timestamp){
+                keys_in_last_timestamp[data_clumps_key] = true;
+            }
+
+            keys_type_d[data_clumps_key] = true;
         }
 
     }
@@ -290,49 +227,41 @@ function getTypeDKeysDict(sorted_timestamps, timestamp_to_file_paths){
     return keys_type_d;
 }
 
-function getTypeEKeysDict(sorted_timestamps, timestamp_to_file_paths){
+async function getTypeEKeysDict_DataClumpsInFirstNotInMiddleButAgainAtEnd(sorted_report_file_paths: string[], prefixInformation: PrefixInformation){
 
-    console.log("Getting type E keys dict");
+    myLog(prefixInformation, "Getting type E keys dict");
 
     let keys_type_e = {};
 
-    let amount_timestamps = sorted_timestamps.length;
-    let amount_report_files = 0;
+    let amount_report_files = sorted_report_file_paths.length;
 
     let dict_data_clump_key_to_amount_found: any = {};
 
     let keys_in_first_timestamp = {};
     let keys_in_last_timestamp = {};
 
-    let first_timestamp = sorted_timestamps[0];
-    let last_timestamp = sorted_timestamps[sorted_timestamps.length-1];
+    let first_timestamp = sorted_report_file_paths[0];
+    let last_timestamp = sorted_report_file_paths[amount_report_files-1];
 
-    for(let j = 0; j < amount_timestamps; j++){
-        console.log("E Timestamp: "+j+" / "+sorted_timestamps.length)
+    for(let j = 0; j < amount_report_files; j++){
+        myLog(prefixInformation, "E Timestamp: "+j+" / "+sorted_report_file_paths.length)
 
-        let timestamp = sorted_timestamps[j];
-        let report_file_paths = timestamp_to_file_paths[timestamp];;
+        let report_file_path = sorted_report_file_paths[j];
+        let report_file = await AnalyseHelper.getReportFileJson(report_file_path);
 
-        amount_report_files += report_file_paths.length;
+        let data_clumps_dict = report_file?.data_clumps;
+        let data_clumps_keys = Object.keys(data_clumps_dict);
+        for(let data_clumps_key of data_clumps_keys){
+            let amount_found = dict_data_clump_key_to_amount_found[data_clumps_key] || 0;
+            amount_found += 1;
+            dict_data_clump_key_to_amount_found[data_clumps_key] = amount_found;
 
-        for(let report_file_path of report_file_paths){
-            let report_file = fs.readFileSync(report_file_path, 'utf8');
-            let report_file_json: DataClumpsTypeContext = JSON.parse(report_file);
+            if(report_file_path === first_timestamp){
+                keys_in_first_timestamp[data_clumps_key] = true;
+            }
 
-            let data_clumps_dict = report_file_json?.data_clumps;
-            let data_clumps_keys = Object.keys(data_clumps_dict);
-            for(let data_clumps_key of data_clumps_keys){
-                let amount_found = dict_data_clump_key_to_amount_found[data_clumps_key] || 0;
-                amount_found += 1;
-                dict_data_clump_key_to_amount_found[data_clumps_key] = amount_found;
-
-                if(timestamp === first_timestamp){
-                    keys_in_first_timestamp[data_clumps_key] = true;
-                }
-
-                if(timestamp === last_timestamp){
-                    keys_in_last_timestamp[data_clumps_key] = true;
-                }
+            if(report_file_path === last_timestamp){
+                keys_in_last_timestamp[data_clumps_key] = true;
             }
         }
 
@@ -360,27 +289,35 @@ function getTypeEKeysDict(sorted_timestamps, timestamp_to_file_paths){
 }
 
 
-function getHistoryDistribution(sorted_timestamps, timestamp_to_file_paths){
+type HistoryDistribution = {
+    fromStartTillEnd: number,
+    afterStartButTillEnd: number,
+    fromStartButNotTillEnd: number,
+    afterStartAndBeforeEnd: number,
+    fromStartTillEndButMissingInBetween: number
+}
 
-    console.log("getHistoryDistribution");
+type PrefixInformation = {
+    project_name: string,
+    projectIndex: number,
+    timer: Timer,
+    projectTimer: Timer,
+    totalProjects: number
+}
 
-    let all_data_clumps_keys = getAllDataClumpsKeys(sorted_timestamps, timestamp_to_file_paths);
+async function getHistoryDistribution(sorted_report_file_paths: string[], project_name: string, prefixInformation: PrefixInformation): Promise<HistoryDistribution>{
+
+    myLog(prefixInformation, "getHistoryDistribution for project: "+project_name);
+
+    let all_data_clumps_keys = await getAllDataClumpsKeys(sorted_report_file_paths, prefixInformation);
     let amount_data_clumps_keys = Object.keys(all_data_clumps_keys).length;
 
 
-    let keys_type_a = getTypeAKeysDict(sorted_timestamps, timestamp_to_file_paths);
-    let keys_type_b = getTypeBKeysDict(sorted_timestamps, timestamp_to_file_paths);
-    let keys_type_c = getTypeCKeysDict(sorted_timestamps, timestamp_to_file_paths);
-    let keys_type_d = getTypeDKeysDict(sorted_timestamps, timestamp_to_file_paths);
-    let keys_type_e = getTypeEKeysDict(sorted_timestamps, timestamp_to_file_paths);
-
-    let history_distribution = {
-        fromStartTillEnd: keys_type_a, // Type A, a key in in all timestamps
-        afterStartButTillEnd: keys_type_b, // Type B a key is in the last timestamp but is missing in any other
-        fromStartButNotTillEnd: keys_type_c, // Type C a key is in the first timestamp but is missing in any other
-        afterStartAndBeforeEnd: keys_type_d, // Type D a key is not in the first and not in the last timestamp but is in any other
-        fromStartTillEndButMissingInBetween: keys_type_e // New Type E
-    };
+    let keys_type_a = await getTypeAKeysDict_DataClumpsInAllTimestamps(sorted_report_file_paths, prefixInformation)
+    let keys_type_b = await getTypeBKeysDict_DataClumpsAfterStartButTillEnd(sorted_report_file_paths, prefixInformation);
+    let keys_type_c = await getTypeCKeysDict_DataClumpsFromStartButNotTillEnd(sorted_report_file_paths, prefixInformation);
+    let keys_type_d = await getTypeDKeysDict_DataClumpsAfterStartAndBeforeEnd(sorted_report_file_paths, prefixInformation);
+    let keys_type_e = await getTypeEKeysDict_DataClumpsInFirstNotInMiddleButAgainAtEnd(sorted_report_file_paths, prefixInformation);
 
     let amount_keys_type_a = Object.keys(keys_type_a).length;
     let amount_keys_type_b = Object.keys(keys_type_b).length;
@@ -403,7 +340,7 @@ function getHistoryDistribution(sorted_timestamps, timestamp_to_file_paths){
     }
 
 
-    console.log("amount_data_clumps_keys: "+amount_data_clumps_keys);
+    myLog(prefixInformation, "amount_data_clumps_keys: "+amount_data_clumps_keys);
     let percentage_type_a = (amount_keys_type_a / amount_data_clumps_keys) * 100;
     percentage_type_a = parseFloat(percentage_type_a.toFixed(2))
     let percentage_type_b = (amount_keys_type_b / amount_data_clumps_keys) * 100;
@@ -415,37 +352,166 @@ function getHistoryDistribution(sorted_timestamps, timestamp_to_file_paths){
     let percentage_type_e = (amount_keys_type_e / amount_data_clumps_keys) * 100;
     percentage_type_e = parseFloat(percentage_type_e.toFixed(2))
 
-    console.log("percentage_type_a: "+percentage_type_a+"% --- "+amount_keys_type_a+" / "+amount_data_clumps_keys);
-    console.log("percentage_type_b: "+percentage_type_b+"% --- "+amount_keys_type_b+" / "+amount_data_clumps_keys);
-    console.log("percentage_type_c: "+percentage_type_c+"% --- "+amount_keys_type_c+" / "+amount_data_clumps_keys);
-    console.log("percentage_type_d: "+percentage_type_d+"% --- "+amount_keys_type_d+" / "+amount_data_clumps_keys);
-    console.log("percentage_type_e: "+percentage_type_e+"% --- "+amount_keys_type_e+" / "+amount_data_clumps_keys);
+    myLog(prefixInformation, "percentage_type_a: "+percentage_type_a+"% --- "+amount_keys_type_a+" / "+amount_data_clumps_keys);
+    myLog(prefixInformation, "percentage_type_b: "+percentage_type_b+"% --- "+amount_keys_type_b+" / "+amount_data_clumps_keys);
+    myLog(prefixInformation, "percentage_type_c: "+percentage_type_c+"% --- "+amount_keys_type_c+" / "+amount_data_clumps_keys);
+    myLog(prefixInformation, "percentage_type_d: "+percentage_type_d+"% --- "+amount_keys_type_d+" / "+amount_data_clumps_keys);
+    myLog(prefixInformation, "percentage_type_e: "+percentage_type_e+"% --- "+amount_keys_type_e+" / "+amount_data_clumps_keys);
 
-
+    let history_distribution: HistoryDistribution = {
+        fromStartTillEnd: percentage_type_a, // Type A, a key in in all timestamps
+        afterStartButTillEnd: percentage_type_b, // Type B a key is in the last timestamp but is missing in any other
+        fromStartButNotTillEnd: percentage_type_c, // Type C a key is in the first timestamp but is missing in any other
+        afterStartAndBeforeEnd: percentage_type_d, // Type D a key is not in the first and not in the last timestamp but is in any other
+        fromStartTillEndButMissingInBetween: percentage_type_e // New Type E
+    };
 
     return history_distribution;
 }
 
-
-function project_commit_dateToDate(project_commit_date){
-    let date = new Date(project_commit_date*1000);
-    // date to string
-    let date_string = date.toISOString().slice(0,10);
-    return date_string;
-}
-
-async function analyse(report_folder, options){
+async function analyse(report_project_folder_path, options) {
     console.log("Analysing Detected Data-Clumps");
-    if (!fs.existsSync(report_folder)) {
-        console.log("ERROR: Specified path to report folder does not exist: "+report_folder);
+    if (!fs.existsSync(report_project_folder_path)) {
+        console.log("ERROR: Specified path to report folder does not exist: " + report_project_folder_path);
         process.exit(1);
     }
 
-    let timestamp_to_file_paths = time_stamp_to_file_paths(report_folder);
-    let sorted_timestamps = getSortedTimestamps(timestamp_to_file_paths);
-    console.log("sorted_timestamps: "+sorted_timestamps.length);
+    const totalTimer = new Timer();
+    totalTimer.start();
 
-    getHistoryDistribution(sorted_timestamps, timestamp_to_file_paths);
+    let all_files_or_folders = fs.readdirSync(report_project_folder_path);
+    let all_project_folders = all_files_or_folders.filter((file) => {
+        let file_path = path.join(report_project_folder_path, file);
+        // only include folders
+        if (fs.lstatSync(file_path).isDirectory()) {
+            return true;
+        } else {
+            console.log("Skipping file: " + file);
+            return false;
+        }
+    });
+
+    console.log("All project folders have been detected");
+
+    let projectHistoryDistributions: Record<string, HistoryDistribution> = {};
+
+    for (let i = 0; i < all_project_folders.length; i++) {
+        let folder_name = all_project_folders[i];
+        let folder_path = path.join(report_project_folder_path, folder_name);
+        console.log("Analysing project folder: " + folder_name);
+
+        let sorted_report_file_paths_for_project = AnalyseHelper.getSortedReportFilePathsByTimestamps(folder_path);
+        console.log("sorted_timestamps: " + sorted_report_file_paths_for_project.length);
+
+        let projectName = folder_name;
+        let first_report_file_path = sorted_report_file_paths_for_project[0];
+        let first_report_file = await AnalyseHelper.getReportFileJson(first_report_file_path);
+        projectName = first_report_file.project_info.project_name || projectName;
+
+        let prefixInformation: PrefixInformation = {
+            project_name: projectName,
+            projectIndex: i + 1,
+            timer: totalTimer,
+            projectTimer: new Timer(),
+            totalProjects: all_project_folders.length
+        }
+
+        let projectHistoryDistribution = await getHistoryDistribution(sorted_report_file_paths_for_project, projectName, prefixInformation);
+        projectHistoryDistributions[projectName] = projectHistoryDistribution;
+
+    }
+
+    totalTimer.stop();
+    totalTimer.printElapsedTime("Total Analysis Time");
+
+
+    // write the projectHistoryDistributions to a file
+    let fileContent = AnalyseHelper.getPythonLibrariesFileContent(); // imports libraries required for the file
+
+    fileContent += `\n\nprojectHistoryDistributions = {\n`;
+
+    for (const [projectName, history] of Object.entries(projectHistoryDistributions)) {
+        const safeProjectName = JSON.stringify(projectName);
+
+        fileContent += `    ${safeProjectName}: {\n`;
+        fileContent += `        'total': ${Object.values(history).reduce((acc, p) => acc + p, 0)},\n`;
+        fileContent += `        'A': ${history.fromStartTillEnd},\n`;
+        fileContent += `        'B': ${history.afterStartButTillEnd},\n`;
+        fileContent += `        'C': ${history.fromStartButNotTillEnd},\n`;
+        fileContent += `        'D': ${history.afterStartAndBeforeEnd},\n`;
+        fileContent += `        'E': ${history.fromStartTillEndButMissingInBetween},\n`;
+        fileContent += `    },\n`;
+    }
+    fileContent += `}\n\n`;
+
+    fileContent += `perc_a = []
+perc_b = []
+perc_c = []
+perc_d = []
+perc_e = []
+
+for proj, values in projectHistoryDistributions.items():
+    perc_a.append(values['A'])
+    perc_b.append(values['B'])
+    perc_c.append(values['C'])
+    perc_d.append(values['D'])
+    perc_e.append(values['E'])
+
+data = [perc_a, perc_b, perc_c, perc_d, perc_e]
+
+category_labels = ['A', 'B', 'C', 'D', 'E']
+colors = ['#c9daf8', '#ea9999', '#b6d7a8', '#ffe599', '#d5a6bd']  # Farbe für E
+
+fig, ax = plt.subplots(figsize=(6, 5), dpi=${AnalyseHelper.getPythonFigDpi()})  # Breite 6 Zoll, Höhe 4 Zoll, 300 DPI
+box = ax.boxplot(data, ${AnalyseHelper.getPythonMedianColor()}, patch_artist=True, labels=category_labels)
+
+# Farben anwenden
+for patch, color in zip(box['boxes'], colors):
+    patch.set_facecolor(color)
+
+# Legenden-Patches erzeugen
+legend_patches = [
+    plt.Line2D([0], [0], color='black', markerfacecolor=clr, marker='s',
+               linestyle='None', markersize=10)
+    for clr in colors
+]
+
+ax.legend(
+    legend_patches,
+    ['Category A', 'Category B', 'Category C', 'Category D', 'Category E'],
+    loc='upper center',
+    bbox_to_anchor=(0.5, -0.12),
+    ncol=3,
+    fancybox=True,
+    shadow=True
+)
+
+ax.set_ylabel("Percentage of Data Clumps")
+ax.set_xlabel("Code Smell Evolution Category")
+ax.set_ylim(0, 100)
+
+plt.grid(True, linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.subplots_adjust(bottom=0.23)
+
+# Optional speichern
+# plt.savefig("data_clumps_boxplot.png", dpi=300)
+
+#plt.show()
+plt.savefig("AnalyseDetectedDataClumpsEvolution.pdf", dpi=${AnalyseHelper.getPythonFigDpi()}, bbox_inches='tight')
+
+all_data = {
+    'A': perc_a,
+    'B': perc_b,
+    'C': perc_c,
+    'D': perc_d,
+    'E': perc_e
+}
+
+${AnalyseHelper.getPythonStatisticsForDataValues()}
+`;
+
+    return fileContent;
 
 
 }
@@ -453,16 +519,24 @@ async function analyse(report_folder, options){
 async function main() {
     console.log("Data-Clumps-Doctor Detection");
 
-    program.parse(process.argv);
-
     // Get the options and arguments
-    const options = program.opts();
+    const options = AnalyseHelper.getCommandForAnalysis(process, {
+        require_report_path: true,
+        require_output_path: false,
+        default_output_filename_without_extension: "AnalyseDetectedDataClumpsEvolution"
+    })
 
     const report_folder = options.report_folder;
 
+    let fileContent = await analyse(report_folder, options);
+    let output = options.output;
+    // delete output file if it exists
+    if (fs.existsSync(output)) {
+        fs.unlinkSync(output);
+    }
 
-
-    await analyse(report_folder, options);
+    console.log("Writing output to file: "+output)
+    fs.writeFileSync(output, fileContent);
 }
 
 main();

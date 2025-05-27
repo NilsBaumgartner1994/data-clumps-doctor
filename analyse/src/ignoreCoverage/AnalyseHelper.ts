@@ -6,6 +6,7 @@ import {DataClumpsTypeContext, DataClumpTypeContext} from "data-clumps-type-cont
 import {Command} from 'commander';
 import {Analyzer} from "./Analyzer";
 import {Timer} from "./Timer";
+import os from "os";
 
 const packageJsonPath = path.join(__dirname, '..','..', 'package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
@@ -24,6 +25,40 @@ export class AnalyseHelper {
         PARAMETER_PARAMETER: "parameters_to_parameters_data_clump",
         PARAMETER_FIELD: "parameters_to_fields_data_clump",
         FIELD_FIELD: "fields_to_fields_data_clump",
+    }
+
+    static getTempFolderPath(): string {
+        let path_to_temp_folder = os.tmpdir();
+        return path_to_temp_folder;
+    }
+
+    static getTempFolderPathToTempGitClonesProjectWithVariablePlaceholder(): string {
+        let default_git_project_temp_folder = path.join(AnalyseHelper.getTempFolderPath(), "data_clumps_doctor",'temp_git_cloned_'+Analyzer.project_name_variable_placeholder);
+        return default_git_project_temp_folder;
+    }
+
+    static getTempFolderPathGotTempGitClonedProject(git_project_url_to_analyse: string, git_project_temp_folder?: string): string {
+        let git_project_url_to_analyse_as_name = git_project_url_to_analyse.replace(/[^a-zA-Z0-9]/g, "_");
+        if(!git_project_temp_folder){
+            git_project_temp_folder = AnalyseHelper.getTempFolderPathToTempGitClonesProjectWithVariablePlaceholder();
+        }
+        return Analyzer.replaceOutputVariables(git_project_temp_folder, git_project_url_to_analyse_as_name, "");
+    }
+
+    static getTimestamp(report_file_json: DataClumpsTypeContext): number {
+        let project_commit_date = report_file_json.project_info.project_commit_date
+        if(!!project_commit_date){
+            // project_commit_date: '1360449946',
+            let timestamp = parseInt(project_commit_date);
+            if(!isNaN(timestamp)){
+                let earliest_allowed_timestamp = 10;
+                // check if not 1970
+                if(timestamp >= earliest_allowed_timestamp){
+                    return timestamp;
+                }
+            }
+        }
+        return 0;
     }
 
     /**
@@ -65,6 +100,7 @@ export class AnalyseHelper {
             let report_file_json = JSON.parse(report_file);
             let project_commit_date = report_file_json?.project_info?.project_commit_date;
             project_commit_date = parseInt(project_commit_date); // unix timestamp
+            // TODO: use getTimestamp ?
 
             if(timestamp_to_file_path[project_commit_date] === undefined){
                 timestamp_to_file_path[project_commit_date] = [report_file_path]
@@ -89,7 +125,7 @@ export class AnalyseHelper {
         let all_report_files_paths = AnalyseHelper.getAllReportFilePathsRecursiveInFolder(folder_path);
         let timestamp_to_file_paths = AnalyseHelper.time_stamp_to_file_paths(all_report_files_paths, partialTimerProgressObject);
         let sorted_timestamps = AnalyseHelper.getSortedTimestamps(timestamp_to_file_paths);
-        let sorted_report_file_paths = [];
+        let sorted_report_file_paths: string[] = [];
         for(let i = 0; i < sorted_timestamps.length; i++){
             let timestamp = sorted_timestamps[i];
             let file_paths = timestamp_to_file_paths[timestamp];
@@ -241,6 +277,21 @@ export class AnalyseHelper {
         return report_file_json;
     }
 
+    static saveReportFileJson(report_file_json: DataClumpsTypeContext, report_file_path: string){
+        const dir = path.dirname(report_file_path);
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true});
+        }
+
+        // save to file
+        try {
+            fs.writeFileSync(report_file_path, JSON.stringify(report_file_json, null, 2), 'utf8');
+            console.log('Results saved to '+report_file_path);
+        } catch (err) {
+            console.error('An error occurred while writing to file:', err);
+        }
+    }
+
     static getDateFromDataClumpsContext(report_file_json: DataClumpsTypeContext): Date | null {
         let project_commit_date = report_file_json.project_info.project_commit_date
         if(!!project_commit_date){
@@ -312,6 +363,23 @@ export class AnalyseHelper {
         return program_options;
     }
 
+    static getNumberBugIntroducingCommitsUntilCommit(report_file_json: DataClumpsTypeContext): number | undefined{
+        /**
+         * dataClumpsContext.report_summary.additional.fault_data = {
+         *             number_of_faults_until_commit: numberOfBugFixes
+         *         };
+         */
+        let numberOfFaultsUntilCommit = report_file_json?.report_summary?.additional?.fault_data?.number_of_bug_introducting_commits_until_commit;
+        return numberOfFaultsUntilCommit || undefined;
+    }
+
+    static setNumberOfBugIntroductingCommitsUntilCommit(report_file_json: DataClumpsTypeContext, numberOfFaultsUntilCommit: number | undefined){
+        report_file_json.report_summary.additional = report_file_json.report_summary.additional || {};
+        report_file_json.report_summary.additional.fault_data = {
+            number_of_bug_introducting_commits_until_commit: numberOfFaultsUntilCommit
+        };
+        return report_file_json;
+    }
 
     static getPythonLibrariesFileContent(){
         return "import matplotlib.pyplot as plt\n" +
@@ -362,12 +430,12 @@ for label, values in all_data.items():
 `+"\n";
     }
 
-    static getPrimaryColor(){
+    static getPrimaryColorAsHex(){
         return "#AC0634";
     }
 
     static getPrimaryColorRGB(){
-        let hex = AnalyseHelper.getPrimaryColor();
+        let hex = AnalyseHelper.getPrimaryColorAsHex();
         let rgb = AnalyseHelper.hexToRgb(hex);
         return rgb;
     }
@@ -383,13 +451,9 @@ for label, values in all_data.items():
         }
     }
 
-    static getPythonPrimaryColor(){
-        return "(172/255, 6/255, 52/255)"
-    }
-
     static getPythonMedianColor(){
         let rgb = AnalyseHelper.getPrimaryColorRGB();
-        return `medianprops={'color': (${rgb.r}/255, ${rgb.g}/255, ${rgb.b}/255)}`;
+        return `medianprops={'color': ${AnalyseHelper.getPythonYLineColor()}}`;
     }
 
     static getPythonYLineColor(){
@@ -510,10 +574,12 @@ ${AnalyseHelper.getPythonFigDpiSetttingsAndShow()}
     }
 
 
-
+    static getPythonFigDpi(){
+        return 400;
+    }
 
     static getPythonFigDpiSetttingsAndShow(){
-        return "fig.set_dpi(400)\n"+
+        return "fig.set_dpi("+AnalyseHelper.getPythonFigDpi()+")\n"+
             "plt.show()\n";
     }
 }

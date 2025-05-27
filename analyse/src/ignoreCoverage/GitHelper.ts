@@ -1,10 +1,38 @@
 import simpleGit, {DefaultLogFields, LogResult, SimpleGit, TagResult} from "simple-git";
+import fs from "fs";
+import {ProgressObject, Timer} from "./Timer";
+import {exec} from "child_process";
+
+// Definieren des Typs für SZZ-Ergebnisse
+export type SzzResult = {
+    bugFixCommit: string;
+    bugFixTimestamp: number;
+    bugFixMessage: string;
+    bugIntroducingCommit: string;
+    bugIntroducingTimestamp: number;
+    filePath: string; // Die Datei, in der der Bug gefunden/gefixt wurde
+    blamedLine: string; // Die Zeile, die den Bug enthielt und zurückverfolgt wurde
+};
+
 
 export class GitHelper {
 
-    static async checkoutGitCommit(path_to_project, commit){
+    static deleteGitFolder(path_to_project: string): void {
+        //console.log("Start deleteGitFolder "+path_to_project);
+
+        // Überprüfen, ob der Pfad existiert
+        if (fs.existsSync(path_to_project)) {
+            // Löschen des Ordners und aller Unterordner/Dateien
+            fs.rmSync(path_to_project, { recursive: true, force: true });
+            console.log(`Deleted git folder at ${path_to_project}`);
+        } else {
+            console.warn(`Git folder at ${path_to_project} does not exist.`);
+        }
+    }
+
+    static async checkoutGitCommit(path_to_project: string, commit: string): Promise<void> {
         //console.log("Start checkoutGitCommit "+commit);
-        const git: SimpleGit = simpleGit(path_to_project);
+        const git: SimpleGit = GitHelper.getGitInstance(path_to_project);
         try {
             await git.checkout(commit);
         } catch (error) {
@@ -13,7 +41,267 @@ export class GitHelper {
         }
     }
 
+    // Instanz von SimpleGit
+    public static getGitInstance(repoPath: string): SimpleGit {
+        return simpleGit(repoPath);
+    }
+
+    private static parseBlamePorcelain(blameOutput: string): Map<number, { commit: string; timestamp: number; line: string }> {
+        const lines = blameOutput.split('\n');
+        const blameMap = new Map<number, { commit: string; timestamp: number; line: string }>();
+
+        let currentCommit = '';
+        let currentTimestamp = 0;
+        let currentLineNum = 1;
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+
+            if (/^[0-9a-f]{40} /.test(line)) {
+                currentCommit = line.split(' ')[0];
+            } else if (line.startsWith('committer-time ')) {
+                currentTimestamp = parseInt(line.split(' ')[1], 10);
+            } else if (line.startsWith('\t')) {
+                const content = line.substring(1);
+                blameMap.set(currentLineNum, {
+                    commit: currentCommit,
+                    timestamp: currentTimestamp,
+                    line: content,
+                });
+                currentLineNum++;
+            }
+        }
+
+        return blameMap;
+    }
+
+    /**
+     * Führt eine vereinfachte SZZ-Analyse für ein Git-Repository durch.
+     * Identifiziert Bug-Fix-Commits und versucht, den Bug-Introducing Commit (BIC) für jede gefixte Zeile zu finden.
+     * @param repoPath Der Pfad zum geklonten Git-Repository.
+     * @param bugFixKeywords Schlüsselwörter in Commit-Nachrichten, die auf einen Bug-Fix hinweisen.
+     * @returns Eine Liste von SzzResult-Objekten.
+     */
+    static async runSZZ(repoPath: string, bugFixKeywordsParam?: string[], timerPassed?: Timer, partialTimerObject?: Partial<ProgressObject>): Promise<SzzResult[]> {
+        console.log(`Starting SZZ analysis for ${repoPath}...`);
+        const szzResults: SzzResult[] = [];
+        const uniqueBICs = new Set<string>();
+
+        let debugTimer = new Timer();
+        debugTimer.logOutputDisabled = true;
+        let timer = timerPassed || debugTimer;
+
+        const git = GitHelper.getGitInstance(repoPath);
+        const bugFixKeywords = bugFixKeywordsParam || GitHelper.getBugFixKeywords();
+
+        let allCommitsRaw: string;
+        try {
+            allCommitsRaw = await git.raw([
+                'log',
+                '--all',
+                '--pretty=format:%H%n%ct%n%s%n%P%x1f'
+            ]);
+        } catch (error) {
+            console.warn(`Could not get all commits with parents for ${repoPath}: ${error}`);
+            return [];
+        }
+
+        if (!allCommitsRaw.trim()) {
+            console.log(`No commits found for ${repoPath}.`);
+            return [];
+        }
+
+        const commitEntries = allCommitsRaw.trim().split('\x1f').filter(entry => entry.length > 0);
+
+        const allCommitsInfo: { hash: string; timestamp: number; message: string; parents: string[]; }[] = [];
+
+        const commitEntriesCount = commitEntries.length;
+        timer.start()
+        for (let index = 0; index < commitEntriesCount; index++) {
+            const entry = commitEntries[index];
+            timer.printEstimatedTimeRemainingAfter1Second({
+                progress: (index+1),
+                total: commitEntriesCount,
+                prefix: `Retrieving commits`,
+                ...partialTimerObject
+            });
+
+            const trimmedEntry = entry.trim();
+            const parts = trimmedEntry.split('\n');
+
+            if (parts.length >= 3) {
+                const hash = parts[0];
+                const timestamp = parseInt(parts[1], 10);
+                const message = parts[2];
+                const parents = parts.length > 3 && parts[3].trim() ? parts[3].split(' ').filter(p => p.length > 0) : [];
+
+                if (hash.match(/^[0-9a-f]{40}$/i)) {
+                    allCommitsInfo.push({
+                        hash,
+                        timestamp,
+                        message,
+                        parents
+                    });
+                }
+            }
+        }
+
+        const bugFixCommitsInfo = allCommitsInfo.filter(commit =>
+            GitHelper.isBugFixesInCommitMessage(commit.message, bugFixKeywords)
+        );
+
+        console.log(`Identified ${bugFixCommitsInfo.length} potential bug fix commits.`);
+
+        if (bugFixCommitsInfo.length === 0) {
+            return [];
+        }
+
+        const countBugFixCommits = bugFixCommitsInfo.length;
+        timer.start()
+        for (let index = 0; index < countBugFixCommits; index++) {
+            const bugFixCommit = bugFixCommitsInfo[index];
+
+            timer.printEstimatedTimeRemainingAfter1Second({
+                progress: (index+1),
+                total: countBugFixCommits,
+                prefix: `Processing bug fix commits`,
+                ...partialTimerObject
+            });
+
+            const parentCommitHash = bugFixCommit.parents[0];
+            if (!parentCommitHash) continue;
+
+            let diffOutput: string;
+            try {
+                diffOutput = await git.raw([
+                    'show',
+                    '--pretty=format:',
+                    bugFixCommit.hash
+                ]);
+            } catch {
+                continue;
+            }
+
+            const lines = diffOutput.split('\n');
+            let currentFile = '';
+            let currentLineNumInOldFile = 0;
+            let blameMap: Map<number, { commit: string; timestamp: number; line: string }> = new Map();
+
+            for (const line of lines) {
+                const fileHeaderMatch = line.match(/^--- a\/(.*)|^--- b\/(.*)/);
+                if (fileHeaderMatch) {
+                    currentFile = fileHeaderMatch[1] || fileHeaderMatch[2];
+                    currentLineNumInOldFile = 0;
+
+                    // Nur einmal Blame für die ganze Datei erzeugen
+                    blameMap = new Map();
+                    if (currentFile) {
+                        try {
+                            const blameOutput = await git.raw([
+                                'blame',
+                                '--porcelain',
+                                parentCommitHash,
+                                '--',
+                                currentFile
+                            ]);
+                            blameMap = this.parseBlamePorcelain(blameOutput);
+                        } catch (blameErr: any) {
+                            console.warn(`Could not blame entire file ${currentFile}: ${blameErr.message}`);
+                        }
+                    }
+                    continue;
+                }
+
+                const hunkHeaderMatch = line.match(/^@@ -(\d+)(,\d+)? \+\d+(,\d+)? @@/);
+                if (hunkHeaderMatch) {
+                    currentLineNumInOldFile = parseInt(hunkHeaderMatch[1], 10);
+                    if (currentLineNumInOldFile === 0) currentLineNumInOldFile = 1;
+                    continue;
+                }
+
+                if (line.startsWith('-') && line.length > 1 && currentLineNumInOldFile > 0) {
+                    const blamed = blameMap.get(currentLineNumInOldFile);
+                    const blamedLine = line.substring(1).trim();
+
+                    if (blamed && blamed.commit !== bugFixCommit.hash) {
+                        const uniqueKey = `${blamed.commit}-${currentFile}-${blamed.line}`;
+                        if (!uniqueBICs.has(uniqueKey)) {
+                            szzResults.push({
+                                bugFixCommit: bugFixCommit.hash,
+                                bugFixTimestamp: bugFixCommit.timestamp,
+                                bugFixMessage: bugFixCommit.message,
+                                bugIntroducingCommit: blamed.commit,
+                                bugIntroducingTimestamp: blamed.timestamp,
+                                filePath: currentFile,
+                                blamedLine: blamed.line
+                            });
+                            uniqueBICs.add(uniqueKey);
+                        }
+                    }
+                    currentLineNumInOldFile++;
+                } else if (line.startsWith(' ') || line.length === 0) {
+                    currentLineNumInOldFile++;
+                }
+            }
+        }
+
+        return szzResults;
+    }
+
+
+    static getBugFixKeywords(): string[] {
+        const keywords = [
+            'fix', 'fixed', 'fixes', 'bug', 'bugs', 'issue', 'issues',
+            'error', 'errors', 'defect', 'defects', 'mistake', 'mistakes',
+            'fault', 'faults', 'resolve', 'resolved', 'resolves',
+            'repair', 'repaired', 'patch', 'patched', 'correct', 'corrected',
+            'problem', 'problems', 'crash', 'fail', 'fails', 'failure', 'failing'
+        ];
+        return keywords;
+    }
+
+    static isBugFixesInCommitMessage(message: string, keywordsPassed?: string[]): boolean {
+        const keywords = keywordsPassed || GitHelper.getBugFixKeywords();
+        const isBugFix = keywords.some(k => message.includes(k));
+        const marker = isBugFix ? '✅ BUG-FIX' : '➖';
+
+        return isBugFix;
+    }
+
+    static async isCommitAncestorOfOtherCommit(path_to_project: string, commitA: string, commitB: string): Promise<boolean> {
+        // simple-git wird hier nicht mehr für diesen Befehl verwendet, aber die Instanz
+        // könnte für andere Git-Befehle in deiner Klasse noch nützlich sein.
+        // const git: SimpleGit = GitHelper.getGitInstance(path_to_project); // Könnte entfernt werden, wenn nur diese Methode child_process nutzt.
+
+        return new Promise((resolve) => {
+            const command = `git -C "${path_to_project}" merge-base --is-ancestor "${commitA}" "${commitB}"`;
+
+            //console.log(`DEBUG_ANCESTRY: Running shell command: "${command}" (checking if ${commitA} is ancestor of ${commitB})`);
+
+            exec(command, (error, stdout, stderr) => {
+                if (error) {
+                    // Ein Error-Objekt wird hier gesetzt, wenn der Exit-Code UNGLEICH 0 ist.
+                    // Das ist genau das Verhalten, das wir wollen!
+                    //console.log(`DEBUG_ANCESTRY: 'git merge-base --is-ancestor ${commitA} ${commitB}' FAILED. (Non-zero exit code: ${error.code}).`);
+                    if (stderr) {
+                        //console.log(`DEBUG_ANCESTRY: Stderr from git command: ${stderr.trim()}`);
+                    }
+                    resolve(false); // Der Befehl ist nicht erfolgreich -> A ist kein Vorfahre von B
+                } else {
+                    // Wenn kein Error-Objekt vorhanden ist, war der Exit-Code 0.
+                    //console.log(`DEBUG_ANCESTRY: 'git merge-base --is-ancestor ${commitA} ${commitB}' SUCCEEDED. (Exit Code 0).`);
+                    resolve(true); // Der Befehl ist erfolgreich -> A ist Vorfahre von B
+                }
+            });
+        });
+    }
+
+
     static async cloneGitProject(git_project_url, path_to_project){
+        // delete the folder if it exists
+        //console.log("Start cloneGitProject "+git_project_url+" to "+path_to_project);
+        await GitHelper.deleteGitFolder(path_to_project);
+
         console.log("Start cloneGitProject " + git_project_url);
         const git: SimpleGit = simpleGit({
             progress({ method, stage, progress }) {
@@ -37,7 +325,7 @@ export class GitHelper {
     static async getRemoteUrl(path_to_project): Promise<string | null> {
         //console.log("Start getRemoteUrl");
         //console.log("path_to_project: "+path_to_project)
-        const git: SimpleGit = simpleGit(path_to_project);
+        const git: SimpleGit = GitHelper.getGitInstance(path_to_project);
         try {
             const remotes = await git.listRemote(['--get-url']);
             if (remotes) {
@@ -63,7 +351,7 @@ export class GitHelper {
         }
 
         try {
-            const git: SimpleGit = simpleGit(path_to_folder);
+            const git: SimpleGit = GitHelper.getGitInstance(path_to_folder);
             const type = await git.raw(['cat-file', '-t', hash]);
             return type.trim(); // e.g. 'commit', 'tag', etc.
         } catch (error) {
@@ -74,7 +362,7 @@ export class GitHelper {
 
     static async getCommitHashForTag(path_to_folder: string, tagName: string): Promise<string | null> {
         try {
-            const git: SimpleGit = simpleGit(path_to_folder);
+            const git: SimpleGit = GitHelper.getGitInstance(path_to_folder);
             const commitHash = await git.revparse([`${tagName}^{commit}`]); // get the commit hash for the tag, despite the tag being a lightweight tag or an annotated tag
             //console.log(`commitHash: ${commitHash}`);
             //console.log("path_to_folder: "+path_to_folder);
@@ -89,7 +377,7 @@ export class GitHelper {
 
     static async getTagsPointingAtCommit(path_to_folder: string, commitHash: string): Promise<string[]> {
         try {
-            const git: SimpleGit = simpleGit(path_to_folder);
+            const git: SimpleGit = GitHelper.getGitInstance(path_to_folder);
             const tags = await git.raw(['tag', '--points-at', commitHash]);
             return tags.trim().split('\n').filter(t => t.length > 0);
         } catch (error) {
@@ -110,7 +398,7 @@ export class GitHelper {
             return null;
         }
         try {
-            const git: SimpleGit = simpleGit(path_to_folder);
+            const git: SimpleGit = GitHelper.getGitInstance(path_to_folder);
             const options = ['-s', '--format=%ct', `${identifier}^{}`];
             const result = await git.show(options);
             const lines = result.trim().split('\n');
@@ -127,7 +415,7 @@ export class GitHelper {
 
     static async getProjectName(path_to_folder: string): Promise<string | null> {
         return new Promise((resolve, reject) => {
-            const git: SimpleGit = simpleGit(path_to_folder);
+            const git: SimpleGit = GitHelper.getGitInstance(path_to_folder);
             git.listRemote(['--get-url'], (err: Error | null, data?: string) => {
                 if (err) {
                     //reject(err);
@@ -144,7 +432,7 @@ export class GitHelper {
 
     static async getProjectCommit(path_to_folder: string): Promise<string | null> {
         return new Promise((resolve, reject) => {
-            const git: SimpleGit = simpleGit(path_to_folder);
+            const git: SimpleGit = GitHelper.getGitInstance(path_to_folder);
             git.revparse(['HEAD'], (err: Error | null, data?: string) => {
                 if (err) {
                     //reject(err);
@@ -165,7 +453,7 @@ export class GitHelper {
     // New function to get all commits
     static async getAllCommitsFromGitProject(path_to_folder: string): Promise<string[] | null> {
         return new Promise((resolve, reject) => {
-            const git: SimpleGit = simpleGit(path_to_folder);
+            const git: SimpleGit = GitHelper.getGitInstance(path_to_folder);
             git.log(undefined, (err: Error | null, log: LogResult<string>) => {
                 if (err) {
                     resolve(null);
@@ -192,7 +480,7 @@ export class GitHelper {
     static async getAllTagsFromGitProject(path_to_folder: string): Promise<string[] | null> {
         //console.log("getAllTagsFromGitProject");
         return new Promise((resolve, reject) => {
-            const git: SimpleGit = simpleGit(path_to_folder);
+            const git: SimpleGit = GitHelper.getGitInstance(path_to_folder);
             git.tags(async (err: Error | null, tags: TagResult) => {
                 if (err) {
                     resolve(null);

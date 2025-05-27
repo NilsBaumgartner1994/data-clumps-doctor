@@ -12,6 +12,8 @@ import os from "os";
 import {DetectorOptions} from "../index";
 import {ParserInterface} from "./parsers/ParserInterface";
 import {ParserHelperDigitalTwinsDefinitionLanguage} from "./parsers/ParserHelperDigitalTwinsDefinitionLanguage";
+import {DataClumpsTypeContext} from "data-clumps-type-context";
+import {AnalyseHelper} from "./AnalyseHelper";
 
 export class Analyzer {
 
@@ -32,7 +34,6 @@ export class Analyzer {
     public detectorOptions: DetectorOptions;
     public project_version: any;
     public preserve_ast_output: boolean;
-    public path_to_temp_folder: string;
 
     public passed_project_name: string | undefined | null;
 
@@ -57,8 +58,7 @@ export class Analyzer {
         project_name: string | undefined | null,
         project_version: any,
         preserve_ast_output: boolean,
-        detectorOptions: any,
-        path_to_temp_folder: string
+        detectorOptions: any
     ) {
         this.path_to_project = path_to_project;
         this.path_to_ast_generator_folder = path_to_ast_generator_folder;
@@ -73,7 +73,6 @@ export class Analyzer {
         this.project_version = project_version;
         this.preserve_ast_output = preserve_ast_output
         this.detectorOptions = Detector.getDefaultOptions(detectorOptions || {});
-        this.path_to_temp_folder = path_to_temp_folder;
 
         this.timer = new Timer();
         this.astTimer = new Timer();
@@ -337,7 +336,7 @@ export class Analyzer {
         return copy;
     }
 
-    async doesAnalysisExist(commit){
+    async doesAnalysisExist(commit: string){
         let path_to_result = Analyzer.replaceOutputVariables(this.path_to_output_with_variables, this.project_name, commit);
         if (fs.existsSync(path_to_result)) {
             return true;
@@ -358,6 +357,8 @@ export class Analyzer {
         console.log("Analyse commit: "+commit);
 
         let project_version = this.project_version || commit_to_analyse_obj.commit || commit_to_analyse_obj.tag || "unknown_project_version";
+
+
 
         if (!fs.existsSync(this.path_to_source)) {
             console.log(`The path to source files ${this.path_to_source} does not exist.`);
@@ -463,18 +464,7 @@ export class Analyzer {
                 fs.unlinkSync(path_to_result);
             }
 
-            const dir = path.dirname(path_to_result);
-            if (!fs.existsSync(dir)) {
-                fs.mkdirSync(dir, { recursive: true});
-            }
-
-            // save to file
-            try {
-                fs.writeFileSync(path_to_result, JSON.stringify(dataClumpsContext, null, 2), 'utf8');
-                console.log('Results saved to '+path_to_result);
-            } catch (err) {
-                console.error('An error occurred while writing to file:', err);
-            }
+            await AnalyseHelper.saveReportFileJson(dataClumpsContext, path_to_result);
 
             if(!this.preserve_ast_output){
                 await ParserHelper.removeGeneratedAst(this.path_to_ast_output, "after analysis");
