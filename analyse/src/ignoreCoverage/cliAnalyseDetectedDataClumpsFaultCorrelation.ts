@@ -252,6 +252,24 @@ async function analyseProject(projectData: ProjectData[], options: any): Promise
 
     let bugIntroducingCommits = Object.keys(bugIntroducingCommitDict);
 
+    const ancestorMap: Map<string, Set<string>> = new Map(); // Faster lookup for ancestors, instead of checking ancestry for each commit
+
+    let git = await GitHelper.getGitInstance(path_to_project);
+    for (const commitHash of commitHashes) {
+        const revListOutput = await git.raw([
+            'rev-list',
+            '--parents',
+            commitHash
+        ]);
+        const ancestors = new Set(
+            revListOutput.split('\n')
+                .flatMap(line => line.split(' '))
+                .filter(h => h.match(/^[0-9a-f]{40}$/))
+        );
+        ancestorMap.set(commitHash, ancestors);
+    }
+
+
 
     const numberOfBugIntroducingCommits = bugIntroducingCommits.length;
     const totalForCommitProcessing = commitHashes.length * numberOfBugIntroducingCommits;
@@ -287,9 +305,14 @@ async function analyseProject(projectData: ProjectData[], options: any): Promise
                  suffix: `Checking BIC ancestry for commit ${commitHash} in project ${folder}`
              });
 
-                // Prüfen, ob der Bug-Introducing Commit ein Vorfahre des aktuellen `commitHash` ist
-                // Nur BICs berücksichtigen, die vor oder genau auf dem aktuellen commitHash liegen
-            const isAncestor = await GitHelper.isCommitAncestorOfOtherCommit(path_to_project, bugIntroducingCommit, commitHash);
+            // Prüfen, ob der Bug-Introducing Commit ein Vorfahre des aktuellen `commitHash` ist
+            // Nur BICs berücksichtigen, die vor oder genau auf dem aktuellen commitHash liegen
+
+            // Is too slow for a large number of commits, so we use a precomputed ancestor map
+            //const isAncestor = await GitHelper.isCommitAncestorOfOtherCommit(path_to_project, bugIntroducingCommit, commitHash);
+            // Faster lookup using the ancestor map
+            const isAncestor = ancestorMap.get(commitHash)?.has(bugIntroducingCommit) ?? false;
+
             //console.log("Check commit:", commitHash, "for BIC:", bugIntroducingCommit, "-> isAncestor:", isAncestor, "baseData.tag", baseData.tag);
 
             // Zusätzlich prüfen, ob der BIC-Commit nicht der aktuelle Commit selbst ist
