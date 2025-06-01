@@ -17,6 +17,9 @@ export class ParserHelperDigitalTwinsDefinitionLanguage extends ParserBase {
         super();
     }
 
+    /**
+     * Parses JSON models from a source folder and generates a dictionary of classes or interfaces.
+     */
     async parseSourceToDictOfClassesOrInterfaces(path_to_source_folder: string): Promise<Map<string, ClassOrInterfaceTypeContext>> {
         let dictOfClassesOrInterfaces: Map<string, ClassOrInterfaceTypeContext> = new Map<string, ClassOrInterfaceTypeContext>();
 
@@ -157,6 +160,9 @@ export class ParserHelperDigitalTwinsDefinitionLanguage extends ParserBase {
         return dictOfClassesOrInterfaces;
     }
 
+    /**
+     * Searches for JSON files in a given directory and returns their paths.
+     */
     private async searchForJsonFiles(dir: string): Promise<string[]> {
         const files = await this.walkDir(dir);
         const jsonFiles = files.filter(file => file.endsWith('.json'))
@@ -164,6 +170,9 @@ export class ParserHelperDigitalTwinsDefinitionLanguage extends ParserBase {
         return jsonFiles;
     }
 
+    /**
+     * Recursively walks through a directory and returns all file paths.
+     */
     private async walkDir(dir: string): Promise<string[]> {
         const entries = await fs.readdir(dir, { withFileTypes: true });
         const paths: string[] = [];
