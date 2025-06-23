@@ -152,9 +152,9 @@ node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ig
 node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsClusterTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 ```
 
-#### Data Clumps Fan In
+#### Data Clumps Density
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpClassAndMethodFanIn.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpClassAndMethodDensity.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 ```
 
 #### File Path Distance
@@ -210,7 +210,10 @@ node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ig
 
 #### Fault Correlation
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDetectedDataClumpsFaultCorrelation.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
+echo "Gathering Bug Introducing Commits and Update Reports"
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
+echo "Analyse Bug Introducing Commits"
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
 ```
 
 

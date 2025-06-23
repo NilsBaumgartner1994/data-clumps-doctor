@@ -247,39 +247,7 @@ async function analyseProject(projectData: ProjectData[], options: any): Promise
     }
     let bugIntroducingCommits = Object.keys(bugIntroducingCommitDict);
 
-
-
-    const ancestorMap: Map<string, Set<string>> = new Map(); // Faster lookup for ancestors, instead of checking ancestry for each commit
-    let git = await GitHelper.getGitInstance(path_to_project);
-    let timerForAncestorMapCreation = new Timer();
-    timerForAncestorMapCreation.start();
-    const totalCommits = commitHashes.length;
-    for (let i = 0; i < totalCommits; i++) {
-        const commitHash = commitHashes[i];
-        timerForAncestorMapCreation.printEstimatedTimeRemainingAfter1Second({
-            progress: (i+1),
-            total: totalCommits,
-            suffix: `Building ancestor map for: ${commitHash} - ${projectName}`
-        });
-
-        try {
-            const revListOutput = await git.raw([
-                'rev-list',
-                '--parents',
-                commitHash
-            ]);
-            const ancestors = new Set(
-                revListOutput
-                    .split('\n')
-                    .flatMap(line => line.split(' '))
-                    .filter(h => h.match(/^[0-9a-f]{40}$/))
-            );
-            ancestorMap.set(commitHash, ancestors);
-        } catch (err) {
-            console.warn(`Failed to get rev-list for ${commitHash}:`, err);
-        }
-    }
-
+    const ancestorMap = await GitHelper.getAncestorMapForCommits(path_to_project, projectName, commitHashes);
 
 
     let timerForBugIntroducingCommitLookup = new Timer();

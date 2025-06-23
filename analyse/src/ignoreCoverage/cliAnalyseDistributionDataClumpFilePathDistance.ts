@@ -11,35 +11,34 @@ import {
 import {Timer} from "./Timer";
 import {AnalyseHelper, NumberOccurenceDict} from './AnalyseHelper';
 
-function getFilePathDistance(file_path_a: string, file_path_b: string){
-    // distance = 0 // same file
-    // distance = 1 // same folder
-    // distance = 2 // same parent folder
-    // distance = 3 // ...
-    // file_path_a = "/username/Documents/Projects/project_a/src/file_a.ts"
-    // file_path_b = "/username/Documents/Projects/project_b/src/subfolder/subsubfolder/file_b.ts"
-    // same path = distance 0
-    // same folder = distance 1
-    // otherwise: every folder up is +1 until same path, every folder down is +1 until destination
-
-    if(file_path_a === file_path_b){
-        return 0;
+function getFilePathDistance(filePathA: string, filePathB: string) {
+    if(filePathA === filePathB) {
+        return 0; // Same file, no distance
     }
 
-    let amount_common_folder_from_start = 0;
-    let a_path_parts = file_path_a.split(path.sep);
-    let b_path_parts = file_path_b.split(path.sep);
-    let shortest_path_length = Math.min(a_path_parts.length, b_path_parts.length);
-    for(let i = 0; i < shortest_path_length; i++){
-        if(a_path_parts[i] === b_path_parts[i]){
-            amount_common_folder_from_start++;
-        } else {
-            break;
-        }
+    let pathSep = "/";
+
+    const aParts = filePathA.split(pathSep).filter(Boolean);
+    const bParts = filePathB.split(pathSep).filter(Boolean);
+
+    // Entferne den Dateinamen (= letzte Komponente)
+    const aFolders = aParts.slice(0, -1);
+    const bFolders = bParts.slice(0, -1);
+
+    // Finde die Länge des gemeinsamen Präfixes
+    let common = 0;
+    while (
+        common < aFolders.length &&
+        common < bFolders.length &&
+        aFolders[common] === bFolders[common]
+        ) {
+        common++;
     }
-    let amount_folders_a = a_path_parts.length - amount_common_folder_from_start;
-    let amount_folders_b = b_path_parts.length - amount_common_folder_from_start;
-    return amount_folders_a + amount_folders_b;
+
+    const up = aFolders.length - common;
+    const down = bFolders.length - common;
+
+    return up + down + 1; // +1 weil Datei selbst gezählt wird
 }
 
 async function analyse(report_folder, options){

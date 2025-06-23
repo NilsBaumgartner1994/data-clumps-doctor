@@ -21,6 +21,10 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
     let numberOccurenceDictAmountMethods = new NumberOccurenceDict();
     let numberOccurenceDictAmountDataClumps = new NumberOccurenceDict();
 
+    let numberFieldToFieldDataClumpsPerClassOrInterface = new NumberOccurenceDict();
+    let numberParameterToParameterAndParameterToFieldDataClumpsPerMethod = new NumberOccurenceDict();
+    let numberOccurenceDataClumpsPerReport = new NumberOccurenceDict();
+
     let numberOccurenceDictAmountClassesOrInterfacesInReportsWithDataClumps = new NumberOccurenceDict();
     let numberOccurenceDictAmountMethodsInReportsWithDataClumps = new NumberOccurenceDict();
     let numberOccurenceDictAmountDataClumpsInReportsWithDataClumps = new NumberOccurenceDict();
@@ -166,10 +170,27 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
                     }
                 }
 
-                statisticsForProject.number_class_and_interfaces_total += report_file_json?.project_info.number_of_classes_or_interfaces || 0;
-                statisticsForProject.number_methods_total += report_file_json?.project_info.number_of_methods || 0;
-                statisticsForProject.number_fields_total += report_file_json?.project_info.number_of_data_fields || 0;
+                let number_of_classes_or_interfaces = report_file_json?.project_info.number_of_classes_or_interfaces || 0;
+                statisticsForProject.number_class_and_interfaces_total += number_of_classes_or_interfaces;
+                let number_of_methods = report_file_json?.project_info.number_of_methods || 0;
+                statisticsForProject.number_methods_total += number_of_methods
+                let number_of_fields = report_file_json?.project_info.number_of_data_fields || 0;
+                statisticsForProject.number_fields_total += number_of_fields
                 statisticsForProject.number_parameters_total += report_file_json?.project_info.number_of_method_parameters || 0;
+
+                let number_of_fields_to_fields_data_clumps = report_file_json?.report_summary.fields_to_fields_data_clump || 0;
+                if(number_of_fields_to_fields_data_clumps > 0){
+                    let average_number_field_to_field_data_clumps_per_class_or_interface = number_of_fields_to_fields_data_clumps / number_of_classes_or_interfaces;
+                    numberFieldToFieldDataClumpsPerClassOrInterface.addOccurence(Math.round(average_number_field_to_field_data_clumps_per_class_or_interface), 1);
+                }
+
+                let numner_of_parameters_to_parameters_data_clump = report_file_json?.report_summary.parameters_to_parameters_data_clump || 0;
+                let number_of_parameters_to_fields_data_clump = report_file_json?.report_summary.parameters_to_fields_data_clump || 0;
+                let number_of_parameter_to_parameter_and_parameter_to_field_data_clumps = numner_of_parameters_to_parameters_data_clump + number_of_parameters_to_fields_data_clump;
+                if(number_of_parameter_to_parameter_and_parameter_to_field_data_clumps > 0){
+                    let average_number_parameter_to_parameter_and_parameter_to_field_data_clumps_per_method = number_of_parameter_to_parameter_and_parameter_to_field_data_clumps / number_of_methods;
+                    numberParameterToParameterAndParameterToFieldDataClumpsPerMethod.addOccurence(Math.round(average_number_parameter_to_parameter_and_parameter_to_field_data_clumps_per_method), 1);
+                }
 
                 let saved_oldest_commit_date = statisticsForProject.oldest_commit_date;
                 if(project_commit_date.getTime() < saved_oldest_commit_date.getTime()){
@@ -303,10 +324,25 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
     console.log("total_amount_methods: "+total_amount_methods);
     console.log("total_amount_fields: "+total_amount_fields);
     console.log("total_amount_parameters: "+total_amount_parameters);
+    const average_amount_classes_or_interfaces_per_report = total_amount_classes_or_interfaces / all_report_files_paths.length;
+    console.log("average_amount_classes_or_interfaces_per_report: "+average_amount_classes_or_interfaces_per_report);
+    const average_amount_methods_per_class_or_interface = total_amount_methods / total_amount_classes_or_interfaces;
+    console.log("average_amount_methods_per_class_or_interface: "+average_amount_methods_per_class_or_interface);
     const average_amount_fields_per_class = total_amount_fields / total_amount_classes_or_interfaces;
     console.log("average_amount_fields_per_class: "+average_amount_fields_per_class);
     const average_amount_parameters_per_method = total_amount_parameters / total_amount_methods;
     console.log("average_amount_parameters_per_method: "+average_amount_parameters_per_method);
+    console.log("---");
+    const average_amount_data_clumps_per_report = total_amount_data_clumps / all_report_files_paths.length;
+    console.log("average_amount_data_clumps_per_report: "+average_amount_data_clumps_per_report);
+    const average_amount_data_clumps_per_class_or_interface = total_amount_data_clumps / total_amount_classes_or_interfaces;
+    console.log("average_amount_data_clumps_per_class_or_interface: "+average_amount_data_clumps_per_class_or_interface);
+    const average_amount_data_clumps_per_method = total_amount_data_clumps / total_amount_methods;
+    console.log("average_amount_data_clumps_per_method: "+average_amount_data_clumps_per_method);
+    const average_amount_field_to_field_data_clumps_per_class_or_interface = total_amount_fields_to_fields_data_clumps / total_amount_classes_or_interfaces;
+    console.log("average_amount_field_to_field_data_clumps_per_class_or_interface: "+average_amount_field_to_field_data_clumps_per_class_or_interface);
+    const average_amount_parameter_to_parameter_and_parameter_to_field_data_clumps_per_method = (total_amount_parameter_to_parameter_data_clumps + total_amount_parameter_to_fields_data_clumps) / total_amount_methods;
+    console.log("average_amount_parameter_to_parameter_and_parameter_to_field_data_clumps_per_method: "+average_amount_parameter_to_parameter_and_parameter_to_field_data_clumps_per_method);
     console.log("---");
     console.log("invertedFieldToClasses: ");
     console.log("  highestMedianFieldToClasses: "+highestMedianFieldToClasses);
@@ -346,7 +382,10 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]){
     let medianAmountVariablesInDataClumps = amount_variables_in_data_clumps.getMedian();
     console.log("medianAmountVariablesInDataClumps: "+medianAmountVariablesInDataClumps);
 
-
+    let medianAverageFieldToFieldDataClumpsPerClassOrInterface = numberFieldToFieldDataClumpsPerClassOrInterface.getMedian();
+    console.log("medianAverageFieldToFieldDataClumpsPerClassOrInterface: "+medianAverageFieldToFieldDataClumpsPerClassOrInterface);
+    let medianAverageParameterToParameterAndParameterToFieldDataClumpsPerMethod = numberParameterToParameterAndParameterToFieldDataClumpsPerMethod.getMedian();
+    console.log("medianAmountParameterToParameterAndParameterToFieldDataClumpsPerMethod: "+medianAverageParameterToParameterAndParameterToFieldDataClumpsPerMethod);
 
 
 }

@@ -24,7 +24,7 @@ async function analyse(report_folder, options): Promise<string> {
     }
 
 
-
+    let file_amount_data_clumps = new StringOccurenceDict()
     let class_amount_data_clumps = new StringOccurenceDict()
     let method_amount_data_clumps = new StringOccurenceDict()
 
@@ -73,27 +73,28 @@ async function analyse(report_folder, options): Promise<string> {
                 let data_clump_data: Dictionary<DataClumpsVariableFromContext> = data_clump.data_clump_data
                 let data_clump_type = data_clump.data_clump_type; // 'parameters_to_parameters_data_clump' or 'fields_to_fields_data_clump' or "parameters_to_fields_data_clump"
 
+                // Add the file name to the file amount data clumps
+                let file_key = data_clump.from_file_path;
+                if(!!file_key){
+                    file_amount_data_clumps.addOccurence(file_key, 1);
+                }
+                let class_key = data_clump.from_class_or_interface_key
+                if(!!class_key){
+                    class_amount_data_clumps.addOccurence(class_key, 1);
+                }
 
-                if(data_clump_type === "parameters_to_parameters_data_clump"){
+                if(data_clump_type === AnalyseHelper.DataClumpType.PARAMETER_PARAMETER){
                     let method_key = data_clump.from_method_key;
                     if(!!method_key){
                         method_amount_data_clumps.addOccurence(method_key, 1);
                     }
-                } else if(data_clump_type === "fields_to_fields_data_clump"){
-                    let class_key = data_clump.from_class_or_interface_key
-                    if(!!class_key){
-                        class_amount_data_clumps.addOccurence(class_key, 1);
-                    }
-                } else if(data_clump_type === "parameters_to_fields_data_clump"){
+                } else if(data_clump_type === AnalyseHelper.DataClumpType.FIELD_FIELD){
+                    // already added the class key above
+                } else if(data_clump_type === AnalyseHelper.DataClumpType.PARAMETER_FIELD){
                     let method_key = data_clump.from_method_key;
                     if(!!method_key){
                         method_amount_data_clumps.addOccurence(method_key, 1);
                     }
-                    // Not needed as the data clump is from parameters to fields
-                    //let class_key = data_clump.to_class_or_interface_key´
-                    //if(!!class_key){
-                    //    addAmount(class_amount_data_clumps, {[class_key]: 1});
-                    //}
                 }
             }
         }
@@ -102,8 +103,17 @@ async function analyse(report_folder, options): Promise<string> {
 
     console.log("Start analysing distances");
 
+    let distributionFileAmountDataClumps = new NumberOccurenceDict();
     let distributionNumberOfDataClumpsPerClass = new NumberOccurenceDict();
     let distributionNumberOfDataClumpsPerMethod = new NumberOccurenceDict();
+
+    // Calculate the distribution of data clumps per file
+    let file_keys = file_amount_data_clumps.getKeys();
+    for(let i = 0; i < file_keys.length; i++) {
+        let file_key = file_keys[i];
+        let amount = file_amount_data_clumps.getOccurence(file_key);
+        distributionFileAmountDataClumps.addOccurence(amount, 1);
+    }
 
     let class_keys = class_amount_data_clumps.getKeys()
     for(let i = 0; i < class_keys.length; i++) {
@@ -120,8 +130,9 @@ async function analyse(report_folder, options): Promise<string> {
     }
 
     let analysis_objects: Record<string, Record<string, number>> = {
-        "Classes_with_Field_Field_Data_Clumps": distributionNumberOfDataClumpsPerClass.occurenceDict,
-        "Methods_with_Parameter_Parameter_and_Parameter_Field_Data_Clumps": distributionNumberOfDataClumpsPerMethod.occurenceDict
+        "Files_with_Data_Clumps": distributionFileAmountDataClumps.occurenceDict,
+        "Classes_with_Data_Clumps": distributionNumberOfDataClumpsPerClass.occurenceDict,
+        "Methods_with_Data_Clumps": distributionNumberOfDataClumpsPerMethod.occurenceDict
     }
 
     let fileContent = AnalyseHelper.getPythonLibrariesFileContent();
@@ -145,8 +156,8 @@ async function analyse(report_folder, options): Promise<string> {
     fileContent += AnalyseHelper.getPythonStatisticsForDataValues();
     fileContent += AnalyseHelper.getPythonPlot({
         output_filename_without_extension: options.output_filename_without_extension,
-        offset_left: 0.28,
-        offset_right: 0.95,
+        offset_left: 0.18,
+        offset_right: 0.97,
         offset_bottom: 0.23,
         offset_top: 0.98,
         width_inches: 6,
@@ -154,7 +165,7 @@ async function analyse(report_folder, options): Promise<string> {
         y_label: 'Number of Data Clumps',
         x_labels: x_labels,
         horizontal: true,
-        y_max: 20,
+        y_max: 25,
         y_ticks: 1,
         w_bar_width: 0.5
     });
@@ -170,7 +181,7 @@ async function main() {
     const options = AnalyseHelper.getCommandForAnalysis(process, {
         require_report_path: true,
         require_output_path: false,
-        default_output_filename_without_extension: "AnalyseDistributionDataClumpClassAndMethodFanIn"
+        default_output_filename_without_extension: "AnalyseDistributionDataClumpDensity"
     })
 
     const report_folder = options.report_folder;

@@ -92,7 +92,8 @@ async function analyse(report_folder, options){
             if(dict_of_analysed_data_clumps_keys[data_clump_key] === true){ // Skip already analysed data clumps
                 continue;
             } else {
-                dict_of_analysed_data_clumps_keys[data_clump_key] = true; // Mark as analysed
+                // Allow to analyse the data clump twice, as parameter name length for other timestamps are also counted multiple times
+                //dict_of_analysed_data_clumps_keys[data_clump_key] = true; // Mark as analysed
 
                 let data_clump: DataClumpTypeContext = data_clumps[data_clump_key];
                 let data_clump_data: Dictionary<DataClumpsVariableFromContext> = data_clump.data_clump_data

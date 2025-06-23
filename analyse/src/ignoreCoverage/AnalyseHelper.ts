@@ -385,25 +385,34 @@ export class AnalyseHelper {
         return report_file_json;
     }
 
+
+
+
+
     static getPythonLibrariesFileContent(){
-        return "import matplotlib.pyplot as plt\n" +
-            "import numpy as np\n" +
-            "import textwrap\n" +
-            "from numpy import nan\n" +
-            "import pandas as pd\n" +
-            "import math\n" +
-            "import csv\n" +
-            "import matplotlib\n" +
-            "#matplotlib.rcParams.update({'font.size': 18})\n" +
-            "NaN = nan\n" +
-            ""+"\n"+
-            "def expand_frequency_dict(freq_dict):\n" +
-            "    expanded_list = []\n" +
-            "    for number, count in freq_dict.items():\n" +
-            "        number = float(number)  # Convert keys to integers\n" +
-            "        expanded_list.extend([number] * count)\n" +
-            "    return expanded_list\n" +
-            "\n";
+        return `
+import matplotlib.pyplot as plt
+import numpy as np
+from numpy import nan
+import textwrap
+import pandas as pd
+import math
+import csv
+import matplotlib
+from matplotlib.colors import LinearSegmentedColormap
+from scipy.stats import spearmanr
+import seaborn as sns
+from collections import defaultdict
+
+# matplotlib.rcParams.update({'font.size': 18})
+NaN = nan
+def expand_frequency_dict(freq_dict):
+    expanded_list = []
+    for number, count in freq_dict.items():
+        number = float(number)  # Convert keys to integers
+        expanded_list.extend([number] * count)
+    return expanded_list
+`
     }
 
     static getPythonStatisticsForDataValues(){
@@ -436,6 +445,16 @@ for label, values in all_data.items():
 
     static getPrimaryColorAsHex(){
         return "#AC0634";
+    }
+
+    static getPrimaryColorContrastAsHex(){
+        // contrast to red is blue
+        return "#1565c0";
+    }
+
+    static getPrimaryColorNeutralAsHex(){
+        // neutral color is white
+        return "#DDDDDD";
     }
 
     static getPrimaryColorRGB(){
