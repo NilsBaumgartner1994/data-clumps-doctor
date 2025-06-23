@@ -12,6 +12,7 @@ import os from "os";
 import {DetectorOptions} from "../index";
 import {ParserInterface} from "./parsers/ParserInterface";
 import {ParserHelperDigitalTwinsDefinitionLanguage} from "./parsers/ParserHelperDigitalTwinsDefinitionLanguage";
+import {ParserHelperTypeScript} from "./parsers/ParserHelperTypeScript";
 import {DataClumpsTypeContext} from "data-clumps-type-context";
 import {AnalyseHelper} from "./AnalyseHelper";
 
@@ -402,6 +403,9 @@ export class Analyzer {
                 } else if(this.source_type === "digitalTwinsDefinitionLanguage"){
                     target_language = "Digital Twin Definition Language";
                     parser = new ParserHelperDigitalTwinsDefinitionLanguage();
+                } else if(this.source_type === "typescript"){
+                    target_language = "typescript";
+                    parser = new ParserHelperTypeScript();
                 }
 
                 if(!parser){
