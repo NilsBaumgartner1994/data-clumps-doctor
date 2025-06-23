@@ -221,7 +221,7 @@ node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ig
     - [ ] Improve options and add documentation
 - [x] Parser
     - [x] Support Java - PMD
-    - [ ] Support TypeScript
+    - [x] Support TypeScript
     - [ ] Support JavaScript
     - [ ] Support Python
     - [ ] Support C#

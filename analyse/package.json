@@ -78,6 +78,7 @@
     "stream-chain": "^3.4.0",
     "stream-json": "^1.9.1",
     "util": "^0.12.5",
-    "xml2js": "^0.6.2"
+    "xml2js": "^0.6.2",
+    "ts-morph": "^17.0.1"
   }
 }

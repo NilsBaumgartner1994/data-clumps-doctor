@@ -41,7 +41,7 @@ program
     .option('--preserve_ast_output <preserve_ast_output>', 'If the ast_output folder should be preserved (default: false).', false)
     .option('--path_to_ast_generator_folder', 'Absolute path to the ast generator folder (In this project: astGenerator)', path_to_ast_generator_folder)
     .option('--ast_output <path_to_ast_output>', 'Path where to save the generated AST output. By default it is in a temp folder (default: '+default_ast_output_temp_folder+")", default_ast_output_temp_folder)
-    .option('--source_type <type>', 'Source type (default: java, options: java, uml, ast). uml: Class Diagram in the simple XML Export format of Visual Paradigm. ast: A well formed AST', "java")
+    .option('--source_type <type>', 'Source type (default: java, options: java, uml, ast, typescript). uml: Class Diagram in the simple XML Export format of Visual Paradigm. ast: A well formed AST', "java")
     .option('--language <type>', 'Language (default: java, options: java)', "java")
     .option('--verbose', 'Verbose output', false)
     .option('--progress', 'Show progress', true)  // Default value is true
