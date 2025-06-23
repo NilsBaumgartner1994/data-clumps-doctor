@@ -22,18 +22,25 @@ export abstract class ParserBase implements ParserInterface {
             // Get the class or interface
             let classOrInterface = dictOfClassesOrInterfaces[key];
             // using the key as filename
+
+            // replace / and \ with _
+            key = key.replace(/[/\\]/g, '_');
+
             let path_to_file = path.join(path_to_ast_output, key + ".json");
             //console.log(`Saving ${key} to ${path_to_file}`);
 
             //  Save the class or interface to disk as JSON file
             try {
+                // make sure the folder exists
+                fs.mkdirSync(path.dirname(path_to_file), { recursive: true });
+
                 fs.writeFileSync(path_to_file, JSON.stringify(classOrInterface, null, 2), 'utf8');
             } catch (err) {
-                console.error('An error occurred while writing parseXmlToAst to file:', err);
+                console.error('An error occurred while writing Ast to file:', err);
             }
 
         }
-        console.log('Results saved to '+path_to_ast_output);
+        //console.log('Results saved to '+path_to_ast_output);
     }
 
     abstract parseSourceToDictOfClassesOrInterfaces(path_to_source_folder: string): Promise<Map<string, ClassOrInterfaceTypeContext>>;

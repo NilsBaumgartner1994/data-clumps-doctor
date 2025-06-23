@@ -19,12 +19,23 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
         project.addSourceFilesAtPaths([
             path.join(path_to_source_folder, "**/*.ts"),
             path.join(path_to_source_folder, "**/*.tsx"),
+            `!**/node_modules/**`, // <- exclude node_modules
+            `!**/dist/**`, // <- exclude dist
+            `!**/build/**`, // <- exclude build
+            `!**/out/**`, // <- exclude out
+            `!**/coverage/**`, // <- exclude coverage
+            `!**/test/**`, // <- exclude test
+            `!**/__tests__/**` // <- exclude __tests__
         ]);
+
+        console.log("Parse TypeScript project");
 
         const dict: Map<string, ClassOrInterfaceTypeContext> = new Map();
 
         for (const sourceFile of project.getSourceFiles()) {
+
             const relativePath = path.relative(path_to_source_folder, sourceFile.getFilePath());
+            console.log("Parse file: ", relativePath);
 
             for (const cls of sourceFile.getClasses()) {
                 const name = cls.getName() || "anonymous_class";
@@ -87,6 +98,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
 
                 dict[ctx.key] = ctx;
             }
+
         }
 
         return dict;

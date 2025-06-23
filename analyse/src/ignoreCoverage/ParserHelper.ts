@@ -18,7 +18,9 @@ export class ParserHelper {
         let filesAndFoldersInPath = fs.readdirSync(path_to_folder_of_parsed_ast, { withFileTypes: true });
         for (let fileOrFolder of filesAndFoldersInPath) {
             let fullPath = path.join(path_to_folder_of_parsed_ast, fileOrFolder.name);
+            //console.log(`Found ${fullPath}`);
             if (fileOrFolder.isDirectory()) {
+                // TODO: handle subdirectories if needed
                 continue;
             } else {
                 let fileContent = fs.readFileSync(fullPath, 'utf-8');
