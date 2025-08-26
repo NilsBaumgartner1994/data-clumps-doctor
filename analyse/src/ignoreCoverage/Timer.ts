@@ -66,6 +66,14 @@ export class Timer {
         console.log(prefix+`Elapsed time: ${this.formatTimeToString(elapsed)}`+suffix);
     }
 
+    /**
+     * Prints the estimated time remaining after one second based on the progress object provided.
+     * This method checks if the elapsed time since the last update exceeds one second.
+     * If it does, it calls another method to print the estimated time remaining.
+     *
+     * @param {ProgressObject} progressObject - The object containing progress information used to calculate the estimated time remaining.
+     * @throws {Error} Throws an error if the progressObject is invalid or if there is an issue retrieving the elapsed time.
+     */
     public printEstimatedTimeRemainingAfter1Second(progressObject: ProgressObject) {
         let elaspedTime = this.getCurrentElapsedTime();
         if(elaspedTime > this.lastElapsedTime + 1000){
@@ -74,6 +82,24 @@ export class Timer {
         }
     }
 
+    /**
+     * Prints the estimated time remaining for a given progress object.
+     *
+     * This method calculates the elapsed time and estimates the total time required
+     * to complete a task based on the progress made. It then formats and logs the
+     * estimated remaining time along with the current progress to the console.
+     *
+     * @param {ProgressObject} progressObject - An object containing information about
+     * the current progress, total work, and optional prefix and suffix for the output.
+     * @param {number} progressObject.progress - The current progress made.
+     * @param {number} progressObject.total - The total amount of work to be done.
+     * @param {string} [progressObject.prefix] - An optional prefix to prepend to the output.
+     * @param {string} [progressObject.suffix] - An optional suffix to append to the output.
+     *
+     * @throws {Error} Throws an error if progress is zero to avoid division by zero.
+     *
+     * @returns {void} This method does not return a value.
+     */
     public printEstimatedTimeRemaining(progressObject: ProgressObject) {
         let elaspedTime = this.getCurrentElapsedTime();
         this.lastElapsedTime = elaspedTime;
