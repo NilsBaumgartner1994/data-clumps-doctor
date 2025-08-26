@@ -353,6 +353,20 @@ export class Analyzer {
         return false;
     }
 
+    /**
+     * Analyzes a specific commit in the project repository, generating an Abstract Syntax Tree (AST)
+     * and performing detection of data clumps based on the parsed AST.
+     *
+     * @param {Object} commit_to_analyse_obj - The object containing commit information.
+     * @param {string} commit_to_analyse_obj.commit - The commit hash to analyze.
+     * @param {string|null|undefined} commit_to_analyse_obj.tag - An optional tag associated with the commit.
+     *
+     * @throws {Error} Throws an error if the source type is not supported.
+     *
+     * @returns {Promise<void>} A promise that resolves when the analysis is complete.
+     *
+     * @async
+     */
     async analyse(commit_to_analyse_obj: { commit: string; tag: string | undefined | null; }){
         const commit = commit_to_analyse_obj.commit;
         console.log("Analyse commit: "+commit);
