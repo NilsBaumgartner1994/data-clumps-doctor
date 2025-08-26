@@ -353,6 +353,9 @@ export class Analyzer {
         return false;
     }
 
+    /**
+     * Analyzes a commit by generating and processing an Abstract Syntax Tree (AST).
+     */
     async analyse(commit_to_analyse_obj: { commit: string; tag: string | undefined | null; }){
         const commit = commit_to_analyse_obj.commit;
         console.log("Analyse commit: "+commit);
@@ -478,6 +481,9 @@ export class Analyzer {
         }
     }
 
+    /**
+     * Analyzes software project dictionaries using a Detector instance and returns detected context.
+     */
     static async analyseSoftwareProjectDicts(softwareProjectDicts, project_url, project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, detectorOptions, additional, target_language){
         let detector = new Detector(softwareProjectDicts, detectorOptions, progressCallback, project_url, project_name, project_version, commit, commit_tag, commit_date, additional, target_language)
 

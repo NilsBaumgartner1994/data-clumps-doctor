@@ -20,11 +20,17 @@ export class ParserHelperXmlVisualParadigm extends ParserBase implements ParserI
         super();
     }
 
+    /**
+     * Parses XML files in a source folder to create a dictionary of class or interface contexts.
+     */
     async parseSourceToDictOfClassesOrInterfaces(path_to_source_folder: string): Promise<Map<string, ClassOrInterfaceTypeContext>> {
         let dictOfClassesOrInterfaces: Map<string, ClassOrInterfaceTypeContext> = await this.parseXMlToDictClassOrInterface(path_to_source_folder);
         return dictOfClassesOrInterfaces;
     }
 
+    /**
+     * Parses XML data to JSON and returns a promise.
+     */
     private parseXmlToJSON(xmlData): Promise<any> {
         return new Promise((resolve, reject) => {
             parser.parseString(xmlData, (err, result) => {
