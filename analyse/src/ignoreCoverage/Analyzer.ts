@@ -353,6 +353,24 @@ export class Analyzer {
         return false;
     }
 
+    /**
+     * Analyzes a specified commit and generates an Abstract Syntax Tree (AST) based on the source code.
+     *
+     * This method performs the following steps:
+     * 1. Validates the existence of the source path.
+     * 2. Retrieves commit metadata such as date and tag.
+     * 3. Generates an AST based on the source type (Java, UML, or AST).
+     * 4. Analyzes the generated AST for data clumps and other metrics.
+     * 5. Saves the analysis results to a specified output path.
+     *
+     * @param {Object} commit_to_analyse_obj - The object containing commit information.
+     * @param {string} commit_to_analyse_obj.commit - The commit hash to analyze.
+     * @param {string | undefined | null} commit_to_analyse_obj.tag - An optional tag associated with the commit.
+     *
+     * @throws {Error} Throws an error if the source type is not supported.
+     *
+     * @returns {Promise<void>} A promise that resolves when the analysis is complete.
+     */
     async analyse(commit_to_analyse_obj: { commit: string; tag: string | undefined | null; }){
         const commit = commit_to_analyse_obj.commit;
         console.log("Analyse commit: "+commit);
