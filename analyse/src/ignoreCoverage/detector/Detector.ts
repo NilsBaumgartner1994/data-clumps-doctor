@@ -311,18 +311,74 @@ export class InvertedIndexSoftwareProject {
         return signature+this.getVariableKeyForIndex(field);
     }
 
+    /**
+     * Retrieves the variable key for a given method parameter.
+     *
+     * This method takes a parameter of type `MethodParameterTypeContext`
+     * and returns the corresponding variable key by utilizing the
+     * `getVariableKeyForIndex` method.
+     *
+     * @param {MethodParameterTypeContext} parameter - The method parameter
+     *        for which the variable key is to be retrieved.
+     * @returns {string} The variable key associated with the provided parameter.
+     *
+     * @throws {Error} Throws an error if the parameter is invalid or if
+     *         the variable key cannot be determined.
+     */
     private getParameterParameterKeyForParameter(parameter: MethodParameterTypeContext){
         return this.getVariableKeyForIndex(parameter);
     }
 
+    /**
+     * Retrieves the key associated with a specific parameter.
+     *
+     * This method takes a parameter of type `MethodParameterTypeContext`
+     * and returns the corresponding variable key based on its index.
+     *
+     * @param {MethodParameterTypeContext} parameter - The parameter for which to retrieve the key.
+     * @returns {string} The variable key associated with the given parameter.
+     *
+     * @throws {Error} Throws an error if the parameter is invalid or cannot be processed.
+     */
     private getParameterFieldKeyForParameter(parameter: MethodParameterTypeContext){
         return this.getVariableKeyForIndex(parameter);
     }
 
+    /**
+     * Retrieves the variable key associated with a given member field parameter.
+     *
+     * This method takes a `MemberFieldParameterTypeContext` object as an argument
+     * and returns the corresponding variable key by invoking another method to
+     * obtain the key based on the index of the provided field.
+     *
+     * @param {MemberFieldParameterTypeContext} field - The member field parameter
+     *        for which the variable key is to be retrieved.
+     * @returns {string} The variable key associated with the provided field.
+     *
+     * @throws {Error} Throws an error if the field parameter is invalid or if
+     *         the variable key cannot be determined.
+     */
     private getParameterFieldKeyForField(field: MemberFieldParameterTypeContext){
         return this.getVariableKeyForIndex(field);
     }
 
+    /**
+     * Retrieves a list of methods that share parameters with the specified method.
+     *
+     * This function analyzes the parameters of the provided method and counts how many times
+     * each parameter appears in other methods within the given software project context.
+     * It returns a list of methods that have parameters in common with the current method,
+     * excluding the current method itself.
+     *
+     * @param {MethodTypeContext} currentMethod - The method whose parameters are being analyzed.
+     * @param {SoftwareProjectDicts} softwareProjectDicts - A dictionary containing all methods
+     *        within the software project for reference.
+     *
+     * @returns {MethodTypeContext[]} An array of methods that share parameters with the
+     *          specified method, excluding the current method.
+     *
+     * @throws {Error} Throws an error if the currentMethod is not found in the softwareProjectDicts.
+     */
     public getPossibleMethodsForParameterParameterDataClump(currentMethod: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts){
         let methodRecordCounting: Record<string, {
             amountFound: number,
@@ -353,6 +409,19 @@ export class InvertedIndexSoftwareProject {
         return otherMethods;
     }
 
+    /**
+     * Retrieves a list of classes or interfaces that correspond to the parameters of the given method.
+     * This method analyzes the parameters of the specified method and identifies which classes or interfaces
+     * contain fields that match the parameters' field keys.
+     *
+     * @param {MethodTypeContext} currentMethod - The method context containing the parameters to analyze.
+     * @param {SoftwareProjectDicts} softwareProjectDicts - A collection of dictionaries that map class or interface keys
+     *        to their respective definitions.
+     * @returns {ClassOrInterfaceTypeContext[]} An array of classes or interfaces that have fields matching the method parameters.
+     *
+     * @throws {Error} Throws an error if the provided method context is invalid or if there are issues accessing
+     *         the software project dictionaries.
+     */
     public getPossibleClassesOrInterfacesForParameterFieldDataClump(currentMethod: MethodTypeContext, softwareProjectDicts: SoftwareProjectDicts){
         let recordClassesNumberFound: Record<string, {
             amountFound: number,
@@ -382,6 +451,19 @@ export class InvertedIndexSoftwareProject {
         return otherClassesOrInterfaces;
     }
 
+    /**
+     * Retrieves a list of classes or interfaces that contain fields matching the specified member field parameters,
+     * excluding the current class.
+     *
+     * @param {ClassOrInterfaceTypeContext} currentClass - The class or interface context that is currently being processed.
+     * @param {MemberFieldParameterTypeContext[]} memberFieldParameters - An array of member field parameters to search for.
+     * @param {SoftwareProjectDicts} softwareProjectDicts - A dictionary containing project-wide class and interface definitions.
+     *
+     * @returns {ClassOrInterfaceTypeContext[]} An array of classes or interfaces that have fields matching the provided parameters,
+     *          excluding the current class.
+     *
+     * @throws {Error} Throws an error if the software project dictionaries are not properly defined or if any of the member field parameters are invalid.
+     */
     public getPossibleClassesOrInterfacesForFieldFieldDataClump(currentClass: ClassOrInterfaceTypeContext, memberFieldParameters: MemberFieldParameterTypeContext[], softwareProjectDicts: SoftwareProjectDicts){
         let recordClassesNumberFound: Record<string, {
             amountFound: number,
@@ -497,6 +579,24 @@ export class Detector {
         DetectorUtils.checkIfIncompatibleOptions(this.options);
     }
 
+    /**
+     * Analyzes the software project for data clumps and generates a report.
+     * This method performs detection by examining classes, interfaces, methods,
+     * and their parameters within the project. It aggregates findings into a
+     * structured context object that summarizes the results of the analysis.
+     *
+     * @async
+     * @returns {Promise<DataClumpsTypeContext>} A promise that resolves to an
+     * object containing the context of detected data clumps, including a summary
+     * of the analysis results and project information.
+     *
+     * @throws {Error} Throws an error if the detection process encounters an
+     * issue, such as invalid project data or failures in processing.
+     *
+     * @example
+     * const context = await instance.detect();
+     * console.log(context.report_summary.amount_data_clumps);
+     */
     public async detect(): Promise<DataClumpsTypeContext>{
         this.timer.start();
 

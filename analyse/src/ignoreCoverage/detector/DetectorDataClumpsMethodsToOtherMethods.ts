@@ -34,10 +34,25 @@ export class DetectorDataClumpsMethodsToOtherMethods {
     }
 
     /**
-     * DataclumpsInspection.java line 487
-     * @private
-     * @param detectContext
-     * @param methodWholeHierarchyKnown
+     * Analyzes the parameters of a method to identify potential data clumps
+     * within the context of a software project.
+     *
+     * This method checks for data clumps by examining other methods that
+     * share parameters with the current method. It can utilize a fast search
+     * option for efficiency, or it can perform a comprehensive search through
+     * all classes and interfaces in the project.
+     *
+     * @param detectContext - The context containing information about the
+     *                        current method and the software project, which
+     *                        includes detected data clumps and project dictionaries.
+     * @param methodWholeHierarchyKnown - A boolean indicating whether the
+     *                                    entire hierarchy of the method is known,
+     *                                    which may affect the detection logic.
+     *
+     * @returns {void} This method does not return a value.
+     *
+     * @throws {Error} Throws an error if the context provided is invalid or
+     *                 if there are issues accessing the project dictionaries.
      */
     public checkParameterDataClumps(detectContext: ContextAnalyseDataClumpParameter, methodWholeHierarchyKnown: boolean){
 
