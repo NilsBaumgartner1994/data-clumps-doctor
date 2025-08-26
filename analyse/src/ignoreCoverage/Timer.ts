@@ -97,6 +97,13 @@ export class Timer {
         console.log(prefix+`${remainingTimeStr} ${progressString}`+suffix);
     }
 
+    /**
+     * Converts a duration in milliseconds to a formatted string in the format HH:MM:SS.mmm.
+     * @param {number} duration - The duration in milliseconds to convert.
+     * @returns {string} The formatted time string in the format HH:MM:SS.mmm.
+     * @example
+     * formatTimeToString(3661000); // Returns "01h :01m :01s.000"
+     */
     public formatTimeToString(duration: number) {
         // print in format: HH:MM:SS.mmm
         let milliseconds = Math.floor(duration % 1000);
