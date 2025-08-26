@@ -217,6 +217,19 @@ export class Analyzer {
         return project_name;
     }
 
+    /**
+     * Initiates the analysis process for a project by loading the project name,
+     * configuring commit selection, and performing analysis on the specified commits.
+     *
+     * This method manages the workflow of checking out commits and analyzing them,
+     * while providing progress updates and handling any errors that may occur during
+     * the checkout or analysis processes.
+     *
+     * @async
+     * @throws {Error} Throws an error if an issue occurs during the analysis of a commit.
+     *
+     * @returns {Promise<void>} A promise that resolves when the analysis process is complete.
+     */
     async start(){
         this.timer.start();
 
@@ -353,6 +366,24 @@ export class Analyzer {
         return false;
     }
 
+    /**
+     * Analyzes a specific commit in the project repository.
+     *
+     * This asynchronous method processes the provided commit object, generates an Abstract Syntax Tree (AST) if necessary,
+     * and performs analysis on the software project dictionaries derived from the AST.
+     *
+     * @param {Object} commit_to_analyse_obj - The object containing commit information.
+     * @param {string} commit_to_analyse_obj.commit - The commit hash to analyze.
+     * @param {string | undefined | null} commit_to_analyse_obj.tag - An optional tag associated with the commit.
+     *
+     * @throws {Error} Throws an error if the source type is not supported.
+     *
+     * @returns {Promise<void>} A promise that resolves when the analysis is complete.
+     *
+     * @example
+     * const commitInfo = { commit: 'abc123', tag: 'v1.0.0' };
+     * await instance.analyse(commitInfo);
+     */
     async analyse(commit_to_analyse_obj: { commit: string; tag: string | undefined | null; }){
         const commit = commit_to_analyse_obj.commit;
         console.log("Analyse commit: "+commit);
