@@ -256,6 +256,13 @@ export class InvertedIndexSoftwareProject {
 
     public options: DetectorOptions;
 
+    /**
+     * Calculates statistics for a dictionary where each key maps to another dictionary or undefined.
+     *
+     * @param dict - A record of string keys mapping to either another record of strings or undefined.
+     * @returns An object containing the median, maximum, average, sum of saved values for keys,
+     *          and the total amount of keys in the dictionary.
+     */
     private getDictStatistics(dict: Record<string, Record<string, string> | undefined>){
         let numbersDict = new NumberOccurenceDict();
         let keys = Object.keys(dict);
