@@ -13,14 +13,14 @@ export abstract class ParserBase implements ParserInterface {
         let dictOfClassesOrInterfaces: Map<string, ClassOrInterfaceTypeContext> = await this.parseSourceToDictOfClassesOrInterfaces(path_to_source_folder);
         // Altough we already have the dictOfClassesOrInterfaces, we will save the ASTs to disk. This helps us to use other features of the tool (e.g. the search feature, saving the AST).
 
-        let keys = Object.keys(dictOfClassesOrInterfaces);
+        let keys = Array.from(dictOfClassesOrInterfaces.keys());
         fs.mkdirSync(path_to_ast_output, { recursive: true });
 
         //console.log(`Saving ${keys.length} classes or interfaces to disk`);
 
         for(let key of keys){
             // Get the class or interface
-            let classOrInterface = dictOfClassesOrInterfaces[key];
+            let classOrInterface = dictOfClassesOrInterfaces.get(key);
             // using the key as filename
 
             // replace / and \ with _

@@ -118,12 +118,47 @@ Current
 
 Download an example project from GitHub:
 ```
+https://github.com/Azure-Samples/azure-digital-twins-getting-started
+https://github.com/WillowInc/opendigitaltwins-airport
+https://github.com/JMayrbaeurl/opendigitaltwins-assetadminstrationshell
+https://github.com/WillowInc/opendigitaltwins-building
+https://github.com/Azure/opendigitaltwins-building
+https://github.com/Azure/opendigitaltwins-energygrid
+https://github.com/WillowInc/opendigitaltwins-mining
+https://github.com/WillowInc/opendigitaltwins-rail
+https://github.com/nikoraes/opendigitaltwins-saref4bldg
+https://github.com/Azure/opendigitaltwins-smartcities
+https://github.com/a2i2/opendigitaltwins-surveillance
 https://github.com/XMPro/Wind-Power-Plant-Wind-Turbine-DTDL-Models/tree/main
+https://github.com/JMayrbaeurl/opendigitaltwins-schemaorg
+https://github.com/JMayrbaeurl/opendigitaltwins-isa95
 ```
 
 Then run the following command:
 ```
-npm run build && node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/dtdl.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Downloads/Wind-Power-Plant-Wind-Turbine-DTDL-Models-main/Wind\ Power\ Plant;
+npm run build && 
+
+OK
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-isa95-main && 
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-building-master && 
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-saref4bldg-main && 
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-rail-main && 
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-airport-main && 
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-assetadminstrationshell-main && 
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/azure-digital-twins-getting-started-main_advanced-home-example && 
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/azure-digital-twins-getting-started-main_energy-grid-example && 
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-mining-main && 
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/Wind-Power-Plant-Wind-Turbine-DTDL-Models-main_WindPowerPlant && 
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/Wind-Power-Plant-Wind-Turbine-DTDL-Models-main_WindTurbine && 
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/azure-digital-twins-getting-started-main_basic-home-example && 
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-energygrid-main && 
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-schemaorg-main && 
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-smartcities-main && 
+
+ERROR
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-surveillance-main && 
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-building-main && 
+
 ```
 
 

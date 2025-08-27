@@ -359,6 +359,10 @@ export class GitHelper {
     static async getRemoteUrl(path_to_project): Promise<string | null> {
         //console.log("Start getRemoteUrl");
         //console.log("path_to_project: "+path_to_project)
+        if(!await GitHelper.isPathAGitRepository(path_to_project)){
+            return null;
+        }
+
         const git: SimpleGit = GitHelper.getGitInstance(path_to_project);
         try {
             const remotes = await git.listRemote(['--get-url']);
@@ -410,6 +414,10 @@ export class GitHelper {
 
 
     static async getTagsPointingAtCommit(path_to_folder: string, commitHash: string): Promise<string[]> {
+        if(!await GitHelper.isPathAGitRepository(path_to_folder)){
+            return [];
+        }
+
         try {
             const git: SimpleGit = GitHelper.getGitInstance(path_to_folder);
             const tags = await git.raw(['tag', '--points-at', commitHash]);
@@ -426,11 +434,31 @@ export class GitHelper {
         return tags.length > 0 ? tags[0] : null;
     }
 
+    static async isPathAGitRepository(path_to_folder: string): Promise<boolean> {
+        if(!fs.existsSync(path_to_folder) || !fs.existsSync(path_to_folder+"/.git")){
+            //console.error('No .git folder found in path: '+path_to_folder);
+            return false;
+        }
+        try {
+            const git: SimpleGit = GitHelper.getGitInstance(path_to_folder);
+            await git.status(); // Versucht, den Status des Repositories abzurufen
+            return true; // Wenn erfolgreich, ist es ein Git-Repository
+        }
+        catch (error) {
+            return false; // Wenn ein Fehler auftritt, ist es kein Git-Repository
+        }
+    }
+
     static async getCommitDateUnixTimestamp(path_to_folder: string, identifier: string | undefined | null): Promise<string | null> {
         if (!identifier) {
             console.error('No identifier provided');
             return null;
         }
+        // check if path_to_folder/.git exists
+        if(!await GitHelper.isPathAGitRepository(path_to_folder)){
+            return null;
+        }
+
         try {
             const git: SimpleGit = GitHelper.getGitInstance(path_to_folder);
             const options = ['-s', '--format=%ct', `${identifier}^{}`];
@@ -439,7 +467,7 @@ export class GitHelper {
             const lastLine = lines[lines.length - 1];
             const timestamp = parseInt(lastLine, 10);
             return isNaN(timestamp) ? null : ""+timestamp;
-        } catch (error) {
+        } catch (error: any) {
             console.error('An error occurred:', error);
             return null;
         }
@@ -448,6 +476,10 @@ export class GitHelper {
 
 
     static async getProjectName(path_to_folder: string): Promise<string | null> {
+        if(!await GitHelper.isPathAGitRepository(path_to_folder)){
+            return null;
+        }
+
         return new Promise((resolve, reject) => {
             const git: SimpleGit = GitHelper.getGitInstance(path_to_folder);
             git.listRemote(['--get-url'], (err: Error | null, data?: string) => {

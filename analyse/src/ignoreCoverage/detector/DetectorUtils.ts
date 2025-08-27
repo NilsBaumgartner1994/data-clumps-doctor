@@ -18,6 +18,16 @@ export type ProbabilityContext = {
 
 export class DetectorUtils {
 
+    public static sanitizeProjectName(projectName: string){
+        // Remove any character that is not a letter, number, hyphen, or underscore
+        let sanitizedProjectName = projectName.replace(/[^a-zA-Z0-9-_]/g, '_');
+        // If the project name starts with a number, prepend an underscore
+        if(/^[0-9]/.test(sanitizedProjectName)){
+            sanitizedProjectName = '_' + sanitizedProjectName;
+        }
+        return sanitizedProjectName;
+    }
+
     public static checkIfIncompatibleOptions(options: DetectorOptions){
         // fast Detection cannot be used with similarityModifierOfVariablesWithUnknownType > 0
         if(options.fastDetection){

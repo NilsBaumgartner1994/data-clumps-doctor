@@ -212,6 +212,15 @@ export class Analyzer {
 
         let project_name = await GitHelper.getProjectName(path_to_folder);
         if(!project_name){ // if no project name could be found in the git repository
+            // use the folder name as project name
+            try{
+                let folder_name = path.basename(path_to_folder);
+                project_name = DetectorUtils.sanitizeProjectName(folder_name);
+            } catch(error){
+                console.log(error);
+            }
+        }
+        if(!project_name){
             project_name = this.project_name // use default project name
         }
         return project_name;
@@ -414,6 +423,7 @@ export class Analyzer {
                 }
 
                 this.astTimer.start();
+                console.log("Parsing source to AST to output path: "+this.path_to_ast_output);
                 await parser.parseSourceToAst(this.path_to_source, this.path_to_ast_output);
                 this.astTimer.stop();
                 this.astTimer.printElapsedTime("Ast generation time for commit: "+commit);
@@ -439,6 +449,7 @@ export class Analyzer {
             this.detectTimer.printElapsedTime("Detect time for commit: "+commit);
 
             console.log("Project Name: "+this.project_name);
+            console.log(JSON.stringify(dataClumpsContext.project_info, null, 2));
             console.log(JSON.stringify(dataClumpsContext.report_summary, null, 2));
 
             let timerInformation = {
