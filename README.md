@@ -118,17 +118,16 @@ Current
 
 Download an example project from GitHub:
 ```
+https://github.com/Azure/iot-plugandplay-models
 https://github.com/Azure-Samples/azure-digital-twins-getting-started
 https://github.com/WillowInc/opendigitaltwins-airport
 https://github.com/JMayrbaeurl/opendigitaltwins-assetadminstrationshell
-https://github.com/WillowInc/opendigitaltwins-building
 https://github.com/Azure/opendigitaltwins-building
 https://github.com/Azure/opendigitaltwins-energygrid
 https://github.com/WillowInc/opendigitaltwins-mining
 https://github.com/WillowInc/opendigitaltwins-rail
 https://github.com/nikoraes/opendigitaltwins-saref4bldg
 https://github.com/Azure/opendigitaltwins-smartcities
-https://github.com/a2i2/opendigitaltwins-surveillance
 https://github.com/XMPro/Wind-Power-Plant-Wind-Turbine-DTDL-Models/tree/main
 https://github.com/JMayrbaeurl/opendigitaltwins-schemaorg
 https://github.com/JMayrbaeurl/opendigitaltwins-isa95
@@ -154,11 +153,8 @@ node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/ni
 node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-energygrid-main && 
 node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-schemaorg-main && 
 node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-smartcities-main && 
-
-ERROR
-node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-surveillance-main && 
-node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_project /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/opendigitaltwins-building-main && 
-
+node ./build/ignoreCoverage/cli.js --preserve_ast_output true --output /Users/nilsbaumgartner/Desktop/DTDL-DataClumpsResults/{project_name}.json --source_type digitalTwinsDefinitionLanguage --commit_selection current --path_to_projects /Users/nilsbaumgartner/Desktop/DTDL-Projects-Seperated/iot-plugandplay-models-main/dtmi/ && 
+echo "Finished DTDL Analysis"
 ```
 
 
