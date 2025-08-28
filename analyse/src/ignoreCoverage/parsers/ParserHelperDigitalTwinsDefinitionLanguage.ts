@@ -29,7 +29,7 @@ export class ParserHelperDigitalTwinsDefinitionLanguage extends ParserBase {
         return defaultDummyName;
     }
 
-    private createDummy(dtmi: string, usage: "interface" | "schema" = "interface"): any {
+    private createDummy(dtmi: string, usage: "interface" | "schema" = "interface", version: number = 3): any {
         const displayName = this.createDummyDisplayName(dtmi);
         if (usage === "schema") {
             return {
@@ -40,7 +40,7 @@ export class ParserHelperDigitalTwinsDefinitionLanguage extends ParserBase {
                     { "name": "Unknown", "enumValue": "unknown" }
                 ],
                 "displayName": { "en": displayName },
-                "@context": ["dtmi:dtdl:context;3"]
+                "@context": [`dtmi:dtdl:context;${version}`]
             };
         } else {
             return {
@@ -48,7 +48,7 @@ export class ParserHelperDigitalTwinsDefinitionLanguage extends ParserBase {
                 "@type": "Interface",
                 "displayName": { "en": displayName },
                 "contents": [],
-                "@context": ["dtmi:dtdl:context;3"]
+                "@context": [`dtmi:dtdl:context;${version}`]
             };
         }
     }
@@ -116,11 +116,47 @@ export class ParserHelperDigitalTwinsDefinitionLanguage extends ParserBase {
                 return this.parseAndFix(fixedTexts, parser);
             }
 
+            // 4) disallowedVersionReference → Dummy-Version anpassen
+            if (e._parsingErrors?.some((err: any) => err.validationId === "dtmi:dtdl:parsingError:disallowedVersionReference")) {
+                console.warn("⚠️ Version mismatch in references, adjusting dummy models…");
+                const fixedTexts = this.parseAndFixVersionMismatch(allModelTexts, e._parsingErrors);
+                return this.parseAndFix(fixedTexts, parser);
+            }
+
             // sonst nicht behandelbar → throw
             console.error("❌ Unhandled parsing error:", e);
             throw e;
         }
     }
+
+    private parseAndFixVersionMismatch(allModelTexts: string[], errors: any[]): string[] {
+        const fixed = [...allModelTexts];
+
+        for (const err of errors) {
+            if (err.validationId !== "dtmi:dtdl:parsingError:disallowedVersionReference") continue;
+
+            const badId = err.secondaryId; // das referenzierte Modell
+            const primary = err.primaryId; // Modell, das es referenziert
+
+            // Version des Primary ermitteln
+            let version = 3;
+            try {
+                const primaryText = allModelTexts.find(t => t.includes(primary));
+                if (primaryText) {
+                    const j = JSON.parse(primaryText);
+                    const ctx = (j["@context"] || []).find((c: string) => c.startsWith("dtmi:dtdl:context;"));
+                    if (ctx) version = parseInt(ctx.split(";")[1]) || 3;
+                }
+            } catch {}
+
+            // Dummy für das badId mit korrekter Version erzeugen
+            const dummy = this.createDummy(badId, "interface", version);
+            fixed.push(JSON.stringify(dummy));
+        }
+
+        return fixed;
+    }
+
 
     private generateValidDtmi(base: string, counter: number): string {
         // Nur Buchstaben, Zahlen, Unterstriche erlaubt
@@ -174,15 +210,58 @@ export class ParserHelperDigitalTwinsDefinitionLanguage extends ParserBase {
 
     private parseAndFixMissingModels(allModelTexts: string[], missingIds: string[]): string[] {
         const fixed = [...allModelTexts];
-        for (const missingDtmi of missingIds) {
-            if (missingDtmi.includes("Unit")) {
-                fixed.push(JSON.stringify(this.createDummy(missingDtmi, "schema")));
-            } else {
-                fixed.push(JSON.stringify(this.createDummy(missingDtmi, "interface")));
+
+        // ✅ Sammle alle bereits existierenden IDs (Originale + evtl. schon erzeugte Dummies)
+        const existingIds = new Set<string>();
+        for (const text of allModelTexts) {
+            try {
+                const json = JSON.parse(text);
+                if (json["@id"]) {
+                    existingIds.add(json["@id"]);
+                }
+            } catch {
+                // ignore parse error
             }
         }
+
+        // ✅ Version bestimmen (erste gefundene im Material)
+        let version = 3;
+        try {
+            for (const text of allModelTexts) {
+                const json = JSON.parse(text);
+                if (Array.isArray(json["@context"])) {
+                    const ctx = json["@context"].find((c: string) => c.startsWith("dtmi:dtdl:context;"));
+                    if (ctx) {
+                        const v = parseInt(ctx.split(";")[1]);
+                        if (!isNaN(v)) {
+                            version = v;
+                            break;
+                        }
+                    }
+                }
+            }
+        } catch {
+            // fallback bleibt 3
+        }
+
+        // ✅ Fehlende hinzufügen, aber keine Duplikate erzeugen
+        for (const missingDtmi of missingIds) {
+            if (existingIds.has(missingDtmi)) {
+                console.warn(`⚠️ Dummy für ${missingDtmi} nicht erzeugt (existiert schon)`);
+                continue;
+            }
+
+            const dummy = missingDtmi.includes("Unit")
+                ? this.createDummy(missingDtmi, "schema", version)
+                : this.createDummy(missingDtmi, "interface", version);
+
+            fixed.push(JSON.stringify(dummy));
+            existingIds.add(missingDtmi);
+        }
+
         return fixed;
     }
+
 
     private parseAndFixMissingContext(allModelTexts: string[]): string[] {
         const fixed: string[] = [];
@@ -448,39 +527,9 @@ export class ParserHelperDigitalTwinsDefinitionLanguage extends ParserBase {
     private setFieldsFromPropertyInfo(interfaceInfo: InterfaceInfo, classOrInterface: ClassOrInterfaceTypeContext, mapDtmiIdToRawJson: Map<string, any>) {
         //console.log(`Interface ${interfaceInfo.id}`);
         /**
-         * // Das Problem ist, dass @azure/dtdl-parser gibt dir bei InterfaceInfo.contents immer alle Contents, also auch die geerbten aus extends
-        if (contentsFromInterfaceInfo) {
-            for (const [key, content] of Object.entries(contentsFromInterfaceInfo)) {
-                const contentKind = (content as any).entityKind;
-
-                if (contentKind === "property") {
-                    const propertyContent = content as PropertyInfo;
-
-                    const propertyName = propertyContent.name;
-                    const propertyId = propertyContent.id;
-
-                    // Schema-Typ robust bestimmen
-                    const schema: any = (propertyContent as any).schema;
-                    let propertyType: string = "unknown";
-                    if (schema) {
-                        // Viele SchemaInfos haben entityKind, manche nur id (bei referenzierten Schemas)
-                        propertyType = schema.entityKind ?? schema.id ?? "unknown";
-                    }
-
-                    console.log(`  - property ${propertyName} :: ${propertyType}`);
-                    const field = new MemberFieldParameterTypeContext(
-                        propertyId,
-                        propertyName,
-                        propertyType,
-                        [],
-                        false,
-                        classOrInterface
-                    );
-                    // Member in dein Objekt eintragen (interne Struktur bleibt bei dir)
-                    classOrInterface.fields[propertyId] = field;
-                }
-            }
-        }
+         * Das Problem ist, dass @azure/dtdl-parser gibt dir bei InterfaceInfo.contents immer alle Contents, also auch die geerbten aus extends
+         * Daher müssen wir hier die Rohdaten aus mapDtmiIdToRawJson holen und nur die direkten Inhalte verarbeiten
+         * Sonst haben wir doppelte Properties/Relationships
         */
 
         const raw = mapDtmiIdToRawJson.get(interfaceInfo.id);
