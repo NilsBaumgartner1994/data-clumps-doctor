@@ -116,10 +116,9 @@ export class ParserHelperDigitalTwinsDefinitionLanguage extends ParserBase {
                 return this.parseAndFix(fixedTexts, parser);
             }
 
-            // 4) disallowedVersionReference → Dummy-Version anpassen
-            if (e._parsingErrors?.some((err: any) => err.validationId === "dtmi:dtdl:parsingError:disallowedVersionReference")) {
-                console.warn("⚠️ Version mismatch in references, adjusting dummy models…");
-                const fixedTexts = this.parseAndFixVersionMismatch(allModelTexts, e._parsingErrors);
+            if (e._parsingErrors?.some((err: any) => err.validationId === "dtmi:dtdl:parsingError:langStringValueTooLong")) {
+                console.warn("⚠️ Description too long, trimming to 64 characters");
+                const fixedTexts = this.fixTooLongDisplayNames(allModelTexts);
                 return this.parseAndFix(fixedTexts, parser);
             }
 
@@ -129,34 +128,57 @@ export class ParserHelperDigitalTwinsDefinitionLanguage extends ParserBase {
         }
     }
 
-    private parseAndFixVersionMismatch(allModelTexts: string[], errors: any[]): string[] {
-        const fixed = [...allModelTexts];
-
-        for (const err of errors) {
-            if (err.validationId !== "dtmi:dtdl:parsingError:disallowedVersionReference") continue;
-
-            const badId = err.secondaryId; // das referenzierte Modell
-            const primary = err.primaryId; // Modell, das es referenziert
-
-            // Version des Primary ermitteln
-            let version = 3;
+    private fixTooLongDisplayNames(allModelTexts: string[]): string[] {
+        const fixed: string[] = [];
+        for (const text of allModelTexts) {
             try {
-                const primaryText = allModelTexts.find(t => t.includes(primary));
-                if (primaryText) {
-                    const j = JSON.parse(primaryText);
-                    const ctx = (j["@context"] || []).find((c: string) => c.startsWith("dtmi:dtdl:context;"));
-                    if (ctx) version = parseInt(ctx.split(";")[1]) || 3;
-                }
-            } catch {}
+                const json = JSON.parse(text);
 
-            // Dummy für das badId mit korrekter Version erzeugen
-            const dummy = this.createDummy(badId, "interface", version);
-            fixed.push(JSON.stringify(dummy));
+                const fixRec = (obj: any): any => {
+                    if (Array.isArray(obj)) {
+                        return obj.map(fixRec);
+                    } else if (typeof obj === "object" && obj !== null) {
+                        const newObj: any = {};
+                        for (const [k, v] of Object.entries(obj)) {
+                            if (k === "displayName") {
+                                if (typeof v === "string") {
+                                    if (v.length > 64) {
+                                        console.warn(`⚠️ Trimming displayName '${v}' → '${v.substring(0, 61)}...'`);
+                                        newObj[k] = v.substring(0, 61) + "...";
+                                    } else {
+                                        newObj[k] = v;
+                                    }
+                                } else if (typeof v === "object") {
+                                    const fixedLangs: any = {};
+                                    // @ts-ignore
+                                    for (const [lang, lv] of Object.entries(v)) {
+                                        if (typeof lv === "string" && lv.length > 64) {
+                                            console.warn(`⚠️ Trimming displayName[${lang}] '${lv}' → '${lv.substring(0, 61)}...'`);
+                                            fixedLangs[lang] = lv.substring(0, 61) + "...";
+                                        } else {
+                                            fixedLangs[lang] = lv;
+                                        }
+                                    }
+                                    newObj[k] = fixedLangs;
+                                } else {
+                                    newObj[k] = v;
+                                }
+                            } else {
+                                newObj[k] = fixRec(v);
+                            }
+                        }
+                        return newObj;
+                    }
+                    return obj;
+                };
+
+                fixed.push(JSON.stringify(fixRec(json)));
+            } catch {
+                fixed.push(text);
+            }
         }
-
         return fixed;
     }
-
 
     private generateValidDtmi(base: string, counter: number): string {
         // Nur Buchstaben, Zahlen, Unterstriche erlaubt
@@ -210,21 +232,7 @@ export class ParserHelperDigitalTwinsDefinitionLanguage extends ParserBase {
 
     private parseAndFixMissingModels(allModelTexts: string[], missingIds: string[]): string[] {
         const fixed = [...allModelTexts];
-
-        // ✅ Sammle alle bereits existierenden IDs (Originale + evtl. schon erzeugte Dummies)
-        const existingIds = new Set<string>();
-        for (const text of allModelTexts) {
-            try {
-                const json = JSON.parse(text);
-                if (json["@id"]) {
-                    existingIds.add(json["@id"]);
-                }
-            } catch {
-                // ignore parse error
-            }
-        }
-
-        // ✅ Version bestimmen (erste gefundene im Material)
+        // Finde zuerst die häufigste oder höchste Version im vorhandenen Material
         let version = 3;
         try {
             for (const text of allModelTexts) {
@@ -233,35 +241,21 @@ export class ParserHelperDigitalTwinsDefinitionLanguage extends ParserBase {
                     const ctx = json["@context"].find((c: string) => c.startsWith("dtmi:dtdl:context;"));
                     if (ctx) {
                         const v = parseInt(ctx.split(";")[1]);
-                        if (!isNaN(v)) {
-                            version = v;
-                            break;
-                        }
+                        if (!isNaN(v)) { version = v; break; }
                     }
                 }
             }
-        } catch {
-            // fallback bleibt 3
-        }
+        } catch {}
 
-        // ✅ Fehlende hinzufügen, aber keine Duplikate erzeugen
         for (const missingDtmi of missingIds) {
-            if (existingIds.has(missingDtmi)) {
-                console.warn(`⚠️ Dummy für ${missingDtmi} nicht erzeugt (existiert schon)`);
-                continue;
+            if (missingDtmi.includes("Unit")) {
+                fixed.push(JSON.stringify(this.createDummy(missingDtmi, "schema", version)));
+            } else {
+                fixed.push(JSON.stringify(this.createDummy(missingDtmi, "interface", version)));
             }
-
-            const dummy = missingDtmi.includes("Unit")
-                ? this.createDummy(missingDtmi, "schema", version)
-                : this.createDummy(missingDtmi, "interface", version);
-
-            fixed.push(JSON.stringify(dummy));
-            existingIds.add(missingDtmi);
         }
-
         return fixed;
     }
-
 
     private parseAndFixMissingContext(allModelTexts: string[]): string[] {
         const fixed: string[] = [];

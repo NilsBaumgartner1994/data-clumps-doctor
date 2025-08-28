@@ -37,6 +37,7 @@ program
     .option('--git_project_temp_folder <git_project_temp_folder>', 'Git project temp folder (default: '+default_git_project_temp_folder+")", default_git_project_temp_folder)
     .option('--git_tag_start_offset <git_tag_start_offset>', 'Offset to start from the last tag (default: 0)', ''+default_git_tag_start_offset)
     .option('--path_to_project <path_to_project>', 'Absolute path to project (a git project in best case)', undefined)
+    .option('--path_to_projects <path_to_projects>', 'Absolute path to folder containing multiple projects', undefined)
     .option('--relative_path_to_source_folder_in_project <relative_path_to_source_folder_in_project>', 'Relative path to source files (default is ./). If you want to analyse just a specific folder in the project, you can specify it here. For example ./src if the source files are in the src folder.', './')
     .option('--preserve_ast_output <preserve_ast_output>', 'If the ast_output folder should be preserved (default: false).', false)
     .option('--path_to_ast_generator_folder', 'Absolute path to the ast generator folder (In this project: astGenerator)', path_to_ast_generator_folder)
@@ -137,20 +138,18 @@ async function main() {
     console.log("Data-Clumps-Doctor Detection");
 
     program.parse(process.argv);
-
-    // Get the options and arguments
     const options = program.opts();
 
     const git_project_url_to_analyse = options.git_project_url_to_analyse;
     const raw_path_to_project = options.path_to_project;
+    const raw_path_to_projects = options.path_to_projects;
 
-    if(!git_project_url_to_analyse && !raw_path_to_project) {
-        console.log("ERROR: No project urls or path to project specified. Use --path_to_project or --git_project_urls_to_analyse");
+    if(!git_project_url_to_analyse && !raw_path_to_project && !raw_path_to_projects) {
+        console.log("ERROR: No project specified. Use --path_to_project, --path_to_projects or --git_project_url_to_analyse");
         process.exit(1);
     }
 
     const path_to_ast_generator_folder = options.path_to_ast_generator_folder;
-
     if (!fs.existsSync(path_to_ast_generator_folder)) {
         console.log("ERROR: Specified path to ast generator folder does not exist: "+path_to_ast_generator_folder);
         process.exit(1);
@@ -158,24 +157,45 @@ async function main() {
 
     if(raw_path_to_project){
         await analyse(raw_path_to_project, options);
-    } else{
 
-        options.git_project_temp_folder = AnalyseHelper.getTempFolderPathGotTempGitClonedProject(git_project_url_to_analyse, options.git_project_temp_folder);
+    } else if(raw_path_to_projects){
+        const projectsDir = path.resolve(raw_path_to_projects);
+        if(!fs.existsSync(projectsDir) || !fs.lstatSync(projectsDir).isDirectory()){
+            console.log("ERROR: --path_to_projects must be a folder");
+            process.exit(1);
+        }
+
+        const subfolders = fs.readdirSync(projectsDir)
+            .map(name => path.join(projectsDir, name))
+            .filter(p => fs.lstatSync(p).isDirectory());
+
+        console.log("Found "+subfolders.length+" projects in "+projectsDir);
+        for(const projectPath of subfolders){
+            console.log("▶ Analysing project: "+projectPath);
+            try {
+                await analyse(projectPath, options);
+            } catch(e){
+                console.error("❌ Error analysing "+projectPath+":", e);
+            }
+        }
+
+    } else {
+        // Git URL case
+        options.git_project_temp_folder = AnalyseHelper.getTempFolderPathGotTempGitClonedProject(
+            git_project_url_to_analyse,
+            options.git_project_temp_folder
+        );
 
         let path_to_project = path.resolve(options.git_project_temp_folder);
-        //console.log("Clearing temp folder "+path_to_project);
-        if(fs.existsSync(path_to_project)){ // delete folder if exists
+        if(fs.existsSync(path_to_project)){
             fs.rmSync(path_to_project, { recursive: true, force: true, maxRetries: 10 });
         }
-        // create temp folder recursively
         fs.mkdirSync(path_to_project, { recursive: true });
 
         console.log("Cloning project "+git_project_url_to_analyse+" to "+path_to_project);
         await GitHelper.cloneGitProject(git_project_url_to_analyse, path_to_project);
         await analyse(path_to_project, options);
-        // Delete the project folder
-        //console.log("Deleting clones project folder "+path_to_project);
-        if(fs.existsSync(path_to_project)){ // delete folder if exists
+        if(fs.existsSync(path_to_project)){
             fs.rmSync(path_to_project, { recursive: true, force: true, maxRetries: 10 });
         }
     }
