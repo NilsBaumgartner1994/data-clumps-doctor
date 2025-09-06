@@ -9,7 +9,7 @@ export class AstPosition{
     public startLine: any;
     public startColumn: any;
     public endLine: any;
-    public endColumn: any
+    public endColumn: any;
 }
 
 // noinspection dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection

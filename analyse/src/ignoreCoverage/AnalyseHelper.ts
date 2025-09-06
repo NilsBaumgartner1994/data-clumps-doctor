@@ -421,6 +421,11 @@ def expand_frequency_dict(freq_dict):
 statistics = {}
 for label, values in all_data.items():
     values_sorted = np.sort(values)
+    
+    if len(values_sorted) == 0:
+        print(f"{label}: keine Daten -> übersprungen")
+        continue
+    
     sum_value = sum(values_sorted)
     q1 = np.percentile(values_sorted, 25)
     median = np.median(values_sorted)

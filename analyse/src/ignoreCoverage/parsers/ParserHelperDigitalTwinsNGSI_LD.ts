@@ -6,7 +6,7 @@ import {
     ParserHelperDigitalTwinsDefinitionLanguageFileParser
 } from "./helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser";
 
-export class ParserHelperDigitalTwinsDefinitionLanguage extends ParserBase {
+export class ParserHelperDigitalTwinsNGSI_LD extends ParserBase {
     constructor() {
         super();
     }
@@ -29,10 +29,9 @@ export class ParserHelperDigitalTwinsDefinitionLanguage extends ParserBase {
 
     // --- helpers ---------------------------------------------------------------
 
-    /** Sucht rekursiv nach .json und .jsonld */
     private async searchForModelFiles(dir: string): Promise<string[]> {
         const files = await this.walkDir(dir);
-        const modelFiles = files.filter((f) => f.endsWith(".json") || f.endsWith(".jsonld"));
+        const modelFiles = files.filter((f) => f.endsWith("schemaDTDL.json"));
         return modelFiles;
     }
 

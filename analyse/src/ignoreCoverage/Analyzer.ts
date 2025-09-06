@@ -15,6 +15,7 @@ import {ParserHelperDigitalTwinsDefinitionLanguage} from "./parsers/ParserHelper
 import {ParserHelperTypeScript} from "./parsers/ParserHelperTypeScript";
 import {DataClumpsTypeContext} from "data-clumps-type-context";
 import {AnalyseHelper} from "./AnalyseHelper";
+import {ParserHelperDigitalTwinsNGSI_LD} from "./parsers/ParserHelperDigitalTwinsNGSI_LD";
 
 export class Analyzer {
 
@@ -415,6 +416,9 @@ export class Analyzer {
                 } else if(this.source_type === "typescript"){
                     target_language = "typescript";
                     parser = new ParserHelperTypeScript();
+                } else if (this.source_type === "ngsi-ld"){
+                    target_language = "NGSI-LD";
+                    parser = new ParserHelperDigitalTwinsNGSI_LD();
                 }
 
                 if(!parser){

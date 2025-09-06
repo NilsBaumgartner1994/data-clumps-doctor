@@ -124,13 +124,6 @@ export class DetectorOptionsInformation {
     /**
      * Fields
      */
-    public static typeVariablesConsidered: DetectorOptionInformationParameter = {
-        label: "Types Variables Considered",
-        description: "In Java Generics like: List<T> have a variable Type. On the other hand List<Number> has not (type argument). Default value is false, so variable types will not be considered.",
-        defaultValue: false,
-        group: "all",
-        type: "boolean"
-    }
 
     public static similarityModifierOfVariablesWithUnknownType: DetectorOptionInformationParameter = {
         label: "Similarity of Variables Ignores Unknown Type",
@@ -209,6 +202,17 @@ export class DetectorOptionsInformation {
         defaultValue: 0,
         group: "method",
         type: "float"
+    }
+
+    /**
+     * Ignored Variables
+     */
+    public static ignoredVariableNames: DetectorOptionInformationParameter = {
+        label: "Ignored Variable Names",
+        description: "A list of variable names that should be ignored when checking for data clumps. Default value is an empty array. For example: ['serialVersionUID', 'name', 'dateCreated', 'dateModified', 'id', 'type', 'description', 'value', 'timestamp', 'createdAt', 'updatedAt']",
+        defaultValue: [],
+        group: "all",
+        type: "string[]"
     }
 }
 

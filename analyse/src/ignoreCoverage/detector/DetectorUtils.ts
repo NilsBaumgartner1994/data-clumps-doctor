@@ -18,6 +18,21 @@ export type ProbabilityContext = {
 
 export class DetectorUtils {
 
+    public static isIgnoredVariableName(variableName: string, options: DetectorOptions){
+        let ignoreVariableNames = options.ignoredVariableNames.map(name => name.toLowerCase().trim());
+        return ignoreVariableNames.includes(variableName.toLowerCase().trim());
+    }
+
+    public static cleanVariables(variables: VariableTypeContext[], options: DetectorOptions){
+        let cleanedVariables: VariableTypeContext[] = [];
+        for(let variable of variables){
+            if(!DetectorUtils.isIgnoredVariableName(variable.name, options)){
+                cleanedVariables.push(variable);
+            }
+        }
+        return cleanedVariables;
+    }
+
     public static sanitizeProjectName(projectName: string){
         // Remove any character that is not a letter, number, hyphen, or underscore
         let sanitizedProjectName = projectName.replace(/[^a-zA-Z0-9-_]/g, '_');
@@ -110,30 +125,32 @@ export class DetectorUtils {
 
     public static getCommonFieldFieldPairKeys(fields: MemberFieldParameterTypeContext[], otherFields: MemberFieldParameterTypeContext[], options: DetectorOptions){
         let ignoreFieldModifiers = false; // From: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5328371 "These data fields should have same signatures (same names, same data types, and same access modifiers)."
-        return DetectorUtils.getCommonParameterPairKeys(fields, otherFields, options, ignoreFieldModifiers);
+        return DetectorUtils.getCommonVariablePairKeys(fields, otherFields, options, ignoreFieldModifiers);
     }
 
     public static getCommonParameterFieldPairKeys(parameters: MethodParameterTypeContext[], fields: MemberFieldParameterTypeContext[], options: DetectorOptions){
         let ignoreParameterToFieldModifiers = true; // From https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5328371 "These parameters should have same signatures (same names, same data types)." since parameters can't have modifiers, we have to ignore them. And we shall only check names and data types
-        return DetectorUtils.getCommonParameterPairKeys(parameters, fields, options, ignoreParameterToFieldModifiers);
+        return DetectorUtils.getCommonVariablePairKeys(parameters, fields, options, ignoreParameterToFieldModifiers);
     }
 
     public static getCommonParameterParameterPairKeys(parameters: MethodParameterTypeContext[], otherParameters: MethodParameterTypeContext[], options: DetectorOptions){
         let ignoreParameterToFieldModifiers = true; // From https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5328371 "These parameters should have same signatures (same names, same data types)." since parameters can't have modifiers, we have to ignore them. And we shall only check names and data types
-        return DetectorUtils.getCommonParameterPairKeys(parameters, otherParameters, options, ignoreParameterToFieldModifiers);
+        return DetectorUtils.getCommonVariablePairKeys(parameters, otherParameters, options, ignoreParameterToFieldModifiers);
     }
 
-    private static getCommonParameterPairKeys(parameters: VariableTypeContext[], otherParameters: VariableTypeContext[], options: DetectorOptions, ignoreParameterModifiers: boolean){
+    private static getCommonVariablePairKeys(variables: VariableTypeContext[], otherVariables: VariableTypeContext[], options: DetectorOptions, ignoreParameterModifiers: boolean){
+        let cleanedVariables = DetectorUtils.cleanVariables(variables, options);
+        let cleanedOtherVariables = DetectorUtils.cleanVariables(otherVariables, options);
 
         let commonParameterPairKeys: ParameterPair[] = [];
-        for(let parameter of parameters){
-            for(let otherParameter of otherParameters){
-                let probabilityOfSimilarity = parameter.isSimilarTo(otherParameter, options.similarityModifierOfVariablesWithUnknownType, ignoreParameterModifiers)
+        for(let variable of cleanedVariables){
+            for(let otherVariable of cleanedOtherVariables){
+                let probabilityOfSimilarity = variable.isSimilarTo(otherVariable, options.similarityModifierOfVariablesWithUnknownType, ignoreParameterModifiers)
 
                 if(probabilityOfSimilarity > 0.5){
                     let commonParameterPairKey = {
-                        parameterKey: parameter.key,
-                        otherParameterKey: otherParameter.key,
+                        parameterKey: variable.key,
+                        otherParameterKey: otherVariable.key,
                         probability: probabilityOfSimilarity
                     }
                     commonParameterPairKeys.push(commonParameterPairKey);
