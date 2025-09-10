@@ -58,6 +58,10 @@ function generateLogDeltaChartPython(projectToAmountDataClumps: Record<string, n
     fileContent += "project_names = list(projects.keys())\n";
     fileContent += "project_names = list(reversed(project_names))\n"
 
+    fileContent += "# Start/End-Werte je Projekt in genau dieser Reihenfolge\n"
+    fileContent += "start_values = [projects[name][0] for name in project_names]\n"
+    fileContent += "end_values   = [projects[name][-1] for name in project_names]"
+
     fileContent += "deltas = [projects[p][-1] - projects[p][0] for p in project_names]\n";
     fileContent += "log_deltas = [np.sign(d) * np.log10(abs(d)) if d != 0 else 0 for d in deltas]\n";
     fileContent += `primary_color = "${primaryColorString}"\n`;
@@ -78,6 +82,17 @@ function generateLogDeltaChartPython(projectToAmountDataClumps: Record<string, n
     fileContent += "ax.set_xticks(xticks)\n";
     fileContent += "ax.set_xticklabels(xtick_labels)\n";
     fileContent += "ax.set_xlim(x_max_negative - 0.5, x_max_positive + 0.5)\n";
+
+    let showStartEndValues = true;
+    if (showStartEndValues) {
+        fileContent += "for i, (start, end) in enumerate(zip(start_values, end_values)):\n" +
+            "    ax.text(\n" +
+            "        x_max_negative,             # ganz links beginnen\n" +
+            "        i+0.1,                          # Position entspricht Balken-Y\n" +
+            "        f\"{start} → {end}\",         # Text\n" +
+            "        va='center', ha='left',     # vertikal mittig, linksbündig\n" +
+            "        fontsize=8, color=\"black\"\n" +
+            "    )";
 
     let showGuideLinesForProjects = true;
     if (showGuideLinesForProjects) {

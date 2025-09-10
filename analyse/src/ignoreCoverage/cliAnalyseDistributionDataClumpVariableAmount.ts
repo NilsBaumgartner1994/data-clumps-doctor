@@ -118,7 +118,7 @@ async function analyse(report_folder, options){
     fileContent += AnalyseHelper.getPythonStatisticsForDataValues();
     fileContent += AnalyseHelper.getPythonPlot({
         output_filename_without_extension: options.output_filename_without_extension,
-        y_label: "Number Variables",
+        y_label: "Number of Variables in the Data Clump",
         y_max: 20,
         y_ticks: 2,
         offset_left: 0.15,
