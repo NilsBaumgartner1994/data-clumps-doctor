@@ -30,7 +30,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
 
         console.log("Parse TypeScript project");
 
-        const dict: Map<string, ClassOrInterfaceTypeContext> = new Map();
+        const dict = new Map<string, ClassOrInterfaceTypeContext>();
 
         for (const sourceFile of project.getSourceFiles()) {
 
@@ -39,15 +39,18 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
 
             for (const cls of sourceFile.getClasses()) {
                 const name = cls.getName() || "anonymous_class";
+                //console.log("  - Found class: ", name);
                 const key = `${relativePath}/class/${name}`;
                 const ctx = new ClassOrInterfaceTypeContext(key, name, "class", relativePath);
                 ctx.modifiers = [];
                 if (cls.isAbstract()) ctx.modifiers.push("ABSTRACT");
 
+                //console.log("    Properties:");
                 for (const prop of cls.getProperties()) {
                     const propName = prop.getName();
                     const fieldKey = propName;
                     const typeText = prop.getType().getText();
+                    //console.log("     - Found property "+propName+" : "+typeText);
                     const modifiers: string[] = [];
                     if (prop.hasModifier("public")) modifiers.push("PUBLIC");
                     if (prop.hasModifier("protected")) modifiers.push("PROTECTED");
@@ -57,8 +60,10 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
                     ctx.fields[field.key] = field;
                 }
 
+                //console.log("    Methods:");
                 for (const method of cls.getMethods()) {
                     const methodName = method.getName();
+
                     const methodKey = methodName;
                     const returnTypeText = method.getReturnType().getText();
                     const methodCtx = new MethodTypeContext(methodKey, methodName, returnTypeText, false, ctx);
@@ -68,18 +73,21 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
                     if (method.hasModifier("private")) methodCtx.modifiers.push("PRIVATE");
                     if (method.isStatic()) methodCtx.modifiers.push("STATIC");
 
+                    let paramNames: string[] = [];
                     for (const param of method.getParameters()) {
                         const paramName = param.getName();
+                        paramNames.push(paramName);
                         const paramKey = paramName;
                         const paramType = param.getType().getText();
                         const paramCtx = new MethodParameterTypeContext(paramKey, paramName, paramType, [], false, methodCtx);
                         methodCtx.parameters.push(paramCtx);
                     }
+                    //console.log("     - Found method "+methodName+" ("+paramNames.join(", ")+") : "+returnTypeText);
 
                     ctx.methods[methodCtx.key] = methodCtx;
                 }
 
-                dict[ctx.key] = ctx;
+                dict.set(ctx.key, ctx);
             }
 
             for (const intf of sourceFile.getInterfaces()) {
