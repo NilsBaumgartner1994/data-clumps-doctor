@@ -110,27 +110,6 @@ function getMedian(listOfValues){
     return median;
 }
 
-export function getValuesFor(nameOfVariable, listOfValues){
-    let fileContent = "";
-    let median = getMedian(listOfValues);
-    console.log("Median for "+nameOfVariable+": "+median)
-    fileContent += "\n";
-    fileContent += "# "+nameOfVariable+"_median = "+median+"\n";
-    fileContent += nameOfVariable+"= [\n";
-    let amountSingleGroups = listOfValues.length
-    for(let i = 0; i < amountSingleGroups; i++){
-        fileContent += "  "+listOfValues[i];
-        if(i < amountSingleGroups - 1){
-            fileContent += ",\n";
-        }
-    }
-    fileContent += "\n";
-    fileContent += "]\n";
-    fileContent += "\n";
-
-    return fileContent;
-}
-
 /**
  * Analyzes the distribution of data clumps across multiple report files and generates a Python script for visualizing the results.
  *
