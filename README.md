@@ -119,7 +119,6 @@ npm run build && \
 node ./build/ignoreCoverage/cli.js \
   --source_type typescript \
   --commit_selection current \
-  --preserve_ast_output true \
   --output /Users/nilsbaumgartner/Desktop/{project_name}-data-clumps/{project_commit}.json \
   --path_to_project /Users/nilsbaumgartner/Documents/GitHub/rocket-meals
 ```
