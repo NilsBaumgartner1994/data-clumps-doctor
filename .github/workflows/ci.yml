@@ -25,9 +25,9 @@ jobs:
         with:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
       - name: "🎨 Prettier"
-        run: yarn format
+        run: cd analyse && yarn format
       - name: "✨ ESLint"
-        run: yarn lint
+        run: cd analyse && yarn lint
       - name: "📤 Commit linting changes"
         run: |
           git config user.name "github-actions"

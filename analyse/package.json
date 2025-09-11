@@ -17,8 +17,8 @@
     "_uploadWithoutPatch": "npm run _prepareUpload && npm run _uploadBuild && npm run clean",
     "upload": "npm version patch && npm run _uploadWithoutPatch",
     "clean": "rimraf ./build && gts clean",
-    "lint": "gts lint",
-    "fix": "gts fix",
+    "format": "prettier . --write",
+    "lint": "eslint . --ext .js,.ts,.tsx --fix",
     "setup": "npm install && node setup.js && rimraf setup.js setup.json"
   },
   "bin": {
