@@ -49,13 +49,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22.16.0"
-        - name: "🩺 Run data-clumps-doctor"
-          uses: ./.github/actions/analyse-data-clumps
-          with:
-            path-to-source: .
-            output-path: reports/data-clumps-doctor/data-clumps.json
-            badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
-            source-language-type: typescript
+      - name: "🩺 Run data-clumps-doctor"
+        uses: ./.github/actions/analyse-data-clumps
+        with:
+          path-to-source: .
+          output-path: reports/data-clumps-doctor/data-clumps.json
+          badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
+          source-language-type: typescript
       - name: "💾 Commit reports"
         run: |
           git config user.name "github-actions"
