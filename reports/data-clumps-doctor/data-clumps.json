@@ -1,0 +1,1444 @@
+{
+  "report_version": "^0.1.102",
+  "report_timestamp": "2025-09-11T19:12:17.047Z",
+  "target_language": "typescript",
+  "report_summary": {
+    "additional": {
+      "invertedIndexSoftwareProjectStatistics": {
+        "invertedFieldToClasses": {
+          "median": 1,
+          "maximum": 6,
+          "average": 1.216867469879518,
+          "amountSavedValuesForKeys": 101,
+          "amountKeys": 5
+        },
+        "invertedParameterToMethods": {
+          "median": 1,
+          "maximum": 14,
+          "average": 1.7741935483870968,
+          "amountSavedValuesForKeys": 275,
+          "amountKeys": 9
+        },
+        "invertedParameterToClasses": {
+          "median": 1.5,
+          "maximum": 6,
+          "average": 1.2317073170731707,
+          "amountSavedValuesForKeys": 101,
+          "amountKeys": 5
+        }
+      },
+      "timer_information": {
+        "ast_generation_time_ms": 786,
+        "detection_time_ms": 10,
+        "machine_information": {
+          "os": "Linux",
+          "os_release": "6.11.0-1018-azure",
+          "os_platform": "linux",
+          "os_arch": "x64",
+          "os_uptime": 1579.49,
+          "os_memory_free": 15636033536,
+          "os_memory_total": 16772579328,
+          "os_cpu_cores": 4,
+          "os_cpu_model": "AMD EPYC 7763 64-Core Processor",
+          "os_cpu_speed": 0
+        }
+      }
+    },
+    "amount_classes_or_interfaces_with_data_clumps": 6,
+    "amount_files_with_data_clumps": 6,
+    "amount_methods_with_data_clumps": 4,
+    "fields_to_fields_data_clump": 8,
+    "parameters_to_fields_data_clump": 0,
+    "parameters_to_parameters_data_clump": 12,
+    "amount_data_clumps": 20
+  },
+  "project_info": {
+    "project_url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
+    "project_name": "data-clumps-doctor",
+    "project_version": "5ea40883598be196e5db53cb5431f6bbd52f3181",
+    "project_commit_hash": "5ea40883598be196e5db53cb5431f6bbd52f3181",
+    "project_tag": null,
+    "project_commit_date": "1757617844",
+    "additional": {},
+    "number_of_files": 21,
+    "number_of_classes_or_interfaces": 33,
+    "number_of_methods": 195,
+    "number_of_data_fields": 101,
+    "number_of_method_parameters": 275
+  },
+  "detector": {
+    "name": "data-clumps-doctor",
+    "url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
+    "version": "0.1.101",
+    "options": {
+      "fastDetection": true,
+      "ignorePaths": [],
+      "similarityModifierOfVariablesWithUnknownType": 0,
+      "fieldsOfClassesWithUnknownHierarchyProbabilityModifier": 0,
+      "sharedFieldsToFieldsAmountMinimum": 3,
+      "analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces": false,
+      "sharedParametersToParametersAmountMinimum": 3,
+      "sharedParametersToFieldsAmountMinimum": 3,
+      "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "ignoredVariableNames": []
+    }
+  },
+  "data_clumps": {
+    "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface-idclassOrInterfacemapDtmiIdToRawJson": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface-idclassOrInterfacemapDtmiIdToRawJson",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "from_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_method_name": "setExtendsFromInterface",
+      "from_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface",
+      "to_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "to_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_method_name": "setImplementsFromInterface",
+      "to_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/id": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/id",
+          "name": "id",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/id",
+            "name": "id",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/classOrInterface": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/classOrInterface",
+          "name": "classOrInterface",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/classOrInterface",
+            "name": "classOrInterface",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/mapDtmiIdToRawJson": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/mapDtmiIdToRawJson",
+          "name": "mapDtmiIdToRawJson",
+          "type": "Map<string, any>",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/mapDtmiIdToRawJson",
+            "name": "mapDtmiIdToRawJson",
+            "type": "Map<string, any>",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation-idclassOrInterfacemapDtmiIdToRawJson": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation-idclassOrInterfacemapDtmiIdToRawJson",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "from_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_method_name": "setExtendsFromInterface",
+      "from_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface",
+      "to_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "to_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_method_name": "setMethodsFromOperation",
+      "to_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/id": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/id",
+          "name": "id",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/id",
+            "name": "id",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/classOrInterface": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/classOrInterface",
+          "name": "classOrInterface",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/classOrInterface",
+            "name": "classOrInterface",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/mapDtmiIdToRawJson": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/mapDtmiIdToRawJson",
+          "name": "mapDtmiIdToRawJson",
+          "type": "Map<string, any>",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/mapDtmiIdToRawJson",
+            "name": "mapDtmiIdToRawJson",
+            "type": "Map<string, any>",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty-idclassOrInterfacemapDtmiIdToRawJson": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty-idclassOrInterfacemapDtmiIdToRawJson",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "from_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_method_name": "setExtendsFromInterface",
+      "from_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface",
+      "to_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "to_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_method_name": "setFieldsFromProperty",
+      "to_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/id": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/id",
+          "name": "id",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/id",
+            "name": "id",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/classOrInterface": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/classOrInterface",
+          "name": "classOrInterface",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/classOrInterface",
+            "name": "classOrInterface",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/mapDtmiIdToRawJson": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/mapDtmiIdToRawJson",
+          "name": "mapDtmiIdToRawJson",
+          "type": "Map<string, any>",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/mapDtmiIdToRawJson",
+            "name": "mapDtmiIdToRawJson",
+            "type": "Map<string, any>",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface-idclassOrInterfacemapDtmiIdToRawJson": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface-idclassOrInterfacemapDtmiIdToRawJson",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "from_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_method_name": "setImplementsFromInterface",
+      "from_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface",
+      "to_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "to_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_method_name": "setExtendsFromInterface",
+      "to_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/id": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/id",
+          "name": "id",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/id",
+            "name": "id",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/classOrInterface": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/classOrInterface",
+          "name": "classOrInterface",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/classOrInterface",
+            "name": "classOrInterface",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/mapDtmiIdToRawJson": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/mapDtmiIdToRawJson",
+          "name": "mapDtmiIdToRawJson",
+          "type": "Map<string, any>",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/mapDtmiIdToRawJson",
+            "name": "mapDtmiIdToRawJson",
+            "type": "Map<string, any>",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation-idclassOrInterfacemapDtmiIdToRawJson": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation-idclassOrInterfacemapDtmiIdToRawJson",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "from_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_method_name": "setImplementsFromInterface",
+      "from_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface",
+      "to_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "to_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_method_name": "setMethodsFromOperation",
+      "to_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/id": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/id",
+          "name": "id",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/id",
+            "name": "id",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/classOrInterface": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/classOrInterface",
+          "name": "classOrInterface",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/classOrInterface",
+            "name": "classOrInterface",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/mapDtmiIdToRawJson": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/mapDtmiIdToRawJson",
+          "name": "mapDtmiIdToRawJson",
+          "type": "Map<string, any>",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/mapDtmiIdToRawJson",
+            "name": "mapDtmiIdToRawJson",
+            "type": "Map<string, any>",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty-idclassOrInterfacemapDtmiIdToRawJson": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty-idclassOrInterfacemapDtmiIdToRawJson",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "from_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_method_name": "setImplementsFromInterface",
+      "from_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface",
+      "to_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "to_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_method_name": "setFieldsFromProperty",
+      "to_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/id": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/id",
+          "name": "id",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/id",
+            "name": "id",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/classOrInterface": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/classOrInterface",
+          "name": "classOrInterface",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/classOrInterface",
+            "name": "classOrInterface",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/mapDtmiIdToRawJson": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/mapDtmiIdToRawJson",
+          "name": "mapDtmiIdToRawJson",
+          "type": "Map<string, any>",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/mapDtmiIdToRawJson",
+            "name": "mapDtmiIdToRawJson",
+            "type": "Map<string, any>",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface-idclassOrInterfacemapDtmiIdToRawJson": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface-idclassOrInterfacemapDtmiIdToRawJson",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "from_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_method_name": "setMethodsFromOperation",
+      "from_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation",
+      "to_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "to_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_method_name": "setExtendsFromInterface",
+      "to_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/id": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/id",
+          "name": "id",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/id",
+            "name": "id",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/classOrInterface": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/classOrInterface",
+          "name": "classOrInterface",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/classOrInterface",
+            "name": "classOrInterface",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/mapDtmiIdToRawJson": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/mapDtmiIdToRawJson",
+          "name": "mapDtmiIdToRawJson",
+          "type": "Map<string, any>",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/mapDtmiIdToRawJson",
+            "name": "mapDtmiIdToRawJson",
+            "type": "Map<string, any>",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface-idclassOrInterfacemapDtmiIdToRawJson": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface-idclassOrInterfacemapDtmiIdToRawJson",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "from_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_method_name": "setMethodsFromOperation",
+      "from_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation",
+      "to_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "to_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_method_name": "setImplementsFromInterface",
+      "to_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/id": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/id",
+          "name": "id",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/id",
+            "name": "id",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/classOrInterface": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/classOrInterface",
+          "name": "classOrInterface",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/classOrInterface",
+            "name": "classOrInterface",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/mapDtmiIdToRawJson": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/mapDtmiIdToRawJson",
+          "name": "mapDtmiIdToRawJson",
+          "type": "Map<string, any>",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/mapDtmiIdToRawJson",
+            "name": "mapDtmiIdToRawJson",
+            "type": "Map<string, any>",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty-idclassOrInterfacemapDtmiIdToRawJson": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty-idclassOrInterfacemapDtmiIdToRawJson",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "from_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_method_name": "setMethodsFromOperation",
+      "from_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation",
+      "to_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "to_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_method_name": "setFieldsFromProperty",
+      "to_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/id": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/id",
+          "name": "id",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/id",
+            "name": "id",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/classOrInterface": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/classOrInterface",
+          "name": "classOrInterface",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/classOrInterface",
+            "name": "classOrInterface",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/mapDtmiIdToRawJson": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/mapDtmiIdToRawJson",
+          "name": "mapDtmiIdToRawJson",
+          "type": "Map<string, any>",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/mapDtmiIdToRawJson",
+            "name": "mapDtmiIdToRawJson",
+            "type": "Map<string, any>",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface-idclassOrInterfacemapDtmiIdToRawJson": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface-idclassOrInterfacemapDtmiIdToRawJson",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "from_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_method_name": "setFieldsFromProperty",
+      "from_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty",
+      "to_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "to_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_method_name": "setExtendsFromInterface",
+      "to_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/id": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/id",
+          "name": "id",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/id",
+            "name": "id",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/classOrInterface": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/classOrInterface",
+          "name": "classOrInterface",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/classOrInterface",
+            "name": "classOrInterface",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/mapDtmiIdToRawJson": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/mapDtmiIdToRawJson",
+          "name": "mapDtmiIdToRawJson",
+          "type": "Map<string, any>",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setExtendsFromInterface/parameter/mapDtmiIdToRawJson",
+            "name": "mapDtmiIdToRawJson",
+            "type": "Map<string, any>",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface-idclassOrInterfacemapDtmiIdToRawJson": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface-idclassOrInterfacemapDtmiIdToRawJson",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "from_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_method_name": "setFieldsFromProperty",
+      "from_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty",
+      "to_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "to_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_method_name": "setImplementsFromInterface",
+      "to_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/id": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/id",
+          "name": "id",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/id",
+            "name": "id",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/classOrInterface": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/classOrInterface",
+          "name": "classOrInterface",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/classOrInterface",
+            "name": "classOrInterface",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/mapDtmiIdToRawJson": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/mapDtmiIdToRawJson",
+          "name": "mapDtmiIdToRawJson",
+          "type": "Map<string, any>",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setImplementsFromInterface/parameter/mapDtmiIdToRawJson",
+            "name": "mapDtmiIdToRawJson",
+            "type": "Map<string, any>",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation-idclassOrInterfacemapDtmiIdToRawJson": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty-analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation-idclassOrInterfacemapDtmiIdToRawJson",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "from_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "from_method_name": "setFieldsFromProperty",
+      "from_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty",
+      "to_file_path": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts",
+      "to_class_or_interface_name": "ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser",
+      "to_method_name": "setMethodsFromOperation",
+      "to_method_key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/id": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/id",
+          "name": "id",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/id",
+            "name": "id",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/classOrInterface": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/classOrInterface",
+          "name": "classOrInterface",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/classOrInterface",
+            "name": "classOrInterface",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/ParsedAstTypes\").ClassOrInterfaceTypeContext",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/mapDtmiIdToRawJson": {
+          "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setFieldsFromProperty/parameter/mapDtmiIdToRawJson",
+          "name": "mapDtmiIdToRawJson",
+          "type": "Map<string, any>",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/parsers/helper/ParserHelperDigitalTwinsDefinitionLanguageFileParser.ts/class/ParserHelperDigitalTwinsDefinitionLanguageFileParser/method/setMethodsFromOperation/parameter/mapDtmiIdToRawJson",
+            "name": "mapDtmiIdToRawJson",
+            "type": "Map<string, any>",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "fields_to_fields_data_clump-analyse/src/ignoreCoverage/Analyzer.ts-analyse/src/ignoreCoverage/Analyzer.ts/class/Analyzer-analyse/src/ignoreCoverage/detector/Detector.ts/class/Detector-project_urlproject_nametimer": {
+      "type": "data_clump",
+      "key": "fields_to_fields_data_clump-analyse/src/ignoreCoverage/Analyzer.ts-analyse/src/ignoreCoverage/Analyzer.ts/class/Analyzer-analyse/src/ignoreCoverage/detector/Detector.ts/class/Detector-project_urlproject_nametimer",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/Analyzer.ts",
+      "from_class_or_interface_name": "Analyzer",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/Analyzer.ts/class/Analyzer",
+      "from_method_name": null,
+      "from_method_key": null,
+      "to_file_path": "analyse/src/ignoreCoverage/detector/Detector.ts",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/detector/Detector.ts/class/Detector",
+      "to_class_or_interface_name": "Analyzer",
+      "to_method_key": null,
+      "to_method_name": null,
+      "data_clump_type": "fields_to_fields_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/Analyzer.ts/class/Analyzer/memberField/project_url": {
+          "key": "analyse/src/ignoreCoverage/Analyzer.ts/class/Analyzer/memberField/project_url",
+          "name": "project_url",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/Detector.ts/class/Detector/memberField/project_url",
+            "name": "project_url",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/Analyzer.ts/class/Analyzer/memberField/project_name": {
+          "key": "analyse/src/ignoreCoverage/Analyzer.ts/class/Analyzer/memberField/project_name",
+          "name": "project_name",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/Detector.ts/class/Detector/memberField/project_name",
+            "name": "project_name",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/Analyzer.ts/class/Analyzer/memberField/timer": {
+          "key": "analyse/src/ignoreCoverage/Analyzer.ts/class/Analyzer/memberField/timer",
+          "name": "timer",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/Timer\").Timer",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/Detector.ts/class/Detector/memberField/timer",
+            "name": "timer",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/Timer\").Timer",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "fields_to_fields_data_clump-analyse/src/ignoreCoverage/detector/Detector.ts-analyse/src/ignoreCoverage/detector/Detector.ts/class/Detector-analyse/src/ignoreCoverage/Analyzer.ts/class/Analyzer-timerproject_urlproject_name": {
+      "type": "data_clump",
+      "key": "fields_to_fields_data_clump-analyse/src/ignoreCoverage/detector/Detector.ts-analyse/src/ignoreCoverage/detector/Detector.ts/class/Detector-analyse/src/ignoreCoverage/Analyzer.ts/class/Analyzer-timerproject_urlproject_name",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/detector/Detector.ts",
+      "from_class_or_interface_name": "Detector",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/detector/Detector.ts/class/Detector",
+      "from_method_name": null,
+      "from_method_key": null,
+      "to_file_path": "analyse/src/ignoreCoverage/Analyzer.ts",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/Analyzer.ts/class/Analyzer",
+      "to_class_or_interface_name": "Detector",
+      "to_method_key": null,
+      "to_method_name": null,
+      "data_clump_type": "fields_to_fields_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/detector/Detector.ts/class/Detector/memberField/timer": {
+          "key": "analyse/src/ignoreCoverage/detector/Detector.ts/class/Detector/memberField/timer",
+          "name": "timer",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/Timer\").Timer",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/Analyzer.ts/class/Analyzer/memberField/timer",
+            "name": "timer",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/Timer\").Timer",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/detector/Detector.ts/class/Detector/memberField/project_url": {
+          "key": "analyse/src/ignoreCoverage/detector/Detector.ts/class/Detector/memberField/project_url",
+          "name": "project_url",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/Analyzer.ts/class/Analyzer/memberField/project_url",
+            "name": "project_url",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/detector/Detector.ts/class/Detector/memberField/project_name": {
+          "key": "analyse/src/ignoreCoverage/detector/Detector.ts/class/Detector/memberField/project_name",
+          "name": "project_name",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/Analyzer.ts/class/Analyzer/memberField/project_name",
+            "name": "project_name",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "fields_to_fields_data_clump-analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts-analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields-TYPEoptionsprogressCallback": {
+      "type": "data_clump",
+      "key": "fields_to_fields_data_clump-analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts-analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields-TYPEoptionsprogressCallback",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts",
+      "from_class_or_interface_name": "DetectorDataClumpsFields",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields",
+      "from_method_name": null,
+      "from_method_key": null,
+      "to_file_path": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields",
+      "to_class_or_interface_name": "DetectorDataClumpsFields",
+      "to_method_key": null,
+      "to_method_name": null,
+      "data_clump_type": "fields_to_fields_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/TYPE": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/TYPE",
+          "name": "TYPE",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/TYPE",
+            "name": "TYPE",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/options": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/options",
+          "name": "options",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/detector/Detector\").DetectorOptions",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/options",
+            "name": "options",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/detector/Detector\").DetectorOptions",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/progressCallback": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/progressCallback",
+          "name": "progressCallback",
+          "type": "any",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/progressCallback",
+            "name": "progressCallback",
+            "type": "any",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "fields_to_fields_data_clump-analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts-analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods-TYPEoptionsprogressCallback": {
+      "type": "data_clump",
+      "key": "fields_to_fields_data_clump-analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts-analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods-TYPEoptionsprogressCallback",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts",
+      "from_class_or_interface_name": "DetectorDataClumpsFields",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields",
+      "from_method_name": null,
+      "from_method_key": null,
+      "to_file_path": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods",
+      "to_class_or_interface_name": "DetectorDataClumpsFields",
+      "to_method_key": null,
+      "to_method_name": null,
+      "data_clump_type": "fields_to_fields_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/TYPE": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/TYPE",
+          "name": "TYPE",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/TYPE",
+            "name": "TYPE",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/options": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/options",
+          "name": "options",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/detector/Detector\").DetectorOptions",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/options",
+            "name": "options",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/detector/Detector\").DetectorOptions",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/progressCallback": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/progressCallback",
+          "name": "progressCallback",
+          "type": "any",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/progressCallback",
+            "name": "progressCallback",
+            "type": "any",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "fields_to_fields_data_clump-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields-analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields-TYPEoptionsprogressCallback": {
+      "type": "data_clump",
+      "key": "fields_to_fields_data_clump-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields-analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields-TYPEoptionsprogressCallback",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts",
+      "from_class_or_interface_name": "DetectorDataClumpsMethodsToOtherFields",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields",
+      "from_method_name": null,
+      "from_method_key": null,
+      "to_file_path": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields",
+      "to_class_or_interface_name": "DetectorDataClumpsMethodsToOtherFields",
+      "to_method_key": null,
+      "to_method_name": null,
+      "data_clump_type": "fields_to_fields_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/TYPE": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/TYPE",
+          "name": "TYPE",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/TYPE",
+            "name": "TYPE",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/options": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/options",
+          "name": "options",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/detector/Detector\").DetectorOptions",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/options",
+            "name": "options",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/detector/Detector\").DetectorOptions",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/progressCallback": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/progressCallback",
+          "name": "progressCallback",
+          "type": "any",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/progressCallback",
+            "name": "progressCallback",
+            "type": "any",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "fields_to_fields_data_clump-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods-TYPEoptionsprogressCallback": {
+      "type": "data_clump",
+      "key": "fields_to_fields_data_clump-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods-TYPEoptionsprogressCallback",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts",
+      "from_class_or_interface_name": "DetectorDataClumpsMethodsToOtherFields",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields",
+      "from_method_name": null,
+      "from_method_key": null,
+      "to_file_path": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods",
+      "to_class_or_interface_name": "DetectorDataClumpsMethodsToOtherFields",
+      "to_method_key": null,
+      "to_method_name": null,
+      "data_clump_type": "fields_to_fields_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/TYPE": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/TYPE",
+          "name": "TYPE",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/TYPE",
+            "name": "TYPE",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/options": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/options",
+          "name": "options",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/detector/Detector\").DetectorOptions",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/options",
+            "name": "options",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/detector/Detector\").DetectorOptions",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/progressCallback": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/progressCallback",
+          "name": "progressCallback",
+          "type": "any",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/progressCallback",
+            "name": "progressCallback",
+            "type": "any",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "fields_to_fields_data_clump-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods-analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields-TYPEoptionsprogressCallback": {
+      "type": "data_clump",
+      "key": "fields_to_fields_data_clump-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods-analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields-TYPEoptionsprogressCallback",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts",
+      "from_class_or_interface_name": "DetectorDataClumpsMethodsToOtherMethods",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods",
+      "from_method_name": null,
+      "from_method_key": null,
+      "to_file_path": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields",
+      "to_class_or_interface_name": "DetectorDataClumpsMethodsToOtherMethods",
+      "to_method_key": null,
+      "to_method_name": null,
+      "data_clump_type": "fields_to_fields_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/TYPE": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/TYPE",
+          "name": "TYPE",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/TYPE",
+            "name": "TYPE",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/options": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/options",
+          "name": "options",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/detector/Detector\").DetectorOptions",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/options",
+            "name": "options",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/detector/Detector\").DetectorOptions",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/progressCallback": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/progressCallback",
+          "name": "progressCallback",
+          "type": "any",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsFields.ts/class/DetectorDataClumpsFields/memberField/progressCallback",
+            "name": "progressCallback",
+            "type": "any",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "fields_to_fields_data_clump-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields-TYPEoptionsprogressCallback": {
+      "type": "data_clump",
+      "key": "fields_to_fields_data_clump-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods-analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields-TYPEoptionsprogressCallback",
+      "probability": 1,
+      "from_file_path": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts",
+      "from_class_or_interface_name": "DetectorDataClumpsMethodsToOtherMethods",
+      "from_class_or_interface_key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods",
+      "from_method_name": null,
+      "from_method_key": null,
+      "to_file_path": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts",
+      "to_class_or_interface_key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields",
+      "to_class_or_interface_name": "DetectorDataClumpsMethodsToOtherMethods",
+      "to_method_key": null,
+      "to_method_name": null,
+      "data_clump_type": "fields_to_fields_data_clump",
+      "data_clump_data": {
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/TYPE": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/TYPE",
+          "name": "TYPE",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/TYPE",
+            "name": "TYPE",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/options": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/options",
+          "name": "options",
+          "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/detector/Detector\").DetectorOptions",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/options",
+            "name": "options",
+            "type": "import(\"/home/runner/work/data-clumps-doctor/data-clumps-doctor/analyse/src/ignoreCoverage/detector/Detector\").DetectorOptions",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/progressCallback": {
+          "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherMethods.ts/class/DetectorDataClumpsMethodsToOtherMethods/memberField/progressCallback",
+          "name": "progressCallback",
+          "type": "any",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "analyse/src/ignoreCoverage/detector/DetectorDataClumpsMethodsToOtherFields.ts/class/DetectorDataClumpsMethodsToOtherFields/memberField/progressCallback",
+            "name": "progressCallback",
+            "type": "any",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    }
+  }
+}
