@@ -94,6 +94,8 @@ function generateLogDeltaChartPython(projectToAmountDataClumps: Record<string, n
             "        fontsize=8, color=\"black\"\n" +
             "    )";
 
+    }
+
     let showGuideLinesForProjects = true;
     if (showGuideLinesForProjects) {
         fileContent += "# Nach dem Zeichnen der Balken\n" +
