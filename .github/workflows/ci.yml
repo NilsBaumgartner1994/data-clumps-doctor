@@ -38,7 +38,6 @@ jobs:
     name: "🩺 Analyse Data Clumps"
     runs-on: ubuntu-latest
     needs: [lint]
-    if: ${{ needs.check-repository.outputs.is-upstream == 'true' }}
     steps:
       - name: "🔄 Checkout Repository"
         uses: actions/checkout@v4
@@ -99,7 +98,6 @@ jobs:
     name: "📤 Push Changes"
     runs-on: ubuntu-latest
     needs: [data-clumps-report]
-    if: ${{ needs.check-repository.outputs.is-upstream == 'true' }}
     steps:
       - name: "🔄 Checkout Repository"
         uses: actions/checkout@v4
