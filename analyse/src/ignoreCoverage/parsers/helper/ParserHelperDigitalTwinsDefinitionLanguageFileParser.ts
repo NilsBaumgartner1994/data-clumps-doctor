@@ -3,6 +3,12 @@ import fs from 'fs/promises';
 import path from 'path';
 import { AstPosition, ClassOrInterfaceTypeContext, MemberFieldParameterTypeContext, MethodParameterTypeContext, MethodTypeContext } from '../../ParsedAstTypes';
 
+interface DtdlParseContext {
+  id: string;
+  classOrInterface: ClassOrInterfaceTypeContext;
+  mapDtmiIdToRawJson: Map<string, any>;
+}
+
 export class ParserHelperDigitalTwinsDefinitionLanguageFileParser {
   constructor() {}
 
@@ -334,10 +340,11 @@ export class ParserHelperDigitalTwinsDefinitionLanguageFileParser {
       const classOrInterface = new ClassOrInterfaceTypeContext(id, displayName, 'interface', usedFilePath);
 
       // jetzt die Inhalte verarbeiten (analog zum Azure-Parser)
-      this.setFieldsFromProperty(id, classOrInterface, mapDtmiIdToRawJson);
-      this.setMethodsFromOperation(id, classOrInterface, mapDtmiIdToRawJson);
-      this.setExtendsFromInterface(id, classOrInterface, mapDtmiIdToRawJson);
-      this.setImplementsFromInterface(id, classOrInterface, mapDtmiIdToRawJson);
+      const context: DtdlParseContext = { id, classOrInterface, mapDtmiIdToRawJson };
+      this.setFieldsFromProperty(context);
+      this.setMethodsFromOperation(context);
+      this.setExtendsFromInterface(context);
+      this.setImplementsFromInterface(context);
 
       dictOfClassesOrInterfaces.set(id, classOrInterface);
     }
@@ -422,10 +429,11 @@ export class ParserHelperDigitalTwinsDefinitionLanguageFileParser {
 
       const classOrInterface = new ClassOrInterfaceTypeContext(id, displayName, type, usedFilePath);
 
-      this.setFieldsFromProperty(id, classOrInterface, mapDtmiIdToRawJson);
-      this.setMethodsFromOperation(id, classOrInterface, mapDtmiIdToRawJson);
-      this.setExtendsFromInterface(id, classOrInterface, mapDtmiIdToRawJson);
-      this.setImplementsFromInterface(id, classOrInterface, mapDtmiIdToRawJson);
+      const context: DtdlParseContext = { id, classOrInterface, mapDtmiIdToRawJson };
+      this.setFieldsFromProperty(context);
+      this.setMethodsFromOperation(context);
+      this.setExtendsFromInterface(context);
+      this.setImplementsFromInterface(context);
 
       dictOfClassesOrInterfaces.set(id, classOrInterface);
       //console.log("---");
@@ -437,7 +445,8 @@ export class ParserHelperDigitalTwinsDefinitionLanguageFileParser {
     return dictOfClassesOrInterfaces;
   }
 
-  private setExtendsFromInterface(id: string, classOrInterface: ClassOrInterfaceTypeContext, mapDtmiIdToRawJson: Map<string, any>) {
+  private setExtendsFromInterface(context: DtdlParseContext) {
+    const { id, classOrInterface, mapDtmiIdToRawJson } = context;
     const raw = mapDtmiIdToRawJson.get(id);
     if (raw.extends) {
       if (Array.isArray(raw.extends)) {
@@ -458,7 +467,8 @@ export class ParserHelperDigitalTwinsDefinitionLanguageFileParser {
     return ['definedBy', 'specifiedBy'];
   }
 
-  private setImplementsFromInterface(id: string, classOrInterface: ClassOrInterfaceTypeContext, mapDtmiIdToRawJson: Map<string, any>) {
+  private setImplementsFromInterface(context: DtdlParseContext) {
+    const { id, classOrInterface, mapDtmiIdToRawJson } = context;
     // DTDL hat kein "implements", sondern "extends" für Interfaces
     // Diese Methode ist hier nur der Vollständigkeit halber
     // Wir schauen uns aber die "definedBy" Relationships an, die oft wie "implements" wirken
@@ -483,7 +493,8 @@ export class ParserHelperDigitalTwinsDefinitionLanguageFileParser {
     }
   }
 
-  private setMethodsFromOperation(id: string, classOrInterface: ClassOrInterfaceTypeContext, mapDtmiIdToRawJson: Map<string, any>) {
+  private setMethodsFromOperation(context: DtdlParseContext) {
+    const { id, classOrInterface, mapDtmiIdToRawJson } = context;
     const raw = mapDtmiIdToRawJson.get(id);
     const contentsFromRaw = raw?.contents || [];
 
@@ -567,7 +578,8 @@ export class ParserHelperDigitalTwinsDefinitionLanguageFileParser {
     }
   }
 
-  private setFieldsFromProperty(id: string, classOrInterface: ClassOrInterfaceTypeContext, mapDtmiIdToRawJson: Map<string, any>) {
+  private setFieldsFromProperty(context: DtdlParseContext) {
+    const { id, classOrInterface, mapDtmiIdToRawJson } = context;
     //console.log(`Interface ${interfaceInfo.id}`);
     /**
      * Das Problem ist, dass @azure/dtdl-parser gibt dir bei InterfaceInfo.contents immer alle Contents, also auch die geerbten aus extends
