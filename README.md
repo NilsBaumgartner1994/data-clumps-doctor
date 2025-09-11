@@ -27,6 +27,22 @@ We're excited to share our public [Data-Clumps Dataset](https://github.com/NilsB
 
 In our endeavor to ensure precision and standardization in reporting data clumps, we utilize the following specification: [Data-Clumps-Type-Context](https://github.com/FireboltCasters/data-clumps-type-context/).
 
+## GitHub Action
+
+Run the analysis in any repository via our reusable action:
+
+```yaml
+- name: Analyse data clumps
+  uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@main
+  with:
+    path-to-source: .
+    output-path: reports/data-clumps-doctor/data-clumps.json
+    badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
+    source-language-type: typescript
+```
+
+The `output-path` and `badge-output-path` are optional and can be customised to suit your project's layout.
+
 ## Requirements
 
 - The project to be analyzed can not have [Wildcard imports](https://stackoverflow.com/questions/147454/why-is-using-a-wild-card-with-a-java-import-statement-bad)
