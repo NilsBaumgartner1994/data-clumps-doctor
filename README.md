@@ -2,6 +2,11 @@
 Data-Clumps-Doctor
 </h1>
 
+[![🚀 CI](https://github.com/NilsBaumgartner1994/data-clumps-doctor/actions/workflows/ci.yml/badge.svg)](https://github.com/NilsBaumgartner1994/data-clumps-doctor/actions/workflows/ci.yml)
+[![Data Clumps](https://raw.githubusercontent.com/NilsBaumgartner1994/data-clumps-doctor/refs/heads/master/reports/data-clumps-doctor/badges/data-clumps.svg)](https://github.com/NilsBaumgartner1994/data-clumps-doctor)
+
+
+
 <p align="center">
     <img src="https://github.com/NilsBaumgartner1994/data-clumps-doctor/raw/master/assets/logo-animation.gif" alt="https://lottiefiles.com/animations/data-scanning-9P3AsKKZ59" style="height:200px;"/>
 </p>
