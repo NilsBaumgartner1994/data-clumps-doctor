@@ -34,7 +34,8 @@
 - Add new Secret to Git-Repo: GH_PERSONAL_ACCESS_TOKEN
   - Select scopes: `repo`
   - https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token
-- from Tutorial: https://aboutbits.it/blog/2021-03-11-using-github-actions-to-perfom-npm-version-increment
+- from Tutorial:
+  https://aboutbits.it/blog/2021-03-11-using-github-actions-to-perfom-npm-version-increment
 
 ### Lint Action
 

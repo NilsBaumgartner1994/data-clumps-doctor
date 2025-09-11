@@ -1,52 +1,54 @@
 {
-  "name" : "Hero",
-  "key" : "com.example.Hero",
-  "type" : "class",
-  "position" : {
-    "startLine" : 5,
-    "startColumn" : 1,
-    "endLine" : 5,
-    "endColumn" : 6
+  "name": "Hero",
+  "key": "com.example.Hero",
+  "type": "class",
+  "position": {
+    "startLine": 5,
+    "startColumn": 1,
+    "endLine": 5,
+    "endColumn": 6
   },
-  "modifiers" : [ ],
-  "fields" : { },
-  "methods" : {
-    "lookupRemoveItem" : {
-      "name" : "lookupRemoveItem",
-      "key" : "com.example.Hero/method/lookupRemoveItem",
-      "type" : "void",
-      "position" : {
-        "startLine" : 7,
-        "startColumn" : 18,
-        "endLine" : 7,
-        "endColumn" : 34
+  "modifiers": [],
+  "fields": {},
+  "methods": {
+    "lookupRemoveItem": {
+      "name": "lookupRemoveItem",
+      "key": "com.example.Hero/method/lookupRemoveItem",
+      "type": "void",
+      "position": {
+        "startLine": 7,
+        "startColumn": 18,
+        "endLine": 7,
+        "endColumn": 34
       },
-      "modifiers" : [ "PRIVATE" ],
-      "overrideAnnotation" : false,
-      "returnType" : null,
-      "parameters" : [ {
-        "name" : "item",
-        "key" : "item",
-        "type" : "java.util.List",
-        "position" : {
-          "startLine" : 7,
-          "startColumn" : 43,
-          "endLine" : 7,
-          "endColumn" : 47
-        },
-        "modifiers" : [ ],
-        "ignore" : false,
-        "methodKey" : "com.example.Hero/method/lookupRemoveItem"
-      } ],
-      "classOrInterfaceKey" : "com.example.Hero"
+      "modifiers": ["PRIVATE"],
+      "overrideAnnotation": false,
+      "returnType": null,
+      "parameters": [
+        {
+          "name": "item",
+          "key": "item",
+          "type": "java.util.List",
+          "position": {
+            "startLine": 7,
+            "startColumn": 43,
+            "endLine": 7,
+            "endColumn": 47
+          },
+          "modifiers": [],
+          "ignore": false,
+          "methodKey": "com.example.Hero/method/lookupRemoveItem"
+        }
+      ],
+      "classOrInterfaceKey": "com.example.Hero"
     }
   },
-  "file_path" : "Hero.java",
-  "anonymous" : false,
-  "auxclass" : false,
-  "implements_" : [ ],
-  "extends_" : [ ],
-  "definedInClassOrInterfaceTypeKey" : null,
-  "innerDefinedClasses" : { },
-  "innerDefinedInterfaces" : { }
+  "file_path": "Hero.java",
+  "anonymous": false,
+  "auxclass": false,
+  "implements_": [],
+  "extends_": [],
+  "definedInClassOrInterfaceTypeKey": null,
+  "innerDefinedClasses": {},
+  "innerDefinedInterfaces": {}
 }
