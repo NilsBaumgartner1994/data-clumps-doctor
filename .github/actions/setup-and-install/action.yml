@@ -1,0 +1,46 @@
+name: Setup and Install
+description: Gemeinsamer Setup-Schritt für Frontend-Projekte
+
+inputs:
+  EXPO_TOKEN:
+    required: true
+    description: Expo Access Token (für EAS CLI Login)
+
+runs:
+  using: "composite"
+  steps:
+    - name: 🔄 Checkout repository
+      uses: actions/checkout@v4
+
+    - name: ⚙️ Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22.16.0'
+        registry-url: 'https://registry.npmjs.org'
+
+    - name: ⚙️ Enable Corepack for Yarn v2
+      run: corepack enable
+      shell: bash
+
+    - name: 📦 Get Yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - name: 📦 Cache Yarn dependencies
+      uses: actions/cache@v4
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    - name: ⚙️ Setup EAS CLI
+      uses: expo/expo-github-action@v8
+      with:
+        eas-version: latest
+        token: ${{ inputs.EXPO_TOKEN }}
+
+    - name: 📦 Install dependencies
+      run: cd analyse && yarn install --immutable
+      shell: bash

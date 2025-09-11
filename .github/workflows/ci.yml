@@ -1,0 +1,115 @@
+name: "🚀 CI"
+
+on:
+  push:
+    branches: [main, master, dev]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  lint:
+    name: "🎨 Prettier & ESLint"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "🔄 Checkout Repository"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: "🧰 Setup Node.js, Yarn & Dependencies"
+        uses: ./.github/actions/setup-and-install
+        with:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      - name: "🎨 Prettier"
+        run: yarn format
+      - name: "✨ ESLint"
+        run: yarn lint
+      - name: "📤 Commit linting changes"
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git diff --quiet || (git add -A && git commit -m "chore: apply lint fixes [skip ci]" && git push)
+
+  data-clumps-report:
+    name: "🩺 Analyse Data Clumps"
+    runs-on: ubuntu-latest
+    needs: [lint]
+    if: ${{ needs.check-repository.outputs.is-upstream == 'true' }}
+    steps:
+      - name: "🔄 Checkout Repository"
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: "⚙️ Setup Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.16.0"
+      - name: "🩺 Run data-clumps-doctor"
+        uses: ./.github/actions/analyse-data-clumps
+      - name: "📁 Prepare badge directory"
+        run: mkdir -p reports/data-clumps-doctor/badges
+      - name: "📊 Extract data clumps count"
+        id: data-clumps-count
+        run: echo "count=$(jq '.report_summary.amount_data_clumps' reports/data-clumps-doctor/data-clumps.json)" >> "$GITHUB_OUTPUT"
+      - name: "🎨 Determine badge color"
+        id: badge-color
+        run: |
+          count=${{ steps.data-clumps-count.outputs.count }}
+          if [ "$count" -le 10 ]; then
+            echo "color=08A008" >> "$GITHUB_OUTPUT"
+          elif [ "$count" -le 100 ]; then
+            echo "color=FE7D37" >> "$GITHUB_OUTPUT"
+          else
+            echo "color=F85149" >> "$GITHUB_OUTPUT"
+          fi
+      - name: "🏷️ Generate data clumps badge"
+        uses: emibcn/badge-action@v2.0.2
+        with:
+          label: "data clumps"
+          status: ${{ steps.data-clumps-count.outputs.count }}
+          color: ${{ steps.badge-color.outputs.color }}
+          path: "reports/data-clumps-doctor/badges/data-clumps.svg"
+      - name: "💾 Commit reports"
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git pull --rebase --autostash origin "$GITHUB_REF_NAME"
+          if [ -d reports/data-clumps-doctor ]; then
+            echo "Committing reports from reports/data-clumps-doctor"
+            git add -f reports/data-clumps-doctor
+            if git diff --cached --quiet; then
+              echo "No changes to commit"
+            else
+              git commit -m "chore: update data clumps report [skip ci]"
+              git push
+            fi
+          else
+            echo "No reports generated at reports/data-clumps-doctor, skipping commit"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  push-changes:
+    name: "📤 Push Changes"
+    runs-on: ubuntu-latest
+    needs: [data-clumps-report]
+    if: ${{ needs.check-repository.outputs.is-upstream == 'true' }}
+    steps:
+      - name: "🔄 Checkout Repository"
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: "📤 Push accumulated changes"
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git push
+

@@ -1,0 +1,25 @@
+name: Analyse Data Clumps
+description: Run data-clumps-doctor to analyse repository for data clumps
+
+runs:
+  using: "composite"
+  steps:
+    - name: Clone data-clumps-doctor
+      shell: bash
+      run: |
+        git clone https://github.com/NilsBaumgartner1994/data-clumps-doctor "$RUNNER_TEMP/data-clumps-doctor"
+    - name: Build data-clumps-doctor
+      shell: bash
+      run: |
+        cd "$RUNNER_TEMP/data-clumps-doctor/analyse"
+        npm ci
+        npm run build
+    - name: Run data-clumps analysis
+      shell: bash
+      run: |
+        mkdir -p reports/data-clumps-doctor
+        node "$RUNNER_TEMP/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js" \
+          --source_type typescript \
+          --commit_selection current \
+          --output reports/data-clumps-doctor/data-clumps.json \
+          --path_to_project "$GITHUB_WORKSPACE"

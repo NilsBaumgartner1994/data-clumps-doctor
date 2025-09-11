@@ -1,6 +1,52 @@
-# Ignore artifacts:
-build
-.github
+# Dependencies
+node_modules/
+**/node_modules/
 
-# Ignore all HTML files:
-*.html
+# Data files
+data/
+
+# Build outputs
+dist/
+build/
+.next/
+.expo/
+apps/*/dist/
+apps/*/build/
+
+# Generated files
+*.min.js
+*.min.css
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Specific exclusions for this project
+apps/backend/Backend/directusExtensions/**/node_modules/
+apps/backend/Backend/directusExtensions/**/dist/
+packages/**/node_modules/
+packages/**/dist/
+**/*.html
+
+# Docker files
+Dockerfile*
+
+# Environment files
+.env*
+
+# Git files
+.git/
+.gitignore
+.github/

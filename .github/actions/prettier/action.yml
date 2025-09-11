@@ -1,0 +1,19 @@
+name: 'Run Prettier'
+description: 'Format repository using Prettier'
+inputs:
+  version:
+    description: 'Prettier version'
+    default: '3.3.3'
+    required: false
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Prettier
+      run: npm install -g prettier@${{ inputs.version }}
+      shell: bash
+    - name: Run Prettier
+      run: |
+        echo "Running Prettier on supported files..."
+        cd analyse && prettier --write "**/*.{js,jsx,ts,tsx,json,md,yml,yaml}" --ignore-path .prettierignore --cache --cache-location .prettier-cache/ || true
+        echo "Prettier formatting completed"
+      shell: bash
