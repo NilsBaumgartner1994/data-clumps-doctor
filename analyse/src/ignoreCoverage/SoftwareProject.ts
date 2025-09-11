@@ -1,10 +1,5 @@
-import {
-  ClassOrInterfaceTypeContext,
-  MemberFieldParameterTypeContext,
-  MethodParameterTypeContext,
-  MethodTypeContext,
-} from "./ParsedAstTypes";
-import {Dictionary} from "./UtilTypes";
+import { ClassOrInterfaceTypeContext, MemberFieldParameterTypeContext, MethodParameterTypeContext, MethodTypeContext } from './ParsedAstTypes';
+import { Dictionary } from './UtilTypes';
 
 // noinspection dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection,dataclump.DataClumpDetection
 export class SoftwareProjectDicts {
@@ -30,11 +25,11 @@ export class SoftwareProjectDicts {
       this.handleClassOrInterface(classOrInterface);
     }
      */
-   }
+  }
 
-   public loadClassOrInterface(classOrInterface: ClassOrInterfaceTypeContext) {
+  public loadClassOrInterface(classOrInterface: ClassOrInterfaceTypeContext) {
     this.handleClassOrInterface(classOrInterface);
-   }
+  }
 
   private fillMethodsForClassOrInterface(classOrInterface: ClassOrInterfaceTypeContext) {
     // Fill methods
@@ -79,8 +74,8 @@ export class SoftwareProjectDicts {
     let innerDefinedClassesDict = classOrInterface.innerDefinedClasses;
     let innerDefinedClassKeys = Object.keys(innerDefinedClassesDict);
     for (let innerDefinedClassKey of innerDefinedClassKeys) {
-        let innerDefinedClass = innerDefinedClassesDict[innerDefinedClassKey];
-        this.handleClassOrInterface(innerDefinedClass);
+      let innerDefinedClass = innerDefinedClassesDict[innerDefinedClassKey];
+      this.handleClassOrInterface(innerDefinedClass);
     }
 
     // Fill inner defined interfaces
@@ -91,5 +86,4 @@ export class SoftwareProjectDicts {
       this.handleClassOrInterface(innerDefinedInterface);
     }
   }
-
 }

@@ -1,236 +1,241 @@
 {
-  "name" : "Main",
-  "key" : "com.example.Main",
-  "type" : "class",
-  "position" : {
-    "startLine" : 5,
-    "startColumn" : 8,
-    "endLine" : 5,
-    "endColumn" : 13
+  "name": "Main",
+  "key": "com.example.Main",
+  "type": "class",
+  "position": {
+    "startLine": 5,
+    "startColumn": 8,
+    "endLine": 5,
+    "endColumn": 13
   },
-  "modifiers" : [ "PUBLIC" ],
-  "fields" : {
-    "aa" : {
-      "name" : "aa",
-      "key" : "aa",
-      "type" : "int",
-      "position" : {
-        "startLine" : 6,
-        "startColumn" : 19,
-        "endLine" : 6,
-        "endColumn" : 21
+  "modifiers": ["PUBLIC"],
+  "fields": {
+    "aa": {
+      "name": "aa",
+      "key": "aa",
+      "type": "int",
+      "position": {
+        "startLine": 6,
+        "startColumn": 19,
+        "endLine": 6,
+        "endColumn": 21
       },
-      "modifiers" : [ "PUBLIC" ],
-      "ignore" : false,
-      "memberFieldKey" : "com.example.Main/memberField/aa",
-      "classOrInterfaceKey" : "com.example.Main"
+      "modifiers": ["PUBLIC"],
+      "ignore": false,
+      "memberFieldKey": "com.example.Main/memberField/aa",
+      "classOrInterfaceKey": "com.example.Main"
     },
-    "aaa" : {
-      "name" : "aaa",
-      "key" : "aaa",
-      "type" : "int",
-      "position" : {
-        "startLine" : 6,
-        "startColumn" : 23,
-        "endLine" : 6,
-        "endColumn" : 26
+    "aaa": {
+      "name": "aaa",
+      "key": "aaa",
+      "type": "int",
+      "position": {
+        "startLine": 6,
+        "startColumn": 23,
+        "endLine": 6,
+        "endColumn": 26
       },
-      "modifiers" : [ "PUBLIC" ],
-      "ignore" : false,
-      "memberFieldKey" : "com.example.Main/memberField/aaa",
-      "classOrInterfaceKey" : "com.example.Main"
+      "modifiers": ["PUBLIC"],
+      "ignore": false,
+      "memberFieldKey": "com.example.Main/memberField/aaa",
+      "classOrInterfaceKey": "com.example.Main"
     },
-    "a" : {
-      "name" : "a",
-      "key" : "a",
-      "type" : "int",
-      "position" : {
-        "startLine" : 6,
-        "startColumn" : 16,
-        "endLine" : 6,
-        "endColumn" : 17
+    "a": {
+      "name": "a",
+      "key": "a",
+      "type": "int",
+      "position": {
+        "startLine": 6,
+        "startColumn": 16,
+        "endLine": 6,
+        "endColumn": 17
       },
-      "modifiers" : [ "PUBLIC" ],
-      "ignore" : false,
-      "memberFieldKey" : "com.example.Main/memberField/a",
-      "classOrInterfaceKey" : "com.example.Main"
+      "modifiers": ["PUBLIC"],
+      "ignore": false,
+      "memberFieldKey": "com.example.Main/memberField/a",
+      "classOrInterfaceKey": "com.example.Main"
     },
-    "b" : {
-      "name" : "b",
-      "key" : "b",
-      "type" : "int",
-      "position" : {
-        "startLine" : 7,
-        "startColumn" : 16,
-        "endLine" : 7,
-        "endColumn" : 17
+    "b": {
+      "name": "b",
+      "key": "b",
+      "type": "int",
+      "position": {
+        "startLine": 7,
+        "startColumn": 16,
+        "endLine": 7,
+        "endColumn": 17
       },
-      "modifiers" : [ "PUBLIC" ],
-      "ignore" : false,
-      "memberFieldKey" : "com.example.Main/memberField/b",
-      "classOrInterfaceKey" : "com.example.Main"
+      "modifiers": ["PUBLIC"],
+      "ignore": false,
+      "memberFieldKey": "com.example.Main/memberField/b",
+      "classOrInterfaceKey": "com.example.Main"
     },
-    "s" : {
-      "name" : "s",
-      "key" : "s",
-      "type" : "java.util.String",
-      "position" : {
-        "startLine" : 8,
-        "startColumn" : 19,
-        "endLine" : 8,
-        "endColumn" : 20
+    "s": {
+      "name": "s",
+      "key": "s",
+      "type": "java.util.String",
+      "position": {
+        "startLine": 8,
+        "startColumn": 19,
+        "endLine": 8,
+        "endColumn": 20
       },
-      "modifiers" : [ "PUBLIC" ],
-      "ignore" : false,
-      "memberFieldKey" : "com.example.Main/memberField/s",
-      "classOrInterfaceKey" : "com.example.Main"
+      "modifiers": ["PUBLIC"],
+      "ignore": false,
+      "memberFieldKey": "com.example.Main/memberField/s",
+      "classOrInterfaceKey": "com.example.Main"
     },
-    "h" : {
-      "name" : "h",
-      "key" : "h",
-      "type" : "Hero",
-      "position" : {
-        "startLine" : 9,
-        "startColumn" : 17,
-        "endLine" : 9,
-        "endColumn" : 18
+    "h": {
+      "name": "h",
+      "key": "h",
+      "type": "Hero",
+      "position": {
+        "startLine": 9,
+        "startColumn": 17,
+        "endLine": 9,
+        "endColumn": 18
       },
-      "modifiers" : [ "PUBLIC" ],
-      "ignore" : false,
-      "memberFieldKey" : "com.example.Main/memberField/h",
-      "classOrInterfaceKey" : "com.example.Main"
+      "modifiers": ["PUBLIC"],
+      "ignore": false,
+      "memberFieldKey": "com.example.Main/memberField/h",
+      "classOrInterfaceKey": "com.example.Main"
     },
-    "hF" : {
-      "name" : "hF",
-      "key" : "hF",
-      "type" : "com.example.Hero",
-      "position" : {
-        "startLine" : 10,
-        "startColumn" : 29,
-        "endLine" : 10,
-        "endColumn" : 31
+    "hF": {
+      "name": "hF",
+      "key": "hF",
+      "type": "com.example.Hero",
+      "position": {
+        "startLine": 10,
+        "startColumn": 29,
+        "endLine": 10,
+        "endColumn": 31
       },
-      "modifiers" : [ "PUBLIC" ],
-      "ignore" : false,
-      "memberFieldKey" : "com.example.Main/memberField/hF",
-      "classOrInterfaceKey" : "com.example.Main"
+      "modifiers": ["PUBLIC"],
+      "ignore": false,
+      "memberFieldKey": "com.example.Main/memberField/hF",
+      "classOrInterfaceKey": "com.example.Main"
     }
   },
-  "methods" : {
-    "check" : {
-      "name" : "check",
-      "key" : "com.example.Main/method/check",
-      "type" : "void",
-      "position" : {
-        "startLine" : 13,
-        "startColumn" : 17,
-        "endLine" : 13,
-        "endColumn" : 22
+  "methods": {
+    "check": {
+      "name": "check",
+      "key": "com.example.Main/method/check",
+      "type": "void",
+      "position": {
+        "startLine": 13,
+        "startColumn": 17,
+        "endLine": 13,
+        "endColumn": 22
       },
-      "modifiers" : [ "PUBLIC" ],
-      "overrideAnnotation" : false,
-      "returnType" : null,
-      "parameters" : [ {
-        "name" : "ma",
-        "key" : "ma",
-        "type" : "int",
-        "position" : {
-          "startLine" : 13,
-          "startColumn" : 27,
-          "endLine" : 13,
-          "endColumn" : 29
-        },
-        "modifiers" : [ ],
-        "ignore" : false,
-        "methodKey" : "com.example.Main/method/check"
-      }, {
-        "name" : "mb",
-        "key" : "mb",
-        "type" : "int",
-        "position" : {
-          "startLine" : 13,
-          "startColumn" : 35,
-          "endLine" : 13,
-          "endColumn" : 37
-        },
-        "modifiers" : [ ],
-        "ignore" : false,
-        "methodKey" : "com.example.Main/method/check"
-      }, {
-        "name" : "mc",
-        "key" : "mc",
-        "type" : "java.util.String",
-        "position" : {
-          "startLine" : 13,
-          "startColumn" : 52,
-          "endLine" : 13,
-          "endColumn" : 54
-        },
-        "modifiers" : [ "FINAL" ],
-        "ignore" : false,
-        "methodKey" : "com.example.Main/method/check"
-      }, {
-        "name" : "md",
-        "key" : "md",
-        "type" : "int[]",
-        "position" : {
-          "startLine" : 13,
-          "startColumn" : 63,
-          "endLine" : 13,
-          "endColumn" : 65
-        },
-        "modifiers" : [ ],
-        "ignore" : false,
-        "methodKey" : "com.example.Main/method/check"
-      } ],
-      "classOrInterfaceKey" : "com.example.Main"
-    }
-  },
-  "file_path" : "Main.java",
-  "anonymous" : false,
-  "auxclass" : false,
-  "implements_" : [ ],
-  "extends_" : [ "java.util.String" ],
-  "definedInClassOrInterfaceTypeKey" : null,
-  "innerDefinedClasses" : {
-    "com.example.Main.InnerClass" : {
-      "name" : "InnerClass",
-      "key" : "com.example.Main.InnerClass",
-      "type" : "class",
-      "position" : {
-        "startLine" : 17,
-        "startColumn" : 12,
-        "endLine" : 17,
-        "endColumn" : 17
-      },
-      "modifiers" : [ "PUBLIC" ],
-      "fields" : {
-        "a" : {
-          "name" : "a",
-          "key" : "a",
-          "type" : "int",
-          "position" : {
-            "startLine" : 18,
-            "startColumn" : 20,
-            "endLine" : 18,
-            "endColumn" : 21
+      "modifiers": ["PUBLIC"],
+      "overrideAnnotation": false,
+      "returnType": null,
+      "parameters": [
+        {
+          "name": "ma",
+          "key": "ma",
+          "type": "int",
+          "position": {
+            "startLine": 13,
+            "startColumn": 27,
+            "endLine": 13,
+            "endColumn": 29
           },
-          "modifiers" : [ "PUBLIC" ],
-          "ignore" : false,
-          "memberFieldKey" : "com.example.Main.InnerClass/memberField/a",
-          "classOrInterfaceKey" : "com.example.Main.InnerClass"
+          "modifiers": [],
+          "ignore": false,
+          "methodKey": "com.example.Main/method/check"
+        },
+        {
+          "name": "mb",
+          "key": "mb",
+          "type": "int",
+          "position": {
+            "startLine": 13,
+            "startColumn": 35,
+            "endLine": 13,
+            "endColumn": 37
+          },
+          "modifiers": [],
+          "ignore": false,
+          "methodKey": "com.example.Main/method/check"
+        },
+        {
+          "name": "mc",
+          "key": "mc",
+          "type": "java.util.String",
+          "position": {
+            "startLine": 13,
+            "startColumn": 52,
+            "endLine": 13,
+            "endColumn": 54
+          },
+          "modifiers": ["FINAL"],
+          "ignore": false,
+          "methodKey": "com.example.Main/method/check"
+        },
+        {
+          "name": "md",
+          "key": "md",
+          "type": "int[]",
+          "position": {
+            "startLine": 13,
+            "startColumn": 63,
+            "endLine": 13,
+            "endColumn": 65
+          },
+          "modifiers": [],
+          "ignore": false,
+          "methodKey": "com.example.Main/method/check"
+        }
+      ],
+      "classOrInterfaceKey": "com.example.Main"
+    }
+  },
+  "file_path": "Main.java",
+  "anonymous": false,
+  "auxclass": false,
+  "implements_": [],
+  "extends_": ["java.util.String"],
+  "definedInClassOrInterfaceTypeKey": null,
+  "innerDefinedClasses": {
+    "com.example.Main.InnerClass": {
+      "name": "InnerClass",
+      "key": "com.example.Main.InnerClass",
+      "type": "class",
+      "position": {
+        "startLine": 17,
+        "startColumn": 12,
+        "endLine": 17,
+        "endColumn": 17
+      },
+      "modifiers": ["PUBLIC"],
+      "fields": {
+        "a": {
+          "name": "a",
+          "key": "a",
+          "type": "int",
+          "position": {
+            "startLine": 18,
+            "startColumn": 20,
+            "endLine": 18,
+            "endColumn": 21
+          },
+          "modifiers": ["PUBLIC"],
+          "ignore": false,
+          "memberFieldKey": "com.example.Main.InnerClass/memberField/a",
+          "classOrInterfaceKey": "com.example.Main.InnerClass"
         }
       },
-      "methods" : { },
-      "file_path" : "Main.java",
-      "anonymous" : false,
-      "auxclass" : false,
-      "implements_" : [ ],
-      "extends_" : [ ],
-      "definedInClassOrInterfaceTypeKey" : "com.example.Main",
-      "innerDefinedClasses" : { },
-      "innerDefinedInterfaces" : { }
+      "methods": {},
+      "file_path": "Main.java",
+      "anonymous": false,
+      "auxclass": false,
+      "implements_": [],
+      "extends_": [],
+      "definedInClassOrInterfaceTypeKey": "com.example.Main",
+      "innerDefinedClasses": {},
+      "innerDefinedInterfaces": {}
     }
   },
-  "innerDefinedInterfaces" : { }
+  "innerDefinedInterfaces": {}
 }

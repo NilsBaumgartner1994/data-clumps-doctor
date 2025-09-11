@@ -27,9 +27,9 @@ export default {
 
   // An array of regexp pattern strings used to skip coverage collection
   coveragePathIgnorePatterns: [
-//    '/build/',
-      "/build/tests/",
-      "/src/",
+    //    '/build/',
+    '/build/tests/',
+    '/src/',
     '/coverage/',
     '/src/tests/',
     '/node_modules/',
@@ -146,9 +146,9 @@ export default {
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   testPathIgnorePatterns: [
-//    '/build/',
+    //    '/build/',
     '/build/ignoreCoverage/',
-      "/src/tests/",
+    '/src/tests/',
     '/coverage/',
     '/node_modules/',
     '/src/ignoreCoverage/',
@@ -171,9 +171,9 @@ export default {
 
   // A map from regular expressions to paths to transformers
   // transform: undefined,
-//  transform: {
-//    '^.+\\.(ts|tsx)$': 'ts-jest',
-//  },
+  //  transform: {
+  //    '^.+\\.(ts|tsx)$': 'ts-jest',
+  //  },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [

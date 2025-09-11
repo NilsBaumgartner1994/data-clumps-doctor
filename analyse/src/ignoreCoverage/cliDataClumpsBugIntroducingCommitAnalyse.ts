@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import { Command } from 'commander';
-import { Analyzer } from "./Analyzer";
-import { AnalyseHelper } from "./AnalyseHelper";
-import { Timer } from "./Timer";
+import { Analyzer } from './Analyzer';
+import { AnalyseHelper } from './AnalyseHelper';
+import { Timer } from './Timer';
 
 const packageJsonPath = path.join(__dirname, '..', '..', 'package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
@@ -12,101 +12,94 @@ const version = packageJson.version;
 const program = new Command();
 const current_working_directory = process.cwd();
 
-program
-    .description('Analyse Detected Data-Clumps')
-    .version(version)
-    .option('--report_folder <path>', 'Output path', path.join(current_working_directory, 'data-clumps-results', Analyzer.project_name_variable_placeholder));
+program.description('Analyse Detected Data-Clumps').version(version).option('--report_folder <path>', 'Output path', path.join(current_working_directory, 'data-clumps-results', Analyzer.project_name_variable_placeholder));
 
 type ProjectData = {
-    projectName: string;
-    projectUrl: string;
-    report_file_path: string;
-    tag: string | undefined | null;
-    commitHash: string;
-    timestamp: number;
-    fieldFieldDataClumps: number;
-    parameterParameterDataClumps: number;
-    parameterFieldDataClumps: number;
-    numberOfBugIntroducingCommits: number | undefined;
+  projectName: string;
+  projectUrl: string;
+  report_file_path: string;
+  tag: string | undefined | null;
+  commitHash: string;
+  timestamp: number;
+  fieldFieldDataClumps: number;
+  parameterParameterDataClumps: number;
+  parameterFieldDataClumps: number;
+  numberOfBugIntroducingCommits: number | undefined;
 };
 
 async function analyse(report_project_folder_path: string, options: any): Promise<string> {
-    if (!fs.existsSync(report_project_folder_path)) {
-        console.error("ERROR: Report folder does not exist:", report_project_folder_path);
-        process.exit(1);
+  if (!fs.existsSync(report_project_folder_path)) {
+    console.error('ERROR: Report folder does not exist:', report_project_folder_path);
+    process.exit(1);
+  }
+
+  const totalTimer = new Timer();
+  totalTimer.start();
+
+  let relevantFileInformationPerProject: Record<string, ProjectData[]> = {};
+  let allReportFiles = AnalyseHelper.getAllReportFilePathsRecursiveInFolder(report_project_folder_path);
+  let progress = 0;
+
+  for (const file of allReportFiles) {
+    progress++;
+    totalTimer.printEstimatedTimeRemaining({
+      progress: progress,
+      total: allReportFiles.length,
+      suffix: 'Reading report file: ' + file,
+    });
+    const json = await AnalyseHelper.getReportFileJson(file);
+
+    const project_tag = json.project_info.project_tag;
+    const fielfFieldDataClumps = json.report_summary.fields_to_fields_data_clump || 0;
+    const parameterParameterDataClumps = json.report_summary.parameters_to_parameters_data_clump || 0;
+    const parameterFieldDataClumps = json.report_summary.parameters_to_fields_data_clump || 0;
+    const projectName = json.project_info.project_name;
+    const projectUrl = json.project_info.project_url;
+    const project_commit_hash = json.project_info.project_commit_hash;
+    const timestamp = AnalyseHelper.getTimestamp(json);
+
+    let numberOfBugIntroducingCommits = AnalyseHelper.getNumberBugIntroducingCommitsUntilCommit(json);
+
+    if (!!projectUrl && !!project_commit_hash && !!projectName) {
+      const data: ProjectData = {
+        tag: project_tag,
+        report_file_path: file,
+        projectName: projectName,
+        commitHash: project_commit_hash,
+        timestamp: timestamp,
+        projectUrl: projectUrl,
+        fieldFieldDataClumps: fielfFieldDataClumps,
+        parameterParameterDataClumps: parameterParameterDataClumps,
+        parameterFieldDataClumps: parameterFieldDataClumps,
+        numberOfBugIntroducingCommits: numberOfBugIntroducingCommits,
+      };
+
+      if (!relevantFileInformationPerProject[projectName]) {
+        relevantFileInformationPerProject[projectName] = [];
+      }
+      relevantFileInformationPerProject[projectName].push(data);
     }
+  }
 
-    const totalTimer = new Timer();
-    totalTimer.start();
+  totalTimer.stop();
 
-    let relevantFileInformationPerProject: Record<string, ProjectData[]> = {};
-    let allReportFiles = AnalyseHelper.getAllReportFilePathsRecursiveInFolder(report_project_folder_path);
-    let progress = 0;
-
-    for (const file of allReportFiles) {
-        progress++;
-        totalTimer.printEstimatedTimeRemaining({
-            progress: progress,
-            total: allReportFiles.length,
-            suffix: "Reading report file: " + file
-        });
-        const json = await AnalyseHelper.getReportFileJson(file);
-
-        const project_tag = json.project_info.project_tag;
-        const fielfFieldDataClumps = json.report_summary.fields_to_fields_data_clump || 0;
-        const parameterParameterDataClumps = json.report_summary.parameters_to_parameters_data_clump || 0;
-        const parameterFieldDataClumps = json.report_summary.parameters_to_fields_data_clump || 0;
-        const projectName = json.project_info.project_name;
-        const projectUrl = json.project_info.project_url;
-        const project_commit_hash = json.project_info.project_commit_hash;
-        const timestamp = AnalyseHelper.getTimestamp(json);
-
-        let numberOfBugIntroducingCommits = AnalyseHelper.getNumberBugIntroducingCommitsUntilCommit(json);
-
-        if (!!projectUrl && !!project_commit_hash && !!projectName) {
-            const data: ProjectData = {
-                tag: project_tag,
-                report_file_path: file,
-                projectName: projectName,
-                commitHash: project_commit_hash,
-                timestamp: timestamp,
-                projectUrl: projectUrl,
-                fieldFieldDataClumps: fielfFieldDataClumps,
-                parameterParameterDataClumps: parameterParameterDataClumps,
-                parameterFieldDataClumps: parameterFieldDataClumps,
-                numberOfBugIntroducingCommits: numberOfBugIntroducingCommits
-            };
-
-            if (!relevantFileInformationPerProject[projectName]) {
-                relevantFileInformationPerProject[projectName] = [];
-            }
-            relevantFileInformationPerProject[projectName].push(data);
-        }
-    }
-
-    totalTimer.stop();
-
-    let py = AnalyseHelper.getPythonLibrariesFileContent();
-    py += `
+  let py = AnalyseHelper.getPythonLibrariesFileContent();
+  py += `
     
 matplotlib.rcParams.update({'font.size': 8})
 
 data = {\n`;
 
-    for (const [project, entries] of Object.entries(relevantFileInformationPerProject)) {
-        py += `    "${project}": [\n`;
-        const sortedEntries = entries.sort((a, b) => a.timestamp - b.timestamp);
-        for (const e of sortedEntries) {
-            py += `        {"commitHash": "${e.commitHash}", "tag": "${e.tag || 'None'}", "timestamp": ${e.timestamp}, ` +
-                `"fieldFieldDataClumps": ${e.fieldFieldDataClumps}, ` +
-                `"parameterParameterDataClumps": ${e.parameterParameterDataClumps}, ` +
-                `"parameterFieldDataClumps": ${e.parameterFieldDataClumps}, ` +
-                `"bicsUntilCommit": ${e.numberOfBugIntroducingCommits ?? 'None'}},\n`;
-        }
-        py += "    ],\n";
+  for (const [project, entries] of Object.entries(relevantFileInformationPerProject)) {
+    py += `    "${project}": [\n`;
+    const sortedEntries = entries.sort((a, b) => a.timestamp - b.timestamp);
+    for (const e of sortedEntries) {
+      py += `        {"commitHash": "${e.commitHash}", "tag": "${e.tag || 'None'}", "timestamp": ${e.timestamp}, ` + `"fieldFieldDataClumps": ${e.fieldFieldDataClumps}, ` + `"parameterParameterDataClumps": ${e.parameterParameterDataClumps}, ` + `"parameterFieldDataClumps": ${e.parameterFieldDataClumps}, ` + `"bicsUntilCommit": ${e.numberOfBugIntroducingCommits ?? 'None'}},\n`;
     }
+    py += '    ],\n';
+  }
 
-    py += `}
+  py += `}
 
 rows = []
 for project, records in data.items():
@@ -283,21 +276,21 @@ plt.show()
 print("\\n--- Heatmap gespeichert ---")
 `;
 
-    return py;
+  return py;
 }
 
 async function main() {
-    const options = AnalyseHelper.getCommandForAnalysis(process, {
-        require_report_path: true,
-        require_output_path: false,
-        default_output_filename_without_extension: "AnalyseDetectedDataClumpsFaultCorrelation"
-    });
+  const options = AnalyseHelper.getCommandForAnalysis(process, {
+    require_report_path: true,
+    require_output_path: false,
+    default_output_filename_without_extension: 'AnalyseDetectedDataClumpsFaultCorrelation',
+  });
 
-    const pyScript = await analyse(options.report_folder, options);
-    const output = options.output;
-    if (fs.existsSync(output)) fs.unlinkSync(output);
-    fs.writeFileSync(output, pyScript);
-    console.log("Written Python script to:", output);
+  const pyScript = await analyse(options.report_folder, options);
+  const output = options.output;
+  if (fs.existsSync(output)) fs.unlinkSync(output);
+  fs.writeFileSync(output, pyScript);
+  console.log('Written Python script to:', output);
 }
 
 main();
