@@ -467,19 +467,7 @@ export class Detector {
     return getDefaultValuesFromPartialOptions(options || {});
   }
 
-  public constructor(
-    softwareProjectDicts: SoftwareProjectDicts,
-    options: Partial<DetectorOptions> | null,
-    progressCallback: any,
-    project_url: string | null,
-    project_name: string | null,
-    project_version: string | null,
-    project_commit_hash: string | null,
-    project_tag: string | null,
-    project_commit_date: string | null,
-    additional?: any,
-    target_language?: string
-  ) {
+  public constructor(softwareProjectDicts: SoftwareProjectDicts, options: Partial<DetectorOptions> | null, progressCallback: any, project_url: string | null, project_name: string | null, project_version: string | null, project_commit_hash: string | null, project_tag: string | null, project_commit_date: string | null, additional?: any, target_language?: string) {
     this.options = Detector.getDefaultOptions(options || {});
     this.softwareProjectDicts = softwareProjectDicts;
     this.projectInfo = {

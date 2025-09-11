@@ -43,21 +43,7 @@ export class Analyzer {
 
   public couldNotGenerateAstForCommits: string[] = [];
 
-  constructor(
-    path_to_project: string,
-    path_to_ast_generator_folder: string,
-    path_to_output_with_variables: string,
-    path_to_source: string,
-    source_type: string,
-    path_to_ast_output: string,
-    commit_selection_mode: string | undefined | null,
-    project_url: string | undefined | null,
-    git_tag_start_offset: number,
-    project_name: string | undefined | null,
-    project_version: any,
-    preserve_ast_output: boolean,
-    detectorOptions: any
-  ) {
+  constructor(path_to_project: string, path_to_ast_generator_folder: string, path_to_output_with_variables: string, path_to_source: string, source_type: string, path_to_ast_output: string, commit_selection_mode: string | undefined | null, project_url: string | undefined | null, git_tag_start_offset: number, project_name: string | undefined | null, project_version: any, preserve_ast_output: boolean, detectorOptions: any) {
     this.path_to_project = path_to_project;
     this.path_to_ast_generator_folder = path_to_ast_generator_folder;
     this.path_to_output_with_variables = path_to_output_with_variables;
