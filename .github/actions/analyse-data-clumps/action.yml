@@ -1,25 +1,84 @@
 name: Analyse Data Clumps
 description: Run data-clumps-doctor to analyse repository for data clumps
 
+inputs:
+  path-to-source:
+    description: Relative path to source files inside the project
+    required: false
+    default: '.'
+  output-path:
+    description: Path to the JSON report output
+    required: false
+    default: 'reports/data-clumps-doctor/data-clumps.json'
+  badge-output-path:
+    description: Path to the generated badge (optional)
+    required: false
+    default: ''
+  source-language-type:
+    description: Language of the source files
+    required: false
+    default: 'typescript'
+
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Clone data-clumps-doctor
       shell: bash
       run: |
         git clone https://github.com/NilsBaumgartner1994/data-clumps-doctor "$RUNNER_TEMP/data-clumps-doctor"
+
     - name: Build data-clumps-doctor
       shell: bash
       run: |
         cd "$RUNNER_TEMP/data-clumps-doctor/analyse"
         yarn install --immutable
         yarn build
+
     - name: Run data-clumps analysis
       shell: bash
       run: |
-        mkdir -p reports/data-clumps-doctor
+        output_path="${{ inputs.output-path }}"
+        mkdir -p "$(dirname "$output_path")"
         node "$RUNNER_TEMP/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js" \
-          --source_type typescript \
+          --source_type "${{ inputs.source-language-type }}" \
           --commit_selection current \
-          --output reports/data-clumps-doctor/data-clumps.json \
-          --path_to_project "$GITHUB_WORKSPACE"
+          --output "$output_path" \
+          --path_to_project "$GITHUB_WORKSPACE" \
+          --relative_path_to_source_folder_in_project "${{ inputs.path-to-source }}"
+
+    - name: Prepare badge directory
+      if: ${{ inputs.badge-output-path != '' }}
+      shell: bash
+      run: |
+        mkdir -p "$(dirname "${{ inputs.badge-output-path }}")"
+
+    - name: Extract data clumps count
+      id: data-clumps-count
+      if: ${{ inputs.badge-output-path != '' }}
+      shell: bash
+      run: |
+        echo "count=$(jq '.report_summary.amount_data_clumps' "${{ inputs.output-path }}")" >> "$GITHUB_OUTPUT"
+
+    - name: Determine badge color
+      id: badge-color
+      if: ${{ inputs.badge-output-path != '' }}
+      shell: bash
+      run: |
+        count=${{ steps.data-clumps-count.outputs.count }}
+        if [ "$count" -le 10 ]; then
+          echo "color=08A008" >> "$GITHUB_OUTPUT"
+        elif [ "$count" -le 100 ]; then
+          echo "color=FE7D37" >> "$GITHUB_OUTPUT"
+        else
+          echo "color=F85149" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Generate data clumps badge
+      if: ${{ inputs.badge-output-path != '' }}
+      uses: emibcn/badge-action@v2.0.2
+      with:
+        label: data clumps
+        status: ${{ steps.data-clumps-count.outputs.count }}
+        color: ${{ steps.badge-color.outputs.color }}
+        path: ${{ inputs.badge-output-path }}
+

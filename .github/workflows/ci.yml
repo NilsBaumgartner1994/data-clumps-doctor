@@ -49,31 +49,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22.16.0"
-      - name: "🩺 Run data-clumps-doctor"
-        uses: ./.github/actions/analyse-data-clumps
-      - name: "📁 Prepare badge directory"
-        run: mkdir -p reports/data-clumps-doctor/badges
-      - name: "📊 Extract data clumps count"
-        id: data-clumps-count
-        run: echo "count=$(jq '.report_summary.amount_data_clumps' reports/data-clumps-doctor/data-clumps.json)" >> "$GITHUB_OUTPUT"
-      - name: "🎨 Determine badge color"
-        id: badge-color
-        run: |
-          count=${{ steps.data-clumps-count.outputs.count }}
-          if [ "$count" -le 10 ]; then
-            echo "color=08A008" >> "$GITHUB_OUTPUT"
-          elif [ "$count" -le 100 ]; then
-            echo "color=FE7D37" >> "$GITHUB_OUTPUT"
-          else
-            echo "color=F85149" >> "$GITHUB_OUTPUT"
-          fi
-      - name: "🏷️ Generate data clumps badge"
-        uses: emibcn/badge-action@v2.0.2
-        with:
-          label: "data clumps"
-          status: ${{ steps.data-clumps-count.outputs.count }}
-          color: ${{ steps.badge-color.outputs.color }}
-          path: "reports/data-clumps-doctor/badges/data-clumps.svg"
+        - name: "🩺 Run data-clumps-doctor"
+          uses: ./.github/actions/analyse-data-clumps
+          with:
+            path-to-source: .
+            output-path: reports/data-clumps-doctor/data-clumps.json
+            badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
+            source-language-type: typescript
       - name: "💾 Commit reports"
         run: |
           git config user.name "github-actions"
