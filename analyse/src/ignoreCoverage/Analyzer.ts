@@ -16,12 +16,12 @@ import { ParserHelperTypeScript } from './parsers/ParserHelperTypeScript';
 import { DataClumpsTypeContext } from 'data-clumps-type-context';
 import { AnalyseHelper } from './AnalyseHelper';
 import { ParserHelperDigitalTwinsNGSI_LD } from './parsers/ParserHelperDigitalTwinsNGSI_LD';
+import { ProjectInfo } from './ProjectInfo';
 
 export class Analyzer {
   public static project_name_variable_placeholder = '{project_name}';
   public static project_commit_variable_placeholder = '{project_commit}';
 
-  public project_url: string | undefined | null;
   public git_tag_start_offset: number;
   public path_to_project: string;
   public path_to_ast_generator_folder: string;
@@ -30,21 +30,34 @@ export class Analyzer {
   public source_type: string;
   public path_to_ast_output: string;
   public commit_selection_mode: string | undefined | null;
-  public project_name: string = 'unknown_project_name';
   public detectorOptions: DetectorOptions;
   public project_version: any;
   public preserve_ast_output: boolean;
 
   public passed_project_name: string | undefined | null;
 
-  public timer: Timer;
+  public projectInfo: ProjectInfo;
   public astTimer: Timer;
   public detectTimer: Timer;
   public gitTimer: Timer;
 
   public couldNotGenerateAstForCommits: string[] = [];
 
-  constructor(path_to_project: string, path_to_ast_generator_folder: string, path_to_output_with_variables: string, path_to_source: string, source_type: string, path_to_ast_output: string, commit_selection_mode: string | undefined | null, project_url: string | undefined | null, git_tag_start_offset: number, project_name: string | undefined | null, project_version: any, preserve_ast_output: boolean, detectorOptions: any) {
+  constructor(
+    path_to_project: string,
+    path_to_ast_generator_folder: string,
+    path_to_output_with_variables: string,
+    path_to_source: string,
+    source_type: string,
+    path_to_ast_output: string,
+    commit_selection_mode: string | undefined | null,
+    project_url: string | undefined | null,
+    git_tag_start_offset: number,
+    project_name: string | undefined | null,
+    project_version: any,
+    preserve_ast_output: boolean,
+    detectorOptions: any
+  ) {
     this.path_to_project = path_to_project;
     this.path_to_ast_generator_folder = path_to_ast_generator_folder;
     this.path_to_output_with_variables = path_to_output_with_variables;
@@ -52,14 +65,13 @@ export class Analyzer {
     this.source_type = source_type;
     this.path_to_ast_output = path_to_ast_output;
     this.commit_selection_mode = commit_selection_mode;
-    this.project_url = project_url;
     this.git_tag_start_offset = git_tag_start_offset;
     this.passed_project_name = project_name;
     this.project_version = project_version;
     this.preserve_ast_output = preserve_ast_output;
     this.detectorOptions = Detector.getDefaultOptions(detectorOptions || {});
 
-    this.timer = new Timer();
+    this.projectInfo = { project_url: project_url || null, project_name: 'unknown_project_name', timer: new Timer() };
     this.astTimer = new Timer();
     this.detectTimer = new Timer();
     this.gitTimer = new Timer();
@@ -207,17 +219,17 @@ export class Analyzer {
       }
     }
     if (!project_name) {
-      project_name = this.project_name; // use default project name
+      project_name = this.projectInfo.project_name; // use default project name
     }
     return project_name;
   }
 
   async start() {
-    this.timer.start();
+    this.projectInfo.timer.start();
 
     console.log('Start: ' + this.path_to_project);
-    this.project_name = await this.loadProjectName(this.path_to_project);
-    console.log('Project Name: ' + this.project_name);
+    this.projectInfo.project_name = await this.loadProjectName(this.path_to_project);
+    console.log('Project Name: ' + this.projectInfo.project_name);
     let { git_checkout_needed, commits_to_analyse } = await this.configureCommitSelectionMode();
 
     if (git_checkout_needed) {
@@ -226,7 +238,7 @@ export class Analyzer {
       let amount_commits = commits_to_analyse.length;
       //console.log("Analysing amount commits: "+amount_commits);
       let existingCommitsInFolder: Record<string, boolean> = {};
-      let pathToOutPutWithoutCommit = Analyzer.replaceOutputVariables(this.path_to_output_with_variables, this.project_name, 'REPLACE_COMMIT');
+      let pathToOutPutWithoutCommit = Analyzer.replaceOutputVariables(this.path_to_output_with_variables, this.projectInfo.project_name, 'REPLACE_COMMIT');
       pathToOutPutWithoutCommit = path.dirname(pathToOutPutWithoutCommit);
       if (fs.existsSync(pathToOutPutWithoutCommit)) {
         let filesInFolder = fs.readdirSync(pathToOutPutWithoutCommit);
@@ -242,10 +254,10 @@ export class Analyzer {
       }
 
       for (const commit_to_analyse_obj of commits_to_analyse) {
-        let elapsed_time = this.timer.getCurrentElapsedTime();
-        let elapsed_time_formatted = this.timer.formatTimeToString(elapsed_time);
-        let suffix = 'Commit [' + (i + 1) + '/' + amount_commits + '] - project: ' + this.project_name + ' - commit: ' + commit_to_analyse_obj.commit;
-        this.timer.printEstimatedTimeRemaining({
+        let elapsed_time = this.projectInfo.timer.getCurrentElapsedTime();
+        let elapsed_time_formatted = this.projectInfo.timer.formatTimeToString(elapsed_time);
+        let suffix = 'Commit [' + (i + 1) + '/' + amount_commits + '] - project: ' + this.projectInfo.project_name + ' - commit: ' + commit_to_analyse_obj.commit;
+        this.projectInfo.timer.printEstimatedTimeRemaining({
           progress: i - amount_skipped,
           total: amount_commits - amount_skipped,
           prefix: '',
@@ -311,8 +323,8 @@ export class Analyzer {
       }
     }
 
-    this.timer.stop();
-    this.timer.printTotalElapsedTime('Total time');
+    this.projectInfo.timer.stop();
+    this.projectInfo.timer.printTotalElapsedTime('Total time');
     this.astTimer.printTotalElapsedTime('Total Ast generation time');
     this.detectTimer.printTotalElapsedTime('Total Analysis time');
 
@@ -329,7 +341,7 @@ export class Analyzer {
   }
 
   async doesAnalysisExist(commit: string) {
-    let path_to_result = Analyzer.replaceOutputVariables(this.path_to_output_with_variables, this.project_name, commit);
+    let path_to_result = Analyzer.replaceOutputVariables(this.path_to_output_with_variables, this.projectInfo.project_name, commit);
     if (fs.existsSync(path_to_result)) {
       return true;
     }
@@ -357,12 +369,12 @@ export class Analyzer {
       let commit_date = await GitHelper.getCommitDateUnixTimestamp(this.path_to_project, commit_to_analyse_obj.commit);
       let commit_tag = commit_to_analyse_obj.tag;
       let git_project_url = await GitHelper.getRemoteUrl(this.path_to_project);
-      this.project_url = this.project_url || git_project_url || 'unknown_project_url';
+      this.projectInfo.project_url = this.projectInfo.project_url || git_project_url || 'unknown_project_url';
 
       //console.log("commit_tag: "+commit_tag);
       //console.log("commit_date: "+commit_date);
 
-      this.path_to_ast_output = Analyzer.replaceOutputVariables(this.path_to_ast_output, this.project_name, commit_to_analyse_obj.commit);
+      this.path_to_ast_output = Analyzer.replaceOutputVariables(this.path_to_ast_output, this.projectInfo.project_name, commit_to_analyse_obj.commit);
       await ParserHelper.removeGeneratedAst(this.path_to_ast_output, 'before analysis');
       try {
         fs.mkdirSync(this.path_to_ast_output, { recursive: true });
@@ -420,15 +432,15 @@ export class Analyzer {
 
       let softwareProjectDicts: SoftwareProjectDicts = await ParserHelper.getSoftwareProjectDictsFromParsedAstFolder(this.path_to_ast_output, this.detectorOptions);
 
-      let path_to_result = Analyzer.replaceOutputVariables(this.path_to_output_with_variables, this.project_name, commit);
+      let path_to_result = Analyzer.replaceOutputVariables(this.path_to_output_with_variables, this.projectInfo.project_name, commit);
       let progressCallback = null;
 
       this.detectTimer.start();
-      let dataClumpsContext = await Analyzer.analyseSoftwareProjectDicts(softwareProjectDicts, this.project_url, this.project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, this.detectorOptions, null, target_language);
+      let dataClumpsContext = await Analyzer.analyseSoftwareProjectDicts(softwareProjectDicts, this.projectInfo.project_url, this.projectInfo.project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, this.detectorOptions, null, target_language);
       this.detectTimer.stop();
       this.detectTimer.printElapsedTime('Detect time for commit: ' + commit);
 
-      console.log('Project Name: ' + this.project_name);
+      console.log('Project Name: ' + this.projectInfo.project_name);
       console.log(JSON.stringify(dataClumpsContext.project_info, null, 2));
       console.log(JSON.stringify(dataClumpsContext.report_summary, null, 2));
 

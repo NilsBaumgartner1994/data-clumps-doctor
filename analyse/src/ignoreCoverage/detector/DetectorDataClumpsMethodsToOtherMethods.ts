@@ -3,6 +3,7 @@ import { DataClumpTypeContext, Dictionary } from 'data-clumps-type-context';
 import { MethodTypeContext } from './../ParsedAstTypes';
 import { SoftwareProjectDicts } from './../SoftwareProject';
 import { DetectorOptions, DetectorOptionsInformation, InvertedIndexSoftwareProject } from './Detector';
+import { DetectorBase } from './DetectorBase';
 import { ContextAnalyseDataClumpParameter } from './DetectorDataClumpsMethods';
 
 // TODO refactor this method to Detector since there is already the creation, so why not the refactoring
@@ -20,15 +21,11 @@ function getParsedValuesFromPartialOptions(rawOptions: DetectorOptions): Detecto
   return rawOptions;
 }
 
-export class DetectorDataClumpsMethodsToOtherMethods {
+export class DetectorDataClumpsMethodsToOtherMethods extends DetectorBase {
   public static TYPE = 'parameters_to_parameters_data_clump';
 
-  public options: DetectorOptions;
-  public progressCallback: any;
-
   public constructor(options: DetectorOptions, progressCallback?: any) {
-    this.options = getParsedValuesFromPartialOptions(JSON.parse(JSON.stringify(options)));
-    this.progressCallback = progressCallback;
+    super(options, getParsedValuesFromPartialOptions, progressCallback);
   }
 
   /**

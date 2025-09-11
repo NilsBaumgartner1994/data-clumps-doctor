@@ -3,6 +3,7 @@ import { DetectorDataClumpsMethods } from './DetectorDataClumpsMethods';
 import { DetectorDataClumpsFields } from './DetectorDataClumpsFields';
 import { DataClumpsTypeContext } from 'data-clumps-type-context';
 import { Timer } from '../Timer';
+import { ProjectInfo } from '../ProjectInfo';
 import path from 'path';
 import fs from 'fs';
 import { DetectorDataClumpsMethodsToOtherFields } from './DetectorDataClumpsMethodsToOtherFields';
@@ -453,11 +454,9 @@ export class InvertedIndexSoftwareProject {
 export class Detector {
   public options: DetectorOptions;
   public softwareProjectDicts: SoftwareProjectDicts;
-  public timer: Timer;
+  public projectInfo: ProjectInfo;
   public progressCallback: any;
   public target_language: string;
-  public project_url: string | null;
-  public project_name: string;
   public project_version: string | null;
   public project_commit_hash: string | null;
   public project_tag: string | null;
@@ -468,15 +467,29 @@ export class Detector {
     return getDefaultValuesFromPartialOptions(options || {});
   }
 
-  public constructor(softwareProjectDicts: SoftwareProjectDicts, options: Partial<DetectorOptions> | null, progressCallback: any, project_url: string | null, project_name: string | null, project_version: string | null, project_commit_hash: string | null, project_tag: string | null, project_commit_date: string | null, additional?: any, target_language?: string) {
+  public constructor(
+    softwareProjectDicts: SoftwareProjectDicts,
+    options: Partial<DetectorOptions> | null,
+    progressCallback: any,
+    project_url: string | null,
+    project_name: string | null,
+    project_version: string | null,
+    project_commit_hash: string | null,
+    project_tag: string | null,
+    project_commit_date: string | null,
+    additional?: any,
+    target_language?: string
+  ) {
     this.options = Detector.getDefaultOptions(options || {});
     this.softwareProjectDicts = softwareProjectDicts;
-    this.timer = new Timer();
+    this.projectInfo = {
+      project_url: project_url || 'unknown',
+      project_name: project_name || 'unknown',
+      timer: new Timer(),
+    };
     this.progressCallback = progressCallback;
 
     this.target_language = target_language || 'java';
-    this.project_url = project_url || 'unknown';
-    this.project_name = project_name || 'unknown';
     this.project_version = project_version || 'unknown';
     this.project_commit_hash = project_commit_hash || 'unknown';
     this.project_tag = project_tag || null;
@@ -487,7 +500,7 @@ export class Detector {
   }
 
   public async detect(): Promise<DataClumpsTypeContext> {
-    this.timer.start();
+    this.projectInfo.timer.start();
 
     let keys_for_classes_or_interfaces = Object.keys(this.softwareProjectDicts.dictClassOrInterface);
     let file_paths = {};
@@ -520,8 +533,8 @@ export class Detector {
         amount_data_clumps: null,
       },
       project_info: {
-        project_url: this.project_url,
-        project_name: this.project_name,
+        project_url: this.projectInfo.project_url,
+        project_name: this.projectInfo.project_name,
         project_version: this.project_version,
         project_commit_hash: this.project_commit_hash,
         project_tag: this.project_tag,
@@ -613,7 +626,7 @@ export class Detector {
 
     // timeout for testing
 
-    this.timer.stop();
+    this.projectInfo.timer.stop();
 
     //console.log("Detecting software project for data clumps (done)")
 

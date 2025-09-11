@@ -5,6 +5,7 @@ import { DataClumpTypeContext } from 'data-clumps-type-context';
 import { ClassOrInterfaceTypeContext, MemberFieldParameterTypeContext, MethodTypeContext } from './../ParsedAstTypes';
 import { SoftwareProjectDicts } from './../SoftwareProject';
 import { DetectorOptions, InvertedIndexSoftwareProject } from './Detector';
+import { DetectorBase } from './DetectorBase';
 
 // TODO refactor this method to Detector since there is already the creation, so why not the refactoring
 function getParsedValuesFromPartialOptions(rawOptions: DetectorOptions): DetectorOptions {
@@ -28,15 +29,11 @@ type ContextAnalyseDataClumpFieldField = {
   invertedIndexSoftwareProject: InvertedIndexSoftwareProject;
 };
 
-export class DetectorDataClumpsFields {
+export class DetectorDataClumpsFields extends DetectorBase {
   public static TYPE = 'fields_to_fields_data_clump';
 
-  public options: DetectorOptions;
-  public progressCallback: any;
-
   public constructor(options: DetectorOptions, progressCallback?: any) {
-    this.options = getParsedValuesFromPartialOptions(options);
-    this.progressCallback = progressCallback;
+    super(options, getParsedValuesFromPartialOptions, progressCallback);
   }
 
   public async detect(softwareProjectDicts: SoftwareProjectDicts, invertedIndexSoftwareProject: InvertedIndexSoftwareProject): Promise<Dictionary<DataClumpTypeContext> | null> {
