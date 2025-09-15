@@ -1,15 +1,15 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-09-11T23:48:15.147Z",
+  "report_timestamp": "2025-09-15T18:40:28.317Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
       "invertedIndexSoftwareProjectStatistics": {
         "invertedFieldToClasses": {
-          "median": 1,
+          "median": 1.5,
           "maximum": 4,
-          "average": 1.1481481481481481,
-          "amountSavedValuesForKeys": 93,
+          "average": 1.146341463414634,
+          "amountSavedValuesForKeys": 94,
           "amountKeys": 4
         },
         "invertedParameterToMethods": {
@@ -20,24 +20,24 @@
           "amountKeys": 8
         },
         "invertedParameterToClasses": {
-          "median": 1.5,
+          "median": 1,
           "maximum": 4,
-          "average": 1.1625,
-          "amountSavedValuesForKeys": 93,
+          "average": 1.1604938271604939,
+          "amountSavedValuesForKeys": 94,
           "amountKeys": 4
         }
       },
       "timer_information": {
-        "ast_generation_time_ms": 745,
+        "ast_generation_time_ms": 775,
         "detection_time_ms": 9,
         "machine_information": {
           "os": "Linux",
           "os_release": "6.11.0-1018-azure",
           "os_platform": "linux",
           "os_arch": "x64",
-          "os_uptime": 52.96,
-          "os_memory_free": 15685517312,
-          "os_memory_total": 16772575232,
+          "os_uptime": 50.53,
+          "os_memory_free": 15670874112,
+          "os_memory_total": 16772579328,
           "os_cpu_cores": 4,
           "os_cpu_model": "AMD EPYC 7763 64-Core Processor",
           "os_cpu_speed": 0
@@ -55,15 +55,15 @@
   "project_info": {
     "project_url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
     "project_name": "data-clumps-doctor",
-    "project_version": "19db3a60bb9a1e5b037e2e1316185e0419d1df94",
-    "project_commit_hash": "19db3a60bb9a1e5b037e2e1316185e0419d1df94",
+    "project_version": "8a8d1332467b7d47173d86ffdd4b876b8825bd49",
+    "project_commit_hash": "8a8d1332467b7d47173d86ffdd4b876b8825bd49",
     "project_tag": null,
-    "project_commit_date": "1757634404",
+    "project_commit_date": "1757961593",
     "additional": {},
     "number_of_files": 22,
     "number_of_classes_or_interfaces": 34,
     "number_of_methods": 195,
-    "number_of_data_fields": 93,
+    "number_of_data_fields": 94,
     "number_of_method_parameters": 267
   },
   "detector": {
@@ -74,6 +74,7 @@
       "fastDetection": true,
       "ignorePaths": [],
       "similarityModifierOfVariablesWithUnknownType": 0,
+      "minimumSimilarityForDataClumps": 0.5,
       "fieldsOfClassesWithUnknownHierarchyProbabilityModifier": 0,
       "sharedFieldsToFieldsAmountMinimum": 3,
       "analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces": false,
