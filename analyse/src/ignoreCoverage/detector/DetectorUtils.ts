@@ -141,12 +141,21 @@ export class DetectorUtils {
     let cleanedVariables = DetectorUtils.cleanVariables(variables, options);
     let cleanedOtherVariables = DetectorUtils.cleanVariables(otherVariables, options);
 
+    let minimumSimilarityThreshold = options.minimumSimilarityForDataClumps;
+    if (typeof minimumSimilarityThreshold !== 'number' || isNaN(minimumSimilarityThreshold)) {
+      minimumSimilarityThreshold = 0.5;
+    }
+    if (minimumSimilarityThreshold > 1) {
+      minimumSimilarityThreshold = minimumSimilarityThreshold / 100;
+    }
+    minimumSimilarityThreshold = Math.min(Math.max(minimumSimilarityThreshold, 0), 1);
+
     let commonParameterPairKeys: ParameterPair[] = [];
     for (let variable of cleanedVariables) {
       for (let otherVariable of cleanedOtherVariables) {
         let probabilityOfSimilarity = variable.isSimilarTo(otherVariable, options.similarityModifierOfVariablesWithUnknownType, ignoreParameterModifiers);
 
-        if (probabilityOfSimilarity > 0.5) {
+        if (probabilityOfSimilarity > minimumSimilarityThreshold) {
           let commonParameterPairKey = {
             parameterKey: variable.key,
             otherParameterKey: otherVariable.key,
