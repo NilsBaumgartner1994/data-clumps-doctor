@@ -18,6 +18,7 @@ function getParsedValuesFromPartialOptions(rawOptions: DetectorOptions): Detecto
   //rawOptions.sharedFieldParametersCheckIfAreSubtypes = parseBoolean(rawOptions.sharedFieldParametersCheckIfAreSubtypes);
   rawOptions.fieldsOfClassesWithUnknownHierarchyProbabilityModifier = parseFloat(rawOptions.fieldsOfClassesWithUnknownHierarchyProbabilityModifier);
   rawOptions.similarityModifierOfVariablesWithUnknownType = parseFloat(rawOptions.similarityModifierOfVariablesWithUnknownType);
+  rawOptions.minimumSimilarityForDataClumps = parseFloat(rawOptions.minimumSimilarityForDataClumps);
 
   return rawOptions;
 }

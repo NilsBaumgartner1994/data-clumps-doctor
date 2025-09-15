@@ -127,6 +127,15 @@ export class DetectorOptionsInformation {
     type: 'float',
   };
 
+  public static minimumSimilarityForDataClumps: DetectorOptionInformationParameter = {
+    label: 'Similarity Threshold (ignored when at or below)',
+    description:
+      'Minimum similarity (0-1) that variables must exceed to be considered part of a data clump. Values equal to or below this threshold are ignored. Default value is 0.5.',
+    defaultValue: 0.5,
+    group: 'all',
+    type: 'float',
+  };
+
   public static fieldsOfClassesWithUnknownHierarchyProbabilityModifier: DetectorOptionInformationParameter = {
     label: 'Probability for Data Clumps in analyzed Classes with Unknown Hierarchy',
     description: 'If set to 0, the detector will not analyze classes that are not part of a known hierarchy of related classes. Range [0,1]. Default value is true. If set to 1, it may find more data clumps but they are maybe false positive, but they have a lower probability score.',

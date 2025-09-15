@@ -21,6 +21,7 @@ function getParsedValuesFromPartialOptions(rawOptions: DetectorOptions): Detecto
   rawOptions.fieldsOfClassesWithUnknownHierarchyProbabilityModifier = parseFloat(rawOptions.fieldsOfClassesWithUnknownHierarchyProbabilityModifier);
   rawOptions.methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier = parseFloat(rawOptions.methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier);
   rawOptions.similarityModifierOfVariablesWithUnknownType = parseFloat(rawOptions.similarityModifierOfVariablesWithUnknownType);
+  rawOptions.minimumSimilarityForDataClumps = parseFloat(rawOptions.minimumSimilarityForDataClumps);
 
   return rawOptions;
 }
