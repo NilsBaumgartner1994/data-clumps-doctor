@@ -129,8 +129,7 @@ export class DetectorOptionsInformation {
 
   public static minimumSimilarityForDataClumps: DetectorOptionInformationParameter = {
     label: 'Similarity Threshold (ignored when at or below)',
-    description:
-      'Minimum similarity (0-1) that variables must exceed to be considered part of a data clump. Values equal to or below this threshold are ignored. Default value is 0.5.',
+    description: 'Minimum similarity (0-1) that variables must exceed to be considered part of a data clump. Values equal to or below this threshold are ignored. Default value is 0.5.',
     defaultValue: 0.5,
     group: 'all',
     type: 'float',
