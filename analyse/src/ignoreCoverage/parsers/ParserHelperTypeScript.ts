@@ -82,13 +82,11 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
         }
 
         for (const ctor of cls.getConstructors()) {
-          const parameterInfos = ctor.getParameters().map((param) => ({
+          const parameterInfos = ctor.getParameters().map(param => ({
             name: param.getName(),
             type: param.getType().getText(),
           }));
-          const signature = parameterInfos
-            .map((param) => `${param.type} ${param.name}`)
-            .join(', ');
+          const signature = parameterInfos.map(param => `${param.type} ${param.name}`).join(', ');
           const ctorKey = `constructor(${signature})`;
           const ctorCtx = new MethodTypeContext(ctorKey, 'constructor', undefined, false, ctx, 'constructor');
           ctorCtx.modifiers = [];
@@ -97,14 +95,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
           if (ctor.hasModifier('private')) ctorCtx.modifiers.push('PRIVATE');
 
           for (const paramInfo of parameterInfos) {
-            const paramCtx = new MethodParameterTypeContext(
-              paramInfo.name,
-              paramInfo.name,
-              paramInfo.type,
-              [],
-              false,
-              ctorCtx,
-            );
+            const paramCtx = new MethodParameterTypeContext(paramInfo.name, paramInfo.name, paramInfo.type, [], false, ctorCtx);
             ctorCtx.parameters.push(paramCtx);
           }
 

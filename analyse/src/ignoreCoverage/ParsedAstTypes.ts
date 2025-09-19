@@ -414,14 +414,7 @@ export class MethodTypeContext extends AstElementTypeContext {
     return instance;
   }
 
-  public constructor(
-    key?: string,
-    name?: string,
-    type?: string,
-    overrideAnnotation: boolean = false,
-    classOrInterface?: ClassOrInterfaceTypeContext,
-    contextType: 'method' | 'constructor' = 'method',
-  ) {
+  public constructor(key?: string, name?: string, type?: string, overrideAnnotation: boolean = false, classOrInterface?: ClassOrInterfaceTypeContext, contextType: 'method' | 'constructor' = 'method') {
     const prefix = classOrInterface?.key ? classOrInterface.key + '/' + contextType + '/' : '';
     const computedKey = classOrInterface?.key && key !== undefined ? prefix + key : key;
     super(computedKey, name, type);
