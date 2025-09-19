@@ -4,6 +4,7 @@ Data-Clumps-Doctor
 
 [![🚀 CI](https://github.com/NilsBaumgartner1994/data-clumps-doctor/actions/workflows/ci.yml/badge.svg)](https://github.com/NilsBaumgartner1994/data-clumps-doctor/actions/workflows/ci.yml)
 [![Data Clumps](https://raw.githubusercontent.com/NilsBaumgartner1994/data-clumps-doctor/refs/heads/master/reports/data-clumps-doctor/badges/data-clumps.svg)](https://github.com/NilsBaumgartner1994/data-clumps-doctor)
+[![Test Cases](https://raw.githubusercontent.com/NilsBaumgartner1994/data-clumps-doctor/refs/heads/master/reports/tests/badges/test-cases.svg)](https://github.com/NilsBaumgartner1994/data-clumps-doctor/tree/master/reports/tests)
 
 
 
