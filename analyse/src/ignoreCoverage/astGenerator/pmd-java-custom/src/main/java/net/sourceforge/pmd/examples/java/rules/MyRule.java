@@ -268,6 +268,79 @@ public class MyRule extends AbstractJavaRule {
         }
     }
 
+    private void extractConstructors(ASTClassOrInterfaceDeclaration node, ClassOrInterfaceTypeContext classContext){
+
+        String classOrInterfaceKey = getClassOrInterfaceKey(node);
+
+        List<ASTConstructorDeclaration> constructors = node.descendants(ASTConstructorDeclaration.class).toList();
+        for (ASTConstructorDeclaration constructor : constructors) {
+
+            MethodTypeContext constructorContext = new MethodTypeContext();
+            constructorContext.name = "constructor";
+
+            AstPosition position = new AstPosition();
+            position.startLine = constructor.getBeginLine();
+            position.startColumn = constructor.getBeginColumn();
+            position.endLine = constructor.getEndLine();
+            position.endColumn = constructor.getEndColumn();
+            constructorContext.position = position;
+
+            constructorContext.classOrInterfaceKey = node.getCanonicalName();
+
+            ASTModifierList constructorModifiers = constructor.getFirstDescendantOfType(ASTModifierList.class);
+            if (constructorModifiers != null) {
+                Set<JModifier> constructorModifierSet = constructorModifiers.getEffectiveModifiers();
+                if (constructorModifierSet != null) {
+                    constructorContext.modifiers = constructorModifierSet.stream().map(Enum::name).collect(Collectors.toList());
+                }
+            }
+
+            constructorContext.overrideAnnotation = false;
+
+            ASTFormalParameters parameters = constructor.getFormalParameters();
+            for (ASTFormalParameter parameter : parameters) {
+
+                ASTVariableDeclaratorId parameterVariableDeclarator = parameter.getVarId();
+
+                MethodParameterTypeContext parameterContext = new MethodParameterTypeContext();
+                parameterContext.name = parameterVariableDeclarator.getName();
+                parameterContext.type = this.getQualifiedNameUnsafe(parameterVariableDeclarator.getTypeMirror());
+                parameterContext.hasTypeVariable = this.hasTypeVariable(parameterVariableDeclarator.getTypeMirror());
+
+                parameterContext.position = this.getAstPosition(parameterVariableDeclarator);
+
+                ASTModifierList parameterModifiers = parameter.getFirstDescendantOfType(ASTModifierList.class);
+                Set<JModifier> modifierSet = parameterModifiers != null ? parameterModifiers.getEffectiveModifiers() : null;
+                if (modifierSet != null) {
+                    parameterContext.modifiers = modifierSet.stream().map(Enum::name).collect(Collectors.toList());
+                }
+
+                constructorContext.parameters.add(parameterContext);
+            }
+
+            String constructorContextParametersKey = classOrInterfaceKey+"/constructor/constructor(";
+            int amountParameters = constructorContext.parameters.size();
+            for(int i=0; i<amountParameters; i++){
+                MethodParameterTypeContext parameterContext = constructorContext.parameters.get(i);
+                String parameterTypeAndName = parameterContext.type+" "+parameterContext.name;
+                constructorContextParametersKey += parameterTypeAndName;
+                if(i+1<amountParameters){
+                    constructorContextParametersKey += ", ";
+                }
+            }
+            constructorContextParametersKey += ")";
+
+            constructorContext.key = constructorContextParametersKey;
+
+            for(MethodParameterTypeContext parameterContext: constructorContext.parameters){
+                parameterContext.key = constructorContext.key+"/parameter/"+parameterContext.name;
+                parameterContext.methodKey = constructorContext.key;
+            }
+
+            classContext.constructors.put(constructorContext.key, constructorContext);
+        }
+    }
+
     private String getClassOrInterfaceKey(ASTClassOrInterfaceDeclaration node){
         String classOrInterfaceKey = node.getCanonicalName();
         if(classOrInterfaceKey==null){
@@ -388,6 +461,9 @@ public class MyRule extends AbstractJavaRule {
 
         // Extract the methods
         this.extractMethods(node, classContext);
+
+        // Extract the constructors
+        this.extractConstructors(node, classContext);
 
         // Extract the interfaces this class implements
         // Extract the classes this class extends
