@@ -2,6 +2,6 @@
   "name": "TypeScript field-field data clump between Patient and Doctor",
   "language": "typescript",
   "sourceDir": "source",
-  "expectedReportFile": "expected-report.json",
+  "expectedReportFile": "report-expected.json",
   "detectorOptions": {}
 }
