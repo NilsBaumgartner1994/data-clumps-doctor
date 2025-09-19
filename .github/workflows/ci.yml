@@ -49,6 +49,50 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22.16.0"
+      - name: "📦 Install dependencies"
+        run: |
+          corepack enable
+          cd analyse
+          yarn install --immutable
+      - name: "🧪 Run Jest tests"
+        run: |
+          cd analyse
+          mkdir -p ../reports/tests
+          yarn build
+          yarn testOnly --json --outputFile=../reports/tests/jest-results.json --ci --runInBand
+      - name: "🔢 Extract test case count"
+        id: test-count
+        run: |
+          count=$(jq '.numTotalTests // 0' reports/tests/jest-results.json)
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+      - name: "🎨 Prepare test badge directory"
+        run: mkdir -p reports/tests/badges
+      - name: "🎯 Determine test badge color"
+        id: test-badge-color
+        run: |
+          if [ "${TEST_COUNT}" -eq 0 ]; then
+            echo "color=9E9E9E" >> "$GITHUB_OUTPUT"
+          else
+            echo "color=08A008" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          TEST_COUNT: ${{ steps.test-count.outputs.count }}
+      - name: "🏷️ Generate test cases badge"
+        uses: emibcn/badge-action@v2.0.2
+        with:
+          label: test cases
+          status: ${{ steps.test-count.outputs.count }}
+          color: ${{ steps.test-badge-color.outputs.color }}
+          path: reports/tests/badges/test-cases.svg
+      - name: "📝 Publish test summary"
+        run: |
+          {
+            echo "## ✅ Test cases"
+            echo ""
+            echo "- Total test cases: ${TEST_COUNT}"
+          } >> "$GITHUB_STEP_SUMMARY"
+        env:
+          TEST_COUNT: ${{ steps.test-count.outputs.count }}
       - name: "🩺 Run data-clumps-doctor"
         uses: ./.github/actions/analyse-data-clumps
         with:
@@ -61,17 +105,25 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git pull --rebase --autostash origin "$GITHUB_REF_NAME"
+          paths_to_commit=()
           if [ -d reports/data-clumps-doctor ]; then
             echo "Committing reports from reports/data-clumps-doctor"
-            git add -f reports/data-clumps-doctor
+            paths_to_commit+=("reports/data-clumps-doctor")
+          fi
+          if [ -d reports/tests ]; then
+            echo "Committing reports from reports/tests"
+            paths_to_commit+=("reports/tests")
+          fi
+          if [ "${#paths_to_commit[@]}" -eq 0 ]; then
+            echo "No reports generated, skipping commit"
+          else
+            git add -f "${paths_to_commit[@]}"
             if git diff --cached --quiet; then
               echo "No changes to commit"
             else
-              git commit -m "chore: update data clumps report [skip ci]"
+              git commit -m "chore: update automated reports [skip ci]"
               git push
             fi
-          else
-            echo "No reports generated at reports/data-clumps-doctor, skipping commit"
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
