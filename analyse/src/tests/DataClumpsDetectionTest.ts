@@ -32,10 +32,7 @@ function loadExpectedReport(expectedReportPath: string) {
 function createScenarioTest(scenario: Scenario) {
   test(scenario.name, async () => {
     if (!fs.existsSync(scenario.expectedReportPath)) {
-      throw new Error(
-        `Missing expected report for scenario "${scenario.name}" at ${scenario.expectedReportPath}. ` +
-          'Run "npm run generate-missing-test-reports" to create a draft report (report-generated-to-check.json).'
-      );
+      throw new Error(`Missing expected report for scenario "${scenario.name}" at ${scenario.expectedReportPath}. ` + 'Run "npm run generate-missing-test-reports" to create a draft report (report-generated-to-check.json).');
     }
 
     const actualReport = await runScenario(scenario);

@@ -26,9 +26,7 @@ export interface Scenario extends ScenarioConfig {
 }
 
 type ParserWithDictionary = ParserInterface & {
-  parseSourceToDictOfClassesOrInterfaces: (
-    path: string
-  ) => Promise<Map<string, ClassOrInterfaceTypeContext>>;
+  parseSourceToDictOfClassesOrInterfaces: (path: string) => Promise<Map<string, ClassOrInterfaceTypeContext>>;
 };
 
 function parserSupportsDictionary(parser: ParserInterface): parser is ParserWithDictionary {
@@ -73,10 +71,7 @@ export function discoverScenarioConfigs(baseDir: string): Scenario[] {
 }
 
 export function resolveTestCasesBaseDir(): { baseDir: string; scenarios: Scenario[] } {
-  const candidates = [
-    path.resolve(__dirname, 'test-cases'),
-    path.resolve(__dirname, '..', '..', '..', 'src/tests/data-clumps/test-cases'),
-  ];
+  const candidates = [path.resolve(__dirname, 'test-cases'), path.resolve(__dirname, '..', '..', '..', 'src/tests/data-clumps/test-cases')];
 
   for (const candidate of candidates) {
     const scenarios = discoverScenarioConfigs(candidate);
@@ -90,12 +85,7 @@ export function resolveTestCasesBaseDir(): { baseDir: string; scenarios: Scenari
 }
 
 function resolveAstGeneratorFolder(): string {
-  const candidates = [
-    path.resolve(__dirname, '../ignoreCoverage/astGenerator'),
-    path.resolve(__dirname, '..', 'ignoreCoverage/astGenerator'),
-    path.resolve(__dirname, '..', '..', '..', 'src/ignoreCoverage/astGenerator'),
-    path.resolve(__dirname, '..', '..', '..', 'ignoreCoverage/astGenerator'),
-  ];
+  const candidates = [path.resolve(__dirname, '../ignoreCoverage/astGenerator'), path.resolve(__dirname, '..', 'ignoreCoverage/astGenerator'), path.resolve(__dirname, '..', '..', '..', 'src/ignoreCoverage/astGenerator'), path.resolve(__dirname, '..', '..', '..', 'ignoreCoverage/astGenerator')];
 
   for (const candidate of candidates) {
     if (fs.existsSync(candidate)) {
@@ -117,11 +107,7 @@ export function createParser(language: string): ParserInterface {
   }
 }
 
-async function buildSoftwareProjectDicts(
-  parser: ParserInterface,
-  sourcePath: string,
-  detectorOptions: Partial<DetectorOptions> | undefined
-): Promise<SoftwareProjectDicts> {
+async function buildSoftwareProjectDicts(parser: ParserInterface, sourcePath: string, detectorOptions: Partial<DetectorOptions> | undefined): Promise<SoftwareProjectDicts> {
   if (!fs.existsSync(sourcePath)) {
     throw new Error(`Source path does not exist: ${sourcePath}`);
   }
@@ -153,19 +139,6 @@ async function buildSoftwareProjectDicts(
 export async function runScenario(scenario: Scenario) {
   const parser = createParser(scenario.language);
   const softwareProjectDicts = await buildSoftwareProjectDicts(parser, scenario.sourcePath, scenario.detectorOptions);
-  const detector = new Detector(
-    softwareProjectDicts,
-    scenario.detectorOptions ?? null,
-    null,
-    null,
-    scenario.name,
-    null,
-    null,
-    null,
-    null,
-    null,
-    scenario.language
-  );
+  const detector = new Detector(softwareProjectDicts, scenario.detectorOptions ?? null, null, null, scenario.name, null, null, null, null, null, scenario.language);
   return detector.detect();
 }
-
