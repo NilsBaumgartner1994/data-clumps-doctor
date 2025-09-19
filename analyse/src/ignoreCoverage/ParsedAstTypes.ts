@@ -181,6 +181,7 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext {
   public modifiers: string[] | undefined;
   public fields: Dictionary<MemberFieldParameterTypeContext>;
   public methods: Dictionary<MethodTypeContext>;
+  public constructors: Dictionary<MethodTypeContext>;
   public file_path: string;
   public anonymous: boolean;
   public auxclass: boolean; // true: wont be analysed. the class is only an aux class in order to support the hierarchy.
@@ -200,11 +201,17 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext {
     // @ts-ignore
     let instance = new ClassOrInterfaceTypeContext();
     Object.assign(instance, obj);
+    instance.fields = instance.fields || {};
+    instance.methods = instance.methods || {};
+    instance.constructors = instance.constructors || {};
     for (let fieldKey of Object.keys(instance.fields)) {
       instance.fields[fieldKey] = MemberFieldParameterTypeContext.fromObject(instance.fields[fieldKey]);
     }
     for (let methodKey of Object.keys(instance.methods)) {
       instance.methods[methodKey] = MethodTypeContext.fromObject(instance.methods[methodKey]);
+    }
+    for (let constructorKey of Object.keys(instance.constructors)) {
+      instance.constructors[constructorKey] = MethodTypeContext.fromObject(instance.constructors[constructorKey]);
     }
     for (let innerDefinedClassKey of Object.keys(instance.innerDefinedClasses)) {
       instance.innerDefinedClasses[innerDefinedClassKey] = ClassOrInterfaceTypeContext.fromObject(instance.innerDefinedClasses[innerDefinedClassKey]);
@@ -224,6 +231,7 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext {
     this.modifiers = [];
     this.fields = {};
     this.methods = {};
+    this.constructors = {};
     this.innerDefinedClasses = {};
     this.innerDefinedInterfaces = {};
     this.implements_ = [];
@@ -406,12 +414,22 @@ export class MethodTypeContext extends AstElementTypeContext {
     return instance;
   }
 
-  public constructor(key, name, type, overrideAnnotation: boolean, classOrInterface: ClassOrInterfaceTypeContext) {
-    super(classOrInterface?.key + '/method/' + key, name, type);
+  public constructor(
+    key?: string,
+    name?: string,
+    type?: string,
+    overrideAnnotation: boolean = false,
+    classOrInterface?: ClassOrInterfaceTypeContext,
+    contextType: 'method' | 'constructor' = 'method',
+  ) {
+    const prefix = classOrInterface?.key ? classOrInterface.key + '/' + contextType + '/' : '';
+    const computedKey = classOrInterface?.key && key !== undefined ? prefix + key : key;
+    super(computedKey, name, type);
     this.modifiers = [];
     this.parameters = [];
     this.classOrInterfaceKey = classOrInterface?.key;
     this.overrideAnnotation = overrideAnnotation;
+    this.returnType = type;
   }
 
   public getMethodSignature() {

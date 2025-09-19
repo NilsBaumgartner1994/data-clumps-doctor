@@ -81,6 +81,36 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
           ctx.methods[methodCtx.key] = methodCtx;
         }
 
+        for (const ctor of cls.getConstructors()) {
+          const parameterInfos = ctor.getParameters().map((param) => ({
+            name: param.getName(),
+            type: param.getType().getText(),
+          }));
+          const signature = parameterInfos
+            .map((param) => `${param.type} ${param.name}`)
+            .join(', ');
+          const ctorKey = `constructor(${signature})`;
+          const ctorCtx = new MethodTypeContext(ctorKey, 'constructor', undefined, false, ctx, 'constructor');
+          ctorCtx.modifiers = [];
+          if (ctor.hasModifier('public')) ctorCtx.modifiers.push('PUBLIC');
+          if (ctor.hasModifier('protected')) ctorCtx.modifiers.push('PROTECTED');
+          if (ctor.hasModifier('private')) ctorCtx.modifiers.push('PRIVATE');
+
+          for (const paramInfo of parameterInfos) {
+            const paramCtx = new MethodParameterTypeContext(
+              paramInfo.name,
+              paramInfo.name,
+              paramInfo.type,
+              [],
+              false,
+              ctorCtx,
+            );
+            ctorCtx.parameters.push(paramCtx);
+          }
+
+          ctx.constructors[ctorCtx.key] = ctorCtx;
+        }
+
         dict.set(ctx.key, ctx);
       }
 
