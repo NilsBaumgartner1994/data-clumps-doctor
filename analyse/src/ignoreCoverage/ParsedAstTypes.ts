@@ -368,7 +368,7 @@ export class MemberFieldParameterTypeContext extends VariableTypeContext {
 
   public constructor(key, name, type, modifiers, ignore, classOrInterface: ClassOrInterfaceTypeContext) {
     super(classOrInterface?.key + '/' + 'memberField' + '/' + key, name, type, modifiers, ignore);
-    this.classOrInterfaceKey = classOrInterface?.key;
+    this.classOrInterfaceKey = classOrInterface?.key!;
   }
 
   public static fromObject(obj: MemberFieldParameterTypeContext) {
@@ -420,7 +420,7 @@ export class MethodTypeContext extends AstElementTypeContext {
     super(computedKey, name, type);
     this.modifiers = [];
     this.parameters = [];
-    this.classOrInterfaceKey = classOrInterface?.key;
+    this.classOrInterfaceKey = classOrInterface?.key!;
     this.overrideAnnotation = overrideAnnotation;
     this.returnType = type;
   }
