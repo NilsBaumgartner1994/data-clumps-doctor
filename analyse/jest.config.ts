@@ -82,7 +82,10 @@ export default {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  moduleNameMapper: {
+    '^@azure/dtdl-parser$': '<rootDir>/jest/mocks/azure-dtdl-parser.js',
+    '^@azure/logger$': '<rootDir>/jest/mocks/azure-logger.js',
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -152,6 +155,7 @@ export default {
     '/coverage/',
     '/node_modules/',
     '/src/ignoreCoverage/',
+    '/tests/.*/source/',
   ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
