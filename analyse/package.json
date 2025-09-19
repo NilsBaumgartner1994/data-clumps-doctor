@@ -7,7 +7,7 @@
   "scripts": {
     "coverage": "jest --coverage",
     "test": "npm run build && npm run testOnly",
-    "testOnly": "npm run coverage",
+    "testOnly": "jest --coverage=false",
     "start": "npm run build && node ./build/ignoreCoverage/development.js",
     "build": "rimraf ./build && tsc && cp -r ./src/ignoreCoverage/astGenerator ./build/ignoreCoverage && cp package.json ./build && cp ./../README.md ./build && cp ./../LICENSE.md ./build && npm run chmodCli",
     "chmodCli": "chmod +x ./build/ignoreCoverage/cli.js",
