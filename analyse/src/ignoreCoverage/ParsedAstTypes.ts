@@ -420,7 +420,7 @@ export class MethodTypeContext extends AstElementTypeContext {
     super(computedKey, name, type);
     this.modifiers = [];
     this.parameters = [];
-    this.classOrInterfaceKey = classOrInterface?.key;
+    this.classOrInterfaceKey = classOrInterface?.key ?? '';
     this.overrideAnnotation = overrideAnnotation;
     this.returnType = type;
   }
