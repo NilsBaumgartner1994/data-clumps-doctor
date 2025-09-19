@@ -23,9 +23,7 @@ interface Scenario extends ScenarioConfig {
 }
 
 type ParserWithDictionary = ParserInterface & {
-  parseSourceToDictOfClassesOrInterfaces: (
-    path: string,
-  ) => Promise<Map<string, ClassOrInterfaceTypeContext>>;
+  parseSourceToDictOfClassesOrInterfaces: (path: string) => Promise<Map<string, ClassOrInterfaceTypeContext>>;
 };
 
 function ensureParserSupportsDictionary(parser: ParserInterface): ParserWithDictionary {
@@ -74,10 +72,7 @@ function discoverScenarioConfigs(baseDir: string): Scenario[] {
 }
 
 function resolveTestCasesBaseDir(): { baseDir: string; scenarios: Scenario[] } {
-  const candidates = [
-    path.resolve(__dirname, 'data-clumps/test-cases'),
-    path.resolve(__dirname, '..', '..', 'src/tests/data-clumps/test-cases'),
-  ];
+  const candidates = [path.resolve(__dirname, 'data-clumps/test-cases'), path.resolve(__dirname, '..', '..', 'src/tests/data-clumps/test-cases')];
 
   for (const candidate of candidates) {
     const scenarios = discoverScenarioConfigs(candidate);
@@ -136,19 +131,7 @@ function computeDataClumpsHash(dataClumps: Record<string, unknown>): string {
 async function runScenario(scenario: Scenario) {
   const parser = createParser(scenario.language);
   const softwareProjectDicts = await buildSoftwareProjectDicts(parser, scenario.sourcePath);
-  const detector = new Detector(
-    softwareProjectDicts,
-    scenario.detectorOptions ?? null,
-    null,
-    null,
-    scenario.name,
-    null,
-    null,
-    null,
-    null,
-    null,
-    scenario.language,
-  );
+  const detector = new Detector(softwareProjectDicts, scenario.detectorOptions ?? null, null, null, scenario.name, null, null, null, null, null, scenario.language);
   return detector.detect();
 }
 
