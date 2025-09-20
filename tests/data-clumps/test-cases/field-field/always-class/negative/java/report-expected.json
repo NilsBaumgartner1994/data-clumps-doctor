@@ -1,0 +1,72 @@
+{
+  "report_version": "^0.1.102",
+  "report_timestamp": "2025-09-20T08:00:40.440Z",
+  "target_language": "java",
+  "report_summary": {
+    "additional": {
+      "invertedIndexSoftwareProjectStatistics": {
+        "invertedFieldToClasses": {
+          "median": 1.5,
+          "maximum": 2,
+          "average": 1.2142857142857142,
+          "amountSavedValuesForKeys": 17,
+          "amountKeys": 2
+        },
+        "invertedParameterToMethods": {
+          "median": 0,
+          "maximum": 0,
+          "average": null,
+          "amountSavedValuesForKeys": 0,
+          "amountKeys": 0
+        },
+        "invertedParameterToClasses": {
+          "median": 1.5,
+          "maximum": 2,
+          "average": 1.2142857142857142,
+          "amountSavedValuesForKeys": 17,
+          "amountKeys": 2
+        }
+      }
+    },
+    "amount_classes_or_interfaces_with_data_clumps": 0,
+    "amount_files_with_data_clumps": 0,
+    "amount_methods_with_data_clumps": 0,
+    "fields_to_fields_data_clump": 0,
+    "parameters_to_fields_data_clump": 0,
+    "parameters_to_parameters_data_clump": 0,
+    "amount_data_clumps": 0
+  },
+  "project_info": {
+    "project_url": "unknown",
+    "project_name": "Java field-field without full class typed overlap",
+    "project_version": "unknown",
+    "project_commit_hash": "unknown",
+    "project_tag": null,
+    "project_commit_date": null,
+    "additional": {},
+    "number_of_files": 6,
+    "number_of_classes_or_interfaces": 6,
+    "number_of_methods": 0,
+    "number_of_data_fields": 17,
+    "number_of_method_parameters": 0
+  },
+  "detector": {
+    "name": "data-clumps-doctor",
+    "url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
+    "version": "0.1.101",
+    "options": {
+      "fastDetection": true,
+      "ignorePaths": [],
+      "similarityModifierOfVariablesWithUnknownType": 0,
+      "minimumSimilarityForDataClumps": 0.5,
+      "fieldsOfClassesWithUnknownHierarchyProbabilityModifier": 0,
+      "sharedFieldsToFieldsAmountMinimum": 3,
+      "analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces": false,
+      "sharedParametersToParametersAmountMinimum": 3,
+      "sharedParametersToFieldsAmountMinimum": 3,
+      "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "ignoredVariableNames": []
+    }
+  },
+  "data_clumps": {}
+}

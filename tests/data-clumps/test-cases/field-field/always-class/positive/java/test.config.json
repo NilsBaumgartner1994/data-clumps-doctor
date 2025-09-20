@@ -1,0 +1,7 @@
+{
+  "name": "Java field-field data clump with class typed fields",
+  "language": "java",
+  "sourceDir": "source",
+  "expectedReportFile": "report-expected.json",
+  "detectorOptions": {}
+}

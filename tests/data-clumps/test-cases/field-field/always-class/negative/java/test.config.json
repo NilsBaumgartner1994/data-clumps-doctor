@@ -1,0 +1,7 @@
+{
+  "name": "Java field-field without full class typed overlap",
+  "language": "java",
+  "sourceDir": "source",
+  "expectedReportFile": "report-expected.json",
+  "detectorOptions": {}
+}
