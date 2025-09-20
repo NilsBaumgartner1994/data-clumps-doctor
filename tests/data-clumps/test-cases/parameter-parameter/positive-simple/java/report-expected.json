@@ -1,0 +1,259 @@
+{
+  "report_version": "^0.1.102",
+  "report_timestamp": "2025-09-20T06:41:46.835Z",
+  "target_language": "java",
+  "report_summary": {
+    "additional": {
+      "invertedIndexSoftwareProjectStatistics": {
+        "invertedFieldToClasses": {
+          "median": 0,
+          "maximum": 0,
+          "average": null,
+          "amountSavedValuesForKeys": 0,
+          "amountKeys": 0
+        },
+        "invertedParameterToMethods": {
+          "median": 2,
+          "maximum": 2,
+          "average": 2,
+          "amountSavedValuesForKeys": 6,
+          "amountKeys": 1
+        },
+        "invertedParameterToClasses": {
+          "median": 0,
+          "maximum": 0,
+          "average": null,
+          "amountSavedValuesForKeys": 0,
+          "amountKeys": 0
+        }
+      }
+    },
+    "amount_classes_or_interfaces_with_data_clumps": 2,
+    "amount_files_with_data_clumps": 2,
+    "amount_methods_with_data_clumps": 2,
+    "fields_to_fields_data_clump": 0,
+    "parameters_to_fields_data_clump": 0,
+    "parameters_to_parameters_data_clump": 2,
+    "amount_data_clumps": 2
+  },
+  "project_info": {
+    "project_url": "unknown",
+    "project_name": "Java parameter-parameter data clump between scheduler and billing",
+    "project_version": "unknown",
+    "project_commit_hash": "unknown",
+    "project_tag": null,
+    "project_commit_date": null,
+    "additional": {},
+    "number_of_files": 2,
+    "number_of_classes_or_interfaces": 2,
+    "number_of_methods": 2,
+    "number_of_data_fields": 0,
+    "number_of_method_parameters": 6
+  },
+  "detector": {
+    "name": "data-clumps-doctor",
+    "url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
+    "version": "0.1.101",
+    "options": {
+      "fastDetection": true,
+      "ignorePaths": [],
+      "similarityModifierOfVariablesWithUnknownType": 0,
+      "minimumSimilarityForDataClumps": 0.5,
+      "fieldsOfClassesWithUnknownHierarchyProbabilityModifier": 0,
+      "sharedFieldsToFieldsAmountMinimum": 3,
+      "analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces": false,
+      "sharedParametersToParametersAmountMinimum": 3,
+      "sharedParametersToFieldsAmountMinimum": 3,
+      "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "ignoredVariableNames": []
+    }
+  },
+  "data_clumps": {
+    "parameters_to_parameters_data_clump-AppointmentScheduler.java-AppointmentScheduler/method/schedule(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)-BillingProcessor/method/createInvoice(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)-patientIddoctorIdroomNumber": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-AppointmentScheduler.java-AppointmentScheduler/method/schedule(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)-BillingProcessor/method/createInvoice(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)-patientIddoctorIdroomNumber",
+      "probability": 1,
+      "from_file_path": "AppointmentScheduler.java",
+      "from_class_or_interface_name": "AppointmentScheduler",
+      "from_class_or_interface_key": "AppointmentScheduler",
+      "from_method_name": "schedule",
+      "from_method_key": "AppointmentScheduler/method/schedule(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)",
+      "to_file_path": "BillingProcessor.java",
+      "to_class_or_interface_name": "BillingProcessor",
+      "to_class_or_interface_key": "BillingProcessor",
+      "to_method_name": "createInvoice",
+      "to_method_key": "BillingProcessor/method/createInvoice(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "AppointmentScheduler/method/schedule(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/patientId": {
+          "key": "AppointmentScheduler/method/schedule(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/patientId",
+          "name": "patientId",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "BillingProcessor/method/createInvoice(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/patientId",
+            "name": "patientId",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 38,
+              "endLine": 2,
+              "endColumn": 47
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 33,
+            "endLine": 2,
+            "endColumn": 42
+          }
+        },
+        "AppointmentScheduler/method/schedule(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/doctorId": {
+          "key": "AppointmentScheduler/method/schedule(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/doctorId",
+          "name": "doctorId",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "BillingProcessor/method/createInvoice(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/doctorId",
+            "name": "doctorId",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 56,
+              "endLine": 2,
+              "endColumn": 64
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 51,
+            "endLine": 2,
+            "endColumn": 59
+          }
+        },
+        "AppointmentScheduler/method/schedule(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/roomNumber": {
+          "key": "AppointmentScheduler/method/schedule(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/roomNumber",
+          "name": "roomNumber",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "BillingProcessor/method/createInvoice(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/roomNumber",
+            "name": "roomNumber",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 73,
+              "endLine": 2,
+              "endColumn": 83
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 68,
+            "endLine": 2,
+            "endColumn": 78
+          }
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-BillingProcessor.java-BillingProcessor/method/createInvoice(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)-AppointmentScheduler/method/schedule(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)-patientIddoctorIdroomNumber": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-BillingProcessor.java-BillingProcessor/method/createInvoice(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)-AppointmentScheduler/method/schedule(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)-patientIddoctorIdroomNumber",
+      "probability": 1,
+      "from_file_path": "BillingProcessor.java",
+      "from_class_or_interface_name": "BillingProcessor",
+      "from_class_or_interface_key": "BillingProcessor",
+      "from_method_name": "createInvoice",
+      "from_method_key": "BillingProcessor/method/createInvoice(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)",
+      "to_file_path": "AppointmentScheduler.java",
+      "to_class_or_interface_name": "AppointmentScheduler",
+      "to_class_or_interface_key": "AppointmentScheduler",
+      "to_method_name": "schedule",
+      "to_method_key": "AppointmentScheduler/method/schedule(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "BillingProcessor/method/createInvoice(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/patientId": {
+          "key": "BillingProcessor/method/createInvoice(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/patientId",
+          "name": "patientId",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "AppointmentScheduler/method/schedule(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/patientId",
+            "name": "patientId",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 33,
+              "endLine": 2,
+              "endColumn": 42
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 38,
+            "endLine": 2,
+            "endColumn": 47
+          }
+        },
+        "BillingProcessor/method/createInvoice(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/doctorId": {
+          "key": "BillingProcessor/method/createInvoice(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/doctorId",
+          "name": "doctorId",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "AppointmentScheduler/method/schedule(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/doctorId",
+            "name": "doctorId",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 51,
+              "endLine": 2,
+              "endColumn": 59
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 56,
+            "endLine": 2,
+            "endColumn": 64
+          }
+        },
+        "BillingProcessor/method/createInvoice(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/roomNumber": {
+          "key": "BillingProcessor/method/createInvoice(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/roomNumber",
+          "name": "roomNumber",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "AppointmentScheduler/method/schedule(java.lang.String patientId, java.lang.String doctorId, java.lang.String roomNumber)/parameter/roomNumber",
+            "name": "roomNumber",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 68,
+              "endLine": 2,
+              "endColumn": 78
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 73,
+            "endLine": 2,
+            "endColumn": 83
+          }
+        }
+      }
+    }
+  }
+}

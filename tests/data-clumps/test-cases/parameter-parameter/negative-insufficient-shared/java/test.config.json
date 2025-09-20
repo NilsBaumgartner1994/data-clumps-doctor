@@ -1,0 +1,7 @@
+{
+  "name": "Java parameter-parameter without enough shared parameters",
+  "language": "java",
+  "sourceDir": "source",
+  "expectedReportFile": "report-expected.json",
+  "detectorOptions": {}
+}
