@@ -35,8 +35,7 @@ function loadExpectedReport(expectedReportPath: string) {
 jest.setTimeout(60000);
 
 function createScenarioTest(scenario: Scenario) {
-  const scenarioDisplayPath =
-    path.relative(process.cwd(), scenario.scenarioDir) || scenario.scenarioDir;
+  const scenarioDisplayPath = path.relative(process.cwd(), scenario.scenarioDir) || scenario.scenarioDir;
 
   test(`${scenario.name} (${scenarioDisplayPath})`, async () => {
     if (!fs.existsSync(scenario.expectedReportPath)) {
@@ -50,12 +49,7 @@ function createScenarioTest(scenario: Scenario) {
     const formattedExpected = formatDataClumps(expectedReport.data_clumps);
 
     if (formattedActual !== formattedExpected) {
-      const messageSegments = [
-        `Scenario "${scenario.name}" produced a report that does not match the expected output.`,
-        `Scenario directory: ${scenario.scenarioDir}`,
-        `Expected report path: ${scenario.expectedReportPath}`,
-        'Run "npm run generate-missing-test-reports" to generate an updated draft report when changes are intentional.',
-      ];
+      const messageSegments = [`Scenario "${scenario.name}" produced a report that does not match the expected output.`, `Scenario directory: ${scenario.scenarioDir}`, `Expected report path: ${scenario.expectedReportPath}`, 'Run "npm run generate-missing-test-reports" to generate an updated draft report when changes are intentional.'];
 
       throw new Error(messageSegments.join('\n\n'));
     }
