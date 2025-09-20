@@ -93,9 +93,7 @@ function createScenarioTest(scenario: Scenario) {
   test(`${scenario.name} (${scenarioDisplayPath})`, async () => {
     try {
       if (!fs.existsSync(scenario.expectedReportPath)) {
-        const message =
-          `Fehlender erwarteter Report für Szenario "${scenario.name}" unter ${scenario.expectedReportPath}.` +
-          ' Führe "npm run generate-missing-test-reports" aus, um einen Entwurfsreport zu erstellen (report-generated-to-check.json).';
+        const message = `Fehlender erwarteter Report für Szenario "${scenario.name}" unter ${scenario.expectedReportPath}.` + ' Führe "npm run generate-missing-test-reports" aus, um einen Entwurfsreport zu erstellen (report-generated-to-check.json).';
         scenarioResults.set(`${scenario.name} (${scenarioDisplayPath})`, {
           status: 'failed',
           details: message,
@@ -113,15 +111,8 @@ function createScenarioTest(scenario: Scenario) {
         const expectedCount = parseAmountDataClumps(expectedReport);
         const actualCount = parseAmountDataClumps(actualReport);
         const firstDifference = findFirstDifferenceLine(formattedExpected, formattedActual);
-        const differenceText = firstDifference
-          ? `Erste unterschiedliche Zeile (${firstDifference.index}):\nErwartet: ${firstDifference.expectedLine}\nGefunden: ${firstDifference.actualLine}`
-          : 'Die Berichte unterscheiden sich, aber es konnte keine abweichende Zeile ermittelt werden.';
-        const message = [
-          `Fehler im Report-Szenario: ${scenario.name}`,
-          `Erwartete Data Clumps: ${expectedCount}`,
-          `Gefundene Data Clumps: ${actualCount}`,
-          differenceText,
-        ].join('\n');
+        const differenceText = firstDifference ? `Erste unterschiedliche Zeile (${firstDifference.index}):\nErwartet: ${firstDifference.expectedLine}\nGefunden: ${firstDifference.actualLine}` : 'Die Berichte unterscheiden sich, aber es konnte keine abweichende Zeile ermittelt werden.';
+        const message = [`Fehler im Report-Szenario: ${scenario.name}`, `Erwartete Data Clumps: ${expectedCount}`, `Gefundene Data Clumps: ${actualCount}`, differenceText].join('\n');
         scenarioResults.set(`${scenario.name} (${scenarioDisplayPath})`, {
           status: 'failed',
           details: message,
