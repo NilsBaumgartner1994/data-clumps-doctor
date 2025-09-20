@@ -77,19 +77,17 @@ class FailureSummaryReporter {
   }
 
   printTable(rows) {
-    const headers = ['Test', 'Erwartete Data Clumps', 'Gefundene Data Clumps'];
-    const columnGetters = [row => row.testName, row => row.expectedCount, row => row.actualCount];
+    const lines = [''];
 
-    const columnWidths = headers.map((header, index) => {
-      const values = rows.map(row => String(columnGetters[index](row) ?? ''));
-      const widestValue = values.reduce((max, value) => Math.max(max, value.length), 0);
-      return Math.max(header.length, widestValue);
-    });
+    lines.push('Zusammenfassung fehlgeschlagener Data-Clumps-Tests:');
 
-    const separator = `+-${columnWidths.map(width => '-'.repeat(width)).join('-+-')}-+`;
-    const formatRow = values => `| ${values.map((value, index) => String(value).padEnd(columnWidths[index], ' ')).join(' | ')} |`;
+    for (const row of rows) {
+      lines.push(`  - ${row.testName}`);
+      lines.push(`      Erwartete Data Clumps: ${row.expectedCount}`);
+      lines.push(`      Gefundene Data Clumps: ${row.actualCount}`);
+    }
 
-    const lines = ['', 'Zusammenfassung fehlgeschlagener Data-Clumps-Tests:', separator, formatRow(headers), separator, ...rows.map(row => formatRow(columnGetters.map(getter => getter(row)))), separator, ''];
+    lines.push('');
 
     // eslint-disable-next-line no-console
     console.log(lines.join('\n'));
