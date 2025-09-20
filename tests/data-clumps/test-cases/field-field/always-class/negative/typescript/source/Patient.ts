@@ -8,12 +8,7 @@ export class Patient {
   public emergencyContact: EmergencyContact;
   public patientId: string;
 
-  constructor(
-    address: Address,
-    contactInfo: ContactInfo,
-    emergencyContact: EmergencyContact,
-    patientId: string
-  ) {
+  constructor(address: Address, contactInfo: ContactInfo, emergencyContact: EmergencyContact, patientId: string) {
     this.address = address;
     this.contactInfo = contactInfo;
     this.emergencyContact = emergencyContact;

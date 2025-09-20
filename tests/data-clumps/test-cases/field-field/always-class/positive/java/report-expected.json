@@ -90,16 +90,12 @@
           "name": "contactInfo",
           "type": "ContactInfo",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Patient/memberField/contactInfo",
             "name": "contactInfo",
             "type": "ContactInfo",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 3,
               "startColumn": 24,
@@ -119,16 +115,12 @@
           "name": "insurance",
           "type": "Insurance",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Patient/memberField/insurance",
             "name": "insurance",
             "type": "Insurance",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 4,
               "startColumn": 22,
@@ -148,16 +140,12 @@
           "name": "address",
           "type": "Address",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Patient/memberField/address",
             "name": "address",
             "type": "Address",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 2,
               "startColumn": 20,
@@ -195,16 +183,12 @@
           "name": "address",
           "type": "Address",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Doctor/memberField/address",
             "name": "address",
             "type": "Address",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 2,
               "startColumn": 20,
@@ -224,16 +208,12 @@
           "name": "insurance",
           "type": "Insurance",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Doctor/memberField/insurance",
             "name": "insurance",
             "type": "Insurance",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 4,
               "startColumn": 22,
@@ -253,16 +233,12 @@
           "name": "contactInfo",
           "type": "ContactInfo",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Doctor/memberField/contactInfo",
             "name": "contactInfo",
             "type": "ContactInfo",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 3,
               "startColumn": 24,

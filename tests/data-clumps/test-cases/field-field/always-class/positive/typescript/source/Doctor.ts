@@ -8,12 +8,7 @@ export class Doctor {
   public insurance: Insurance;
   public licenseNumber: string;
 
-  constructor(
-    address: Address,
-    contactInfo: ContactInfo,
-    insurance: Insurance,
-    licenseNumber: string
-  ) {
+  constructor(address: Address, contactInfo: ContactInfo, insurance: Insurance, licenseNumber: string) {
     this.address = address;
     this.contactInfo = contactInfo;
     this.insurance = insurance;
