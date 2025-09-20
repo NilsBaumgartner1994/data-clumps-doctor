@@ -9,6 +9,7 @@
     "test": "yarn run build && yarn run testOnly",
     "testOnly": "jest --coverage=false",
     "generate-missing-test-reports": "yarn run build && node ./build/tests/generateMissingReports.js",
+    "regenerate-existing-test-report-expected": "yarn run build && node ./build/tests/regenerateExistingReports.js",
     "start": "yarn run build && node ./build/ignoreCoverage/development.js",
     "build": "rimraf ./build && tsc && mkdir -p ./build/src/ignoreCoverage && cp -r ./src/ignoreCoverage/astGenerator ./build/src/ignoreCoverage/ && cp -r ./build/src/ignoreCoverage ./build/ignoreCoverage && cp ./build/src/index.js ./build/index.js && cp ./build/src/index.d.ts ./build/index.d.ts && cp package.json ./build && cp ./README.md ./build && cp ./LICENSE.md ./build && npm run chmodCli",
     "chmodCli": "chmod +x ./build/ignoreCoverage/cli.js",
