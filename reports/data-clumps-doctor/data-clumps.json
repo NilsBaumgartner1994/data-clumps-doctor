@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-09-20T09:49:41.653Z",
+  "report_timestamp": "2025-09-20T10:24:17.786Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -28,15 +28,15 @@
         }
       },
       "timer_information": {
-        "ast_generation_time_ms": 1811,
-        "detection_time_ms": 11,
+        "ast_generation_time_ms": 1790,
+        "detection_time_ms": 12,
         "machine_information": {
           "os": "Linux",
           "os_release": "6.11.0-1018-azure",
           "os_platform": "linux",
           "os_arch": "x64",
-          "os_uptime": 82.89,
-          "os_memory_free": 15553761280,
+          "os_uptime": 77.17,
+          "os_memory_free": 15545729024,
           "os_memory_total": 16772579328,
           "os_cpu_cores": 4,
           "os_cpu_model": "AMD EPYC 7763 64-Core Processor",
@@ -55,10 +55,10 @@
   "project_info": {
     "project_url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
     "project_name": "data-clumps-doctor",
-    "project_version": "c3e0231f00bec5773816c393d348eac7fbe2230e",
-    "project_commit_hash": "c3e0231f00bec5773816c393d348eac7fbe2230e",
+    "project_version": "4e682b9c93805e69ae4dfe661fdee6b9f748dbc4",
+    "project_commit_hash": "4e682b9c93805e69ae4dfe661fdee6b9f748dbc4",
     "project_tag": null,
-    "project_commit_date": "1758361660",
+    "project_commit_date": "1758363794",
     "additional": {},
     "number_of_files": 22,
     "number_of_classes_or_interfaces": 34,
