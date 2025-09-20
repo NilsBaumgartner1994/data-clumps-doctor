@@ -1,0 +1,7 @@
+{
+  "name": "TypeScript parameter-field data clump between service and patient",
+  "language": "typescript",
+  "sourceDir": "source",
+  "expectedReportFile": "report-expected.json",
+  "detectorOptions": {}
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Java field-field without enough shared fields",
+  "language": "java",
+  "sourceDir": "source",
+  "expectedReportFile": "report-expected.json",
+  "detectorOptions": {}
+}
