@@ -69,9 +69,9 @@
     }
   },
   "data_clumps": {
-    "parameters_to_fields_data_clump-PatientService.ts-PatientService.ts/class/PatientService/method/registerPatient-Patient.ts/class/Patient-firstNamelastNameinsuranceNumber": {
+    "parameters_to_fields_data_clump-PatientService.ts-PatientService.ts/class/PatientService/method/registerPatient-Patient.ts/class/Patient-recordIdisActivevisitCount": {
       "type": "data_clump",
-      "key": "parameters_to_fields_data_clump-PatientService.ts-PatientService.ts/class/PatientService/method/registerPatient-Patient.ts/class/Patient-firstNamelastNameinsuranceNumber",
+      "key": "parameters_to_fields_data_clump-PatientService.ts-PatientService.ts/class/PatientService/method/registerPatient-Patient.ts/class/Patient-recordIdisActivevisitCount",
       "probability": 1,
       "from_file_path": "PatientService.ts",
       "from_class_or_interface_name": "PatientService",
@@ -85,46 +85,46 @@
       "to_method_key": null,
       "data_clump_type": "parameters_to_fields_data_clump",
       "data_clump_data": {
-        "PatientService.ts/class/PatientService/method/registerPatient/parameter/firstName": {
-          "key": "PatientService.ts/class/PatientService/method/registerPatient/parameter/firstName",
-          "name": "firstName",
-          "type": "string",
+        "PatientService.ts/class/PatientService/method/registerPatient/parameter/recordId": {
+          "key": "PatientService.ts/class/PatientService/method/registerPatient/parameter/recordId",
+          "name": "recordId",
+          "type": "number",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
-            "key": "Patient.ts/class/Patient/memberField/firstName",
-            "name": "firstName",
-            "type": "string",
+            "key": "Patient.ts/class/Patient/memberField/recordId",
+            "name": "recordId",
+            "type": "number",
             "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
         },
-        "PatientService.ts/class/PatientService/method/registerPatient/parameter/lastName": {
-          "key": "PatientService.ts/class/PatientService/method/registerPatient/parameter/lastName",
-          "name": "lastName",
-          "type": "string",
+        "PatientService.ts/class/PatientService/method/registerPatient/parameter/isActive": {
+          "key": "PatientService.ts/class/PatientService/method/registerPatient/parameter/isActive",
+          "name": "isActive",
+          "type": "boolean",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
-            "key": "Patient.ts/class/Patient/memberField/lastName",
-            "name": "lastName",
-            "type": "string",
+            "key": "Patient.ts/class/Patient/memberField/isActive",
+            "name": "isActive",
+            "type": "boolean",
             "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
         },
-        "PatientService.ts/class/PatientService/method/registerPatient/parameter/insuranceNumber": {
-          "key": "PatientService.ts/class/PatientService/method/registerPatient/parameter/insuranceNumber",
-          "name": "insuranceNumber",
-          "type": "string",
+        "PatientService.ts/class/PatientService/method/registerPatient/parameter/visitCount": {
+          "key": "PatientService.ts/class/PatientService/method/registerPatient/parameter/visitCount",
+          "name": "visitCount",
+          "type": "number",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
-            "key": "Patient.ts/class/Patient/memberField/insuranceNumber",
-            "name": "insuranceNumber",
-            "type": "string",
+            "key": "Patient.ts/class/Patient/memberField/visitCount",
+            "name": "visitCount",
+            "type": "number",
             "modifiers": ["PUBLIC"],
             "position": {}
           },

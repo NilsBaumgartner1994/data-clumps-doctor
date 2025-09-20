@@ -1,5 +1,6 @@
 public class BillingProcessor {
-    public void createInvoice(String patientId, String doctorId, String roomNumber) {
-        System.out.println("Creating invoice for " + patientId + " and doctor " + doctorId + " in room " + roomNumber);
+    public void createInvoice(int patientId, int doctorId, boolean requiresFollowUp) {
+        System.out.println("Creating invoice for patient " + patientId + " and doctor " + doctorId
+                + " (requires follow-up: " + requiresFollowUp + ")");
     }
 }

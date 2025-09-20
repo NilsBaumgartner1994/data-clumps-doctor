@@ -69,9 +69,9 @@
     }
   },
   "data_clumps": {
-    "fields_to_fields_data_clump-Doctor.ts-Doctor.ts/class/Doctor-Patient.ts/class/Patient-firstnamelastnameage": {
+    "fields_to_fields_data_clump-Doctor.ts-Doctor.ts/class/Doctor-Patient.ts/class/Patient-recordIdisActivevisitCount": {
       "type": "data_clump",
-      "key": "fields_to_fields_data_clump-Doctor.ts-Doctor.ts/class/Doctor-Patient.ts/class/Patient-firstnamelastnameage",
+      "key": "fields_to_fields_data_clump-Doctor.ts-Doctor.ts/class/Doctor-Patient.ts/class/Patient-recordIdisActivevisitCount",
       "probability": 1,
       "from_file_path": "Doctor.ts",
       "from_class_or_interface_name": "Doctor",
@@ -85,45 +85,45 @@
       "to_method_name": null,
       "data_clump_type": "fields_to_fields_data_clump",
       "data_clump_data": {
-        "Doctor.ts/class/Doctor/memberField/firstname": {
-          "key": "Doctor.ts/class/Doctor/memberField/firstname",
-          "name": "firstname",
-          "type": "string",
-          "probability": 1,
-          "modifiers": ["PUBLIC"],
-          "to_variable": {
-            "key": "Patient.ts/class/Patient/memberField/firstname",
-            "name": "firstname",
-            "type": "string",
-            "modifiers": ["PUBLIC"],
-            "position": {}
-          },
-          "position": {}
-        },
-        "Doctor.ts/class/Doctor/memberField/lastname": {
-          "key": "Doctor.ts/class/Doctor/memberField/lastname",
-          "name": "lastname",
-          "type": "string",
-          "probability": 1,
-          "modifiers": ["PUBLIC"],
-          "to_variable": {
-            "key": "Patient.ts/class/Patient/memberField/lastname",
-            "name": "lastname",
-            "type": "string",
-            "modifiers": ["PUBLIC"],
-            "position": {}
-          },
-          "position": {}
-        },
-        "Doctor.ts/class/Doctor/memberField/age": {
-          "key": "Doctor.ts/class/Doctor/memberField/age",
-          "name": "age",
+        "Doctor.ts/class/Doctor/memberField/recordId": {
+          "key": "Doctor.ts/class/Doctor/memberField/recordId",
+          "name": "recordId",
           "type": "number",
           "probability": 1,
           "modifiers": ["PUBLIC"],
           "to_variable": {
-            "key": "Patient.ts/class/Patient/memberField/age",
-            "name": "age",
+            "key": "Patient.ts/class/Patient/memberField/recordId",
+            "name": "recordId",
+            "type": "number",
+            "modifiers": ["PUBLIC"],
+            "position": {}
+          },
+          "position": {}
+        },
+        "Doctor.ts/class/Doctor/memberField/isActive": {
+          "key": "Doctor.ts/class/Doctor/memberField/isActive",
+          "name": "isActive",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": ["PUBLIC"],
+          "to_variable": {
+            "key": "Patient.ts/class/Patient/memberField/isActive",
+            "name": "isActive",
+            "type": "boolean",
+            "modifiers": ["PUBLIC"],
+            "position": {}
+          },
+          "position": {}
+        },
+        "Doctor.ts/class/Doctor/memberField/visitCount": {
+          "key": "Doctor.ts/class/Doctor/memberField/visitCount",
+          "name": "visitCount",
+          "type": "number",
+          "probability": 1,
+          "modifiers": ["PUBLIC"],
+          "to_variable": {
+            "key": "Patient.ts/class/Patient/memberField/visitCount",
+            "name": "visitCount",
             "type": "number",
             "modifiers": ["PUBLIC"],
             "position": {}
@@ -132,9 +132,9 @@
         }
       }
     },
-    "fields_to_fields_data_clump-Patient.ts-Patient.ts/class/Patient-Doctor.ts/class/Doctor-firstnamelastnameage": {
+    "fields_to_fields_data_clump-Patient.ts-Patient.ts/class/Patient-Doctor.ts/class/Doctor-recordIdisActivevisitCount": {
       "type": "data_clump",
-      "key": "fields_to_fields_data_clump-Patient.ts-Patient.ts/class/Patient-Doctor.ts/class/Doctor-firstnamelastnameage",
+      "key": "fields_to_fields_data_clump-Patient.ts-Patient.ts/class/Patient-Doctor.ts/class/Doctor-recordIdisActivevisitCount",
       "probability": 1,
       "from_file_path": "Patient.ts",
       "from_class_or_interface_name": "Patient",
@@ -148,45 +148,45 @@
       "to_method_name": null,
       "data_clump_type": "fields_to_fields_data_clump",
       "data_clump_data": {
-        "Patient.ts/class/Patient/memberField/firstname": {
-          "key": "Patient.ts/class/Patient/memberField/firstname",
-          "name": "firstname",
-          "type": "string",
-          "probability": 1,
-          "modifiers": ["PUBLIC"],
-          "to_variable": {
-            "key": "Doctor.ts/class/Doctor/memberField/firstname",
-            "name": "firstname",
-            "type": "string",
-            "modifiers": ["PUBLIC"],
-            "position": {}
-          },
-          "position": {}
-        },
-        "Patient.ts/class/Patient/memberField/lastname": {
-          "key": "Patient.ts/class/Patient/memberField/lastname",
-          "name": "lastname",
-          "type": "string",
-          "probability": 1,
-          "modifiers": ["PUBLIC"],
-          "to_variable": {
-            "key": "Doctor.ts/class/Doctor/memberField/lastname",
-            "name": "lastname",
-            "type": "string",
-            "modifiers": ["PUBLIC"],
-            "position": {}
-          },
-          "position": {}
-        },
-        "Patient.ts/class/Patient/memberField/age": {
-          "key": "Patient.ts/class/Patient/memberField/age",
-          "name": "age",
+        "Patient.ts/class/Patient/memberField/recordId": {
+          "key": "Patient.ts/class/Patient/memberField/recordId",
+          "name": "recordId",
           "type": "number",
           "probability": 1,
           "modifiers": ["PUBLIC"],
           "to_variable": {
-            "key": "Doctor.ts/class/Doctor/memberField/age",
-            "name": "age",
+            "key": "Doctor.ts/class/Doctor/memberField/recordId",
+            "name": "recordId",
+            "type": "number",
+            "modifiers": ["PUBLIC"],
+            "position": {}
+          },
+          "position": {}
+        },
+        "Patient.ts/class/Patient/memberField/isActive": {
+          "key": "Patient.ts/class/Patient/memberField/isActive",
+          "name": "isActive",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": ["PUBLIC"],
+          "to_variable": {
+            "key": "Doctor.ts/class/Doctor/memberField/isActive",
+            "name": "isActive",
+            "type": "boolean",
+            "modifiers": ["PUBLIC"],
+            "position": {}
+          },
+          "position": {}
+        },
+        "Patient.ts/class/Patient/memberField/visitCount": {
+          "key": "Patient.ts/class/Patient/memberField/visitCount",
+          "name": "visitCount",
+          "type": "number",
+          "probability": 1,
+          "modifiers": ["PUBLIC"],
+          "to_variable": {
+            "key": "Doctor.ts/class/Doctor/memberField/visitCount",
+            "name": "visitCount",
             "type": "number",
             "modifiers": ["PUBLIC"],
             "position": {}

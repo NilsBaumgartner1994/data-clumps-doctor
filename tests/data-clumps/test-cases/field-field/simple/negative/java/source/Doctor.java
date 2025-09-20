@@ -1,11 +1,11 @@
 public class Doctor {
-    public String firstName;
-    public String lastName;
-    public String specialization;
+    public int doctorId;
+    public boolean isOnCall;
+    public int appointmentSlots;
 
-    public Doctor(String firstName, String lastName, String specialization) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.specialization = specialization;
+    public Doctor(int doctorId, boolean isOnCall, int appointmentSlots) {
+        this.doctorId = doctorId;
+        this.isOnCall = isOnCall;
+        this.appointmentSlots = appointmentSlots;
     }
 }

@@ -69,9 +69,9 @@
     }
   },
   "data_clumps": {
-    "parameters_to_parameters_data_clump-AppointmentScheduler.ts-AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule-BillingProcessor.ts/class/BillingProcessor/method/createInvoice-patientIddoctorIdroomNumber": {
+    "parameters_to_parameters_data_clump-AppointmentScheduler.ts-AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule-BillingProcessor.ts/class/BillingProcessor/method/createInvoice-patientIddoctorIdrequiresFollowUp": {
       "type": "data_clump",
-      "key": "parameters_to_parameters_data_clump-AppointmentScheduler.ts-AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule-BillingProcessor.ts/class/BillingProcessor/method/createInvoice-patientIddoctorIdroomNumber",
+      "key": "parameters_to_parameters_data_clump-AppointmentScheduler.ts-AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule-BillingProcessor.ts/class/BillingProcessor/method/createInvoice-patientIddoctorIdrequiresFollowUp",
       "probability": 1,
       "from_file_path": "AppointmentScheduler.ts",
       "from_class_or_interface_name": "AppointmentScheduler",
@@ -88,13 +88,13 @@
         "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/patientId": {
           "key": "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/patientId",
           "name": "patientId",
-          "type": "string",
+          "type": "number",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
             "key": "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/patientId",
             "name": "patientId",
-            "type": "string",
+            "type": "number",
             "modifiers": [],
             "position": {}
           },
@@ -103,28 +103,28 @@
         "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/doctorId": {
           "key": "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/doctorId",
           "name": "doctorId",
-          "type": "string",
+          "type": "number",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
             "key": "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/doctorId",
             "name": "doctorId",
-            "type": "string",
+            "type": "number",
             "modifiers": [],
             "position": {}
           },
           "position": {}
         },
-        "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/roomNumber": {
-          "key": "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/roomNumber",
-          "name": "roomNumber",
-          "type": "string",
+        "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/requiresFollowUp": {
+          "key": "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/requiresFollowUp",
+          "name": "requiresFollowUp",
+          "type": "boolean",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
-            "key": "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/roomNumber",
-            "name": "roomNumber",
-            "type": "string",
+            "key": "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/requiresFollowUp",
+            "name": "requiresFollowUp",
+            "type": "boolean",
             "modifiers": [],
             "position": {}
           },
@@ -132,9 +132,9 @@
         }
       }
     },
-    "parameters_to_parameters_data_clump-BillingProcessor.ts-BillingProcessor.ts/class/BillingProcessor/method/createInvoice-AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule-patientIddoctorIdroomNumber": {
+    "parameters_to_parameters_data_clump-BillingProcessor.ts-BillingProcessor.ts/class/BillingProcessor/method/createInvoice-AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule-patientIddoctorIdrequiresFollowUp": {
       "type": "data_clump",
-      "key": "parameters_to_parameters_data_clump-BillingProcessor.ts-BillingProcessor.ts/class/BillingProcessor/method/createInvoice-AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule-patientIddoctorIdroomNumber",
+      "key": "parameters_to_parameters_data_clump-BillingProcessor.ts-BillingProcessor.ts/class/BillingProcessor/method/createInvoice-AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule-patientIddoctorIdrequiresFollowUp",
       "probability": 1,
       "from_file_path": "BillingProcessor.ts",
       "from_class_or_interface_name": "BillingProcessor",
@@ -151,13 +151,13 @@
         "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/patientId": {
           "key": "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/patientId",
           "name": "patientId",
-          "type": "string",
+          "type": "number",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
             "key": "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/patientId",
             "name": "patientId",
-            "type": "string",
+            "type": "number",
             "modifiers": [],
             "position": {}
           },
@@ -166,28 +166,28 @@
         "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/doctorId": {
           "key": "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/doctorId",
           "name": "doctorId",
-          "type": "string",
+          "type": "number",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
             "key": "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/doctorId",
             "name": "doctorId",
-            "type": "string",
+            "type": "number",
             "modifiers": [],
             "position": {}
           },
           "position": {}
         },
-        "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/roomNumber": {
-          "key": "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/roomNumber",
-          "name": "roomNumber",
-          "type": "string",
+        "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/requiresFollowUp": {
+          "key": "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/requiresFollowUp",
+          "name": "requiresFollowUp",
+          "type": "boolean",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
-            "key": "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/roomNumber",
-            "name": "roomNumber",
-            "type": "string",
+            "key": "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/requiresFollowUp",
+            "name": "requiresFollowUp",
+            "type": "boolean",
             "modifiers": [],
             "position": {}
           },

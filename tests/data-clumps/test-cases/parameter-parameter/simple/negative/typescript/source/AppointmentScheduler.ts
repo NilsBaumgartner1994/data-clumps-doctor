@@ -1,5 +1,7 @@
 export class AppointmentScheduler {
-  schedule(patientId: string, doctorId: string, appointmentDate: string): void {
-    console.log(`Scheduling appointment on ${appointmentDate}`);
+  schedule(patientId: number, doctorId: number, requiresFollowUp: boolean): void {
+    console.log(
+      `Scheduling appointment for patient ${patientId} with doctor ${doctorId} (requires follow-up: ${requiresFollowUp})`
+    );
   }
 }
