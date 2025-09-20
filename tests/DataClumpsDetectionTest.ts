@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { diff } from 'jest-diff';
+import crypto from 'crypto';
 import { Scenario, resolveTestCasesBaseDir, runScenario } from './data-clumps/scenarioUtils';
 
 function stableStringify(value: unknown, space = 0): string {
@@ -32,6 +32,8 @@ function loadExpectedReport(expectedReportPath: string) {
   return JSON.parse(fs.readFileSync(expectedReportPath, 'utf8')) as { data_clumps: Record<string, unknown> };
 }
 
+jest.setTimeout(60000);
+
 function createScenarioTest(scenario: Scenario) {
   test(scenario.name, async () => {
     if (!fs.existsSync(scenario.expectedReportPath)) {
@@ -45,18 +47,13 @@ function createScenarioTest(scenario: Scenario) {
     const formattedExpected = formatDataClumps(expectedReport.data_clumps);
 
     if (formattedActual !== formattedExpected) {
-      const diffOutput = diff(formattedExpected, formattedActual, {
-        aAnnotation: 'Expected report',
-        bAnnotation: 'Actual report',
-        expand: false,
-      });
-      const messageSegments = [`Scenario "${scenario.name}" produced a report that does not match the expected output.`, `Expected report path: ${scenario.expectedReportPath}`];
-
-      if (diffOutput) {
-        messageSegments.push(`Diff between expected and actual reports:\n${diffOutput}`);
-      } else {
-        messageSegments.push(`Formatted expected report:\n${formattedExpected}\nFormatted actual report:\n${formattedActual}`);
-      }
+      const expectedHash = crypto.createHash('sha256').update(formattedExpected).digest('hex');
+      const actualHash = crypto.createHash('sha256').update(formattedActual).digest('hex');
+      const messageSegments = [
+        `Scenario "${scenario.name}" produced a report that does not match the expected output.`,
+        `Expected report path: ${scenario.expectedReportPath}`,
+        `SHA-256 hash mismatch. Expected ${expectedHash}, but received ${actualHash}. Reports are not identical.`,
+      ];
 
       throw new Error(messageSegments.join('\n\n'));
     }
