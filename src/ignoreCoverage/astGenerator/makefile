@@ -20,6 +20,7 @@ setup:
 	./mvnw clean install
 
 build:
+	mvn install:install-file -Dfile=./pmd-bin-7.0.0-rc3/lib/pmd-ui-7.0.0-rc1.jar -DgroupId=net.sourceforge.pmd -DartifactId=pmd-ui -Dversion=7.0.0-SNAPSHOT -Dpackaging=jar || true
 	./mvnw clean install
 	unzip -o ./pmd-java-dist/target/pmd-java-bin-1.0.0-SNAPSHOT.zip -d ./pmd-java-dist/target/
 	cp ./pmd-java-dist/target/pmd-java-bin-1.0.0-SNAPSHOT/lib/pmd-java-custom-1.0.0-SNAPSHOT.jar ./pmd-bin-7.0.0-rc3/lib/
@@ -44,8 +45,17 @@ run:
 
 
 clean:
-	$(RM) ./pmd-java-dist/target/
-	$(RM) ./pmd-java-custom/target/
+ifeq ($(OS),Windows_NT)
+	$(RM) -rf ./pmd-java-dist/target/
+	$(RM) -rf ./pmd-java-custom/target/
+else
+	sudo chown -R $(shell whoami) ./pmd-java-dist/target/ || true
+	chmod -R u+w ./pmd-java-dist/target/ || true
+	$(RM) -rf ./pmd-java-dist/target/ || sudo rm -rf ./pmd-java-dist/target/
+	sudo chown -R $(shell whoami) ./pmd-java-custom/target/ || true
+	chmod -R u+w ./pmd-java-custom/target/ || true
+	$(RM) -rf ./pmd-java-custom/target/ || sudo rm -rf ./pmd-java-custom/target/
+endif
 
 designer:
 	@echo "Starting PMD designer..."
