@@ -155,6 +155,7 @@ export default {
     '/src/ignoreCoverage/',
     '/tests/.*/source/',
     'generateMissingReports',
+    'regenerateExistingReports',
     'scenarioUtils',
   ],
 
