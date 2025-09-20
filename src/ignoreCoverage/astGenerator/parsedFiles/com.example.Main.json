@@ -1,84 +1,88 @@
 {
-  "name" : "Main",
-  "key" : "com.example.Main",
-  "type" : "class",
-  "hasTypeVariable" : false,
-  "position" : {
-    "startLine" : 7,
-    "startColumn" : 8,
-    "endLine" : 7,
-    "endColumn" : 13
+  "name": "Main",
+  "key": "com.example.Main",
+  "type": "class",
+  "hasTypeVariable": false,
+  "position": {
+    "startLine": 7,
+    "startColumn": 8,
+    "endLine": 7,
+    "endColumn": 13
   },
-  "modifiers" : [ "PUBLIC" ],
-  "fields" : { },
-  "methods" : {
-    "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)" : {
-      "name" : "greet",
-      "key" : "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)",
-      "type" : "void",
-      "hasTypeVariable" : false,
-      "position" : {
-        "startLine" : 9,
-        "startColumn" : 17,
-        "endLine" : 9,
-        "endColumn" : 22
+  "modifiers": ["PUBLIC"],
+  "fields": {},
+  "methods": {
+    "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)": {
+      "name": "greet",
+      "key": "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)",
+      "type": "void",
+      "hasTypeVariable": false,
+      "position": {
+        "startLine": 9,
+        "startColumn": 17,
+        "endLine": 9,
+        "endColumn": 22
       },
-      "modifiers" : [ "PUBLIC" ],
-      "overrideAnnotation" : false,
-      "returnType" : null,
-      "parameters" : [ {
-        "name" : "firstname",
-        "key" : "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)/parameter/firstname",
-        "type" : "com.example.java.util.String",
-        "hasTypeVariable" : false,
-        "position" : {
-          "startLine" : 9,
-          "startColumn" : 30,
-          "endLine" : 9,
-          "endColumn" : 39
+      "modifiers": ["PUBLIC"],
+      "overrideAnnotation": false,
+      "returnType": null,
+      "parameters": [
+        {
+          "name": "firstname",
+          "key": "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)/parameter/firstname",
+          "type": "com.example.java.util.String",
+          "hasTypeVariable": false,
+          "position": {
+            "startLine": 9,
+            "startColumn": 30,
+            "endLine": 9,
+            "endColumn": 39
+          },
+          "modifiers": [],
+          "ignore": false,
+          "methodKey": "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)"
         },
-        "modifiers" : [ ],
-        "ignore" : false,
-        "methodKey" : "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)"
-      }, {
-        "name" : "lastname",
-        "key" : "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)/parameter/lastname",
-        "type" : "com.example.java.util.String",
-        "hasTypeVariable" : false,
-        "position" : {
-          "startLine" : 9,
-          "startColumn" : 48,
-          "endLine" : 9,
-          "endColumn" : 56
+        {
+          "name": "lastname",
+          "key": "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)/parameter/lastname",
+          "type": "com.example.java.util.String",
+          "hasTypeVariable": false,
+          "position": {
+            "startLine": 9,
+            "startColumn": 48,
+            "endLine": 9,
+            "endColumn": 56
+          },
+          "modifiers": [],
+          "ignore": false,
+          "methodKey": "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)"
         },
-        "modifiers" : [ ],
-        "ignore" : false,
-        "methodKey" : "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)"
-      }, {
-        "name" : "message",
-        "key" : "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)/parameter/message",
-        "type" : "com.example.java.util.String",
-        "hasTypeVariable" : false,
-        "position" : {
-          "startLine" : 9,
-          "startColumn" : 65,
-          "endLine" : 9,
-          "endColumn" : 72
-        },
-        "modifiers" : [ ],
-        "ignore" : false,
-        "methodKey" : "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)"
-      } ],
-      "classOrInterfaceKey" : "com.example.Main"
+        {
+          "name": "message",
+          "key": "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)/parameter/message",
+          "type": "com.example.java.util.String",
+          "hasTypeVariable": false,
+          "position": {
+            "startLine": 9,
+            "startColumn": 65,
+            "endLine": 9,
+            "endColumn": 72
+          },
+          "modifiers": [],
+          "ignore": false,
+          "methodKey": "com.example.Main/method/greet(com.example.java.util.String firstname, com.example.java.util.String lastname, com.example.java.util.String message)"
+        }
+      ],
+      "classOrInterfaceKey": "com.example.Main"
     }
   },
-  "constructors" : { },
-  "file_path" : "Main.java",
-  "anonymous" : false,
-  "auxclass" : false,
-  "implements_" : [ ],
-  "extends_" : [ "java.util.List" ],
-  "definedInClassOrInterfaceTypeKey" : null,
-  "innerDefinedClasses" : { },
-  "innerDefinedInterfaces" : { }
+  "constructors": {},
+  "file_path": "Main.java",
+  "anonymous": false,
+  "auxclass": false,
+  "implements_": [],
+  "extends_": ["java.util.List"],
+  "definedInClassOrInterfaceTypeKey": null,
+  "innerDefinedClasses": {},
+  "innerDefinedInterfaces": {}
 }

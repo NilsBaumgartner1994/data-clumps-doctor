@@ -90,16 +90,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Doctor.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -109,16 +105,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Doctor.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -128,16 +120,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Doctor.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -165,16 +153,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -184,16 +168,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -203,16 +183,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}

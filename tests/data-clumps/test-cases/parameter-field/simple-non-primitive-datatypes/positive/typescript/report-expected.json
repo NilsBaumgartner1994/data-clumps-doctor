@@ -95,9 +95,7 @@
             "key": "Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "String",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -112,9 +110,7 @@
             "key": "Patient.ts/class/Patient/memberField/kastanie",
             "name": "kastanie",
             "type": "String",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -129,9 +125,7 @@
             "key": "Patient.ts/class/Patient/memberField/address",
             "name": "address",
             "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/parameter-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}

@@ -1,174 +1,183 @@
 {
-  "name" : "Hero",
-  "key" : "com.example.Hero",
-  "type" : "class",
-  "hasTypeVariable" : false,
-  "position" : {
-    "startLine" : 5,
-    "startColumn" : 1,
-    "endLine" : 5,
-    "endColumn" : 6
+  "name": "Hero",
+  "key": "com.example.Hero",
+  "type": "class",
+  "hasTypeVariable": false,
+  "position": {
+    "startLine": 5,
+    "startColumn": 1,
+    "endLine": 5,
+    "endColumn": 6
   },
-  "modifiers" : [ ],
-  "fields" : {
-    "com.example.Hero/memberField/field" : {
-      "name" : "field",
-      "key" : "com.example.Hero/memberField/field",
-      "type" : "java.lang.String",
-      "hasTypeVariable" : false,
-      "position" : {
-        "startLine" : 7,
-        "startColumn" : 19,
-        "endLine" : 7,
-        "endColumn" : 24
+  "modifiers": [],
+  "fields": {
+    "com.example.Hero/memberField/field": {
+      "name": "field",
+      "key": "com.example.Hero/memberField/field",
+      "type": "java.lang.String",
+      "hasTypeVariable": false,
+      "position": {
+        "startLine": 7,
+        "startColumn": 19,
+        "endLine": 7,
+        "endColumn": 24
       },
-      "modifiers" : [ "PUBLIC" ],
-      "ignore" : false,
-      "memberFieldKey" : null,
-      "classOrInterfaceKey" : "com.example.Hero"
+      "modifiers": ["PUBLIC"],
+      "ignore": false,
+      "memberFieldKey": null,
+      "classOrInterfaceKey": "com.example.Hero"
     }
   },
-  "methods" : {
-    "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)" : {
-      "name" : "greet",
-      "key" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)",
-      "type" : "void",
-      "hasTypeVariable" : false,
-      "position" : {
-        "startLine" : 11,
-        "startColumn" : 21,
-        "endLine" : 11,
-        "endColumn" : 26
+  "methods": {
+    "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)": {
+      "name": "greet",
+      "key": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)",
+      "type": "void",
+      "hasTypeVariable": false,
+      "position": {
+        "startLine": 11,
+        "startColumn": 21,
+        "endLine": 11,
+        "endColumn": 26
       },
-      "modifiers" : [ "PUBLIC" ],
-      "overrideAnnotation" : false,
-      "returnType" : null,
-      "parameters" : [ {
-        "name" : "firstname",
-        "key" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)/parameter/firstname",
-        "type" : "java.lang.String",
-        "hasTypeVariable" : false,
-        "position" : {
-          "startLine" : 11,
-          "startColumn" : 34,
-          "endLine" : 11,
-          "endColumn" : 43
+      "modifiers": ["PUBLIC"],
+      "overrideAnnotation": false,
+      "returnType": null,
+      "parameters": [
+        {
+          "name": "firstname",
+          "key": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)/parameter/firstname",
+          "type": "java.lang.String",
+          "hasTypeVariable": false,
+          "position": {
+            "startLine": 11,
+            "startColumn": 34,
+            "endLine": 11,
+            "endColumn": 43
+          },
+          "modifiers": [],
+          "ignore": false,
+          "methodKey": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)"
         },
-        "modifiers" : [ ],
-        "ignore" : false,
-        "methodKey" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)"
-      }, {
-        "name" : "lastname",
-        "key" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)/parameter/lastname",
-        "type" : "java.lang.String",
-        "hasTypeVariable" : false,
-        "position" : {
-          "startLine" : 11,
-          "startColumn" : 52,
-          "endLine" : 11,
-          "endColumn" : 60
+        {
+          "name": "lastname",
+          "key": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)/parameter/lastname",
+          "type": "java.lang.String",
+          "hasTypeVariable": false,
+          "position": {
+            "startLine": 11,
+            "startColumn": 52,
+            "endLine": 11,
+            "endColumn": 60
+          },
+          "modifiers": [],
+          "ignore": false,
+          "methodKey": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)"
         },
-        "modifiers" : [ ],
-        "ignore" : false,
-        "methodKey" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)"
-      }, {
-        "name" : "message",
-        "key" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)/parameter/message",
-        "type" : "java.lang.String",
-        "hasTypeVariable" : false,
-        "position" : {
-          "startLine" : 11,
-          "startColumn" : 69,
-          "endLine" : 11,
-          "endColumn" : 76
+        {
+          "name": "message",
+          "key": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)/parameter/message",
+          "type": "java.lang.String",
+          "hasTypeVariable": false,
+          "position": {
+            "startLine": 11,
+            "startColumn": 69,
+            "endLine": 11,
+            "endColumn": 76
+          },
+          "modifiers": [],
+          "ignore": false,
+          "methodKey": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)"
         },
-        "modifiers" : [ ],
-        "ignore" : false,
-        "methodKey" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)"
-      }, {
-        "name" : "a",
-        "key" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)/parameter/a",
-        "type" : "int",
-        "hasTypeVariable" : false,
-        "position" : {
-          "startLine" : 11,
-          "startColumn" : 82,
-          "endLine" : 11,
-          "endColumn" : 83
-        },
-        "modifiers" : [ ],
-        "ignore" : false,
-        "methodKey" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)"
-      } ],
-      "classOrInterfaceKey" : "com.example.Hero"
+        {
+          "name": "a",
+          "key": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)/parameter/a",
+          "type": "int",
+          "hasTypeVariable": false,
+          "position": {
+            "startLine": 11,
+            "startColumn": 82,
+            "endLine": 11,
+            "endColumn": 83
+          },
+          "modifiers": [],
+          "ignore": false,
+          "methodKey": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message, int a)"
+        }
+      ],
+      "classOrInterfaceKey": "com.example.Hero"
     },
-    "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)" : {
-      "name" : "greet",
-      "key" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)",
-      "type" : "void",
-      "hasTypeVariable" : false,
-      "position" : {
-        "startLine" : 9,
-        "startColumn" : 17,
-        "endLine" : 9,
-        "endColumn" : 22
+    "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)": {
+      "name": "greet",
+      "key": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)",
+      "type": "void",
+      "hasTypeVariable": false,
+      "position": {
+        "startLine": 9,
+        "startColumn": 17,
+        "endLine": 9,
+        "endColumn": 22
       },
-      "modifiers" : [ "PUBLIC" ],
-      "overrideAnnotation" : false,
-      "returnType" : null,
-      "parameters" : [ {
-        "name" : "firstname",
-        "key" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)/parameter/firstname",
-        "type" : "java.lang.String",
-        "hasTypeVariable" : false,
-        "position" : {
-          "startLine" : 9,
-          "startColumn" : 30,
-          "endLine" : 9,
-          "endColumn" : 39
+      "modifiers": ["PUBLIC"],
+      "overrideAnnotation": false,
+      "returnType": null,
+      "parameters": [
+        {
+          "name": "firstname",
+          "key": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)/parameter/firstname",
+          "type": "java.lang.String",
+          "hasTypeVariable": false,
+          "position": {
+            "startLine": 9,
+            "startColumn": 30,
+            "endLine": 9,
+            "endColumn": 39
+          },
+          "modifiers": [],
+          "ignore": false,
+          "methodKey": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)"
         },
-        "modifiers" : [ ],
-        "ignore" : false,
-        "methodKey" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)"
-      }, {
-        "name" : "lastname",
-        "key" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)/parameter/lastname",
-        "type" : "java.lang.String",
-        "hasTypeVariable" : false,
-        "position" : {
-          "startLine" : 9,
-          "startColumn" : 48,
-          "endLine" : 9,
-          "endColumn" : 56
+        {
+          "name": "lastname",
+          "key": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)/parameter/lastname",
+          "type": "java.lang.String",
+          "hasTypeVariable": false,
+          "position": {
+            "startLine": 9,
+            "startColumn": 48,
+            "endLine": 9,
+            "endColumn": 56
+          },
+          "modifiers": [],
+          "ignore": false,
+          "methodKey": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)"
         },
-        "modifiers" : [ ],
-        "ignore" : false,
-        "methodKey" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)"
-      }, {
-        "name" : "message",
-        "key" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)/parameter/message",
-        "type" : "java.lang.String",
-        "hasTypeVariable" : false,
-        "position" : {
-          "startLine" : 9,
-          "startColumn" : 65,
-          "endLine" : 9,
-          "endColumn" : 72
-        },
-        "modifiers" : [ ],
-        "ignore" : false,
-        "methodKey" : "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)"
-      } ],
-      "classOrInterfaceKey" : "com.example.Hero"
+        {
+          "name": "message",
+          "key": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)/parameter/message",
+          "type": "java.lang.String",
+          "hasTypeVariable": false,
+          "position": {
+            "startLine": 9,
+            "startColumn": 65,
+            "endLine": 9,
+            "endColumn": 72
+          },
+          "modifiers": [],
+          "ignore": false,
+          "methodKey": "com.example.Hero/method/greet(java.lang.String firstname, java.lang.String lastname, java.lang.String message)"
+        }
+      ],
+      "classOrInterfaceKey": "com.example.Hero"
     }
   },
-  "constructors" : { },
-  "file_path" : "Hero.java",
-  "anonymous" : false,
-  "auxclass" : false,
-  "implements_" : [ ],
-  "extends_" : [ "java.util.List" ],
-  "definedInClassOrInterfaceTypeKey" : null,
-  "innerDefinedClasses" : { },
-  "innerDefinedInterfaces" : { }
+  "constructors": {},
+  "file_path": "Hero.java",
+  "anonymous": false,
+  "auxclass": false,
+  "implements_": [],
+  "extends_": ["java.util.List"],
+  "definedInClassOrInterfaceTypeKey": null,
+  "innerDefinedClasses": {},
+  "innerDefinedInterfaces": {}
 }

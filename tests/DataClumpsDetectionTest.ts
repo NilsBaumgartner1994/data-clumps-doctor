@@ -128,10 +128,7 @@ function testAllLanguages() {
     }
     if (skippedScenarios.length > 0) {
       test('Warnung: Übersprungene Szenarien ohne report-expected', () => {
-        console.warn(
-          `WARNUNG: Die folgenden Szenarien wurden übersprungen, da keine report-expected-Datei gefunden wurde:\n` +
-          skippedScenarios.map(s => `  - ${s}`).join('\n')
-        );
+        console.warn(`WARNUNG: Die folgenden Szenarien wurden übersprungen, da keine report-expected-Datei gefunden wurde:\n` + skippedScenarios.map(s => `  - ${s}`).join('\n'));
       });
     }
   });

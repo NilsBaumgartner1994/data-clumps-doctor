@@ -4,8 +4,8 @@ export class Doctor {
   public age: number;
 
   constructor(firstname: string, lastname: string, age: number) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.age = age;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.age = age;
   }
 }
