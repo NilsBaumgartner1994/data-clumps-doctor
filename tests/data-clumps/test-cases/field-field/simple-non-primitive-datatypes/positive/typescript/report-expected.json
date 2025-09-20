@@ -126,7 +126,7 @@
         "Doctor.ts/class/Doctor/memberField/address": {
           "key": "Doctor.ts/class/Doctor/memberField/address",
           "name": "address",
-          "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+          "type": "import(\"Adress\").Adress",
           "probability": 1,
           "modifiers": [
             "PUBLIC"
@@ -134,7 +134,7 @@
           "to_variable": {
             "key": "Patient.ts/class/Patient/memberField/address",
             "name": "address",
-            "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+            "type": "import(\"Adress\").Adress",
             "modifiers": [
               "PUBLIC"
             ],
@@ -201,7 +201,7 @@
         "Patient.ts/class/Patient/memberField/address": {
           "key": "Patient.ts/class/Patient/memberField/address",
           "name": "address",
-          "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+          "type": "import(\"Adress\").Adress",
           "probability": 1,
           "modifiers": [
             "PUBLIC"
@@ -209,7 +209,7 @@
           "to_variable": {
             "key": "Doctor.ts/class/Doctor/memberField/address",
             "name": "address",
-            "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+            "type": "import(\"Adress\").Adress",
             "modifiers": [
               "PUBLIC"
             ],

@@ -43,7 +43,10 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
         for (const prop of cls.getProperties()) {
           const propName = prop.getName();
           const fieldKey = propName;
-          const typeText = prop.getType().getText();
+          const typeText = this.normalizeTypeText(
+            prop.getType().getText(),
+            path_to_source_folder
+          );
           //console.log("     - Found property "+propName+" : "+typeText);
           const modifiers: string[] = [];
           if (prop.hasModifier('public')) modifiers.push('PUBLIC');
@@ -59,7 +62,10 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
           const methodName = method.getName();
 
           const methodKey = methodName;
-          const returnTypeText = method.getReturnType().getText();
+          const returnTypeText = this.normalizeTypeText(
+            method.getReturnType().getText(),
+            path_to_source_folder
+          );
           const methodCtx = new MethodTypeContext(methodKey, methodName, returnTypeText, false, ctx);
           methodCtx.modifiers = [];
           if (method.hasModifier('public')) methodCtx.modifiers.push('PUBLIC');
@@ -72,7 +78,10 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
             const paramName = param.getName();
             paramNames.push(paramName);
             const paramKey = paramName;
-            const paramType = param.getType().getText();
+            const paramType = this.normalizeTypeText(
+              param.getType().getText(),
+              path_to_source_folder
+            );
             const paramCtx = new MethodParameterTypeContext(paramKey, paramName, paramType, [], false, methodCtx);
             methodCtx.parameters.push(paramCtx);
           }
@@ -84,7 +93,10 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
         for (const ctor of cls.getConstructors()) {
           const parameterInfos = ctor.getParameters().map(param => ({
             name: param.getName(),
-            type: param.getType().getText(),
+            type: this.normalizeTypeText(
+              param.getType().getText(),
+              path_to_source_folder
+            ),
           }));
           const signature = parameterInfos.map(param => `${param.type} ${param.name}`).join(', ');
           const ctorKey = `constructor(${signature})`;
@@ -114,7 +126,10 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
         for (const prop of intf.getProperties()) {
           const propName = prop.getName();
           const fieldKey = propName;
-          const typeText = prop.getType().getText();
+          const typeText = this.normalizeTypeText(
+            prop.getType().getText(),
+            path_to_source_folder
+          );
           const field = new MemberFieldParameterTypeContext(fieldKey, propName, typeText, [], false, ctx);
           ctx.fields[field.key] = field;
         }
@@ -124,5 +139,32 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
     }
 
     return dict;
+  }
+
+  private normalizeTypeText(typeText: string, projectRoot: string): string {
+    if (!typeText.includes('import(')) {
+      return typeText;
+    }
+
+    const absoluteProjectRoot = path.resolve(projectRoot);
+    const importRegex = /import\((['"])([^'"]+)\1\)/g;
+
+    return typeText.replace(importRegex, (_match, quote, importPath) => {
+      const normalizedImportPath = path.normalize(importPath);
+      if (!path.isAbsolute(normalizedImportPath)) {
+        const normalized = normalizedImportPath.split(path.sep).join('/');
+        return `import(${quote}${normalized}${quote})`;
+      }
+
+      const relativeImportPath = path.relative(absoluteProjectRoot, normalizedImportPath);
+
+      if (relativeImportPath.startsWith('..')) {
+        const normalized = normalizedImportPath.split(path.sep).join('/');
+        return `import(${quote}${normalized}${quote})`;
+      }
+
+      const posixRelativePath = relativeImportPath.split(path.sep).join('/');
+      return `import(${quote}${posixRelativePath}${quote})`;
+    });
   }
 }
