@@ -95,9 +95,7 @@
             "key": "Patient.ts/class/Patient/memberField/firstName",
             "name": "firstName",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -112,9 +110,7 @@
             "key": "Patient.ts/class/Patient/memberField/lastName",
             "name": "lastName",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -129,9 +125,7 @@
             "key": "Patient.ts/class/Patient/memberField/insuranceNumber",
             "name": "insuranceNumber",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}

@@ -95,9 +95,7 @@
             "key": "Patient/memberField/firstName",
             "name": "firstName",
             "type": "java.lang.String",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 2,
               "startColumn": 19,
@@ -122,9 +120,7 @@
             "key": "Patient/memberField/lastName",
             "name": "lastName",
             "type": "java.lang.String",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 3,
               "startColumn": 19,
@@ -149,9 +145,7 @@
             "key": "Patient/memberField/insuranceNumber",
             "name": "insuranceNumber",
             "type": "java.lang.String",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 4,
               "startColumn": 19,

@@ -71,10 +71,7 @@ export function discoverScenarioConfigs(baseDir: string): Scenario[] {
 }
 
 export function resolveTestCasesBaseDir(): { baseDir: string; scenarios: Scenario[] } {
-  const candidates = [
-    path.resolve(__dirname, 'test-cases'),
-    path.resolve(__dirname, '..', '..', '..', 'tests/data-clumps/test-cases'),
-  ];
+  const candidates = [path.resolve(__dirname, 'test-cases'), path.resolve(__dirname, '..', '..', '..', 'tests/data-clumps/test-cases')];
 
   for (const candidate of candidates) {
     const scenarios = discoverScenarioConfigs(candidate);
@@ -88,12 +85,7 @@ export function resolveTestCasesBaseDir(): { baseDir: string; scenarios: Scenari
 }
 
 function resolveAstGeneratorFolder(): string {
-  const candidates = [
-    path.resolve(__dirname, '..', '..', 'ignoreCoverage/astGenerator'),
-    path.resolve(__dirname, '..', '..', '..', 'ignoreCoverage/astGenerator'),
-    path.resolve(__dirname, '..', '..', 'src/ignoreCoverage/astGenerator'),
-    path.resolve(__dirname, '..', '..', '..', 'src/ignoreCoverage/astGenerator'),
-  ];
+  const candidates = [path.resolve(__dirname, '..', '..', 'ignoreCoverage/astGenerator'), path.resolve(__dirname, '..', '..', '..', 'ignoreCoverage/astGenerator'), path.resolve(__dirname, '..', '..', 'src/ignoreCoverage/astGenerator'), path.resolve(__dirname, '..', '..', '..', 'src/ignoreCoverage/astGenerator')];
 
   for (const candidate of candidates) {
     if (fs.existsSync(candidate)) {
