@@ -69,11 +69,7 @@ class FailureSummaryReporter {
 
   printTable(rows) {
     const headers = ['Test', 'Erwartete Data Clumps', 'Gefundene Data Clumps'];
-    const columnGetters = [
-      row => row.testName,
-      row => row.expectedCount,
-      row => row.actualCount,
-    ];
+    const columnGetters = [row => row.testName, row => row.expectedCount, row => row.actualCount];
 
     const columnWidths = headers.map((header, index) => {
       const values = rows.map(row => String(columnGetters[index](row) ?? ''));
@@ -82,21 +78,9 @@ class FailureSummaryReporter {
     });
 
     const separator = `+-${columnWidths.map(width => '-'.repeat(width)).join('-+-')}-+`;
-    const formatRow = values =>
-      `| ${values
-        .map((value, index) => String(value).padEnd(columnWidths[index], ' '))
-        .join(' | ')} |`;
+    const formatRow = values => `| ${values.map((value, index) => String(value).padEnd(columnWidths[index], ' ')).join(' | ')} |`;
 
-    const lines = [
-      '',
-      'Zusammenfassung fehlgeschlagener Data-Clumps-Tests:',
-      separator,
-      formatRow(headers),
-      separator,
-      ...rows.map(row => formatRow(columnGetters.map(getter => getter(row)))),
-      separator,
-      '',
-    ];
+    const lines = ['', 'Zusammenfassung fehlgeschlagener Data-Clumps-Tests:', separator, formatRow(headers), separator, ...rows.map(row => formatRow(columnGetters.map(getter => getter(row)))), separator, ''];
 
     // eslint-disable-next-line no-console
     console.log(lines.join('\n'));
