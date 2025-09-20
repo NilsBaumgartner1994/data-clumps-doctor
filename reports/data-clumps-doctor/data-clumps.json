@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-09-19T22:27:49.615Z",
+  "report_timestamp": "2025-09-20T07:18:43.851Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -8,35 +8,35 @@
         "invertedFieldToClasses": {
           "median": 1.5,
           "maximum": 4,
-          "average": 1.1744186046511629,
-          "amountSavedValuesForKeys": 101,
+          "average": 1.2555555555555555,
+          "amountSavedValuesForKeys": 113,
           "amountKeys": 4
         },
         "invertedParameterToMethods": {
-          "median": 1.5,
+          "median": 1,
           "maximum": 14,
-          "average": 1.7337662337662338,
-          "amountSavedValuesForKeys": 267,
+          "average": 1.7484662576687116,
+          "amountSavedValuesForKeys": 285,
           "amountKeys": 8
         },
         "invertedParameterToClasses": {
           "median": 1,
           "maximum": 4,
-          "average": 1.188235294117647,
-          "amountSavedValuesForKeys": 101,
+          "average": 1.2696629213483146,
+          "amountSavedValuesForKeys": 113,
           "amountKeys": 4
         }
       },
       "timer_information": {
-        "ast_generation_time_ms": 780,
+        "ast_generation_time_ms": 2104,
         "detection_time_ms": 8,
         "machine_information": {
           "os": "Linux",
           "os_release": "6.11.0-1018-azure",
           "os_platform": "linux",
           "os_arch": "x64",
-          "os_uptime": 485.56,
-          "os_memory_free": 15572238336,
+          "os_uptime": 88.61,
+          "os_memory_free": 15619317760,
           "os_memory_total": 16772579328,
           "os_cpu_cores": 4,
           "os_cpu_model": "AMD EPYC 7763 64-Core Processor",
@@ -44,27 +44,27 @@
         }
       }
     },
-    "amount_classes_or_interfaces_with_data_clumps": 2,
-    "amount_files_with_data_clumps": 2,
-    "amount_methods_with_data_clumps": 0,
-    "fields_to_fields_data_clump": 2,
-    "parameters_to_fields_data_clump": 0,
-    "parameters_to_parameters_data_clump": 0,
-    "amount_data_clumps": 2
+    "amount_classes_or_interfaces_with_data_clumps": 7,
+    "amount_files_with_data_clumps": 7,
+    "amount_methods_with_data_clumps": 3,
+    "fields_to_fields_data_clump": 4,
+    "parameters_to_fields_data_clump": 2,
+    "parameters_to_parameters_data_clump": 2,
+    "amount_data_clumps": 8
   },
   "project_info": {
     "project_url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
     "project_name": "data-clumps-doctor",
-    "project_version": "476d124b0fac8c60d08b292590263316343436fd",
-    "project_commit_hash": "476d124b0fac8c60d08b292590263316343436fd",
+    "project_version": "596f2710eb57b9e666f67438b797c65f64dd6db9",
+    "project_commit_hash": "596f2710eb57b9e666f67438b797c65f64dd6db9",
     "project_tag": null,
-    "project_commit_date": "1758320829",
+    "project_commit_date": "1758352650",
     "additional": {},
-    "number_of_files": 24,
-    "number_of_classes_or_interfaces": 36,
-    "number_of_methods": 195,
-    "number_of_data_fields": 101,
-    "number_of_method_parameters": 267
+    "number_of_files": 34,
+    "number_of_classes_or_interfaces": 46,
+    "number_of_methods": 201,
+    "number_of_data_fields": 113,
+    "number_of_method_parameters": 285
   },
   "detector": {
     "name": "data-clumps-doctor",
@@ -85,6 +85,270 @@
     }
   },
   "data_clumps": {
+    "parameters_to_fields_data_clump-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient-tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient-firstNamelastNameinsuranceNumber": {
+      "type": "data_clump",
+      "key": "parameters_to_fields_data_clump-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient-tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient-firstNamelastNameinsuranceNumber",
+      "probability": 1,
+      "from_file_path": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts",
+      "from_class_or_interface_name": "PatientService",
+      "from_class_or_interface_key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService",
+      "from_method_name": "registerPatient",
+      "from_method_key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient",
+      "to_file_path": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts",
+      "to_class_or_interface_name": "Patient",
+      "to_class_or_interface_key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient",
+      "to_method_name": null,
+      "to_method_key": null,
+      "data_clump_type": "parameters_to_fields_data_clump",
+      "data_clump_data": {
+        "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient/parameter/firstName": {
+          "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient/parameter/firstName",
+          "name": "firstName",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/firstName",
+            "name": "firstName",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient/parameter/lastName": {
+          "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient/parameter/lastName",
+          "name": "lastName",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/lastName",
+            "name": "lastName",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient/parameter/insuranceNumber": {
+          "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient/parameter/insuranceNumber",
+          "name": "insuranceNumber",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/insuranceNumber",
+            "name": "insuranceNumber",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "parameters_to_fields_data_clump-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient-firstNamelastNameinsuranceNumber": {
+      "type": "data_clump",
+      "key": "parameters_to_fields_data_clump-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient-firstNamelastNameinsuranceNumber",
+      "probability": 1,
+      "from_file_path": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts",
+      "from_class_or_interface_name": "PatientService",
+      "from_class_or_interface_key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService",
+      "from_method_name": "registerPatient",
+      "from_method_key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient",
+      "to_file_path": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts",
+      "to_class_or_interface_name": "Patient",
+      "to_class_or_interface_key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient",
+      "to_method_name": null,
+      "to_method_key": null,
+      "data_clump_type": "parameters_to_fields_data_clump",
+      "data_clump_data": {
+        "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient/parameter/firstName": {
+          "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient/parameter/firstName",
+          "name": "firstName",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/firstName",
+            "name": "firstName",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient/parameter/lastName": {
+          "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient/parameter/lastName",
+          "name": "lastName",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/lastName",
+            "name": "lastName",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient/parameter/insuranceNumber": {
+          "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/PatientService.ts/class/PatientService/method/registerPatient/parameter/insuranceNumber",
+          "name": "insuranceNumber",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/insuranceNumber",
+            "name": "insuranceNumber",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts-tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule-tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor/method/createInvoice-patientIddoctorIdroomNumber": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts-tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule-tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor/method/createInvoice-patientIddoctorIdroomNumber",
+      "probability": 1,
+      "from_file_path": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts",
+      "from_class_or_interface_name": "AppointmentScheduler",
+      "from_class_or_interface_key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler",
+      "from_method_name": "schedule",
+      "from_method_key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule",
+      "to_file_path": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts",
+      "to_class_or_interface_name": "BillingProcessor",
+      "to_class_or_interface_key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor",
+      "to_method_name": "createInvoice",
+      "to_method_key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor/method/createInvoice",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/patientId": {
+          "key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/patientId",
+          "name": "patientId",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/patientId",
+            "name": "patientId",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/doctorId": {
+          "key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/doctorId",
+          "name": "doctorId",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/doctorId",
+            "name": "doctorId",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/roomNumber": {
+          "key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/roomNumber",
+          "name": "roomNumber",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/roomNumber",
+            "name": "roomNumber",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts-tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor/method/createInvoice-tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule-patientIddoctorIdroomNumber": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts-tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor/method/createInvoice-tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule-patientIddoctorIdroomNumber",
+      "probability": 1,
+      "from_file_path": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts",
+      "from_class_or_interface_name": "BillingProcessor",
+      "from_class_or_interface_key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor",
+      "from_method_name": "createInvoice",
+      "from_method_key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor/method/createInvoice",
+      "to_file_path": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts",
+      "to_class_or_interface_name": "AppointmentScheduler",
+      "to_class_or_interface_key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler",
+      "to_method_name": "schedule",
+      "to_method_key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/patientId": {
+          "key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/patientId",
+          "name": "patientId",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/patientId",
+            "name": "patientId",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/doctorId": {
+          "key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/doctorId",
+          "name": "doctorId",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/doctorId",
+            "name": "doctorId",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/roomNumber": {
+          "key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/roomNumber",
+          "name": "roomNumber",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-parameter/positive-simple/typescript/source/AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/roomNumber",
+            "name": "roomNumber",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
     "fields_to_fields_data_clump-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient-firstnamelastnameage": {
       "type": "data_clump",
       "key": "fields_to_fields_data_clump-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient-firstnamelastnameage",
@@ -106,12 +370,16 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {}
           },
           "position": {}
@@ -121,12 +389,16 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {}
           },
           "position": {}
@@ -136,12 +408,16 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {}
           },
           "position": {}
@@ -169,12 +445,16 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {}
           },
           "position": {}
@@ -184,12 +464,16 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {}
           },
           "position": {}
@@ -199,12 +483,166 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "fields_to_fields_data_clump-tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts-tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient-firstNamelastNameinsuranceNumber": {
+      "type": "data_clump",
+      "key": "fields_to_fields_data_clump-tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts-tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient-firstNamelastNameinsuranceNumber",
+      "probability": 1,
+      "from_file_path": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts",
+      "from_class_or_interface_name": "Patient",
+      "from_class_or_interface_key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient",
+      "from_method_name": null,
+      "from_method_key": null,
+      "to_file_path": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts",
+      "to_class_or_interface_key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient",
+      "to_class_or_interface_name": "Patient",
+      "to_method_key": null,
+      "to_method_name": null,
+      "data_clump_type": "fields_to_fields_data_clump",
+      "data_clump_data": {
+        "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/firstName": {
+          "key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/firstName",
+          "name": "firstName",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/firstName",
+            "name": "firstName",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/lastName": {
+          "key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/lastName",
+          "name": "lastName",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/lastName",
+            "name": "lastName",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/insuranceNumber": {
+          "key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/insuranceNumber",
+          "name": "insuranceNumber",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/insuranceNumber",
+            "name": "insuranceNumber",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "fields_to_fields_data_clump-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient-tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient-firstNamelastNameinsuranceNumber": {
+      "type": "data_clump",
+      "key": "fields_to_fields_data_clump-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts-tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient-tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient-firstNamelastNameinsuranceNumber",
+      "probability": 1,
+      "from_file_path": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts",
+      "from_class_or_interface_name": "Patient",
+      "from_class_or_interface_key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient",
+      "from_method_name": null,
+      "from_method_key": null,
+      "to_file_path": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts",
+      "to_class_or_interface_key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient",
+      "to_class_or_interface_name": "Patient",
+      "to_method_key": null,
+      "to_method_name": null,
+      "data_clump_type": "fields_to_fields_data_clump",
+      "data_clump_data": {
+        "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/firstName": {
+          "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/firstName",
+          "name": "firstName",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/firstName",
+            "name": "firstName",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/lastName": {
+          "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/lastName",
+          "name": "lastName",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/lastName",
+            "name": "lastName",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {}
+          },
+          "position": {}
+        },
+        "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/insuranceNumber": {
+          "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/insuranceNumber",
+          "name": "insuranceNumber",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/insuranceNumber",
+            "name": "insuranceNumber",
+            "type": "string",
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {}
           },
           "position": {}
