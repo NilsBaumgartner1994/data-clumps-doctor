@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import minimist from 'minimist';
 
 import { resolveTestCasesBaseDir, runScenario, Scenario } from './data-clumps/scenarioUtils';
 
@@ -11,20 +12,23 @@ async function generateReportForScenario(scenario: Scenario) {
 }
 
 async function main() {
+  const args = minimist(process.argv.slice(2));
+  const scenarioId = args.id;
   const { scenarios, baseDir } = resolveTestCasesBaseDir();
-  if (scenarios.length === 0) {
-    console.error(`No scenarios discovered in ${baseDir}`);
+  let filteredScenarios = scenarios;
+  if (scenarioId) {
+    filteredScenarios = scenarios.filter(s => s.id === scenarioId);
+  }
+  if (filteredScenarios.length === 0) {
+    console.error(`No scenarios discovered in ${baseDir}${scenarioId ? ` for id=${scenarioId}` : ''}`);
     process.exitCode = 1;
     return;
   }
-
-  const missingExpected = scenarios.filter(scenario => !fs.existsSync(scenario.expectedReportPath));
-
+  const missingExpected = filteredScenarios.filter(scenario => !fs.existsSync(scenario.expectedReportPath));
   if (missingExpected.length === 0) {
     console.log('All scenarios already have expected reports. Nothing to generate.');
     return;
   }
-
   for (const scenario of missingExpected) {
     await generateReportForScenario(scenario);
   }

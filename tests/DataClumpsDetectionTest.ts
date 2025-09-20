@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import minimist from 'minimist';
 import { Scenario, resolveTestCasesBaseDir, runScenario } from './data-clumps/scenarioUtils';
 
 type DataClumpsReport = {
@@ -102,15 +103,19 @@ function createScenarioTest(scenario: Scenario) {
 function testAllLanguages() {
   describe('Data clumps detection scenarios', () => {
     const { baseDir, scenarios } = resolveTestCasesBaseDir();
-
-    if (scenarios.length === 0) {
+    const args = minimist(process.argv.slice(2));
+    const scenarioId = args.id;
+    let filteredScenarios = scenarios;
+    if (scenarioId) {
+      filteredScenarios = scenarios.filter(s => s.id === scenarioId);
+    }
+    if (filteredScenarios.length === 0) {
       test('No data clumps scenarios found', () => {
-        throw new Error(`No scenarios discovered in ${baseDir}`);
+        throw new Error(`No scenarios discovered in ${baseDir}${scenarioId ? ` for id=${scenarioId}` : ''}`);
       });
       return;
     }
-
-    for (const scenario of scenarios) {
+    for (const scenario of filteredScenarios) {
       createScenarioTest(scenario);
     }
   });

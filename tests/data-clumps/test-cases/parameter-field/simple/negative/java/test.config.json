@@ -1,4 +1,5 @@
 {
+  "id": "parameter-field-simple-negative-java",
   "name": "Java parameter-field without enough shared values",
   "language": "java",
   "sourceDir": "source",

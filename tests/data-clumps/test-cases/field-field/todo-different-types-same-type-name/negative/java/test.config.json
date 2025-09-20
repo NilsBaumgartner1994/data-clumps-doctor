@@ -1,6 +1,5 @@
 {
-  "id": "field-field-simple-negative-java",
-  "name": "Java field-field without enough shared fields",
+  "name": "Java no field-field data clump with different types but same type name",
   "language": "java",
   "sourceDir": "source",
   "expectedReportFile": "report-expected.json",

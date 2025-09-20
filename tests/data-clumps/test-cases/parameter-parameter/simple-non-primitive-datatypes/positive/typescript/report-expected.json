@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-09-20T11:07:40.359Z",
+  "report_timestamp": "2025-09-20T11:28:32.914Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -118,13 +118,13 @@
         "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/address": {
           "key": "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/address",
           "name": "address",
-          "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/parameter-parameter/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+          "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/parameter-parameter/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
             "key": "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/address",
             "name": "address",
-            "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/parameter-parameter/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+            "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/parameter-parameter/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
             "modifiers": [],
             "position": {}
           },
@@ -181,13 +181,13 @@
         "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/address": {
           "key": "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/address",
           "name": "address",
-          "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/parameter-parameter/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+          "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/parameter-parameter/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
             "key": "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/address",
             "name": "address",
-            "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/parameter-parameter/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+            "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/parameter-parameter/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
             "modifiers": [],
             "position": {}
           },

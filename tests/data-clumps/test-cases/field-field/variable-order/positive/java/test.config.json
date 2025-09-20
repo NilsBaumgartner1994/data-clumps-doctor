@@ -1,6 +1,5 @@
 {
-  "id": "field-field-simple-negative-java",
-  "name": "Java field-field without enough shared fields",
+  "name": "Java field-field data clump with deviated variable order",
   "language": "java",
   "sourceDir": "source",
   "expectedReportFile": "report-expected.json",

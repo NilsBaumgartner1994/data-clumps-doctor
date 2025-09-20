@@ -11,6 +11,7 @@ import { ParserHelperTypeScript } from '../../src/ignoreCoverage/parsers/ParserH
 import { ClassOrInterfaceTypeContext } from '../../src/ignoreCoverage/ParsedAstTypes';
 
 export interface ScenarioConfig {
+  id?: string;
   name: string;
   language: string;
   sourceDir: string;
@@ -122,13 +123,14 @@ async function buildSoftwareProjectDicts(parser: ParserInterface, sourcePath: st
   }
 
   const tempAstDir = fs.mkdtempSync(path.join(os.tmpdir(), 'data-clumps-ast-'));
+  console.log("Using temporary AST output directory:", tempAstDir);
 
   try {
     await parser.parseSourceToAst(sourcePath, tempAstDir);
     return await ParserHelper.getSoftwareProjectDictsFromParsedAstFolder(tempAstDir, detectorOptions ?? {});
   } finally {
     try {
-      await ParserHelper.removeGeneratedAst(tempAstDir, `Cleanup temporary AST output for ${sourcePath}`);
+      //await ParserHelper.removeGeneratedAst(tempAstDir, `Cleanup temporary AST output for ${sourcePath}`);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.warn(`Failed to remove temporary AST output at ${tempAstDir}:`, error);

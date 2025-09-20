@@ -1,0 +1,7 @@
+{
+  "name": "TypeScript field-field data clump with deviated variable order",
+  "language": "typescript",
+  "sourceDir": "source",
+  "expectedReportFile": "report-expected.json",
+  "detectorOptions": {}
+}

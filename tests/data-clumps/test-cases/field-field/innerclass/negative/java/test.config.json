@@ -1,6 +1,6 @@
 {
-  "id": "field-field-simple-negative-java",
-  "name": "Java field-field without enough shared fields",
+  "id": "check",
+  "name": "Java field-field data clump with inner class Patient and Doctor",
   "language": "java",
   "sourceDir": "source",
   "expectedReportFile": "report-expected.json",

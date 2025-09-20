@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-09-20T11:28:34.017Z",
+  "report_timestamp": "2025-09-20T12:20:24.188Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -38,14 +38,14 @@
   },
   "project_info": {
     "project_url": "unknown",
-    "project_name": "TypeScript field-field data clump with non-primitive datatypes",
+    "project_name": "TypeScript field-field data clump with deviated variable order",
     "project_version": "unknown",
     "project_commit_hash": "unknown",
     "project_tag": null,
     "project_commit_date": null,
     "additional": {},
-    "number_of_files": 3,
-    "number_of_classes_or_interfaces": 3,
+    "number_of_files": 2,
+    "number_of_classes_or_interfaces": 2,
     "number_of_methods": 0,
     "number_of_data_fields": 6,
     "number_of_method_parameters": 0
@@ -69,9 +69,9 @@
     }
   },
   "data_clumps": {
-    "fields_to_fields_data_clump-Doctor.ts-Doctor.ts/class/Doctor-Patient.ts/class/Patient-firstnamekastanieaddress": {
+    "fields_to_fields_data_clump-Doctor.ts-Doctor.ts/class/Doctor-Patient.ts/class/Patient-firstnamelastnameage": {
       "type": "data_clump",
-      "key": "fields_to_fields_data_clump-Doctor.ts-Doctor.ts/class/Doctor-Patient.ts/class/Patient-firstnamekastanieaddress",
+      "key": "fields_to_fields_data_clump-Doctor.ts-Doctor.ts/class/Doctor-Patient.ts/class/Patient-firstnamelastnameage",
       "probability": 1,
       "from_file_path": "Doctor.ts",
       "from_class_or_interface_name": "Doctor",
@@ -88,7 +88,7 @@
         "Doctor.ts/class/Doctor/memberField/firstname": {
           "key": "Doctor.ts/class/Doctor/memberField/firstname",
           "name": "firstname",
-          "type": "String",
+          "type": "string",
           "probability": 1,
           "modifiers": [
             "PUBLIC"
@@ -96,7 +96,7 @@
           "to_variable": {
             "key": "Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
-            "type": "String",
+            "type": "string",
             "modifiers": [
               "PUBLIC"
             ],
@@ -104,18 +104,18 @@
           },
           "position": {}
         },
-        "Doctor.ts/class/Doctor/memberField/kastanie": {
-          "key": "Doctor.ts/class/Doctor/memberField/kastanie",
-          "name": "kastanie",
-          "type": "String",
+        "Doctor.ts/class/Doctor/memberField/lastname": {
+          "key": "Doctor.ts/class/Doctor/memberField/lastname",
+          "name": "lastname",
+          "type": "string",
           "probability": 1,
           "modifiers": [
             "PUBLIC"
           ],
           "to_variable": {
-            "key": "Patient.ts/class/Patient/memberField/kastanie",
-            "name": "kastanie",
-            "type": "String",
+            "key": "Patient.ts/class/Patient/memberField/lastname",
+            "name": "lastname",
+            "type": "string",
             "modifiers": [
               "PUBLIC"
             ],
@@ -123,18 +123,18 @@
           },
           "position": {}
         },
-        "Doctor.ts/class/Doctor/memberField/address": {
-          "key": "Doctor.ts/class/Doctor/memberField/address",
-          "name": "address",
-          "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+        "Doctor.ts/class/Doctor/memberField/age": {
+          "key": "Doctor.ts/class/Doctor/memberField/age",
+          "name": "age",
+          "type": "number",
           "probability": 1,
           "modifiers": [
             "PUBLIC"
           ],
           "to_variable": {
-            "key": "Patient.ts/class/Patient/memberField/address",
-            "name": "address",
-            "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+            "key": "Patient.ts/class/Patient/memberField/age",
+            "name": "age",
+            "type": "number",
             "modifiers": [
               "PUBLIC"
             ],
@@ -144,9 +144,9 @@
         }
       }
     },
-    "fields_to_fields_data_clump-Patient.ts-Patient.ts/class/Patient-Doctor.ts/class/Doctor-firstnamekastanieaddress": {
+    "fields_to_fields_data_clump-Patient.ts-Patient.ts/class/Patient-Doctor.ts/class/Doctor-firstnameagelastname": {
       "type": "data_clump",
-      "key": "fields_to_fields_data_clump-Patient.ts-Patient.ts/class/Patient-Doctor.ts/class/Doctor-firstnamekastanieaddress",
+      "key": "fields_to_fields_data_clump-Patient.ts-Patient.ts/class/Patient-Doctor.ts/class/Doctor-firstnameagelastname",
       "probability": 1,
       "from_file_path": "Patient.ts",
       "from_class_or_interface_name": "Patient",
@@ -163,7 +163,7 @@
         "Patient.ts/class/Patient/memberField/firstname": {
           "key": "Patient.ts/class/Patient/memberField/firstname",
           "name": "firstname",
-          "type": "String",
+          "type": "string",
           "probability": 1,
           "modifiers": [
             "PUBLIC"
@@ -171,7 +171,7 @@
           "to_variable": {
             "key": "Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
-            "type": "String",
+            "type": "string",
             "modifiers": [
               "PUBLIC"
             ],
@@ -179,18 +179,18 @@
           },
           "position": {}
         },
-        "Patient.ts/class/Patient/memberField/kastanie": {
-          "key": "Patient.ts/class/Patient/memberField/kastanie",
-          "name": "kastanie",
-          "type": "String",
+        "Patient.ts/class/Patient/memberField/age": {
+          "key": "Patient.ts/class/Patient/memberField/age",
+          "name": "age",
+          "type": "number",
           "probability": 1,
           "modifiers": [
             "PUBLIC"
           ],
           "to_variable": {
-            "key": "Doctor.ts/class/Doctor/memberField/kastanie",
-            "name": "kastanie",
-            "type": "String",
+            "key": "Doctor.ts/class/Doctor/memberField/age",
+            "name": "age",
+            "type": "number",
             "modifiers": [
               "PUBLIC"
             ],
@@ -198,18 +198,18 @@
           },
           "position": {}
         },
-        "Patient.ts/class/Patient/memberField/address": {
-          "key": "Patient.ts/class/Patient/memberField/address",
-          "name": "address",
-          "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+        "Patient.ts/class/Patient/memberField/lastname": {
+          "key": "Patient.ts/class/Patient/memberField/lastname",
+          "name": "lastname",
+          "type": "string",
           "probability": 1,
           "modifiers": [
             "PUBLIC"
           ],
           "to_variable": {
-            "key": "Doctor.ts/class/Doctor/memberField/address",
-            "name": "address",
-            "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+            "key": "Doctor.ts/class/Doctor/memberField/lastname",
+            "name": "lastname",
+            "type": "string",
             "modifiers": [
               "PUBLIC"
             ],
