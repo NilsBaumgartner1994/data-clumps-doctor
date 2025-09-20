@@ -49,11 +49,7 @@ function createScenarioTest(scenario: Scenario) {
     if (formattedActual !== formattedExpected) {
       const expectedHash = crypto.createHash('sha256').update(formattedExpected).digest('hex');
       const actualHash = crypto.createHash('sha256').update(formattedActual).digest('hex');
-      const messageSegments = [
-        `Scenario "${scenario.name}" produced a report that does not match the expected output.`,
-        `Expected report path: ${scenario.expectedReportPath}`,
-        `SHA-256 hash mismatch. Expected ${expectedHash}, but received ${actualHash}. Reports are not identical.`,
-      ];
+      const messageSegments = [`Scenario "${scenario.name}" produced a report that does not match the expected output.`, `Expected report path: ${scenario.expectedReportPath}`, `SHA-256 hash mismatch. Expected ${expectedHash}, but received ${actualHash}. Reports are not identical.`];
 
       throw new Error(messageSegments.join('\n\n'));
     }

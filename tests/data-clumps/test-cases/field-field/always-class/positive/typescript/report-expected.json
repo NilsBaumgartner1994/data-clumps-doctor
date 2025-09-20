@@ -90,16 +90,12 @@
           "name": "address",
           "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/field-field/always-class/positive/typescript/source/Address\").Address",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Patient.ts/class/Patient/memberField/address",
             "name": "address",
             "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/field-field/always-class/positive/typescript/source/Address\").Address",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -109,16 +105,12 @@
           "name": "contactInfo",
           "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/field-field/always-class/positive/typescript/source/ContactInfo\").ContactInfo",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Patient.ts/class/Patient/memberField/contactInfo",
             "name": "contactInfo",
             "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/field-field/always-class/positive/typescript/source/ContactInfo\").ContactInfo",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -128,16 +120,12 @@
           "name": "insurance",
           "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/field-field/always-class/positive/typescript/source/Insurance\").Insurance",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Patient.ts/class/Patient/memberField/insurance",
             "name": "insurance",
             "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/field-field/always-class/positive/typescript/source/Insurance\").Insurance",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -165,16 +153,12 @@
           "name": "address",
           "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/field-field/always-class/positive/typescript/source/Address\").Address",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Doctor.ts/class/Doctor/memberField/address",
             "name": "address",
             "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/field-field/always-class/positive/typescript/source/Address\").Address",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -184,16 +168,12 @@
           "name": "contactInfo",
           "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/field-field/always-class/positive/typescript/source/ContactInfo\").ContactInfo",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Doctor.ts/class/Doctor/memberField/contactInfo",
             "name": "contactInfo",
             "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/field-field/always-class/positive/typescript/source/ContactInfo\").ContactInfo",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -203,16 +183,12 @@
           "name": "insurance",
           "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/field-field/always-class/positive/typescript/source/Insurance\").Insurance",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "Doctor.ts/class/Doctor/memberField/insurance",
             "name": "insurance",
             "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/field-field/always-class/positive/typescript/source/Insurance\").Insurance",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
