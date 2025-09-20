@@ -20,13 +20,9 @@ setup:
 	./mvnw clean install
 
 build:
-	mvn install:install-file -Dfile=./pmd-bin-7.0.0-rc3/lib/pmd-ui-7.0.0-rc1.jar -DgroupId=net.sourceforge.pmd -DartifactId=pmd-ui -Dversion=7.0.0-SNAPSHOT -Dpackaging=jar || true
 	./mvnw clean install
-	unzip -o ./pmd-java-dist/target/pmd-java-bin-1.0.0-SNAPSHOT.zip -d ./pmd-java-dist/target/
-	cp ./pmd-java-dist/target/pmd-java-bin-1.0.0-SNAPSHOT/lib/pmd-java-custom-1.0.0-SNAPSHOT.jar ./pmd-bin-7.0.0-rc3/lib/
-	cp ./pmd-java-dist/target/pmd-java-bin-1.0.0-SNAPSHOT/lib/jackson-annotations-2.12.3.jar ./pmd-bin-7.0.0-rc3/lib/
-	cp ./pmd-java-dist/target/pmd-java-bin-1.0.0-SNAPSHOT/lib/jackson-core-2.12.3.jar ./pmd-bin-7.0.0-rc3/lib/
-	cp ./pmd-java-dist/target/pmd-java-bin-1.0.0-SNAPSHOT/lib/jackson-databind-2.12.3.jar ./pmd-bin-7.0.0-rc3/lib/
+	cp ./pmd-java-custom/target/pmd-java-custom-1.0.0-SNAPSHOT.jar ./pmd-bin-7.0.0-rc3/lib/
+	# Falls weitere JARs benötigt werden, hier ergänzen
 
 run:
 	@echo "Start time: $$(date)"; \

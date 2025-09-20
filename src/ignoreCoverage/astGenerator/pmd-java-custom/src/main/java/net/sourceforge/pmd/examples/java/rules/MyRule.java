@@ -395,7 +395,7 @@ public class MyRule extends AbstractJavaRule {
     }
 
     private String getQualifiedNameUnsafe(JTypeMirror typeMirror){
-
+        System.out.println("typeMirror: "+typeMirror);
         TypePrettyPrint.TypePrettyPrinter typePrettyPrinter = new TypePrettyPrint.TypePrettyPrinter();
         typePrettyPrinter.printAnnotations(false);
         typePrettyPrinter.printMethodHeader(false);
