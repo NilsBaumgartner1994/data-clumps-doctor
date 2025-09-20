@@ -1,11 +1,11 @@
 public class Doctor {
-    public String firstname;
-    public String lastname;
-    public int age;
+    public int recordId;
+    public boolean isActive;
+    public int visitCount;
 
-    public Doctor(String firstname, String lastname, int age) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.age = age;
+    public Doctor(int recordId, boolean isActive, int visitCount) {
+        this.recordId = recordId;
+        this.isActive = isActive;
+        this.visitCount = visitCount;
     }
 }

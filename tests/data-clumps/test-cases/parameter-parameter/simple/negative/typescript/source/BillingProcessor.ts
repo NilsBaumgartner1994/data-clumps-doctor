@@ -1,5 +1,5 @@
 export class BillingProcessor {
-  createInvoice(patientId: string, doctorId: string, amount: number): void {
-    console.log(`Creating invoice of ${amount} for ${patientId}`);
+  createInvoice(patientId: number, doctorId: number, invoiceAmount: number): void {
+    console.log(`Creating invoice of ${invoiceAmount} for patient ${patientId} with doctor ${doctorId}`);
   }
 }

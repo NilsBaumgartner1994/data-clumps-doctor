@@ -1,11 +1,11 @@
 export class Doctor {
-  public firstName: string;
-  public lastName: string;
-  public specialization: string;
+  public doctorId: number;
+  public isOnCall: boolean;
+  public appointmentSlots: number;
 
-  constructor(firstName: string, lastName: string, specialization: string) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.specialization = specialization;
+  constructor(doctorId: number, isOnCall: boolean, appointmentSlots: number) {
+    this.doctorId = doctorId;
+    this.isOnCall = isOnCall;
+    this.appointmentSlots = appointmentSlots;
   }
 }

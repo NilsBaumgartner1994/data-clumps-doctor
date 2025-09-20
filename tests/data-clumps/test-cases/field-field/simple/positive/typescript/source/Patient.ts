@@ -1,11 +1,11 @@
 export class Patient {
-  public firstname: string;
-  public lastname: string;
-  public age: number;
+  public recordId: number;
+  public isActive: boolean;
+  public visitCount: number;
 
-  constructor(firstname: string, lastname: string, age: number) {
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.age = age;
+  constructor(recordId: number, isActive: boolean, visitCount: number) {
+    this.recordId = recordId;
+    this.isActive = isActive;
+    this.visitCount = visitCount;
   }
 }

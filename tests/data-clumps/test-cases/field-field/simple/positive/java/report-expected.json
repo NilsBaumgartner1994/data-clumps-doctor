@@ -69,9 +69,9 @@
     }
   },
   "data_clumps": {
-    "fields_to_fields_data_clump-Doctor.java-Doctor-Patient-agelastnamefirstname": {
+    "fields_to_fields_data_clump-Doctor.java-Doctor-Patient-visitCountrecordIdisActive": {
       "type": "data_clump",
-      "key": "fields_to_fields_data_clump-Doctor.java-Doctor-Patient-agelastnamefirstname",
+      "key": "fields_to_fields_data_clump-Doctor.java-Doctor-Patient-visitCountrecordIdisActive",
       "probability": 1,
       "from_file_path": "Doctor.java",
       "from_class_or_interface_name": "Doctor",
@@ -85,86 +85,86 @@
       "to_method_name": null,
       "data_clump_type": "fields_to_fields_data_clump",
       "data_clump_data": {
-        "Doctor/memberField/age": {
-          "key": "Doctor/memberField/age",
-          "name": "age",
+        "Doctor/memberField/recordId": {
+          "key": "Doctor/memberField/recordId",
+          "name": "recordId",
           "type": "int",
           "probability": 1,
           "modifiers": ["PUBLIC"],
           "to_variable": {
-            "key": "Patient/memberField/age",
-            "name": "age",
+            "key": "Patient/memberField/recordId",
+            "name": "recordId",
+            "type": "int",
+            "modifiers": ["PUBLIC"],
+            "position": {
+              "startLine": 2,
+              "startColumn": 16,
+              "endLine": 2,
+              "endColumn": 24
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 16,
+            "endLine": 2,
+            "endColumn": 24
+          }
+        },
+        "Doctor/memberField/isActive": {
+          "key": "Doctor/memberField/isActive",
+          "name": "isActive",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": ["PUBLIC"],
+          "to_variable": {
+            "key": "Patient/memberField/isActive",
+            "name": "isActive",
+            "type": "boolean",
+            "modifiers": ["PUBLIC"],
+            "position": {
+              "startLine": 3,
+              "startColumn": 20,
+              "endLine": 3,
+              "endColumn": 28
+            }
+          },
+          "position": {
+            "startLine": 3,
+            "startColumn": 20,
+            "endLine": 3,
+            "endColumn": 28
+          }
+        },
+        "Doctor/memberField/visitCount": {
+          "key": "Doctor/memberField/visitCount",
+          "name": "visitCount",
+          "type": "int",
+          "probability": 1,
+          "modifiers": ["PUBLIC"],
+          "to_variable": {
+            "key": "Patient/memberField/visitCount",
+            "name": "visitCount",
             "type": "int",
             "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 4,
               "startColumn": 16,
               "endLine": 4,
-              "endColumn": 19
+              "endColumn": 26
             }
           },
           "position": {
             "startLine": 4,
             "startColumn": 16,
             "endLine": 4,
-            "endColumn": 19
-          }
-        },
-        "Doctor/memberField/lastname": {
-          "key": "Doctor/memberField/lastname",
-          "name": "lastname",
-          "type": "java.lang.String",
-          "probability": 1,
-          "modifiers": ["PUBLIC"],
-          "to_variable": {
-            "key": "Patient/memberField/lastname",
-            "name": "lastname",
-            "type": "java.lang.String",
-            "modifiers": ["PUBLIC"],
-            "position": {
-              "startLine": 3,
-              "startColumn": 19,
-              "endLine": 3,
-              "endColumn": 27
-            }
-          },
-          "position": {
-            "startLine": 3,
-            "startColumn": 19,
-            "endLine": 3,
-            "endColumn": 27
-          }
-        },
-        "Doctor/memberField/firstname": {
-          "key": "Doctor/memberField/firstname",
-          "name": "firstname",
-          "type": "java.lang.String",
-          "probability": 1,
-          "modifiers": ["PUBLIC"],
-          "to_variable": {
-            "key": "Patient/memberField/firstname",
-            "name": "firstname",
-            "type": "java.lang.String",
-            "modifiers": ["PUBLIC"],
-            "position": {
-              "startLine": 2,
-              "startColumn": 19,
-              "endLine": 2,
-              "endColumn": 28
-            }
-          },
-          "position": {
-            "startLine": 2,
-            "startColumn": 19,
-            "endLine": 2,
-            "endColumn": 28
+            "endColumn": 26
           }
         }
       }
     },
-    "fields_to_fields_data_clump-Patient.java-Patient-Doctor-lastnameagefirstname": {
+    "fields_to_fields_data_clump-Patient.java-Patient-Doctor-recordIdvisitCountisActive": {
       "type": "data_clump",
-      "key": "fields_to_fields_data_clump-Patient.java-Patient-Doctor-lastnameagefirstname",
+      "key": "fields_to_fields_data_clump-Patient.java-Patient-Doctor-recordIdvisitCountisActive",
       "probability": 1,
       "from_file_path": "Patient.java",
       "from_class_or_interface_name": "Patient",
@@ -178,79 +178,79 @@
       "to_method_name": null,
       "data_clump_type": "fields_to_fields_data_clump",
       "data_clump_data": {
-        "Patient/memberField/lastname": {
-          "key": "Patient/memberField/lastname",
-          "name": "lastname",
-          "type": "java.lang.String",
-          "probability": 1,
-          "modifiers": ["PUBLIC"],
-          "to_variable": {
-            "key": "Doctor/memberField/lastname",
-            "name": "lastname",
-            "type": "java.lang.String",
-            "modifiers": ["PUBLIC"],
-            "position": {
-              "startLine": 3,
-              "startColumn": 19,
-              "endLine": 3,
-              "endColumn": 27
-            }
-          },
-          "position": {
-            "startLine": 3,
-            "startColumn": 19,
-            "endLine": 3,
-            "endColumn": 27
-          }
-        },
-        "Patient/memberField/age": {
-          "key": "Patient/memberField/age",
-          "name": "age",
+        "Patient/memberField/recordId": {
+          "key": "Patient/memberField/recordId",
+          "name": "recordId",
           "type": "int",
           "probability": 1,
           "modifiers": ["PUBLIC"],
           "to_variable": {
-            "key": "Doctor/memberField/age",
-            "name": "age",
+            "key": "Doctor/memberField/recordId",
+            "name": "recordId",
+            "type": "int",
+            "modifiers": ["PUBLIC"],
+            "position": {
+              "startLine": 2,
+              "startColumn": 16,
+              "endLine": 2,
+              "endColumn": 24
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 16,
+            "endLine": 2,
+            "endColumn": 24
+          }
+        },
+        "Patient/memberField/isActive": {
+          "key": "Patient/memberField/isActive",
+          "name": "isActive",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": ["PUBLIC"],
+          "to_variable": {
+            "key": "Doctor/memberField/isActive",
+            "name": "isActive",
+            "type": "boolean",
+            "modifiers": ["PUBLIC"],
+            "position": {
+              "startLine": 3,
+              "startColumn": 20,
+              "endLine": 3,
+              "endColumn": 28
+            }
+          },
+          "position": {
+            "startLine": 3,
+            "startColumn": 20,
+            "endLine": 3,
+            "endColumn": 28
+          }
+        },
+        "Patient/memberField/visitCount": {
+          "key": "Patient/memberField/visitCount",
+          "name": "visitCount",
+          "type": "int",
+          "probability": 1,
+          "modifiers": ["PUBLIC"],
+          "to_variable": {
+            "key": "Doctor/memberField/visitCount",
+            "name": "visitCount",
             "type": "int",
             "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 4,
               "startColumn": 16,
               "endLine": 4,
-              "endColumn": 19
+              "endColumn": 26
             }
           },
           "position": {
             "startLine": 4,
             "startColumn": 16,
             "endLine": 4,
-            "endColumn": 19
-          }
-        },
-        "Patient/memberField/firstname": {
-          "key": "Patient/memberField/firstname",
-          "name": "firstname",
-          "type": "java.lang.String",
-          "probability": 1,
-          "modifiers": ["PUBLIC"],
-          "to_variable": {
-            "key": "Doctor/memberField/firstname",
-            "name": "firstname",
-            "type": "java.lang.String",
-            "modifiers": ["PUBLIC"],
-            "position": {
-              "startLine": 2,
-              "startColumn": 19,
-              "endLine": 2,
-              "endColumn": 28
-            }
-          },
-          "position": {
-            "startLine": 2,
-            "startColumn": 19,
-            "endLine": 2,
-            "endColumn": 28
+            "endColumn": 26
           }
         }
       }

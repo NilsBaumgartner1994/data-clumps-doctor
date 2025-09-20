@@ -1,5 +1,6 @@
 public class AppointmentScheduler {
-    public void schedule(String patientId, String doctorId, String appointmentDate) {
-        System.out.println("Scheduling appointment on " + appointmentDate);
+    public void schedule(int patientId, int doctorId, boolean requiresFollowUp) {
+        System.out.println("Scheduling appointment for patient " + patientId + " with doctor " + doctorId
+                + " (requires follow-up: " + requiresFollowUp + ")");
     }
 }

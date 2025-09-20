@@ -69,15 +69,15 @@
     }
   },
   "data_clumps": {
-    "parameters_to_fields_data_clump-PatientService.java-PatientService/method/registerPatient(java.lang.String firstName, java.lang.String lastName, java.lang.String insuranceNumber)-Patient-firstNamelastNameinsuranceNumber": {
+    "parameters_to_fields_data_clump-PatientService.java-PatientService/method/registerPatient(int recordId, boolean isActive, int visitCount)-Patient-recordIdisActivevisitCount": {
       "type": "data_clump",
-      "key": "parameters_to_fields_data_clump-PatientService.java-PatientService/method/registerPatient(java.lang.String firstName, java.lang.String lastName, java.lang.String insuranceNumber)-Patient-firstNamelastNameinsuranceNumber",
+      "key": "parameters_to_fields_data_clump-PatientService.java-PatientService/method/registerPatient(int recordId, boolean isActive, int visitCount)-Patient-recordIdisActivevisitCount",
       "probability": 1,
       "from_file_path": "PatientService.java",
       "from_class_or_interface_name": "PatientService",
       "from_class_or_interface_key": "PatientService",
       "from_method_name": "registerPatient",
-      "from_method_key": "PatientService/method/registerPatient(java.lang.String firstName, java.lang.String lastName, java.lang.String insuranceNumber)",
+      "from_method_key": "PatientService/method/registerPatient(int recordId, boolean isActive, int visitCount)",
       "to_file_path": "Patient.java",
       "to_class_or_interface_name": "Patient",
       "to_class_or_interface_key": "Patient",
@@ -85,79 +85,79 @@
       "to_method_key": null,
       "data_clump_type": "parameters_to_fields_data_clump",
       "data_clump_data": {
-        "PatientService/method/registerPatient(java.lang.String firstName, java.lang.String lastName, java.lang.String insuranceNumber)/parameter/firstName": {
-          "key": "PatientService/method/registerPatient(java.lang.String firstName, java.lang.String lastName, java.lang.String insuranceNumber)/parameter/firstName",
-          "name": "firstName",
-          "type": "java.lang.String",
+        "PatientService/method/registerPatient(int recordId, boolean isActive, int visitCount)/parameter/recordId": {
+          "key": "PatientService/method/registerPatient(int recordId, boolean isActive, int visitCount)/parameter/recordId",
+          "name": "recordId",
+          "type": "int",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
-            "key": "Patient/memberField/firstName",
-            "name": "firstName",
-            "type": "java.lang.String",
+            "key": "Patient/memberField/recordId",
+            "name": "recordId",
+            "type": "int",
             "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 2,
-              "startColumn": 19,
+              "startColumn": 16,
               "endLine": 2,
+              "endColumn": 24
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 37,
+            "endLine": 2,
+            "endColumn": 45
+          }
+        },
+        "PatientService/method/registerPatient(int recordId, boolean isActive, int visitCount)/parameter/isActive": {
+          "key": "PatientService/method/registerPatient(int recordId, boolean isActive, int visitCount)/parameter/isActive",
+          "name": "isActive",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "Patient/memberField/isActive",
+            "name": "isActive",
+            "type": "boolean",
+            "modifiers": ["PUBLIC"],
+            "position": {
+              "startLine": 3,
+              "startColumn": 20,
+              "endLine": 3,
               "endColumn": 28
             }
           },
           "position": {
             "startLine": 2,
-            "startColumn": 40,
+            "startColumn": 55,
             "endLine": 2,
-            "endColumn": 49
+            "endColumn": 63
           }
         },
-        "PatientService/method/registerPatient(java.lang.String firstName, java.lang.String lastName, java.lang.String insuranceNumber)/parameter/lastName": {
-          "key": "PatientService/method/registerPatient(java.lang.String firstName, java.lang.String lastName, java.lang.String insuranceNumber)/parameter/lastName",
-          "name": "lastName",
-          "type": "java.lang.String",
+        "PatientService/method/registerPatient(int recordId, boolean isActive, int visitCount)/parameter/visitCount": {
+          "key": "PatientService/method/registerPatient(int recordId, boolean isActive, int visitCount)/parameter/visitCount",
+          "name": "visitCount",
+          "type": "int",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
-            "key": "Patient/memberField/lastName",
-            "name": "lastName",
-            "type": "java.lang.String",
-            "modifiers": ["PUBLIC"],
-            "position": {
-              "startLine": 3,
-              "startColumn": 19,
-              "endLine": 3,
-              "endColumn": 27
-            }
-          },
-          "position": {
-            "startLine": 2,
-            "startColumn": 58,
-            "endLine": 2,
-            "endColumn": 66
-          }
-        },
-        "PatientService/method/registerPatient(java.lang.String firstName, java.lang.String lastName, java.lang.String insuranceNumber)/parameter/insuranceNumber": {
-          "key": "PatientService/method/registerPatient(java.lang.String firstName, java.lang.String lastName, java.lang.String insuranceNumber)/parameter/insuranceNumber",
-          "name": "insuranceNumber",
-          "type": "java.lang.String",
-          "probability": 1,
-          "modifiers": [],
-          "to_variable": {
-            "key": "Patient/memberField/insuranceNumber",
-            "name": "insuranceNumber",
-            "type": "java.lang.String",
+            "key": "Patient/memberField/visitCount",
+            "name": "visitCount",
+            "type": "int",
             "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 4,
-              "startColumn": 19,
+              "startColumn": 16,
               "endLine": 4,
-              "endColumn": 34
+              "endColumn": 26
             }
           },
           "position": {
             "startLine": 2,
-            "startColumn": 75,
+            "startColumn": 69,
             "endLine": 2,
-            "endColumn": 90
+            "endColumn": 79
           }
         }
       }
