@@ -122,13 +122,13 @@
         "PatientService.ts/class/PatientService/method/registerPatient/parameter/address": {
           "key": "PatientService.ts/class/PatientService/method/registerPatient/parameter/address",
           "name": "address",
-          "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/parameter-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+          "type": "import(\"Adress\").Adress",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
             "key": "Patient.ts/class/Patient/memberField/address",
             "name": "address",
-            "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/parameter-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+            "type": "import(\"Adress\").Adress",
             "modifiers": [
               "PUBLIC"
             ],

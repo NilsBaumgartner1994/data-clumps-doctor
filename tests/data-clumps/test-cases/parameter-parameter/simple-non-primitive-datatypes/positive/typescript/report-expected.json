@@ -118,13 +118,13 @@
         "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/address": {
           "key": "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/address",
           "name": "address",
-          "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/parameter-parameter/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+          "type": "import(\"Adress\").Adress",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
             "key": "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/address",
             "name": "address",
-            "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/parameter-parameter/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+            "type": "import(\"Adress\").Adress",
             "modifiers": [],
             "position": {}
           },
@@ -181,13 +181,13 @@
         "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/address": {
           "key": "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/address",
           "name": "address",
-          "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/parameter-parameter/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+          "type": "import(\"Adress\").Adress",
           "probability": 1,
           "modifiers": [],
           "to_variable": {
             "key": "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/address",
             "name": "address",
-            "type": "import(\"/Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/tests/data-clumps/test-cases/parameter-parameter/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
+            "type": "import(\"Adress\").Adress",
             "modifiers": [],
             "position": {}
           },
