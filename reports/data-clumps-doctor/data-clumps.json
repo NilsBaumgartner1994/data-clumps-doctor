@@ -111,9 +111,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/firstName",
             "name": "firstName",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -128,9 +126,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/lastName",
             "name": "lastName",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -145,9 +141,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/insuranceNumber",
             "name": "insuranceNumber",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -180,9 +174,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/firstName",
             "name": "firstName",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -197,9 +189,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/lastName",
             "name": "lastName",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -214,9 +204,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/insuranceNumber",
             "name": "insuranceNumber",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -370,16 +358,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -389,16 +373,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -408,16 +388,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -445,16 +421,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -464,16 +436,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -483,16 +451,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -520,16 +484,12 @@
           "name": "firstName",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/firstName",
             "name": "firstName",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -539,16 +499,12 @@
           "name": "lastName",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/lastName",
             "name": "lastName",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -558,16 +514,12 @@
           "name": "insuranceNumber",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/insuranceNumber",
             "name": "insuranceNumber",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -595,16 +547,12 @@
           "name": "firstName",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/firstName",
             "name": "firstName",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -614,16 +562,12 @@
           "name": "lastName",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/lastName",
             "name": "lastName",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -633,16 +577,12 @@
           "name": "insuranceNumber",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/negative-insufficient-shared/typescript/source/Patient.ts/class/Patient/memberField/insuranceNumber",
             "name": "insuranceNumber",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
