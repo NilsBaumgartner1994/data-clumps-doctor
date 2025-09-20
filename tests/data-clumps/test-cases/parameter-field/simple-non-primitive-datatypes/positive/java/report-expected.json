@@ -95,9 +95,7 @@
             "key": "Patient/memberField/firstname",
             "name": "firstname",
             "type": "java.lang.String",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 2,
               "startColumn": 19,
@@ -122,9 +120,7 @@
             "key": "Patient/memberField/kastanie",
             "name": "kastanie",
             "type": "java.lang.String",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 3,
               "startColumn": 19,
@@ -149,9 +145,7 @@
             "key": "Patient/memberField/address",
             "name": "address",
             "type": "Adress",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {
               "startLine": 4,
               "startColumn": 19,
