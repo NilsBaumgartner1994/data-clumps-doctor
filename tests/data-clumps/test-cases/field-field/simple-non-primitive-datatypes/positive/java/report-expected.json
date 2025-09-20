@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-09-20T10:38:16.550Z",
+  "report_timestamp": "2025-09-20T15:44:04.866Z",
   "target_language": "java",
   "report_summary": {
     "additional": {
@@ -90,12 +90,16 @@
           "name": "kastanie",
           "type": "java.lang.String",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Patient/memberField/kastanie",
             "name": "kastanie",
             "type": "java.lang.String",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 3,
               "startColumn": 19,
@@ -115,12 +119,16 @@
           "name": "firstname",
           "type": "java.lang.String",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Patient/memberField/firstname",
             "name": "firstname",
             "type": "java.lang.String",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 2,
               "startColumn": 19,
@@ -140,12 +148,16 @@
           "name": "address",
           "type": "Adress",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Patient/memberField/address",
             "name": "address",
             "type": "Adress",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 4,
               "startColumn": 19,
@@ -183,12 +195,16 @@
           "name": "address",
           "type": "Adress",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Doctor/memberField/address",
             "name": "address",
             "type": "Adress",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 4,
               "startColumn": 19,
@@ -208,12 +224,16 @@
           "name": "firstname",
           "type": "java.lang.String",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Doctor/memberField/firstname",
             "name": "firstname",
             "type": "java.lang.String",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 2,
               "startColumn": 19,
@@ -233,12 +253,16 @@
           "name": "kastanie",
           "type": "java.lang.String",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Doctor/memberField/kastanie",
             "name": "kastanie",
             "type": "java.lang.String",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 3,
               "startColumn": 19,

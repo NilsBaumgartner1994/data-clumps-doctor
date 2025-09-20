@@ -1,16 +1,16 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-09-20T06:38:03.186Z",
+  "report_timestamp": "2025-09-20T15:44:08.551Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
       "invertedIndexSoftwareProjectStatistics": {
         "invertedFieldToClasses": {
-          "median": 1.5,
-          "maximum": 2,
-          "average": 1.5,
+          "median": null,
+          "maximum": 1,
+          "average": 1,
           "amountSavedValuesForKeys": 6,
-          "amountKeys": 2
+          "amountKeys": 1
         },
         "invertedParameterToMethods": {
           "median": 0,
@@ -20,11 +20,11 @@
           "amountKeys": 0
         },
         "invertedParameterToClasses": {
-          "median": 1.5,
-          "maximum": 2,
-          "average": 1.5,
+          "median": null,
+          "maximum": 1,
+          "average": 1,
           "amountSavedValuesForKeys": 6,
-          "amountKeys": 2
+          "amountKeys": 1
         }
       }
     },

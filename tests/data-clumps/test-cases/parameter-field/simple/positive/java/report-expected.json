@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-09-20T06:41:51.317Z",
+  "report_timestamp": "2025-09-20T15:43:52.802Z",
   "target_language": "java",
   "report_summary": {
     "additional": {
@@ -95,7 +95,9 @@
             "key": "Patient/memberField/recordId",
             "name": "recordId",
             "type": "int",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 2,
               "startColumn": 16,
@@ -120,7 +122,9 @@
             "key": "Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 3,
               "startColumn": 20,
@@ -145,7 +149,9 @@
             "key": "Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "int",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 4,
               "startColumn": 16,

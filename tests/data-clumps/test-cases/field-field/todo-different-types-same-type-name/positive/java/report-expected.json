@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-09-20T14:18:25.026Z",
+  "report_timestamp": "2025-09-20T15:44:00.172Z",
   "target_language": "java",
   "report_summary": {
     "additional": {
@@ -90,12 +90,16 @@
           "name": "address",
           "type": "doctor.Address",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "patient.Patient/memberField/address",
             "name": "address",
             "type": "doctor.Address",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 8,
               "startColumn": 25,
@@ -115,12 +119,16 @@
           "name": "firstname",
           "type": "java.lang.String",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "patient.Patient/memberField/firstname",
             "name": "firstname",
             "type": "java.lang.String",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 6,
               "startColumn": 17,
@@ -140,12 +148,16 @@
           "name": "lastname",
           "type": "java.lang.String",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "patient.Patient/memberField/lastname",
             "name": "lastname",
             "type": "java.lang.String",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 7,
               "startColumn": 17,
@@ -183,12 +195,16 @@
           "name": "firstname",
           "type": "java.lang.String",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "doctor.Doctor/memberField/firstname",
             "name": "firstname",
             "type": "java.lang.String",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 6,
               "startColumn": 17,
@@ -208,12 +224,16 @@
           "name": "lastname",
           "type": "java.lang.String",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "doctor.Doctor/memberField/lastname",
             "name": "lastname",
             "type": "java.lang.String",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 7,
               "startColumn": 17,
@@ -233,12 +253,16 @@
           "name": "address",
           "type": "doctor.Address",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "doctor.Doctor/memberField/address",
             "name": "address",
             "type": "doctor.Address",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 8,
               "startColumn": 18,

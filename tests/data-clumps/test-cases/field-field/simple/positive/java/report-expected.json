@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-09-20T06:41:55.941Z",
+  "report_timestamp": "2025-09-20T15:44:07.753Z",
   "target_language": "java",
   "report_summary": {
     "additional": {
@@ -85,17 +85,50 @@
       "to_method_name": null,
       "data_clump_type": "fields_to_fields_data_clump",
       "data_clump_data": {
+        "Doctor/memberField/visitCount": {
+          "key": "Doctor/memberField/visitCount",
+          "name": "visitCount",
+          "type": "int",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "Patient/memberField/visitCount",
+            "name": "visitCount",
+            "type": "int",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {
+              "startLine": 4,
+              "startColumn": 16,
+              "endLine": 4,
+              "endColumn": 26
+            }
+          },
+          "position": {
+            "startLine": 4,
+            "startColumn": 16,
+            "endLine": 4,
+            "endColumn": 26
+          }
+        },
         "Doctor/memberField/recordId": {
           "key": "Doctor/memberField/recordId",
           "name": "recordId",
           "type": "int",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Patient/memberField/recordId",
             "name": "recordId",
             "type": "int",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 2,
               "startColumn": 16,
@@ -115,12 +148,16 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 3,
               "startColumn": 20,
@@ -133,31 +170,6 @@
             "startColumn": 20,
             "endLine": 3,
             "endColumn": 28
-          }
-        },
-        "Doctor/memberField/visitCount": {
-          "key": "Doctor/memberField/visitCount",
-          "name": "visitCount",
-          "type": "int",
-          "probability": 1,
-          "modifiers": ["PUBLIC"],
-          "to_variable": {
-            "key": "Patient/memberField/visitCount",
-            "name": "visitCount",
-            "type": "int",
-            "modifiers": ["PUBLIC"],
-            "position": {
-              "startLine": 4,
-              "startColumn": 16,
-              "endLine": 4,
-              "endColumn": 26
-            }
-          },
-          "position": {
-            "startLine": 4,
-            "startColumn": 16,
-            "endLine": 4,
-            "endColumn": 26
           }
         }
       }
@@ -183,12 +195,16 @@
           "name": "recordId",
           "type": "int",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Doctor/memberField/recordId",
             "name": "recordId",
             "type": "int",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 2,
               "startColumn": 16,
@@ -203,42 +219,21 @@
             "endColumn": 24
           }
         },
-        "Patient/memberField/isActive": {
-          "key": "Patient/memberField/isActive",
-          "name": "isActive",
-          "type": "boolean",
-          "probability": 1,
-          "modifiers": ["PUBLIC"],
-          "to_variable": {
-            "key": "Doctor/memberField/isActive",
-            "name": "isActive",
-            "type": "boolean",
-            "modifiers": ["PUBLIC"],
-            "position": {
-              "startLine": 3,
-              "startColumn": 20,
-              "endLine": 3,
-              "endColumn": 28
-            }
-          },
-          "position": {
-            "startLine": 3,
-            "startColumn": 20,
-            "endLine": 3,
-            "endColumn": 28
-          }
-        },
         "Patient/memberField/visitCount": {
           "key": "Patient/memberField/visitCount",
           "name": "visitCount",
           "type": "int",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "int",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 4,
               "startColumn": 16,
@@ -251,6 +246,35 @@
             "startColumn": 16,
             "endLine": 4,
             "endColumn": 26
+          }
+        },
+        "Patient/memberField/isActive": {
+          "key": "Patient/memberField/isActive",
+          "name": "isActive",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [
+            "PUBLIC"
+          ],
+          "to_variable": {
+            "key": "Doctor/memberField/isActive",
+            "name": "isActive",
+            "type": "boolean",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {
+              "startLine": 3,
+              "startColumn": 20,
+              "endLine": 3,
+              "endColumn": 28
+            }
+          },
+          "position": {
+            "startLine": 3,
+            "startColumn": 20,
+            "endLine": 3,
+            "endColumn": 28
           }
         }
       }

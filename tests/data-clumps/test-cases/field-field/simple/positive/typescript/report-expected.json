@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-09-19T11:30:35.181Z",
+  "report_timestamp": "2025-09-20T15:44:05.655Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -90,12 +90,16 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {}
           },
           "position": {}
@@ -105,12 +109,16 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {}
           },
           "position": {}
@@ -120,12 +128,16 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {}
           },
           "position": {}
@@ -153,12 +165,16 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {}
           },
           "position": {}
@@ -168,12 +184,16 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {}
           },
           "position": {}
@@ -183,12 +203,16 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": ["PUBLIC"],
+          "modifiers": [
+            "PUBLIC"
+          ],
           "to_variable": {
             "key": "Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {}
           },
           "position": {}

@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-09-20T10:38:14.017Z",
+  "report_timestamp": "2025-09-20T15:43:49.451Z",
   "target_language": "java",
   "report_summary": {
     "additional": {
@@ -95,7 +95,9 @@
             "key": "Patient/memberField/firstname",
             "name": "firstname",
             "type": "java.lang.String",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 2,
               "startColumn": 19,
@@ -120,7 +122,9 @@
             "key": "Patient/memberField/kastanie",
             "name": "kastanie",
             "type": "java.lang.String",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 3,
               "startColumn": 19,
@@ -145,7 +149,9 @@
             "key": "Patient/memberField/address",
             "name": "address",
             "type": "Adress",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {
               "startLine": 4,
               "startColumn": 19,

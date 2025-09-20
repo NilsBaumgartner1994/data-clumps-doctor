@@ -50,3 +50,6 @@ Dockerfile*
 .git/
 .gitignore
 .github/
+
+# Prettier ignore
+report-expected.json
