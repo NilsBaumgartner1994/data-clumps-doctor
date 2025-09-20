@@ -115,8 +115,24 @@ function testAllLanguages() {
       });
       return;
     }
+    const skippedScenarios: string[] = [];
     for (const scenario of filteredScenarios) {
+      if (!fs.existsSync(scenario.expectedReportPath)) {
+        skippedScenarios.push(`${scenario.name} (${scenario.scenarioDir})`);
+        test.skip(`${scenario.name} (${scenario.scenarioDir}) [SKIPPED: missing report-expected]`, () => {
+          // skipped
+        });
+        continue;
+      }
       createScenarioTest(scenario);
+    }
+    if (skippedScenarios.length > 0) {
+      test('Warnung: Übersprungene Szenarien ohne report-expected', () => {
+        console.warn(
+          `WARNUNG: Die folgenden Szenarien wurden übersprungen, da keine report-expected-Datei gefunden wurde:\n` +
+          skippedScenarios.map(s => `  - ${s}`).join('\n')
+        );
+      });
     }
   });
 }

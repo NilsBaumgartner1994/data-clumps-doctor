@@ -130,7 +130,8 @@ async function buildSoftwareProjectDicts(parser: ParserInterface, sourcePath: st
     return await ParserHelper.getSoftwareProjectDictsFromParsedAstFolder(tempAstDir, detectorOptions ?? {});
   } finally {
     try {
-      //await ParserHelper.removeGeneratedAst(tempAstDir, `Cleanup temporary AST output for ${sourcePath}`);
+
+      await ParserHelper.removeGeneratedAst(tempAstDir, `Cleanup temporary AST output for ${sourcePath}`);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.warn(`Failed to remove temporary AST output at ${tempAstDir}:`, error);
