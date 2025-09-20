@@ -1,25 +1,28 @@
 import fs from 'fs';
-import crypto from 'crypto';
+import { diff } from 'jest-diff';
 import { Scenario, resolveTestCasesBaseDir, runScenario } from './data-clumps/scenarioUtils';
 
-function stableStringify(value: unknown): string {
-  return JSON.stringify(value, (_key, val) => {
-    if (val && typeof val === 'object' && !Array.isArray(val)) {
-      const sortedEntries = Object.keys(val)
-        .sort()
-        .reduce<Record<string, unknown>>((acc, key) => {
-          acc[key] = (val as Record<string, unknown>)[key];
-          return acc;
-        }, {});
-      return sortedEntries;
-    }
-    return val;
-  });
+function stableStringify(value: unknown, space = 0): string {
+  return JSON.stringify(
+    value,
+    (_key, val) => {
+      if (val && typeof val === 'object' && !Array.isArray(val)) {
+        const sortedEntries = Object.keys(val as Record<string, unknown>)
+          .sort()
+          .reduce<Record<string, unknown>>((acc, key) => {
+            acc[key] = (val as Record<string, unknown>)[key];
+            return acc;
+          }, {});
+        return sortedEntries;
+      }
+      return val;
+    },
+    space
+  );
 }
 
-function computeDataClumpsHash(dataClumps: Record<string, unknown>): string {
-  const normalized = stableStringify(dataClumps);
-  return crypto.createHash('sha256').update(normalized).digest('hex');
+function formatDataClumps(dataClumps: Record<string, unknown>): string {
+  return `${stableStringify(dataClumps, 2)}\n`;
 }
 
 function loadExpectedReport(expectedReportPath: string) {
@@ -38,10 +41,30 @@ function createScenarioTest(scenario: Scenario) {
     const actualReport = await runScenario(scenario);
     const expectedReport = loadExpectedReport(scenario.expectedReportPath);
 
-    const actualHash = computeDataClumpsHash(actualReport.data_clumps);
-    const expectedHash = computeDataClumpsHash(expectedReport.data_clumps);
+    const formattedActual = formatDataClumps(actualReport.data_clumps);
+    const formattedExpected = formatDataClumps(expectedReport.data_clumps);
 
-    expect(actualHash).toBe(expectedHash);
+    if (formattedActual !== formattedExpected) {
+      const diffOutput = diff(formattedExpected, formattedActual, {
+        aAnnotation: 'Expected report',
+        bAnnotation: 'Actual report',
+        expand: false,
+      });
+      const messageSegments = [
+        `Scenario "${scenario.name}" produced a report that does not match the expected output.`,
+        `Expected report path: ${scenario.expectedReportPath}`,
+      ];
+
+      if (diffOutput) {
+        messageSegments.push(`Diff between expected and actual reports:\n${diffOutput}`);
+      } else {
+        messageSegments.push(
+          `Formatted expected report:\n${formattedExpected}\nFormatted actual report:\n${formattedActual}`
+        );
+      }
+
+      throw new Error(messageSegments.join('\n\n'));
+    }
   });
 }
 
