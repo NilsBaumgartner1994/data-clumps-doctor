@@ -50,17 +50,12 @@ function createScenarioTest(scenario: Scenario) {
         bAnnotation: 'Actual report',
         expand: false,
       });
-      const messageSegments = [
-        `Scenario "${scenario.name}" produced a report that does not match the expected output.`,
-        `Expected report path: ${scenario.expectedReportPath}`,
-      ];
+      const messageSegments = [`Scenario "${scenario.name}" produced a report that does not match the expected output.`, `Expected report path: ${scenario.expectedReportPath}`];
 
       if (diffOutput) {
         messageSegments.push(`Diff between expected and actual reports:\n${diffOutput}`);
       } else {
-        messageSegments.push(
-          `Formatted expected report:\n${formattedExpected}\nFormatted actual report:\n${formattedActual}`
-        );
+        messageSegments.push(`Formatted expected report:\n${formattedExpected}\nFormatted actual report:\n${formattedActual}`);
       }
 
       throw new Error(messageSegments.join('\n\n'));
