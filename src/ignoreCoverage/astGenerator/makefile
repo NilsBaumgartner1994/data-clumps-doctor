@@ -19,9 +19,26 @@ all: clean build run
 setup:
 	./mvnw clean install
 
-build:
+build: buildOffline
+
+buildOffline: unzipCache
+	# Offline-Build: Baue das Projekt und kopiere JARs aus libLocal
+	./mvnw -o -Dmaven.repo.local=./cache clean install
+	cp ./pmd-java-custom/target/pmd-java-custom-1.0.0-SNAPSHOT.jar ./libLocal/
+	mkdir -p ./pmd-bin-7.0.0-rc3/lib/
+	@if ls libLocal/*.jar 1> /dev/null 2>&1; then \
+		cp libLocal/*.jar ./pmd-bin-7.0.0-rc3/lib/; \
+	else \
+		echo "WARNUNG: Keine JARs in libLocal gefunden! Bitte zuerst 'make downloadDependencies' und 'make buildOnline' ausführen."; \
+		exit 1; \
+	fi
+	# Falls weitere JARs benötigt werden, hier ergänzen
+
+buildOnline:
+	# Online-Build: Nutze JARs aus Maven-Repository
 	./mvnw clean install
 	cp ./pmd-java-custom/target/pmd-java-custom-1.0.0-SNAPSHOT.jar ./pmd-bin-7.0.0-rc3/lib/
+	cp ./pmd-java-custom/target/pmd-java-custom-1.0.0-SNAPSHOT.jar ./libLocal/
 	# Falls weitere JARs benötigt werden, hier ergänzen
 
 run:
@@ -53,6 +70,35 @@ else
 	$(RM) -rf ./pmd-java-custom/target/ || sudo rm -rf ./pmd-java-custom/target/
 endif
 
+cleanCache:
+	$(RM) -rf ./cache
+	$(RM) -rf ~/.m2/repository
+
 designer:
-	@echo "Starting PMD designer..."
-	JAVAFX_HOME=/Users/nbaumgartner/Library/Java/JavaVirtualMachines/javafx-sdk-17.0.7 pmd-bin-7.0.0-rc3/bin/pmd designer
+
+zipCache:
+	@if [ -d ./cache ]; then \
+		zip -r cache.zip cache; \
+	else \
+		echo "Kein cache-Ordner zum Zippen vorhanden."; \
+	fi
+
+unzipCache:
+	@if [ -f cache.zip ]; then \
+		unzip -o cache.zip; \
+	else \
+		echo "Kein cache.zip zum Entpacken vorhanden."; \
+	fi
+
+downloadDependencies:
+	# 1. Custom-JAR bauen
+	./mvnw -pl pmd-java-custom clean install -Dmaven.repo.local=./cache
+	# 2. Custom-JAR ins lokale Repo installieren
+	./mvnw install:install-file -Dfile=./pmd-java-custom/target/pmd-java-custom-1.0.0-SNAPSHOT.jar -DgroupId=net.sourceforge.pmd.examples -DartifactId=pmd-java-custom -Dversion=1.0.0-SNAPSHOT -Dpackaging=jar -Dmaven.repo.local=./cache
+	# 3. Alle Abhängigkeiten, Plugins, Parent-POMs, Extensions ins lokale Repo laden (für alle Module)
+	./mvnw dependency:go-offline -Dmaven.repo.local=./cache
+	./mvnw dependency:resolve -Dmaven.repo.local=./cache
+	./mvnw dependency:resolve-plugins -Dmaven.repo.local=./cache
+	./mvnw validate -Dmaven.repo.local=./cache
+	./mvnw install -Dmaven.repo.local=./cache
+	make zipCache

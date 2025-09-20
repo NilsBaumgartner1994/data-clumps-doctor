@@ -123,14 +123,14 @@ async function buildSoftwareProjectDicts(parser: ParserInterface, sourcePath: st
   }
 
   const tempAstDir = fs.mkdtempSync(path.join(os.tmpdir(), 'data-clumps-ast-'));
-  console.log("Using temporary AST output directory:", tempAstDir);
+  //console.log("Using temporary AST output directory:", tempAstDir);
 
   try {
     await parser.parseSourceToAst(sourcePath, tempAstDir);
     return await ParserHelper.getSoftwareProjectDictsFromParsedAstFolder(tempAstDir, detectorOptions ?? {});
   } finally {
     try {
-
+      //console.log("Cleaning up temporary AST output directory:", tempAstDir);
       await ParserHelper.removeGeneratedAst(tempAstDir, `Cleanup temporary AST output for ${sourcePath}`);
     } catch (error) {
       // eslint-disable-next-line no-console

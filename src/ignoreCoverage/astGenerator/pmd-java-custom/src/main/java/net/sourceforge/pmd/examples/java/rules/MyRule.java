@@ -395,7 +395,6 @@ public class MyRule extends AbstractJavaRule {
     }
 
     private String getQualifiedNameUnsafe(JTypeMirror typeMirror){
-        System.out.println("typeMirror: "+typeMirror);
         TypePrettyPrint.TypePrettyPrinter typePrettyPrinter = new TypePrettyPrint.TypePrettyPrinter();
         typePrettyPrinter.printAnnotations(false);
         typePrettyPrinter.printMethodHeader(false);
@@ -414,10 +413,29 @@ public class MyRule extends AbstractJavaRule {
         if(usedPackageName!=null && usedPackageName.length()>0){
             usedPackageName = usedPackageName+"."; // add the dot since the packageName might be "com.example" and the import should be "com.example.*"
         }
-        String prettyStringWithPackage = prettyString.replace("*", usedPackageName);
-        //System.out.println("prettyStringWithPackage: "+prettyStringWithPackage);
-        return prettyStringWithPackage;
 
+        String prettyStringWithPackage = prettyString.replace("*", usedPackageName);
+
+        // Wenn prettyString mit * beginnt, versuche den CanonicalName zu holen
+        if (prettyString.startsWith("*")) {
+            // wenn bereits ein package gesetzt ist, dann benutze dieses (erkennbar, wenn es einen "." enthält)
+            if (prettyString.contains(".")) {
+                // Versuche CanonicalName aus JClassType
+                if (typeMirror instanceof JClassType) {
+                    JClassType classType = (JClassType) typeMirror;
+                    String canonicalName = classType.getSymbol().getCanonicalName();
+                    if (canonicalName != null && !canonicalName.isEmpty()) {
+                        return canonicalName;
+                    }
+                }
+                // Fallback: Ersetze * durch das aktuelle Package
+                return prettyString.replace("*", usedPackageName);
+            } else {
+                //System.out.println("prettyStringWithPackage: "+prettyStringWithPackage);
+                return prettyStringWithPackage;
+            }
+        }
+        return prettyStringWithPackage;
     }
 
     private void extractExtendsAndImplements(ASTClassOrInterfaceDeclaration node, ClassOrInterfaceTypeContext classContext){

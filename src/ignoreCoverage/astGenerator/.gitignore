@@ -8,3 +8,5 @@ pmd-java-dist/.DS_Store
 .idea/
 
 !pmd-bin-7.0.0-rc1/lib/pmd-java-custom-1.0.0-SNAPSHOT.jar
+cache/
+!cache.zip

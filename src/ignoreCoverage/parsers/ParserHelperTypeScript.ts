@@ -23,13 +23,13 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
       `!**/__tests__/**`, // <- exclude __tests__
     ]);
 
-    console.log('Parse TypeScript project');
+    //console.log('Parse TypeScript project');
 
     const dict = new Map<string, ClassOrInterfaceTypeContext>();
 
     for (const sourceFile of project.getSourceFiles()) {
       const relativePath = path.relative(path_to_source_folder, sourceFile.getFilePath());
-      console.log('Parse file: ', relativePath);
+      //console.log('Parse file: ', relativePath);
 
       for (const cls of sourceFile.getClasses()) {
         const name = cls.getName() || 'anonymous_class';
