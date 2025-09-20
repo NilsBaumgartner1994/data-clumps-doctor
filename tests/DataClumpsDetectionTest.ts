@@ -1,5 +1,5 @@
 import fs from 'fs';
-import crypto from 'crypto';
+import path from 'path';
 import { Scenario, resolveTestCasesBaseDir, runScenario } from './data-clumps/scenarioUtils';
 
 function stableStringify(value: unknown, space = 0): string {
@@ -35,7 +35,10 @@ function loadExpectedReport(expectedReportPath: string) {
 jest.setTimeout(60000);
 
 function createScenarioTest(scenario: Scenario) {
-  test(scenario.name, async () => {
+  const scenarioDisplayPath =
+    path.relative(process.cwd(), scenario.scenarioDir) || scenario.scenarioDir;
+
+  test(`${scenario.name} (${scenarioDisplayPath})`, async () => {
     if (!fs.existsSync(scenario.expectedReportPath)) {
       throw new Error(`Missing expected report for scenario "${scenario.name}" at ${scenario.expectedReportPath}. ` + 'Run "npm run generate-missing-test-reports" to create a draft report (report-generated-to-check.json).');
     }
@@ -47,9 +50,12 @@ function createScenarioTest(scenario: Scenario) {
     const formattedExpected = formatDataClumps(expectedReport.data_clumps);
 
     if (formattedActual !== formattedExpected) {
-      const expectedHash = crypto.createHash('sha256').update(formattedExpected).digest('hex');
-      const actualHash = crypto.createHash('sha256').update(formattedActual).digest('hex');
-      const messageSegments = [`Scenario "${scenario.name}" produced a report that does not match the expected output.`, `Expected report path: ${scenario.expectedReportPath}`, `SHA-256 hash mismatch. Expected ${expectedHash}, but received ${actualHash}. Reports are not identical.`];
+      const messageSegments = [
+        `Scenario "${scenario.name}" produced a report that does not match the expected output.`,
+        `Scenario directory: ${scenario.scenarioDir}`,
+        `Expected report path: ${scenario.expectedReportPath}`,
+        'Run "npm run generate-missing-test-reports" to generate an updated draft report when changes are intentional.',
+      ];
 
       throw new Error(messageSegments.join('\n\n'));
     }
