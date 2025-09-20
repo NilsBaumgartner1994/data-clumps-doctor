@@ -25,9 +25,9 @@ jobs:
         with:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
       - name: "🎨 Prettier"
-        run: cd analyse && yarn format
+        run: yarn format
       - name: "✨ ESLint"
-        run: cd analyse && yarn lint
+        run: yarn lint
       - name: "📤 Commit linting changes"
         run: |
           git config user.name "github-actions"
@@ -52,14 +52,12 @@ jobs:
       - name: "📦 Install dependencies"
         run: |
           corepack enable
-          cd analyse
           yarn install --immutable
       - name: "🧪 Run Jest tests"
         run: |
-          cd analyse
-          mkdir -p ../reports/tests
+          mkdir -p reports/tests
           yarn build
-          yarn testOnly --json --outputFile=../reports/tests/jest-results.json --ci --runInBand
+          yarn testOnly --json --outputFile=reports/tests/jest-results.json --ci --runInBand
       - name: "🔢 Extract test case count"
         id: test-count
         run: |

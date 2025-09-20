@@ -42,5 +42,5 @@ runs:
         token: ${{ inputs.EXPO_TOKEN }}
 
     - name: 📦 Install dependencies
-      run: cd analyse && yarn install --immutable
+      run: yarn install --immutable
       shell: bash
