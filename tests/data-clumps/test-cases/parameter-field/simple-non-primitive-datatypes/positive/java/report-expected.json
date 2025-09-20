@@ -1,0 +1,172 @@
+{
+  "report_version": "^0.1.102",
+  "report_timestamp": "2025-09-20T10:38:14.017Z",
+  "target_language": "java",
+  "report_summary": {
+    "additional": {
+      "invertedIndexSoftwareProjectStatistics": {
+        "invertedFieldToClasses": {
+          "median": 1,
+          "maximum": 1,
+          "average": 1,
+          "amountSavedValuesForKeys": 3,
+          "amountKeys": 1
+        },
+        "invertedParameterToMethods": {
+          "median": 1,
+          "maximum": 1,
+          "average": 1,
+          "amountSavedValuesForKeys": 3,
+          "amountKeys": 1
+        },
+        "invertedParameterToClasses": {
+          "median": 1,
+          "maximum": 1,
+          "average": 1,
+          "amountSavedValuesForKeys": 3,
+          "amountKeys": 1
+        }
+      }
+    },
+    "amount_classes_or_interfaces_with_data_clumps": 1,
+    "amount_files_with_data_clumps": 2,
+    "amount_methods_with_data_clumps": 1,
+    "fields_to_fields_data_clump": 0,
+    "parameters_to_fields_data_clump": 1,
+    "parameters_to_parameters_data_clump": 0,
+    "amount_data_clumps": 1
+  },
+  "project_info": {
+    "project_url": "unknown",
+    "project_name": "Java parameter-field data clump with non-primitive datatypes",
+    "project_version": "unknown",
+    "project_commit_hash": "unknown",
+    "project_tag": null,
+    "project_commit_date": null,
+    "additional": {},
+    "number_of_files": 3,
+    "number_of_classes_or_interfaces": 3,
+    "number_of_methods": 1,
+    "number_of_data_fields": 3,
+    "number_of_method_parameters": 3
+  },
+  "detector": {
+    "name": "data-clumps-doctor",
+    "url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
+    "version": "0.1.101",
+    "options": {
+      "fastDetection": true,
+      "ignorePaths": [],
+      "similarityModifierOfVariablesWithUnknownType": 0,
+      "minimumSimilarityForDataClumps": 0.5,
+      "fieldsOfClassesWithUnknownHierarchyProbabilityModifier": 0,
+      "sharedFieldsToFieldsAmountMinimum": 3,
+      "analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces": false,
+      "sharedParametersToParametersAmountMinimum": 3,
+      "sharedParametersToFieldsAmountMinimum": 3,
+      "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "ignoredVariableNames": []
+    }
+  },
+  "data_clumps": {
+    "parameters_to_fields_data_clump-PatientService.java-PatientService/method/registerPatient(java.lang.String firstname, java.lang.String kastanie, Adress address)-Patient-firstnamekastanieaddress": {
+      "type": "data_clump",
+      "key": "parameters_to_fields_data_clump-PatientService.java-PatientService/method/registerPatient(java.lang.String firstname, java.lang.String kastanie, Adress address)-Patient-firstnamekastanieaddress",
+      "probability": 1,
+      "from_file_path": "PatientService.java",
+      "from_class_or_interface_name": "PatientService",
+      "from_class_or_interface_key": "PatientService",
+      "from_method_name": "registerPatient",
+      "from_method_key": "PatientService/method/registerPatient(java.lang.String firstname, java.lang.String kastanie, Adress address)",
+      "to_file_path": "Patient.java",
+      "to_class_or_interface_name": "Patient",
+      "to_class_or_interface_key": "Patient",
+      "to_method_name": null,
+      "to_method_key": null,
+      "data_clump_type": "parameters_to_fields_data_clump",
+      "data_clump_data": {
+        "PatientService/method/registerPatient(java.lang.String firstname, java.lang.String kastanie, Adress address)/parameter/firstname": {
+          "key": "PatientService/method/registerPatient(java.lang.String firstname, java.lang.String kastanie, Adress address)/parameter/firstname",
+          "name": "firstname",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "Patient/memberField/firstname",
+            "name": "firstname",
+            "type": "java.lang.String",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {
+              "startLine": 2,
+              "startColumn": 19,
+              "endLine": 2,
+              "endColumn": 28
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 40,
+            "endLine": 2,
+            "endColumn": 49
+          }
+        },
+        "PatientService/method/registerPatient(java.lang.String firstname, java.lang.String kastanie, Adress address)/parameter/kastanie": {
+          "key": "PatientService/method/registerPatient(java.lang.String firstname, java.lang.String kastanie, Adress address)/parameter/kastanie",
+          "name": "kastanie",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "Patient/memberField/kastanie",
+            "name": "kastanie",
+            "type": "java.lang.String",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {
+              "startLine": 3,
+              "startColumn": 19,
+              "endLine": 3,
+              "endColumn": 27
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 58,
+            "endLine": 2,
+            "endColumn": 66
+          }
+        },
+        "PatientService/method/registerPatient(java.lang.String firstname, java.lang.String kastanie, Adress address)/parameter/address": {
+          "key": "PatientService/method/registerPatient(java.lang.String firstname, java.lang.String kastanie, Adress address)/parameter/address",
+          "name": "address",
+          "type": "Adress",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "Patient/memberField/address",
+            "name": "address",
+            "type": "Adress",
+            "modifiers": [
+              "PUBLIC"
+            ],
+            "position": {
+              "startLine": 4,
+              "startColumn": 19,
+              "endLine": 4,
+              "endColumn": 26
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 75,
+            "endLine": 2,
+            "endColumn": 82
+          }
+        }
+      }
+    }
+  }
+}
