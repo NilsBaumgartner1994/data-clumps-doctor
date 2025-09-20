@@ -102,7 +102,7 @@ export default {
   //projects: ["<rootDir>/build/test/*"],
 
   // Use this configuration option to add custom reporters to Jest
-  // reporters: undefined,
+  reporters: ['default', '<rootDir>/jest/failureSummaryReporter.js'],
 
   // Automatically reset mock state between every test
   // resetMocks: false,

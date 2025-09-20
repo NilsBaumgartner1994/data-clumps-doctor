@@ -2,6 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import { Scenario, resolveTestCasesBaseDir, runScenario } from './data-clumps/scenarioUtils';
 
+type DataClumpsReport = {
+  data_clumps?: Record<string, unknown>;
+  report_summary?: { amount_data_clumps?: number | string | null } | null;
+};
+
 function stableStringify(value: unknown, space = 0): string {
   return JSON.stringify(
     value,
@@ -21,15 +26,39 @@ function stableStringify(value: unknown, space = 0): string {
   );
 }
 
-function formatDataClumps(dataClumps: Record<string, unknown>): string {
-  return `${stableStringify(dataClumps, 2)}\n`;
+function formatDataClumps(dataClumps: Record<string, unknown> | undefined): string {
+  return `${stableStringify(dataClumps ?? {}, 2)}\n`;
 }
 
 function loadExpectedReport(expectedReportPath: string) {
   if (!fs.existsSync(expectedReportPath)) {
     throw new Error(`Expected report file does not exist: ${expectedReportPath}`);
   }
-  return JSON.parse(fs.readFileSync(expectedReportPath, 'utf8')) as { data_clumps: Record<string, unknown> };
+  return JSON.parse(fs.readFileSync(expectedReportPath, 'utf8')) as DataClumpsReport;
+}
+
+function parseAmountDataClumps(report: DataClumpsReport | undefined | null): number {
+  if (!report) {
+    return 0;
+  }
+
+  if (report.data_clumps && typeof report.data_clumps === 'object' && !Array.isArray(report.data_clumps)) {
+    return Object.keys(report.data_clumps).length;
+  }
+
+  const summaryCount = report.report_summary?.amount_data_clumps;
+  if (typeof summaryCount === 'number') {
+    return summaryCount;
+  }
+
+  if (typeof summaryCount === 'string') {
+    const parsed = Number(summaryCount);
+    if (!Number.isNaN(parsed)) {
+      return parsed;
+    }
+  }
+
+  return 0;
 }
 
 jest.setTimeout(60000);
@@ -42,14 +71,28 @@ function createScenarioTest(scenario: Scenario) {
       throw new Error(`Missing expected report for scenario "${scenario.name}" at ${scenario.expectedReportPath}. ` + 'Run "npm run generate-missing-test-reports" to create a draft report (report-generated-to-check.json).');
     }
 
-    const actualReport = await runScenario(scenario);
+    const actualReport = (await runScenario(scenario)) as DataClumpsReport;
     const expectedReport = loadExpectedReport(scenario.expectedReportPath);
 
     const formattedActual = formatDataClumps(actualReport.data_clumps);
     const formattedExpected = formatDataClumps(expectedReport.data_clumps);
 
     if (formattedActual !== formattedExpected) {
+      const expectedCount = parseAmountDataClumps(expectedReport);
+      const actualCount = parseAmountDataClumps(actualReport);
       const messageSegments = [`Scenario "${scenario.name}" produced a report that does not match the expected output.`, `Scenario directory: ${scenario.scenarioDir}`, `Expected report path: ${scenario.expectedReportPath}`, 'Run "npm run generate-missing-test-reports" to generate an updated draft report when changes are intentional.'];
+
+      messageSegments.splice(3, 0, `Expected data clumps: ${expectedCount}`, `Found data clumps: ${actualCount}`);
+      messageSegments.push(
+        `DATA_CLUMP_MISMATCH_SUMMARY::${JSON.stringify({
+          testName: `${scenario.name} (${scenarioDisplayPath})`,
+          scenarioName: scenario.name,
+          scenarioDirectory: scenario.scenarioDir,
+          expectedReportPath: scenario.expectedReportPath,
+          expectedCount,
+          actualCount,
+        })}`
+      );
 
       throw new Error(messageSegments.join('\n\n'));
     }
