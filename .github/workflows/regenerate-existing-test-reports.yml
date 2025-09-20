@@ -1,0 +1,31 @@
+name: "♻️ Regenerate existing test reports"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  regenerate:
+    name: "♻️ Regenerate expected test reports"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "🔄 Checkout repository"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: "⚙️ Setup Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.16.0"
+      - name: "⚙️ Enable Corepack"
+        run: corepack enable
+      - name: "📦 Install dependencies"
+        run: yarn install --immutable
+      - name: "🧪 Regenerate expected reports"
+        run: yarn regenerate-existing-test-report-expected
+      - name: "📤 Upload regenerated expected reports"
+        uses: actions/upload-artifact@v4
+        with:
+          name: regenerated-expected-test-reports
+          path: |
+            tests/data-clumps/test-cases/**/report-expected*.json
+          if-no-files-found: error
