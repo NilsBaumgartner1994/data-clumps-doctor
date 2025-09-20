@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-09-20T10:38:12.137Z",
+  "report_timestamp": "2025-09-20T11:07:41.355Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -95,7 +95,9 @@
             "key": "Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "String",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {}
           },
           "position": {}
@@ -110,7 +112,9 @@
             "key": "Patient.ts/class/Patient/memberField/kastanie",
             "name": "kastanie",
             "type": "String",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {}
           },
           "position": {}
@@ -125,7 +129,9 @@
             "key": "Patient.ts/class/Patient/memberField/address",
             "name": "address",
             "type": "import(\"/workspace/data-clumps-doctor/tests/data-clumps/test-cases/parameter-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
-            "modifiers": ["PUBLIC"],
+            "modifiers": [
+              "PUBLIC"
+            ],
             "position": {}
           },
           "position": {}
