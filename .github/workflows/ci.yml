@@ -94,7 +94,7 @@ jobs:
       - name: "🩺 Run data-clumps-doctor"
         uses: ./.github/actions/analyse-data-clumps
         with:
-          path-to-source: .
+          path-to-source: ./src
           output-path: reports/data-clumps-doctor/data-clumps.json
           badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
           source-language-type: typescript
