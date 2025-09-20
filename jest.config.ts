@@ -31,7 +31,6 @@ export default {
     '/build/tests/',
     '/src/',
     '/coverage/',
-    '/src/tests/',
     '/node_modules/',
     '/src/ignoreCoverage/',
   ],
@@ -151,7 +150,6 @@ export default {
   testPathIgnorePatterns: [
     //    '/build/',
     '/build/ignoreCoverage/',
-    '/src/tests/',
     '/coverage/',
     '/node_modules/',
     '/src/ignoreCoverage/',

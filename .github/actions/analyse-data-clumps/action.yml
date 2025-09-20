@@ -30,7 +30,7 @@ runs:
     - name: Build data-clumps-doctor
       shell: bash
       run: |
-        cd "$RUNNER_TEMP/data-clumps-doctor/analyse"
+        cd "$RUNNER_TEMP/data-clumps-doctor"
         yarn install --immutable
         yarn build
 
@@ -39,7 +39,7 @@ runs:
       run: |
         output_path="${{ inputs.output-path }}"
         mkdir -p "$(dirname "$output_path")"
-        node "$RUNNER_TEMP/data-clumps-doctor/analyse/build/ignoreCoverage/cli.js" \
+        node "$RUNNER_TEMP/data-clumps-doctor/build/ignoreCoverage/cli.js" \
           --source_type "${{ inputs.source-language-type }}" \
           --commit_selection current \
           --output "$output_path" \

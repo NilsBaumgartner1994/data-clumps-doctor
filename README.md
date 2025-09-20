@@ -59,11 +59,11 @@ The `output-path` and `badge-output-path` are optional and can be customised to 
 ## Installation
 
 ```
-cd data-clumps-doctor/analyse/src/ignoreCoverage/astGenerator && make build
+cd src/ignoreCoverage/astGenerator && make build
 ```
 
 ```
-cd data-clumps-doctor/analyse && npm ci && npm run build
+npm ci && npm run build
 ```
 
 --output /Users/nilsbaumgartner/Desktop/dataClumpsReportsUpdate/{project_name}/tags/{project_commit}.json
@@ -71,7 +71,6 @@ cd data-clumps-doctor/analyse && npm ci && npm run build
 ## Usage
 
 ```
-cd data-clumps-doctor/analyse
 node ./build/ignoreCoverage/cli.js <Path_to_your_project_to_analyse>
 ```
 
@@ -209,7 +208,6 @@ node ./build/ignoreCoverage/cli.js \
 ### Help
 
 ```
-cd data-clumps-doctor/analyse
 node ./build/ignoreCoverage/cli.js --help
 ```
 
@@ -218,35 +216,35 @@ node ./build/ignoreCoverage/cli.js --help
 
 #### Statistics Overview
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliCountTotalStatistics.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliCountTotalStatistics.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
 
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliCountTotalStatistics.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/UML_Projects/lindholmenDbDataClumps
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliCountTotalStatistics.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/UML_Projects/lindholmenDbDataClumps
 
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliCountTotalStatistics.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Digital_Twins_Definition_Language_Filtered
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliCountTotalStatistics.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Next_Generation_Service_Interfaces_Linked_Data_Filtered
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliCountTotalStatistics.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Digital_Twins_Definition_Language_Filtered
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliCountTotalStatistics.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Next_Generation_Service_Interfaces_Linked_Data_Filtered
 ```
 
 #### Types
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpsTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Digital_Twins_Definition_Language_Filtered/
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Next_Generation_Service_Interfaces_Linked_Data_Filtered/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpsTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Digital_Twins_Definition_Language_Filtered/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpsTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Next_Generation_Service_Interfaces_Linked_Data_Filtered/
 ```
 
 #### Cluster Types
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsClusterTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpsClusterTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsClusterTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/UML_Projects/lindholmenDbDataClumps
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpsClusterTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/UML_Projects/lindholmenDbDataClumps
 
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsClusterTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Digital_Twins_Definition_Language_Filtered/
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsClusterTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Next_Generation_Service_Interfaces_Linked_Data_Filtered/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpsClusterTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Digital_Twins_Definition_Language_Filtered/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpsClusterTypes.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Next_Generation_Service_Interfaces_Linked_Data_Filtered/
 ```
 
 #### Data Clumps Density
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpClassAndMethodDensity.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpClassAndMethodDensity.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 
 
 
@@ -254,70 +252,70 @@ node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ig
 
 #### File Path Distance
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpFilePathDistance.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpFilePathDistance.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 ```
 
 ### Variable Distance
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableDistance.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableDistance.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableDistance.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Digital_Twins_Definition_Language_Filtered/
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableDistance.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Next_Generation_Service_Interfaces_Linked_Data_Filtered/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableDistance.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Digital_Twins_Definition_Language_Filtered/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableDistance.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Next_Generation_Service_Interfaces_Linked_Data_Filtered/
 ```
 
 #### Variable Distribution to Types
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableAmount.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableAmount.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableAmount.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Digital_Twins_Definition_Language_Filtered/
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableAmount.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Next_Generation_Service_Interfaces_Linked_Data_Filtered/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableAmount.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Digital_Twins_Definition_Language_Filtered/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpVariableAmount.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Next_Generation_Service_Interfaces_Linked_Data_Filtered/
 ```
 
 #### Most Common Variables
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseMostCommonDataClumpVariable.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseMostCommonDataClumpVariable.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseMostCommonDataClumpVariable.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Digital_Twins_Definition_Language_Filtered/
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseMostCommonDataClumpVariable.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Next_Generation_Service_Interfaces_Linked_Data_Filtered/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseMostCommonDataClumpVariable.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Digital_Twins_Definition_Language_Filtered/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseMostCommonDataClumpVariable.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Digital_Twins/Next_Generation_Service_Interfaces_Linked_Data_Filtered/
 ```
 
 #### Parameter Name Length
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpParameterNameLength.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpParameterNameLength.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 ```
 
 #### Detection Time
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDistributionDataClumpsAnalyseTime.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDistributionDataClumpsAnalyseTime.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects/
 ```
 
 #### Diverging Log Scaled Bar Chart
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliGenerateDetectedDataClumpsChartDivergingLogScaledBarChart.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliGenerateDetectedDataClumpsChartDivergingLogScaledBarChart.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
 ```
 
 #### Chartline Number Data Clumps
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliGenerateDetectedDataClumpsChartLine.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliGenerateDetectedDataClumpsChartLine.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
 ```
 
 #### Chartline Number Faults
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliGenerateDetectedDataClumpsNumberFaultsChartLine.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliGenerateDetectedDataClumpsNumberFaultsChartLine.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
 ```
 
 #### Evolution Category
 ```
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliAnalyseDetectedDataClumpsEvolution.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliAnalyseDetectedDataClumpsEvolution.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
 ```
 
 
 #### Fault Correlation
 ```
 echo "Gathering Bug Introducing Commits and Update Reports"
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
 echo "Analyse Bug Introducing Commits"
-node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/analyse/build/ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
+node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.js --report_folder /Users/nilsbaumgartner/Documents/GitHub/Data-Clumps-Dataset/Data/Source_Code/Java_Projects
 ```
 
 
