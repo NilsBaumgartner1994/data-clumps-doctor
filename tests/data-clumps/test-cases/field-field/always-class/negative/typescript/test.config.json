@@ -1,7 +1,0 @@
-{
-  "name": "TypeScript field-field without full class typed overlap",
-  "language": "typescript",
-  "sourceDir": "source",
-  "expectedReportFile": "report-expected.json",
-  "detectorOptions": {}
-}
