@@ -1,0 +1,7 @@
+{
+  "name": "TypeScript field-field data clump with class typed fields",
+  "language": "typescript",
+  "sourceDir": "source",
+  "expectedReportFile": "report-expected.json",
+  "detectorOptions": {}
+}
