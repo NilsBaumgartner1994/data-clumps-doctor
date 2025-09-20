@@ -85,24 +85,24 @@
     }
   },
   "data_clumps": {
-    "fields_to_fields_data_clump-analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts-analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor-analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient-firstnamelastnameage": {
+    "fields_to_fields_data_clump-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient-firstnamelastnameage": {
       "type": "data_clump",
-      "key": "fields_to_fields_data_clump-analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts-analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor-analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient-firstnamelastnameage",
+      "key": "fields_to_fields_data_clump-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient-firstnamelastnameage",
       "probability": 1,
-      "from_file_path": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts",
+      "from_file_path": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts",
       "from_class_or_interface_name": "Doctor",
-      "from_class_or_interface_key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor",
+      "from_class_or_interface_key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor",
       "from_method_name": null,
       "from_method_key": null,
-      "to_file_path": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts",
-      "to_class_or_interface_key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient",
+      "to_file_path": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts",
+      "to_class_or_interface_key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient",
       "to_class_or_interface_name": "Doctor",
       "to_method_key": null,
       "to_method_name": null,
       "data_clump_type": "fields_to_fields_data_clump",
       "data_clump_data": {
-        "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/firstname": {
-          "key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
+        "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/firstname": {
+          "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
           "name": "firstname",
           "type": "string",
           "probability": 1,
@@ -110,7 +110,7 @@
             "PUBLIC"
           ],
           "to_variable": {
-            "key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/firstname",
+            "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
             "modifiers": [
@@ -120,8 +120,8 @@
           },
           "position": {}
         },
-        "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/lastname": {
-          "key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
+        "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/lastname": {
+          "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
           "name": "lastname",
           "type": "string",
           "probability": 1,
@@ -129,7 +129,7 @@
             "PUBLIC"
           ],
           "to_variable": {
-            "key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/lastname",
+            "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
             "modifiers": [
@@ -139,8 +139,8 @@
           },
           "position": {}
         },
-        "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/age": {
-          "key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/age",
+        "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/age": {
+          "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/age",
           "name": "age",
           "type": "number",
           "probability": 1,
@@ -148,7 +148,7 @@
             "PUBLIC"
           ],
           "to_variable": {
-            "key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/age",
+            "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
             "modifiers": [
@@ -160,24 +160,24 @@
         }
       }
     },
-    "fields_to_fields_data_clump-analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts-analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient-analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor-firstnamelastnameage": {
+    "fields_to_fields_data_clump-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor-firstnamelastnameage": {
       "type": "data_clump",
-      "key": "fields_to_fields_data_clump-analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts-analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient-analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor-firstnamelastnameage",
+      "key": "fields_to_fields_data_clump-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient-tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor-firstnamelastnameage",
       "probability": 1,
-      "from_file_path": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts",
+      "from_file_path": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts",
       "from_class_or_interface_name": "Patient",
-      "from_class_or_interface_key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient",
+      "from_class_or_interface_key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient",
       "from_method_name": null,
       "from_method_key": null,
-      "to_file_path": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts",
-      "to_class_or_interface_key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor",
+      "to_file_path": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts",
+      "to_class_or_interface_key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor",
       "to_class_or_interface_name": "Patient",
       "to_method_key": null,
       "to_method_name": null,
       "data_clump_type": "fields_to_fields_data_clump",
       "data_clump_data": {
-        "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/firstname": {
-          "key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/firstname",
+        "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/firstname": {
+          "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/firstname",
           "name": "firstname",
           "type": "string",
           "probability": 1,
@@ -185,7 +185,7 @@
             "PUBLIC"
           ],
           "to_variable": {
-            "key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
+            "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
             "modifiers": [
@@ -195,8 +195,8 @@
           },
           "position": {}
         },
-        "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/lastname": {
-          "key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/lastname",
+        "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/lastname": {
+          "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/lastname",
           "name": "lastname",
           "type": "string",
           "probability": 1,
@@ -204,7 +204,7 @@
             "PUBLIC"
           ],
           "to_variable": {
-            "key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
+            "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
             "modifiers": [
@@ -214,8 +214,8 @@
           },
           "position": {}
         },
-        "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/age": {
-          "key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/age",
+        "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/age": {
+          "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Patient.ts/class/Patient/memberField/age",
           "name": "age",
           "type": "number",
           "probability": 1,
@@ -223,7 +223,7 @@
             "PUBLIC"
           ],
           "to_variable": {
-            "key": "analyse/src/tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/age",
+            "key": "tests/data-clumps/test-cases/field-field/positive-simple/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
             "modifiers": [

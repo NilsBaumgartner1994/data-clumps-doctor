@@ -10,7 +10,7 @@
     "testOnly": "jest --coverage=false",
     "generate-missing-test-reports": "npm run build && node ./build/tests/generateMissingReports.js",
     "start": "npm run build && node ./build/ignoreCoverage/development.js",
-    "build": "rimraf ./build && tsc && cp -r ./src/ignoreCoverage/astGenerator ./build/ignoreCoverage && cp package.json ./build && cp ./../README.md ./build && cp ./../LICENSE.md ./build && npm run chmodCli",
+    "build": "rimraf ./build && tsc && mkdir -p ./build/src/ignoreCoverage && cp -r ./src/ignoreCoverage/astGenerator ./build/src/ignoreCoverage/ && cp -r ./build/src/ignoreCoverage ./build/ignoreCoverage && cp ./build/src/index.js ./build/index.js && cp ./build/src/index.d.ts ./build/index.d.ts && cp package.json ./build && cp ./README.md ./build && cp ./LICENSE.md ./build && npm run chmodCli",
     "chmodCli": "chmod +x ./build/ignoreCoverage/cli.js",
     "dev": "nodemon",
     "_prepareUpload": "npm run build && rimraf ./coverage && rimraf ./build/tests",
