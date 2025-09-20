@@ -39,32 +39,41 @@ class FailureSummaryReporter {
   }
 
   extractDataClumpSummary(failureMessages) {
-    const marker = 'DATA_CLUMP_MISMATCH_SUMMARY::';
-
     for (const message of failureMessages) {
-      const markerIndex = message.indexOf(marker);
-      if (markerIndex === -1) {
-        continue;
-      }
+      const sanitizedMessage = message.replace(/\u001b\[[0-9;]*m/g, '');
 
-      const startIndex = markerIndex + marker.length;
-      const endIndex = message.indexOf('\n', startIndex);
-      const rawJson = (endIndex === -1 ? message.slice(startIndex) : message.slice(startIndex, endIndex)).trim();
-      const sanitizedJson = rawJson.replace(/\u001b\[[0-9;]*m/g, '').trim();
+      const scenarioMatch = /Fehler im Report-Szenario:\s*(.+)/.exec(sanitizedMessage);
+      const expectedMatch = /Erwartete Data Clumps:\s*([^\n]+)/.exec(sanitizedMessage);
+      const actualMatch = /Gefundene Data Clumps:\s*([^\n]+)/.exec(sanitizedMessage);
 
-      try {
-        const parsed = JSON.parse(sanitizedJson);
+      if (scenarioMatch || expectedMatch || actualMatch) {
         return {
-          testName: parsed.testName,
-          expectedCount: parsed.expectedCount,
-          actualCount: parsed.actualCount,
+          testName: scenarioMatch?.[1]?.trim(),
+          expectedCount: this.parseCount(expectedMatch?.[1]),
+          actualCount: this.parseCount(actualMatch?.[1]),
         };
-      } catch (_error) {
-        return null;
       }
     }
 
     return null;
+  }
+
+  parseCount(rawValue) {
+    if (!rawValue) {
+      return undefined;
+    }
+
+    const trimmed = rawValue.trim();
+    if (trimmed.length === 0) {
+      return undefined;
+    }
+
+    const numericValue = Number(trimmed);
+    if (!Number.isNaN(numericValue)) {
+      return numericValue;
+    }
+
+    return trimmed;
   }
 
   printTable(rows) {

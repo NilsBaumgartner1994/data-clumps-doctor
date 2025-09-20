@@ -8,6 +8,13 @@ type DataClumpsReport = {
   report_summary?: { amount_data_clumps?: number | string | null } | null;
 };
 
+type ScenarioResult = {
+  status: 'passed' | 'failed';
+  details?: string;
+};
+
+const scenarioResults = new Map<string, ScenarioResult>();
+
 function stableStringify(value: unknown, space = 0): string {
   return JSON.stringify(
     value,
@@ -29,6 +36,22 @@ function stableStringify(value: unknown, space = 0): string {
 
 function formatDataClumps(dataClumps: Record<string, unknown> | undefined): string {
   return `${stableStringify(dataClumps ?? {}, 2)}\n`;
+}
+
+function findFirstDifferenceLine(expected: string, actual: string) {
+  const expectedLines = expected.split('\n');
+  const actualLines = actual.split('\n');
+  const maxLines = Math.max(expectedLines.length, actualLines.length);
+
+  for (let i = 0; i < maxLines; i++) {
+    const expectedLine = expectedLines[i] ?? '';
+    const actualLine = actualLines[i] ?? '';
+    if (expectedLine !== actualLine) {
+      return { index: i + 1, expectedLine, actualLine };
+    }
+  }
+
+  return null;
 }
 
 function loadExpectedReport(expectedReportPath: string) {
@@ -68,40 +91,60 @@ function createScenarioTest(scenario: Scenario) {
   const scenarioDisplayPath = path.relative(process.cwd(), scenario.scenarioDir) || scenario.scenarioDir;
 
   test(`${scenario.name} (${scenarioDisplayPath})`, async () => {
-    if (!fs.existsSync(scenario.expectedReportPath)) {
-      throw new Error(`Missing expected report for scenario "${scenario.name}" at ${scenario.expectedReportPath}. ` + 'Run "npm run generate-missing-test-reports" to create a draft report (report-generated-to-check.json).');
-    }
+    try {
+      if (!fs.existsSync(scenario.expectedReportPath)) {
+        const message =
+          `Fehlender erwarteter Report für Szenario "${scenario.name}" unter ${scenario.expectedReportPath}.` +
+          ' Führe "npm run generate-missing-test-reports" aus, um einen Entwurfsreport zu erstellen (report-generated-to-check.json).';
+        scenarioResults.set(`${scenario.name} (${scenarioDisplayPath})`, {
+          status: 'failed',
+          details: message,
+        });
+        throw new Error(message);
+      }
 
-    const actualReport = (await runScenario(scenario)) as DataClumpsReport;
-    const expectedReport = loadExpectedReport(scenario.expectedReportPath);
+      const actualReport = (await runScenario(scenario)) as DataClumpsReport;
+      const expectedReport = loadExpectedReport(scenario.expectedReportPath);
 
-    const formattedActual = formatDataClumps(actualReport.data_clumps);
-    const formattedExpected = formatDataClumps(expectedReport.data_clumps);
+      const formattedActual = formatDataClumps(actualReport.data_clumps);
+      const formattedExpected = formatDataClumps(expectedReport.data_clumps);
 
-    if (formattedActual !== formattedExpected) {
-      const expectedCount = parseAmountDataClumps(expectedReport);
-      const actualCount = parseAmountDataClumps(actualReport);
-      const messageSegments = [`Scenario "${scenario.name}" produced a report that does not match the expected output.`, `Scenario directory: ${scenario.scenarioDir}`, `Expected report path: ${scenario.expectedReportPath}`, 'Run "npm run generate-missing-test-reports" to generate an updated draft report when changes are intentional.'];
+      if (formattedActual !== formattedExpected) {
+        const expectedCount = parseAmountDataClumps(expectedReport);
+        const actualCount = parseAmountDataClumps(actualReport);
+        const firstDifference = findFirstDifferenceLine(formattedExpected, formattedActual);
+        const differenceText = firstDifference
+          ? `Erste unterschiedliche Zeile (${firstDifference.index}):\nErwartet: ${firstDifference.expectedLine}\nGefunden: ${firstDifference.actualLine}`
+          : 'Die Berichte unterscheiden sich, aber es konnte keine abweichende Zeile ermittelt werden.';
+        const message = [
+          `Fehler im Report-Szenario: ${scenario.name}`,
+          `Erwartete Data Clumps: ${expectedCount}`,
+          `Gefundene Data Clumps: ${actualCount}`,
+          differenceText,
+        ].join('\n');
+        scenarioResults.set(`${scenario.name} (${scenarioDisplayPath})`, {
+          status: 'failed',
+          details: message,
+        });
+        throw new Error(message);
+      }
 
-      messageSegments.splice(3, 0, `Expected data clumps: ${expectedCount}`, `Found data clumps: ${actualCount}`);
-      messageSegments.push(
-        `DATA_CLUMP_MISMATCH_SUMMARY::${JSON.stringify({
-          testName: `${scenario.name} (${scenarioDisplayPath})`,
-          scenarioName: scenario.name,
-          scenarioDirectory: scenario.scenarioDir,
-          expectedReportPath: scenario.expectedReportPath,
-          expectedCount,
-          actualCount,
-        })}`
-      );
-
-      throw new Error(messageSegments.join('\n\n'));
+      scenarioResults.set(`${scenario.name} (${scenarioDisplayPath})`, { status: 'passed' });
+    } catch (error) {
+      if (!scenarioResults.has(`${scenario.name} (${scenarioDisplayPath})`)) {
+        scenarioResults.set(`${scenario.name} (${scenarioDisplayPath})`, {
+          status: 'failed',
+          details: error instanceof Error ? error.message : String(error),
+        });
+      }
+      throw error;
     }
   });
 }
 
 function testAllLanguages() {
   describe('Data clumps detection scenarios', () => {
+    scenarioResults.clear();
     const { baseDir, scenarios } = resolveTestCasesBaseDir();
     const args = minimist(process.argv.slice(2));
     const scenarioId = args.id;
@@ -131,6 +174,36 @@ function testAllLanguages() {
         console.warn(`WARNUNG: Die folgenden Szenarien wurden übersprungen, da keine report-expected-Datei gefunden wurde:\n` + skippedScenarios.map(s => `  - ${s}`).join('\n'));
       });
     }
+
+    afterAll(() => {
+      if (scenarioResults.size === 0) {
+        return;
+      }
+
+      const passed: string[] = [];
+      const failed: string[] = [];
+
+      for (const [scenarioName, result] of scenarioResults.entries()) {
+        if (result.status === 'passed') {
+          passed.push(scenarioName);
+        } else {
+          failed.push(scenarioName);
+        }
+      }
+
+      console.log('\nZusammenfassung der Data-Clumps-Tests:');
+      if (passed.length > 0) {
+        console.log(['✅ Bestanden:', ...passed.map(scenarioName => `  - ${scenarioName}`)].join('\n'));
+      } else {
+        console.log('✅ Bestanden: Keine Tests bestanden.');
+      }
+
+      if (failed.length > 0) {
+        console.log(['❌ Fehlgeschlagen:', ...failed.map(scenarioName => `  - ${scenarioName}`)].join('\n'));
+      } else {
+        console.log('❌ Fehlgeschlagen: Keine Tests fehlgeschlagen.');
+      }
+    });
   });
 }
 
