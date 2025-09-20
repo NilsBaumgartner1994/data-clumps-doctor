@@ -14,6 +14,6 @@ runs:
     - name: Run Prettier
       run: |
         echo "Running Prettier on supported files..."
-        cd analyse && prettier --write "**/*.{js,jsx,ts,tsx,json,md,yml,yaml}" --ignore-path .prettierignore --cache --cache-location .prettier-cache/ || true
+        prettier --write "**/*.{js,jsx,ts,tsx,json,md,yml,yaml}" --ignore-path .prettierignore --cache --cache-location .prettier-cache/ || true
         echo "Prettier formatting completed"
       shell: bash
