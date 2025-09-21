@@ -1,7 +1,3 @@
 export interface BillingProcessor {
-  createInvoice(
-    patientId: number,
-    doctorId: number,
-    requiresFollowUp: boolean
-  ): void;
+  createInvoice(patientId: number, doctorId: number, requiresFollowUp: boolean): void;
 }
