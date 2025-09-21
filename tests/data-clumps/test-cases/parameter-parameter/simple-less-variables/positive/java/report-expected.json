@@ -1,0 +1,209 @@
+{
+  "report_version": "^0.1.102",
+  "report_timestamp": "2025-09-21T20:00:55.186Z",
+  "target_language": "java",
+  "report_summary": {
+    "additional": {
+      "invertedIndexSoftwareProjectStatistics": {
+        "invertedFieldToClasses": {
+          "median": 0,
+          "maximum": 0,
+          "average": null,
+          "amountSavedValuesForKeys": 0,
+          "amountKeys": 0
+        },
+        "invertedParameterToMethods": {
+          "median": null,
+          "maximum": 2,
+          "average": 2,
+          "amountSavedValuesForKeys": 4,
+          "amountKeys": 1
+        },
+        "invertedParameterToClasses": {
+          "median": 0,
+          "maximum": 0,
+          "average": null,
+          "amountSavedValuesForKeys": 0,
+          "amountKeys": 0
+        }
+      }
+    },
+    "amount_classes_or_interfaces_with_data_clumps": 2,
+    "amount_files_with_data_clumps": 2,
+    "amount_methods_with_data_clumps": 2,
+    "fields_to_fields_data_clump": 0,
+    "parameters_to_fields_data_clump": 0,
+    "parameters_to_parameters_data_clump": 2,
+    "amount_data_clumps": 2
+  },
+  "project_info": {
+    "project_url": "unknown",
+    "project_name": "Java parameter-parameter data clump with lower shared threshold",
+    "project_version": "unknown",
+    "project_commit_hash": "unknown",
+    "project_tag": null,
+    "project_commit_date": null,
+    "additional": {},
+    "number_of_files": 2,
+    "number_of_classes_or_interfaces": 2,
+    "number_of_methods": 2,
+    "number_of_data_fields": 0,
+    "number_of_method_parameters": 4
+  },
+  "detector": {
+    "name": "data-clumps-doctor",
+    "url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
+    "version": "0.1.101",
+    "options": {
+      "fastDetection": true,
+      "ignorePaths": [],
+      "similarityModifierOfVariablesWithUnknownType": 0,
+      "minimumSimilarityForDataClumps": 0.5,
+      "fieldsOfClassesWithUnknownHierarchyProbabilityModifier": 0,
+      "sharedFieldsToFieldsAmountMinimum": 3,
+      "analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces": false,
+      "sharedParametersToParametersAmountMinimum": 2,
+      "sharedParametersToFieldsAmountMinimum": 2,
+      "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "ignoredVariableNames": []
+    }
+  },
+  "data_clumps": {
+    "parameters_to_parameters_data_clump-AppointmentScheduler.java-AppointmentScheduler/method/schedule(int patientId, int doctorId)-BillingProcessor/method/createInvoice(int patientId, int doctorId)-patientIddoctorId": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-AppointmentScheduler.java-AppointmentScheduler/method/schedule(int patientId, int doctorId)-BillingProcessor/method/createInvoice(int patientId, int doctorId)-patientIddoctorId",
+      "probability": 1,
+      "from_file_path": "AppointmentScheduler.java",
+      "from_class_or_interface_name": "AppointmentScheduler",
+      "from_class_or_interface_key": "AppointmentScheduler",
+      "from_method_name": "schedule",
+      "from_method_key": "AppointmentScheduler/method/schedule(int patientId, int doctorId)",
+      "to_file_path": "BillingProcessor.java",
+      "to_class_or_interface_name": "BillingProcessor",
+      "to_class_or_interface_key": "BillingProcessor",
+      "to_method_name": "createInvoice",
+      "to_method_key": "BillingProcessor/method/createInvoice(int patientId, int doctorId)",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "AppointmentScheduler/method/schedule(int patientId, int doctorId)/parameter/patientId": {
+          "key": "AppointmentScheduler/method/schedule(int patientId, int doctorId)/parameter/patientId",
+          "name": "patientId",
+          "type": "int",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "BillingProcessor/method/createInvoice(int patientId, int doctorId)/parameter/patientId",
+            "name": "patientId",
+            "type": "int",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 35,
+              "endLine": 2,
+              "endColumn": 44
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 30,
+            "endLine": 2,
+            "endColumn": 39
+          }
+        },
+        "AppointmentScheduler/method/schedule(int patientId, int doctorId)/parameter/doctorId": {
+          "key": "AppointmentScheduler/method/schedule(int patientId, int doctorId)/parameter/doctorId",
+          "name": "doctorId",
+          "type": "int",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "BillingProcessor/method/createInvoice(int patientId, int doctorId)/parameter/doctorId",
+            "name": "doctorId",
+            "type": "int",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 50,
+              "endLine": 2,
+              "endColumn": 58
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 45,
+            "endLine": 2,
+            "endColumn": 53
+          }
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-BillingProcessor.java-BillingProcessor/method/createInvoice(int patientId, int doctorId)-AppointmentScheduler/method/schedule(int patientId, int doctorId)-patientIddoctorId": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-BillingProcessor.java-BillingProcessor/method/createInvoice(int patientId, int doctorId)-AppointmentScheduler/method/schedule(int patientId, int doctorId)-patientIddoctorId",
+      "probability": 1,
+      "from_file_path": "BillingProcessor.java",
+      "from_class_or_interface_name": "BillingProcessor",
+      "from_class_or_interface_key": "BillingProcessor",
+      "from_method_name": "createInvoice",
+      "from_method_key": "BillingProcessor/method/createInvoice(int patientId, int doctorId)",
+      "to_file_path": "AppointmentScheduler.java",
+      "to_class_or_interface_name": "AppointmentScheduler",
+      "to_class_or_interface_key": "AppointmentScheduler",
+      "to_method_name": "schedule",
+      "to_method_key": "AppointmentScheduler/method/schedule(int patientId, int doctorId)",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "BillingProcessor/method/createInvoice(int patientId, int doctorId)/parameter/patientId": {
+          "key": "BillingProcessor/method/createInvoice(int patientId, int doctorId)/parameter/patientId",
+          "name": "patientId",
+          "type": "int",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "AppointmentScheduler/method/schedule(int patientId, int doctorId)/parameter/patientId",
+            "name": "patientId",
+            "type": "int",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 30,
+              "endLine": 2,
+              "endColumn": 39
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 35,
+            "endLine": 2,
+            "endColumn": 44
+          }
+        },
+        "BillingProcessor/method/createInvoice(int patientId, int doctorId)/parameter/doctorId": {
+          "key": "BillingProcessor/method/createInvoice(int patientId, int doctorId)/parameter/doctorId",
+          "name": "doctorId",
+          "type": "int",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "AppointmentScheduler/method/schedule(int patientId, int doctorId)/parameter/doctorId",
+            "name": "doctorId",
+            "type": "int",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 45,
+              "endLine": 2,
+              "endColumn": 53
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 50,
+            "endLine": 2,
+            "endColumn": 58
+          }
+        }
+      }
+    }
+  }
+}
