@@ -1,0 +1,259 @@
+{
+  "report_version": "^0.1.102",
+  "report_timestamp": "2025-09-21T07:35:38.836Z",
+  "target_language": "java",
+  "report_summary": {
+    "additional": {
+      "invertedIndexSoftwareProjectStatistics": {
+        "invertedFieldToClasses": {
+          "median": 0,
+          "maximum": 0,
+          "average": null,
+          "amountSavedValuesForKeys": 0,
+          "amountKeys": 0
+        },
+        "invertedParameterToMethods": {
+          "median": 2,
+          "maximum": 2,
+          "average": 2,
+          "amountSavedValuesForKeys": 6,
+          "amountKeys": 1
+        },
+        "invertedParameterToClasses": {
+          "median": 0,
+          "maximum": 0,
+          "average": null,
+          "amountSavedValuesForKeys": 0,
+          "amountKeys": 0
+        }
+      }
+    },
+    "amount_classes_or_interfaces_with_data_clumps": 2,
+    "amount_files_with_data_clumps": 2,
+    "amount_methods_with_data_clumps": 2,
+    "fields_to_fields_data_clump": 0,
+    "parameters_to_fields_data_clump": 0,
+    "parameters_to_parameters_data_clump": 2,
+    "amount_data_clumps": 2
+  },
+  "project_info": {
+    "project_url": "unknown",
+    "project_name": "Java parameter-parameter data clump with variable order",
+    "project_version": "unknown",
+    "project_commit_hash": "unknown",
+    "project_tag": null,
+    "project_commit_date": null,
+    "additional": {},
+    "number_of_files": 2,
+    "number_of_classes_or_interfaces": 2,
+    "number_of_methods": 2,
+    "number_of_data_fields": 0,
+    "number_of_method_parameters": 6
+  },
+  "detector": {
+    "name": "data-clumps-doctor",
+    "url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
+    "version": "0.1.101",
+    "options": {
+      "fastDetection": true,
+      "ignorePaths": [],
+      "similarityModifierOfVariablesWithUnknownType": 0,
+      "minimumSimilarityForDataClumps": 0.5,
+      "fieldsOfClassesWithUnknownHierarchyProbabilityModifier": 0,
+      "sharedFieldsToFieldsAmountMinimum": 3,
+      "analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces": false,
+      "sharedParametersToParametersAmountMinimum": 3,
+      "sharedParametersToFieldsAmountMinimum": 3,
+      "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "ignoredVariableNames": []
+    }
+  },
+  "data_clumps": {
+    "parameters_to_parameters_data_clump-DoctorScheduler.java-DoctorScheduler/method/scheduleCheckup(java.lang.String firstname, java.lang.String lastname, int age)-PatientRegistration/method/registerPatient(java.lang.String firstname, int age, java.lang.String lastname)-firstnamelastnameage": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-DoctorScheduler.java-DoctorScheduler/method/scheduleCheckup(java.lang.String firstname, java.lang.String lastname, int age)-PatientRegistration/method/registerPatient(java.lang.String firstname, int age, java.lang.String lastname)-firstnamelastnameage",
+      "probability": 1,
+      "from_file_path": "DoctorScheduler.java",
+      "from_class_or_interface_name": "DoctorScheduler",
+      "from_class_or_interface_key": "DoctorScheduler",
+      "from_method_name": "scheduleCheckup",
+      "from_method_key": "DoctorScheduler/method/scheduleCheckup(java.lang.String firstname, java.lang.String lastname, int age)",
+      "to_file_path": "PatientRegistration.java",
+      "to_class_or_interface_name": "PatientRegistration",
+      "to_class_or_interface_key": "PatientRegistration",
+      "to_method_name": "registerPatient",
+      "to_method_key": "PatientRegistration/method/registerPatient(java.lang.String firstname, int age, java.lang.String lastname)",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "DoctorScheduler/method/scheduleCheckup(java.lang.String firstname, java.lang.String lastname, int age)/parameter/firstname": {
+          "key": "DoctorScheduler/method/scheduleCheckup(java.lang.String firstname, java.lang.String lastname, int age)/parameter/firstname",
+          "name": "firstname",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "PatientRegistration/method/registerPatient(java.lang.String firstname, int age, java.lang.String lastname)/parameter/firstname",
+            "name": "firstname",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 40,
+              "endLine": 2,
+              "endColumn": 49
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 40,
+            "endLine": 2,
+            "endColumn": 49
+          }
+        },
+        "DoctorScheduler/method/scheduleCheckup(java.lang.String firstname, java.lang.String lastname, int age)/parameter/lastname": {
+          "key": "DoctorScheduler/method/scheduleCheckup(java.lang.String firstname, java.lang.String lastname, int age)/parameter/lastname",
+          "name": "lastname",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "PatientRegistration/method/registerPatient(java.lang.String firstname, int age, java.lang.String lastname)/parameter/lastname",
+            "name": "lastname",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 67,
+              "endLine": 2,
+              "endColumn": 75
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 58,
+            "endLine": 2,
+            "endColumn": 66
+          }
+        },
+        "DoctorScheduler/method/scheduleCheckup(java.lang.String firstname, java.lang.String lastname, int age)/parameter/age": {
+          "key": "DoctorScheduler/method/scheduleCheckup(java.lang.String firstname, java.lang.String lastname, int age)/parameter/age",
+          "name": "age",
+          "type": "int",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "PatientRegistration/method/registerPatient(java.lang.String firstname, int age, java.lang.String lastname)/parameter/age",
+            "name": "age",
+            "type": "int",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 55,
+              "endLine": 2,
+              "endColumn": 58
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 72,
+            "endLine": 2,
+            "endColumn": 75
+          }
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-PatientRegistration.java-PatientRegistration/method/registerPatient(java.lang.String firstname, int age, java.lang.String lastname)-DoctorScheduler/method/scheduleCheckup(java.lang.String firstname, java.lang.String lastname, int age)-firstnameagelastname": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-PatientRegistration.java-PatientRegistration/method/registerPatient(java.lang.String firstname, int age, java.lang.String lastname)-DoctorScheduler/method/scheduleCheckup(java.lang.String firstname, java.lang.String lastname, int age)-firstnameagelastname",
+      "probability": 1,
+      "from_file_path": "PatientRegistration.java",
+      "from_class_or_interface_name": "PatientRegistration",
+      "from_class_or_interface_key": "PatientRegistration",
+      "from_method_name": "registerPatient",
+      "from_method_key": "PatientRegistration/method/registerPatient(java.lang.String firstname, int age, java.lang.String lastname)",
+      "to_file_path": "DoctorScheduler.java",
+      "to_class_or_interface_name": "DoctorScheduler",
+      "to_class_or_interface_key": "DoctorScheduler",
+      "to_method_name": "scheduleCheckup",
+      "to_method_key": "DoctorScheduler/method/scheduleCheckup(java.lang.String firstname, java.lang.String lastname, int age)",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "PatientRegistration/method/registerPatient(java.lang.String firstname, int age, java.lang.String lastname)/parameter/firstname": {
+          "key": "PatientRegistration/method/registerPatient(java.lang.String firstname, int age, java.lang.String lastname)/parameter/firstname",
+          "name": "firstname",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "DoctorScheduler/method/scheduleCheckup(java.lang.String firstname, java.lang.String lastname, int age)/parameter/firstname",
+            "name": "firstname",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 40,
+              "endLine": 2,
+              "endColumn": 49
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 40,
+            "endLine": 2,
+            "endColumn": 49
+          }
+        },
+        "PatientRegistration/method/registerPatient(java.lang.String firstname, int age, java.lang.String lastname)/parameter/age": {
+          "key": "PatientRegistration/method/registerPatient(java.lang.String firstname, int age, java.lang.String lastname)/parameter/age",
+          "name": "age",
+          "type": "int",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "DoctorScheduler/method/scheduleCheckup(java.lang.String firstname, java.lang.String lastname, int age)/parameter/age",
+            "name": "age",
+            "type": "int",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 72,
+              "endLine": 2,
+              "endColumn": 75
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 55,
+            "endLine": 2,
+            "endColumn": 58
+          }
+        },
+        "PatientRegistration/method/registerPatient(java.lang.String firstname, int age, java.lang.String lastname)/parameter/lastname": {
+          "key": "PatientRegistration/method/registerPatient(java.lang.String firstname, int age, java.lang.String lastname)/parameter/lastname",
+          "name": "lastname",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "DoctorScheduler/method/scheduleCheckup(java.lang.String firstname, java.lang.String lastname, int age)/parameter/lastname",
+            "name": "lastname",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 58,
+              "endLine": 2,
+              "endColumn": 66
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 67,
+            "endLine": 2,
+            "endColumn": 75
+          }
+        }
+      }
+    }
+  }
+}

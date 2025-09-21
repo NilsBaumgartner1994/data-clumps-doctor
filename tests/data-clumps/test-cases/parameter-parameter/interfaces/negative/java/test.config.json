@@ -1,5 +1,5 @@
 {
-  "id": "parameter-parameter-todo-interfaces-negative-java",
+  "id": "parameter-parameter-interfaces-negative-java",
   "name": "Java parameter-parameter interfaces without enough shared parameters",
   "language": "java",
   "sourceDir": "source",
