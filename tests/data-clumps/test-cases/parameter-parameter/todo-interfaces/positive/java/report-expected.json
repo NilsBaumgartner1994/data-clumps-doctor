@@ -1,0 +1,259 @@
+{
+  "report_version": "^0.1.102",
+  "report_timestamp": "2025-09-20T22:56:34.532Z",
+  "target_language": "java",
+  "report_summary": {
+    "additional": {
+      "invertedIndexSoftwareProjectStatistics": {
+        "invertedFieldToClasses": {
+          "median": 0,
+          "maximum": 0,
+          "average": null,
+          "amountSavedValuesForKeys": 0,
+          "amountKeys": 0
+        },
+        "invertedParameterToMethods": {
+          "median": 2,
+          "maximum": 2,
+          "average": 2,
+          "amountSavedValuesForKeys": 6,
+          "amountKeys": 1
+        },
+        "invertedParameterToClasses": {
+          "median": 0,
+          "maximum": 0,
+          "average": null,
+          "amountSavedValuesForKeys": 0,
+          "amountKeys": 0
+        }
+      }
+    },
+    "amount_classes_or_interfaces_with_data_clumps": 2,
+    "amount_files_with_data_clumps": 2,
+    "amount_methods_with_data_clumps": 2,
+    "fields_to_fields_data_clump": 0,
+    "parameters_to_fields_data_clump": 0,
+    "parameters_to_parameters_data_clump": 2,
+    "amount_data_clumps": 2
+  },
+  "project_info": {
+    "project_url": "unknown",
+    "project_name": "Java parameter-parameter data clump between unrelated interfaces",
+    "project_version": "unknown",
+    "project_commit_hash": "unknown",
+    "project_tag": null,
+    "project_commit_date": null,
+    "additional": {},
+    "number_of_files": 2,
+    "number_of_classes_or_interfaces": 2,
+    "number_of_methods": 2,
+    "number_of_data_fields": 0,
+    "number_of_method_parameters": 6
+  },
+  "detector": {
+    "name": "data-clumps-doctor",
+    "url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
+    "version": "0.1.101",
+    "options": {
+      "fastDetection": true,
+      "ignorePaths": [],
+      "similarityModifierOfVariablesWithUnknownType": 0,
+      "minimumSimilarityForDataClumps": 0.5,
+      "fieldsOfClassesWithUnknownHierarchyProbabilityModifier": 0,
+      "sharedFieldsToFieldsAmountMinimum": 3,
+      "analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces": false,
+      "sharedParametersToParametersAmountMinimum": 3,
+      "sharedParametersToFieldsAmountMinimum": 3,
+      "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "ignoredVariableNames": []
+    }
+  },
+  "data_clumps": {
+    "parameters_to_parameters_data_clump-AppointmentScheduler.java-AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)-BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)-patientIddoctorIdrequiresFollowUp": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-AppointmentScheduler.java-AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)-BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)-patientIddoctorIdrequiresFollowUp",
+      "probability": 1,
+      "from_file_path": "AppointmentScheduler.java",
+      "from_class_or_interface_name": "AppointmentScheduler",
+      "from_class_or_interface_key": "AppointmentScheduler",
+      "from_method_name": "schedule",
+      "from_method_key": "AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)",
+      "to_file_path": "BillingProcessor.java",
+      "to_class_or_interface_name": "BillingProcessor",
+      "to_class_or_interface_key": "BillingProcessor",
+      "to_method_name": "createInvoice",
+      "to_method_key": "BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)/parameter/patientId": {
+          "key": "AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)/parameter/patientId",
+          "name": "patientId",
+          "type": "int",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)/parameter/patientId",
+            "name": "patientId",
+            "type": "int",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 26,
+              "endLine": 2,
+              "endColumn": 35
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 21,
+            "endLine": 2,
+            "endColumn": 30
+          }
+        },
+        "AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)/parameter/doctorId": {
+          "key": "AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)/parameter/doctorId",
+          "name": "doctorId",
+          "type": "int",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)/parameter/doctorId",
+            "name": "doctorId",
+            "type": "int",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 41,
+              "endLine": 2,
+              "endColumn": 49
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 36,
+            "endLine": 2,
+            "endColumn": 44
+          }
+        },
+        "AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)/parameter/requiresFollowUp": {
+          "key": "AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)/parameter/requiresFollowUp",
+          "name": "requiresFollowUp",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)/parameter/requiresFollowUp",
+            "name": "requiresFollowUp",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 59,
+              "endLine": 2,
+              "endColumn": 75
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 54,
+            "endLine": 2,
+            "endColumn": 70
+          }
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-BillingProcessor.java-BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)-AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)-patientIddoctorIdrequiresFollowUp": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-BillingProcessor.java-BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)-AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)-patientIddoctorIdrequiresFollowUp",
+      "probability": 1,
+      "from_file_path": "BillingProcessor.java",
+      "from_class_or_interface_name": "BillingProcessor",
+      "from_class_or_interface_key": "BillingProcessor",
+      "from_method_name": "createInvoice",
+      "from_method_key": "BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)",
+      "to_file_path": "AppointmentScheduler.java",
+      "to_class_or_interface_name": "AppointmentScheduler",
+      "to_class_or_interface_key": "AppointmentScheduler",
+      "to_method_name": "schedule",
+      "to_method_key": "AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)/parameter/patientId": {
+          "key": "BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)/parameter/patientId",
+          "name": "patientId",
+          "type": "int",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)/parameter/patientId",
+            "name": "patientId",
+            "type": "int",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 21,
+              "endLine": 2,
+              "endColumn": 30
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 26,
+            "endLine": 2,
+            "endColumn": 35
+          }
+        },
+        "BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)/parameter/doctorId": {
+          "key": "BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)/parameter/doctorId",
+          "name": "doctorId",
+          "type": "int",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)/parameter/doctorId",
+            "name": "doctorId",
+            "type": "int",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 36,
+              "endLine": 2,
+              "endColumn": 44
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 41,
+            "endLine": 2,
+            "endColumn": 49
+          }
+        },
+        "BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)/parameter/requiresFollowUp": {
+          "key": "BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)/parameter/requiresFollowUp",
+          "name": "requiresFollowUp",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)/parameter/requiresFollowUp",
+            "name": "requiresFollowUp",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 54,
+              "endLine": 2,
+              "endColumn": 70
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 59,
+            "endLine": 2,
+            "endColumn": 75
+          }
+        }
+      }
+    }
+  }
+}

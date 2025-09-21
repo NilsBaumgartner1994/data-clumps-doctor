@@ -119,7 +119,25 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
           ctx.fields[field.key] = field;
         }
 
-        dict[ctx.key] = ctx;
+        for (const method of intf.getMethods()) {
+          const methodName = method.getName();
+          const methodKey = methodName;
+          const returnTypeText = this.normalizeTypeText(method.getReturnType().getText(), path_to_source_folder);
+          const methodCtx = new MethodTypeContext(methodKey, methodName, returnTypeText, false, ctx);
+          methodCtx.modifiers = [];
+
+          for (const param of method.getParameters()) {
+            const paramName = param.getName();
+            const paramKey = paramName;
+            const paramType = this.normalizeTypeText(param.getType().getText(), path_to_source_folder);
+            const paramCtx = new MethodParameterTypeContext(paramKey, paramName, paramType, [], false, methodCtx);
+            methodCtx.parameters.push(paramCtx);
+          }
+
+          ctx.methods[methodCtx.key] = methodCtx;
+        }
+
+        dict.set(ctx.key, ctx);
       }
     }
 

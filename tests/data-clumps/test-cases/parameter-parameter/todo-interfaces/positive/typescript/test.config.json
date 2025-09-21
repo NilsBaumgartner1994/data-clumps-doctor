@@ -1,0 +1,8 @@
+{
+  "id": "parameter-parameter-todo-interfaces-positive-typescript",
+  "name": "TypeScript parameter-parameter data clump between unrelated interfaces",
+  "language": "typescript",
+  "sourceDir": "source",
+  "expectedReportFile": "report-expected.json",
+  "detectorOptions": {}
+}
