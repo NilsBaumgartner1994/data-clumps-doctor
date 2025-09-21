@@ -1,0 +1,8 @@
+{
+  "id": "parameter-parameter-variable-order-positive-java",
+  "name": "Java parameter-parameter data clump with variable order",
+  "language": "java",
+  "sourceDir": "source",
+  "expectedReportFile": "report-expected.json",
+  "detectorOptions": {}
+}
