@@ -1,0 +1,9 @@
+{
+  "name": "TypeScript parameter-field data clump with lower shared threshold",
+  "language": "typescript",
+  "sourceDir": "source",
+  "expectedReportFile": "report-expected.json",
+  "detectorOptions": {
+    "sharedParametersToFieldsAmountMinimum": 2
+  }
+}
