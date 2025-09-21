@@ -1,0 +1,8 @@
+{
+  "id": "parameter-parameter-todo-interfaces-positive-java",
+  "name": "Java parameter-parameter data clump between unrelated interfaces",
+  "language": "java",
+  "sourceDir": "source",
+  "expectedReportFile": "report-expected.json",
+  "detectorOptions": {}
+}
