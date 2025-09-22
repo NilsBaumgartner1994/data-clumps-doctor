@@ -26,9 +26,7 @@ function ensureTsConfigPathsRegistered(configPath: string) {
     tsConfigPathsRegistered = true;
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);
-    throw new Error(
-      `Unable to resolve module aliases while loading scenario config at ${configPath}. ${reason}. Please ensure tsconfig-paths is installed.`
-    );
+    throw new Error(`Unable to resolve module aliases while loading scenario config at ${configPath}. ${reason}. Please ensure tsconfig-paths is installed.`);
   }
 }
 
@@ -43,9 +41,7 @@ function ensureTsNodeRegistered(configPath: string) {
     tsNodeRegistered = true;
   } catch (error) {
     const reason = error instanceof Error ? error.message : String(error);
-    throw new Error(
-      `Unable to load TypeScript scenario config at ${configPath}. ${reason}. Please run "yarn build" before executing the tests or ensure ts-node is installed.`
-    );
+    throw new Error(`Unable to load TypeScript scenario config at ${configPath}. ${reason}. Please run "yarn build" before executing the tests or ensure ts-node is installed.`);
   }
 }
 
@@ -101,15 +97,7 @@ function resolveScenarioResourcePath(scenarioDir: string, relativePath: string):
   if (isBuildPath) {
     const relativeScenarioPath = path.relative(buildTestCasesDir, scenarioDir);
     if (!relativeScenarioPath.startsWith('..') && !path.isAbsolute(relativeScenarioPath)) {
-      return path.resolve(
-        __dirname,
-        '..',
-        '..',
-        '..',
-        'tests/data-clumps/test-cases',
-        relativeScenarioPath,
-        relativePath
-      );
+      return path.resolve(__dirname, '..', '..', '..', 'tests/data-clumps/test-cases', relativeScenarioPath, relativePath);
     }
   }
 

@@ -1,11 +1,11 @@
 import type { ScenarioConfig } from '@/scenarioUtils';
 
 const config = {
-  "name": "Java field-field data clump with non-primitive datatypes",
-  "language": "java",
-  "sourceDir": "source",
-  "expectedReportFile": "report-expected.json",
-  "detectorOptions": {}
+  name: 'Java field-field data clump with non-primitive datatypes',
+  language: 'java',
+  sourceDir: 'source',
+  expectedReportFile: 'report-expected.json',
+  detectorOptions: {},
 } satisfies ScenarioConfig;
 
 export default config;
