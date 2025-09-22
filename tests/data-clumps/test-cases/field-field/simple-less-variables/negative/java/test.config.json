@@ -1,9 +1,0 @@
-{
-  "name": "Java field-field ignored due to higher threshold",
-  "language": "java",
-  "sourceDir": "source",
-  "expectedReportFile": "report-expected.json",
-  "detectorOptions": {
-    "sharedFieldsToFieldsAmountMinimum": 3
-  }
-}

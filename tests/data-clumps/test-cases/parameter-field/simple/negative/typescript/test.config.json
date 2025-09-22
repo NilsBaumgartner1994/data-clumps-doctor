@@ -1,7 +1,0 @@
-{
-  "name": "TypeScript parameter-field without enough shared values",
-  "language": "typescript",
-  "sourceDir": "source",
-  "expectedReportFile": "report-expected.json",
-  "detectorOptions": {}
-}
