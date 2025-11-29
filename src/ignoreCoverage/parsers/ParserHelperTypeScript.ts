@@ -1,13 +1,11 @@
-import {MyLogger, ParserBase} from './ParserBase';
+import { MyLogger, ParserBase } from './ParserBase';
 import { ParserInterface } from './ParserInterface';
 import { Project, SyntaxKind } from 'ts-morph';
 import path from 'path';
 import { ClassOrInterfaceTypeContext, MemberFieldParameterTypeContext, MethodParameterTypeContext, MethodTypeContext } from '../ParsedAstTypes';
 
-
-
 export class ParserHelperTypeScript extends ParserBase implements ParserInterface {
-  private logger: MyLogger = new MyLogger();
+  private readonly logger: MyLogger = new MyLogger();
 
   constructor() {
     super();
@@ -27,7 +25,6 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
       `!**/__tests__/**`, // <- exclude __tests__
     ]);
 
-
     const dict = new Map<string, ClassOrInterfaceTypeContext>();
 
     for (const sourceFile of project.getSourceFiles()) {
@@ -37,7 +34,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
         const name = cls.getName() || 'anonymous_class';
         this.logger.checkClassName(name);
 
-        this.logger.log("  - Found class: " + name);
+        this.logger.log('  - Found class: ' + name);
 
         const key = `${relativePath}/class/${name}`;
         const ctx = new ClassOrInterfaceTypeContext(key, name, 'class', relativePath);
@@ -70,13 +67,13 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
           // ignore heritage parsing errors
         }
 
-        this.logger.log("   Properties:");
+        this.logger.log('   Properties:');
 
         for (const prop of cls.getProperties()) {
           const propName = prop.getName();
           const fieldKey = propName;
           const typeText = this.normalizeTypeText(prop.getType().getText(), path_to_source_folder);
-            this.logger.log("     - Found property " + propName + " : " + typeText);
+          this.logger.log('     - Found property ' + propName + ' : ' + typeText);
           const modifiers: string[] = [];
           if (prop.hasModifier('public')) modifiers.push('PUBLIC');
           if (prop.hasModifier('protected')) modifiers.push('PROTECTED');
@@ -86,7 +83,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
           ctx.fields[field.key] = field;
         }
 
-        this.logger.log("   Methods:");
+        this.logger.log('   Methods:');
         for (const method of cls.getMethods()) {
           const methodName = method.getName();
 
@@ -108,7 +105,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
             const paramCtx = new MethodParameterTypeContext(paramKey, paramName, paramType, [], false, methodCtx);
             methodCtx.parameters.push(paramCtx);
           }
-            this.logger.log("     - Found method " + methodName + " (" + paramNames.join(", ") + ") : " + returnTypeText);
+          this.logger.log('     - Found method ' + methodName + ' (' + paramNames.join(', ') + ') : ' + returnTypeText);
 
           ctx.methods[methodCtx.key] = methodCtx;
         }
@@ -141,8 +138,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
         const name = intf.getName() || 'anonymous_interface';
         this.logger.checkClassName(name);
 
-        this.logger.log("  - Found interface: " + name);
-
+        this.logger.log('  - Found interface: ' + name);
 
         const key = `${relativePath}/interface/${name}`;
         const ctx = new ClassOrInterfaceTypeContext(key, name, 'interface', relativePath);
@@ -296,7 +292,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
       for (const candidate of possibleModulePaths) {
         const found = project.getSourceFiles().find(sf => {
           const sfPath = sf.getFilePath().split(path.sep).join('/');
-          return sfPath.endsWith(candidate) || sfPath.endsWith(candidate.replace(/\.ts$|\.tsx$|\.d\.ts$/,''));
+          return sfPath.endsWith(candidate) || sfPath.endsWith(candidate.replace(/\.ts$|\.tsx$|\.d\.ts$/, ''));
         });
         if (found) {
           const rel = path.relative(projectRoot, found.getFilePath()).split(path.sep).join('/');

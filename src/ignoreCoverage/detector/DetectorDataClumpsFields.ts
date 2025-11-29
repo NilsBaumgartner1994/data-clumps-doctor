@@ -166,7 +166,6 @@ export class DetectorDataClumpsFields extends DetectorBase {
    * and adds it to the provided dictionary.
    */
   private generateMemberFieldParametersRelatedToForClassToOtherClass(contextAnalyseDataClumpFieldField: ContextAnalyseDataClumpFieldField, otherClass: ClassOrInterfaceTypeContext, currentClassWholeHierarchyKnown: boolean) {
-
     let currentClass = contextAnalyseDataClumpFieldField.currentClass;
     let dataClumpsFieldParameters = contextAnalyseDataClumpFieldField.dataClumpsFieldParameters;
     let softwareProjectDicts = contextAnalyseDataClumpFieldField.softwareProjectDicts;
@@ -204,7 +203,6 @@ export class DetectorDataClumpsFields extends DetectorBase {
 
     let currentClassVariables = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(currentClass, softwareProjectDicts, this.options);
     let otherClassVariables = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(otherClass, softwareProjectDicts, this.options);
-
 
     let hasCurrentClassOrInterfaceOtherClassOrInterfaceAsParent = currentClass.isSubClassOrInterfaceOrParentOfOtherClassOrInterface(otherClass, softwareProjectDicts);
     if (hasCurrentClassOrInterfaceOtherClassOrInterfaceAsParent) {
@@ -276,7 +274,7 @@ export class DetectorDataClumpsFields extends DetectorBase {
   public static getMemberFieldsFromClassOrInterface(currentClassOrInterface: ClassOrInterfaceTypeContext, softwareProjectDicts: SoftwareProjectDicts, options: DetectorOptions, nested?: boolean): MemberFieldParameterTypeContext[] {
     let analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces = options.analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces;
 
-    if(!nested){
+    if (!nested) {
       //if(debug) console.log("getMemberFieldsFromClassOrInterface: "+currentClassOrInterface.name+" - "+currentClassOrInterface.file_path)
     }
 
@@ -286,7 +284,7 @@ export class DetectorDataClumpsFields extends DetectorBase {
     let currentClassFieldKeys = Object.keys(currentClassFields);
     for (let fieldKey of currentClassFieldKeys) {
       let currentClassField = currentClassFields[fieldKey];
-      if(!nested){
+      if (!nested) {
         //if(debug) console.log("  field: "+currentClassField.name);
       }
       if (!currentClassField.ignore) {
@@ -307,7 +305,7 @@ export class DetectorDataClumpsFields extends DetectorBase {
         let superclass = softwareProjectDicts.dictClassOrInterface[superClassKey];
         let superclassFields = DetectorDataClumpsFields.getMemberFieldsFromClassOrInterface(superclass, softwareProjectDicts, options, true);
         let copyOfSuperclassFields: MemberFieldParameterTypeContext[] = [];
-        for(let superclassField of superclassFields) {
+        for (let superclassField of superclassFields) {
           // add the information that this field is inherited from a superclass
           let superclassFieldCopy = MemberFieldParameterTypeContext.fromObject(superclassField); // Otherwise we would modify the original object, which is not desired.
           superclassFieldCopy.inheritedFromClassOrInterfaceKey = superclass.key;
