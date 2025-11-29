@@ -1,0 +1,781 @@
+{
+  "report_version": "^0.1.102",
+  "report_timestamp": "2025-11-29T13:56:00.260Z",
+  "target_language": "java",
+  "report_summary": {
+    "additional": {
+      "invertedIndexSoftwareProjectStatistics": {
+        "invertedFieldToClasses": {
+          "median": 0,
+          "maximum": 0,
+          "average": null,
+          "amountSavedValuesForKeys": 0,
+          "amountKeys": 0
+        },
+        "invertedParameterToMethods": {
+          "median": null,
+          "maximum": 5,
+          "average": 5,
+          "amountSavedValuesForKeys": 20,
+          "amountKeys": 1
+        },
+        "invertedParameterToClasses": {
+          "median": 0,
+          "maximum": 0,
+          "average": null,
+          "amountSavedValuesForKeys": 0,
+          "amountKeys": 0
+        }
+      }
+    },
+    "amount_classes_or_interfaces_with_data_clumps": 3,
+    "amount_files_with_data_clumps": 3,
+    "amount_methods_with_data_clumps": 3,
+    "fields_to_fields_data_clump": 0,
+    "parameters_to_fields_data_clump": 0,
+    "parameters_to_parameters_data_clump": 6,
+    "amount_data_clumps": 6
+  },
+  "project_info": {
+    "project_url": "unknown",
+    "project_name": "TypeScript parameter-parameter data clumps detection in classes with implemented interfaces - negative case",
+    "project_version": "unknown",
+    "project_commit_hash": "unknown",
+    "project_tag": null,
+    "project_commit_date": null,
+    "additional": {},
+    "number_of_files": 3,
+    "number_of_classes_or_interfaces": 3,
+    "number_of_methods": 5,
+    "number_of_data_fields": 0,
+    "number_of_method_parameters": 20
+  },
+  "detector": {
+    "name": "data-clumps-doctor",
+    "url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
+    "version": "0.1.101",
+    "options": {
+      "fastDetection": true,
+      "ignorePaths": [],
+      "similarityModifierOfVariablesWithUnknownType": 0,
+      "minimumSimilarityForDataClumps": 0.5,
+      "fieldsOfClassesWithUnknownHierarchyProbabilityModifier": 0,
+      "sharedFieldsToFieldsAmountMinimum": 3,
+      "analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces": false,
+      "sharedParametersToParametersAmountMinimum": 3,
+      "sharedParametersToFieldsAmountMinimum": 3,
+      "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "ignoredVariableNames": []
+    }
+  },
+  "data_clumps": {
+    "parameters_to_parameters_data_clump-MyCardReaderInterface.java-MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-MyCardReaderInterface.java-MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction",
+      "probability": 1,
+      "from_file_path": "MyCardReaderInterface.java",
+      "from_class_or_interface_name": "MyCardReaderInterface",
+      "from_class_or_interface_key": "MyCardReaderInterface",
+      "from_method_name": "readCard",
+      "from_method_key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)",
+      "to_file_path": "MyNativeCardReaderImpl.java",
+      "to_class_or_interface_name": "MyNativeCardReaderImpl",
+      "to_class_or_interface_key": "MyNativeCardReaderImpl",
+      "to_method_name": "readCardDublicate",
+      "to_method_key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack": {
+          "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack",
+          "name": "callBack",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack",
+            "name": "callBack",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 42,
+              "endLine": 7,
+              "endColumn": 50
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 26,
+            "endLine": 2,
+            "endColumn": 34
+          }
+        },
+        "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction": {
+          "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction",
+          "name": "showInstruction",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction",
+            "name": "showInstruction",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 60,
+              "endLine": 7,
+              "endColumn": 75
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 44,
+            "endLine": 2,
+            "endColumn": 59
+          }
+        },
+        "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction": {
+          "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction",
+          "name": "hideInstruction",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction",
+            "name": "hideInstruction",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 85,
+              "endLine": 7,
+              "endColumn": 100
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 69,
+            "endLine": 2,
+            "endColumn": 84
+          }
+        },
+        "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction": {
+          "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction",
+          "name": "nfcInstruction",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction",
+            "name": "nfcInstruction",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 109,
+              "endLine": 7,
+              "endColumn": 123
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 93,
+            "endLine": 2,
+            "endColumn": 107
+          }
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-MyCardReaderInterface.java-MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-MyCardReaderInterface.java-MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction",
+      "probability": 1,
+      "from_file_path": "MyCardReaderInterface.java",
+      "from_class_or_interface_name": "MyCardReaderInterface",
+      "from_class_or_interface_key": "MyCardReaderInterface",
+      "from_method_name": "readCard",
+      "from_method_key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)",
+      "to_file_path": "MyUnsupportedCardReaderImpl.java",
+      "to_class_or_interface_name": "MyUnsupportedCardReaderImpl",
+      "to_class_or_interface_key": "MyUnsupportedCardReaderImpl",
+      "to_method_name": "readCardDublicate",
+      "to_method_key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack": {
+          "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack",
+          "name": "callBack",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack",
+            "name": "callBack",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 42,
+              "endLine": 7,
+              "endColumn": 50
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 26,
+            "endLine": 2,
+            "endColumn": 34
+          }
+        },
+        "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction": {
+          "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction",
+          "name": "showInstruction",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction",
+            "name": "showInstruction",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 60,
+              "endLine": 7,
+              "endColumn": 75
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 44,
+            "endLine": 2,
+            "endColumn": 59
+          }
+        },
+        "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction": {
+          "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction",
+          "name": "hideInstruction",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction",
+            "name": "hideInstruction",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 85,
+              "endLine": 7,
+              "endColumn": 100
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 69,
+            "endLine": 2,
+            "endColumn": 84
+          }
+        },
+        "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction": {
+          "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction",
+          "name": "nfcInstruction",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction",
+            "name": "nfcInstruction",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 109,
+              "endLine": 7,
+              "endColumn": 123
+            }
+          },
+          "position": {
+            "startLine": 2,
+            "startColumn": 93,
+            "endLine": 2,
+            "endColumn": 107
+          }
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-MyNativeCardReaderImpl.java-MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-MyNativeCardReaderImpl.java-MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction",
+      "probability": 1,
+      "from_file_path": "MyNativeCardReaderImpl.java",
+      "from_class_or_interface_name": "MyNativeCardReaderImpl",
+      "from_class_or_interface_key": "MyNativeCardReaderImpl",
+      "from_method_name": "readCardDublicate",
+      "from_method_key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)",
+      "to_file_path": "MyCardReaderInterface.java",
+      "to_class_or_interface_name": "MyCardReaderInterface",
+      "to_class_or_interface_key": "MyCardReaderInterface",
+      "to_method_name": "readCard",
+      "to_method_key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack": {
+          "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack",
+          "name": "callBack",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack",
+            "name": "callBack",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 26,
+              "endLine": 2,
+              "endColumn": 34
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 42,
+            "endLine": 7,
+            "endColumn": 50
+          }
+        },
+        "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction": {
+          "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction",
+          "name": "showInstruction",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction",
+            "name": "showInstruction",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 44,
+              "endLine": 2,
+              "endColumn": 59
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 60,
+            "endLine": 7,
+            "endColumn": 75
+          }
+        },
+        "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction": {
+          "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction",
+          "name": "hideInstruction",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction",
+            "name": "hideInstruction",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 69,
+              "endLine": 2,
+              "endColumn": 84
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 85,
+            "endLine": 7,
+            "endColumn": 100
+          }
+        },
+        "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction": {
+          "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction",
+          "name": "nfcInstruction",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction",
+            "name": "nfcInstruction",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 93,
+              "endLine": 2,
+              "endColumn": 107
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 109,
+            "endLine": 7,
+            "endColumn": 123
+          }
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-MyNativeCardReaderImpl.java-MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-MyNativeCardReaderImpl.java-MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction",
+      "probability": 1,
+      "from_file_path": "MyNativeCardReaderImpl.java",
+      "from_class_or_interface_name": "MyNativeCardReaderImpl",
+      "from_class_or_interface_key": "MyNativeCardReaderImpl",
+      "from_method_name": "readCardDublicate",
+      "from_method_key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)",
+      "to_file_path": "MyUnsupportedCardReaderImpl.java",
+      "to_class_or_interface_name": "MyUnsupportedCardReaderImpl",
+      "to_class_or_interface_key": "MyUnsupportedCardReaderImpl",
+      "to_method_name": "readCardDublicate",
+      "to_method_key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack": {
+          "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack",
+          "name": "callBack",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack",
+            "name": "callBack",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 42,
+              "endLine": 7,
+              "endColumn": 50
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 42,
+            "endLine": 7,
+            "endColumn": 50
+          }
+        },
+        "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction": {
+          "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction",
+          "name": "showInstruction",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction",
+            "name": "showInstruction",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 60,
+              "endLine": 7,
+              "endColumn": 75
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 60,
+            "endLine": 7,
+            "endColumn": 75
+          }
+        },
+        "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction": {
+          "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction",
+          "name": "hideInstruction",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction",
+            "name": "hideInstruction",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 85,
+              "endLine": 7,
+              "endColumn": 100
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 85,
+            "endLine": 7,
+            "endColumn": 100
+          }
+        },
+        "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction": {
+          "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction",
+          "name": "nfcInstruction",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction",
+            "name": "nfcInstruction",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 109,
+              "endLine": 7,
+              "endColumn": 123
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 109,
+            "endLine": 7,
+            "endColumn": 123
+          }
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-MyUnsupportedCardReaderImpl.java-MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-MyUnsupportedCardReaderImpl.java-MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction",
+      "probability": 1,
+      "from_file_path": "MyUnsupportedCardReaderImpl.java",
+      "from_class_or_interface_name": "MyUnsupportedCardReaderImpl",
+      "from_class_or_interface_key": "MyUnsupportedCardReaderImpl",
+      "from_method_name": "readCardDublicate",
+      "from_method_key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)",
+      "to_file_path": "MyCardReaderInterface.java",
+      "to_class_or_interface_name": "MyCardReaderInterface",
+      "to_class_or_interface_key": "MyCardReaderInterface",
+      "to_method_name": "readCard",
+      "to_method_key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack": {
+          "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack",
+          "name": "callBack",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack",
+            "name": "callBack",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 26,
+              "endLine": 2,
+              "endColumn": 34
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 42,
+            "endLine": 7,
+            "endColumn": 50
+          }
+        },
+        "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction": {
+          "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction",
+          "name": "showInstruction",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction",
+            "name": "showInstruction",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 44,
+              "endLine": 2,
+              "endColumn": 59
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 60,
+            "endLine": 7,
+            "endColumn": 75
+          }
+        },
+        "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction": {
+          "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction",
+          "name": "hideInstruction",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction",
+            "name": "hideInstruction",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 69,
+              "endLine": 2,
+              "endColumn": 84
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 85,
+            "endLine": 7,
+            "endColumn": 100
+          }
+        },
+        "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction": {
+          "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction",
+          "name": "nfcInstruction",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction",
+            "name": "nfcInstruction",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 2,
+              "startColumn": 93,
+              "endLine": 2,
+              "endColumn": 107
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 109,
+            "endLine": 7,
+            "endColumn": 123
+          }
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-MyUnsupportedCardReaderImpl.java-MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-MyUnsupportedCardReaderImpl.java-MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction",
+      "probability": 1,
+      "from_file_path": "MyUnsupportedCardReaderImpl.java",
+      "from_class_or_interface_name": "MyUnsupportedCardReaderImpl",
+      "from_class_or_interface_key": "MyUnsupportedCardReaderImpl",
+      "from_method_name": "readCardDublicate",
+      "from_method_key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)",
+      "to_file_path": "MyNativeCardReaderImpl.java",
+      "to_class_or_interface_name": "MyNativeCardReaderImpl",
+      "to_class_or_interface_key": "MyNativeCardReaderImpl",
+      "to_method_name": "readCardDublicate",
+      "to_method_key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack": {
+          "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack",
+          "name": "callBack",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/callBack",
+            "name": "callBack",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 42,
+              "endLine": 7,
+              "endColumn": 50
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 42,
+            "endLine": 7,
+            "endColumn": 50
+          }
+        },
+        "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction": {
+          "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction",
+          "name": "showInstruction",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/showInstruction",
+            "name": "showInstruction",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 60,
+              "endLine": 7,
+              "endColumn": 75
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 60,
+            "endLine": 7,
+            "endColumn": 75
+          }
+        },
+        "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction": {
+          "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction",
+          "name": "hideInstruction",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/hideInstruction",
+            "name": "hideInstruction",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 85,
+              "endLine": 7,
+              "endColumn": 100
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 85,
+            "endLine": 7,
+            "endColumn": 100
+          }
+        },
+        "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction": {
+          "key": "MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction",
+          "name": "nfcInstruction",
+          "type": "java.lang.String",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)/parameter/nfcInstruction",
+            "name": "nfcInstruction",
+            "type": "java.lang.String",
+            "modifiers": [],
+            "position": {
+              "startLine": 7,
+              "startColumn": 109,
+              "endLine": 7,
+              "endColumn": 123
+            }
+          },
+          "position": {
+            "startLine": 7,
+            "startColumn": 109,
+            "endLine": 7,
+            "endColumn": 123
+          }
+        }
+      }
+    }
+  }
+}

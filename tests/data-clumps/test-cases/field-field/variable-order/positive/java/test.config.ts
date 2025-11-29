@@ -6,6 +6,7 @@ const config = {
   sourceDir: 'source',
   expectedReportFile: 'report-expected.json',
   detectorOptions: {},
+  debug: false,
 } satisfies ScenarioConfig;
 
 export default config;

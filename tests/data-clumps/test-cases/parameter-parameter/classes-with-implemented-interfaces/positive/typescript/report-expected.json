@@ -1,0 +1,199 @@
+{
+  "report_version": "^0.1.102",
+  "report_timestamp": "2025-11-29T14:14:05.969Z",
+  "target_language": "typescript",
+  "report_summary": {
+    "additional": {
+      "invertedIndexSoftwareProjectStatistics": {
+        "invertedFieldToClasses": {
+          "median": 0,
+          "maximum": 0,
+          "average": null,
+          "amountSavedValuesForKeys": 0,
+          "amountKeys": 0
+        },
+        "invertedParameterToMethods": {
+          "median": 3,
+          "maximum": 3,
+          "average": 2.5714285714285716,
+          "amountSavedValuesForKeys": 18,
+          "amountKeys": 2
+        },
+        "invertedParameterToClasses": {
+          "median": 0,
+          "maximum": 0,
+          "average": null,
+          "amountSavedValuesForKeys": 0,
+          "amountKeys": 0
+        }
+      }
+    },
+    "amount_classes_or_interfaces_with_data_clumps": 2,
+    "amount_files_with_data_clumps": 2,
+    "amount_methods_with_data_clumps": 2,
+    "fields_to_fields_data_clump": 0,
+    "parameters_to_fields_data_clump": 0,
+    "parameters_to_parameters_data_clump": 2,
+    "amount_data_clumps": 2
+  },
+  "project_info": {
+    "project_url": "unknown",
+    "project_name": "TypeScript parameter-parameter data clumps detection in classes with implemented interfaces - positive case",
+    "project_version": "unknown",
+    "project_commit_hash": "unknown",
+    "project_tag": null,
+    "project_commit_date": null,
+    "additional": {},
+    "number_of_files": 3,
+    "number_of_classes_or_interfaces": 3,
+    "number_of_methods": 5,
+    "number_of_data_fields": 0,
+    "number_of_method_parameters": 18
+  },
+  "detector": {
+    "name": "data-clumps-doctor",
+    "url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
+    "version": "0.1.101",
+    "options": {
+      "fastDetection": true,
+      "ignorePaths": [],
+      "similarityModifierOfVariablesWithUnknownType": 0,
+      "minimumSimilarityForDataClumps": 0.5,
+      "fieldsOfClassesWithUnknownHierarchyProbabilityModifier": 0,
+      "sharedFieldsToFieldsAmountMinimum": 3,
+      "analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces": false,
+      "sharedParametersToParametersAmountMinimum": 3,
+      "sharedParametersToFieldsAmountMinimum": 3,
+      "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "ignoredVariableNames": []
+    }
+  },
+  "data_clumps": {
+    "parameters_to_parameters_data_clump-MyNativeCardReader.ts-MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate-MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate-abc": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-MyNativeCardReader.ts-MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate-MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate-abc",
+      "probability": 1,
+      "from_file_path": "MyNativeCardReader.ts",
+      "from_class_or_interface_name": "MyNativeCardReader",
+      "from_class_or_interface_key": "MyNativeCardReader.ts/class/MyNativeCardReader",
+      "from_method_name": "readCardDublicate",
+      "from_method_key": "MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate",
+      "to_file_path": "MyUnsupportedCardReader.ts",
+      "to_class_or_interface_name": "MyUnsupportedCardReader",
+      "to_class_or_interface_key": "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader",
+      "to_method_name": "readCardDublicate",
+      "to_method_key": "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate/parameter/a": {
+          "key": "MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate/parameter/a",
+          "name": "a",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate/parameter/a",
+            "name": "a",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate/parameter/b": {
+          "key": "MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate/parameter/b",
+          "name": "b",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate/parameter/b",
+            "name": "b",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate/parameter/c": {
+          "key": "MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate/parameter/c",
+          "name": "c",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate/parameter/c",
+            "name": "c",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "parameters_to_parameters_data_clump-MyUnsupportedCardReader.ts-MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate-MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate-abc": {
+      "type": "data_clump",
+      "key": "parameters_to_parameters_data_clump-MyUnsupportedCardReader.ts-MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate-MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate-abc",
+      "probability": 1,
+      "from_file_path": "MyUnsupportedCardReader.ts",
+      "from_class_or_interface_name": "MyUnsupportedCardReader",
+      "from_class_or_interface_key": "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader",
+      "from_method_name": "readCardDublicate",
+      "from_method_key": "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate",
+      "to_file_path": "MyNativeCardReader.ts",
+      "to_class_or_interface_name": "MyNativeCardReader",
+      "to_class_or_interface_key": "MyNativeCardReader.ts/class/MyNativeCardReader",
+      "to_method_name": "readCardDublicate",
+      "to_method_key": "MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate",
+      "data_clump_type": "parameters_to_parameters_data_clump",
+      "data_clump_data": {
+        "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate/parameter/a": {
+          "key": "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate/parameter/a",
+          "name": "a",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate/parameter/a",
+            "name": "a",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate/parameter/b": {
+          "key": "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate/parameter/b",
+          "name": "b",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate/parameter/b",
+            "name": "b",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate/parameter/c": {
+          "key": "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate/parameter/c",
+          "name": "c",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate/parameter/c",
+            "name": "c",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    }
+  }
+}
