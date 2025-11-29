@@ -32,6 +32,7 @@ export class AstElementTypeContext {
 export class VariableTypeContext extends AstElementTypeContext {
   public modifiers: string[] | undefined;
   public ignore: boolean;
+  public inheritedFromClassOrInterfaceKey: string | undefined; // key of the class or interface where this member field is defined
 
   public constructor(key, name, type, modifiers, ignore) {
     super(key, name, type);
@@ -196,7 +197,6 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext {
   public innerDefinedInterfaces: Dictionary<ClassOrInterfaceTypeContext>;
 
   public static fromObject(obj: ClassOrInterfaceTypeContext) {
-    //console.log("Copy ClassOrInterfaceTypeContext");
 
     // @ts-ignore
     let instance = new ClassOrInterfaceTypeContext();
@@ -220,7 +220,6 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext {
       instance.innerDefinedInterfaces[innerDefinedInterfaceKey] = ClassOrInterfaceTypeContext.fromObject(instance.innerDefinedInterfaces[innerDefinedInterfaceKey]);
     }
 
-    //console.log("Copy ClassOrInterfaceTypeContext finished");
     return instance;
   }
 
@@ -260,15 +259,11 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext {
 
   public isWholeHierarchyKnown(softwareProjectDicts: SoftwareProjectDicts) {
     let currentClassOrInterface = this;
-    //console.log("-- currentClassOrInterface.key: "+currentClassOrInterface?.key)
     let superClassesOrInterfacesKeys = currentClassOrInterface.getSuperClassesAndInterfacesKeys(softwareProjectDicts, true);
-    //console.log("-- superClassesOrInterfacesKeys");
-    //console.log(superClassesOrInterfacesKeys);
+
     for (let superClassesOrInterfaceKey of superClassesOrInterfacesKeys) {
       let superClassesOrInterface = softwareProjectDicts.dictClassOrInterface[superClassesOrInterfaceKey];
       if (!superClassesOrInterface) {
-        //console.log("Found no superClassesOrInterface for: "+superClassesOrInterfaceKey);
-        //console.log("The hierarchy is therefore not complete");
         return false;
       }
     }
@@ -293,18 +288,13 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext {
    */
   public isWholeHierarchyKnownPrintUnknown(softwareProjectDicts: SoftwareProjectDicts) {
     let currentClassOrInterface = this;
-    //console.log("-- currentClassOrInterface.key: "+currentClassOrInterface?.key)
     let superClassesOrInterfacesKeys = currentClassOrInterface.getSuperClassesAndInterfacesKeys(softwareProjectDicts, true);
-    //console.log("-- superClassesOrInterfacesKeys");
-    //console.log(superClassesOrInterfacesKeys);
     for (let superClassesOrInterfaceKey of superClassesOrInterfacesKeys) {
       // remove generics from key --> no we dont do that --> fix the AST parser instead
       //let superClassesOrInterfaceKeyWithoutGenerics = superClassesOrInterfaceKey.split("<")[0];
       //superClassesOrInterfaceKey = superClassesOrInterfaceKeyWithoutGenerics;
       let superClassesOrInterface = softwareProjectDicts.dictClassOrInterface[superClassesOrInterfaceKey];
       if (!superClassesOrInterface) {
-        //console.log("Found no superClassesOrInterface for: "+superClassesOrInterfaceKey);
-        //console.log("The hierarchy is therefore not complete");
         return false;
       }
     }
@@ -313,8 +303,7 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext {
   }
 
   public getSuperClassesAndInterfacesKeys(softwareProjectDicts: SoftwareProjectDicts, recursive: boolean, checkedKeys: Dictionary<string | null> = {}, level = 0): any[] {
-    //console.log(level+" - getSuperClassesAndInterfacesKeys for: "+this.key);
-    //console.log(this);
+
     let foundKeys: Dictionary<string | null> = {};
 
     if (!checkedKeys) {

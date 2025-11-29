@@ -427,8 +427,8 @@ export class Analyzer {
       this.detectTimer.printElapsedTime('Detect time for commit: ' + commit);
 
       console.log('Project Name: ' + this.projectInfo.project_name);
-      console.log(JSON.stringify(dataClumpsContext.project_info, null, 2));
-      console.log(JSON.stringify(dataClumpsContext.report_summary, null, 2));
+      //console.log(JSON.stringify(dataClumpsContext.project_info, null, 2));
+      //console.log(JSON.stringify(dataClumpsContext.report_summary, null, 2));
 
       let timerInformation = {
         ast_generation_time_ms: this.astTimer.getLatestElapsedTime(),

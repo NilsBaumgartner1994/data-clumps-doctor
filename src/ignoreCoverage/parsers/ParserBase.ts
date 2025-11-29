@@ -3,8 +3,33 @@ import { ClassOrInterfaceTypeContext } from '../ParsedAstTypes';
 import fs from 'fs';
 import path from 'path';
 
+class MyLogger {
+
+  private shouldLog = false;
+
+  constructor() {
+    this.shouldLog = false;
+  }
+
+  checkClassName(name: string) {
+    this.shouldLog = false;
+    let logForClassNames = ['MyTranslatorInterface', 'DeepLTranslator'];
+    if (logForClassNames.includes(name)) {
+      this.shouldLog = true;
+    }
+  }
+
+  log(message: string) {
+    if (this.shouldLog) {
+      console.log(message);
+    }
+  }
+}
+
 export abstract class ParserBase implements ParserInterface {
   async parseSourceToAst(path_to_source_folder: string, path_to_ast_output: string) {
+    let logger = new MyLogger();
+
     //console.log("Parsing source to AST");
     //console.log(`Loading source from ${path_to_source_folder}`);
     //console.log(`Saving AST to ${path_to_ast_output}`);
@@ -24,6 +49,13 @@ export abstract class ParserBase implements ParserInterface {
 
       // replace / and \ with _
       key = key.replace(/[/\\]/g, '_');
+
+      let namePart = key.split('_').pop();
+      if (namePart) {
+        logger.checkClassName(namePart);
+        logger.log(`Processing ${namePart}`);
+        logger.log(JSON.stringify(classOrInterface, null,  2));
+      }
 
       let path_to_file = path.join(path_to_ast_output, key + '.json');
       //console.log(`Saving ${key} to ${path_to_file}`);

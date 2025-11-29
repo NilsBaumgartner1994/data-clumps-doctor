@@ -1,0 +1,10 @@
+{
+  "id": "check",
+  "name": "Java field-field with inherited fields but included inherited fields from analysis",
+  "language": "java",
+  "sourceDir": "source",
+  "expectedReportFile": "report-expected.json",
+  "detectorOptions": {
+    "analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces": true
+  }
+}

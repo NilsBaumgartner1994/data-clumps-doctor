@@ -227,7 +227,6 @@ function getDefaultValuesFromPartialOptions(partialOptions: Partial<DetectorOpti
   let result: DetectorOptions = {};
 
   let DetectorOptionsKeys = Object.keys(DetectorOptionsInformation);
-  //console.log(DetectorOptionsKeys)
 
   for (const key of DetectorOptionsKeys) {
     const attributeKey = key;

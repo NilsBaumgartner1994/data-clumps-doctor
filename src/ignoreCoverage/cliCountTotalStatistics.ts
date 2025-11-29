@@ -5,6 +5,14 @@ import { Timer } from './Timer';
 import { AnalyseHelper, NumberOccurenceDict } from './AnalyseHelper';
 import path from 'path';
 
+function calculatePercentageWithoutDigits(part: number, total: number) {
+    if (total === 0) {
+        return 0
+    } else {
+        return Math.round((part / total) * 100);
+    }
+}
+
 function printDataClumpsClusterDistribution(all_report_files_paths: string[]) {
   console.log('Counting data clumps cluster distribution ...');
 
@@ -18,6 +26,8 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]) {
   let numberOccurenceDictAmountMethods = new NumberOccurenceDict();
   let numberOccurenceDictAmountDataClumps = new NumberOccurenceDict();
 
+  let numberOccurenceDictPercentOfAllClassesHavingDataClumps = new NumberOccurenceDict();
+
   let numberFieldToFieldDataClumpsPerClassOrInterface = new NumberOccurenceDict();
   let numberParameterToParameterAndParameterToFieldDataClumpsPerMethod = new NumberOccurenceDict();
   let numberOccurenceDataClumpsPerReport = new NumberOccurenceDict();
@@ -27,12 +37,15 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]) {
   let numberOccurenceDictAmountDataClumpsInReportsWithDataClumps = new NumberOccurenceDict();
 
   let numberOccurenceDictFieldToClasses = new NumberOccurenceDict();
+  let numberOccurenceDictFieldToClassesMedian = new NumberOccurenceDict();
   let highestMedianFieldToClasses = 0;
   let highestMaximumFieldToClasses = 0;
   let numberOccurenceDictParameterToMethods = new NumberOccurenceDict();
+  let numberOccurenceDictParameterToMethodsMedian = new NumberOccurenceDict();
   let highestMedianParameterToMethods = 0;
   let highestMaximumParameterToMethods = 0;
   let numberOccurenceDictParameterToFields = new NumberOccurenceDict();
+    let numberOccurenceDictParameterToFieldsMedian = new NumberOccurenceDict();
   let highestMedianParameterToFields = 0;
   let highestMaximumParameterToFields = 0;
 
@@ -54,6 +67,7 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]) {
     project_name: string;
     number_class_and_interfaces_latest_commit: number;
     number_class_and_interfaces_total: number;
+    percentage_classes_and_interfaces_with_data_clumps: number;
     number_methods_latest_commit: number;
     number_methods_total: number;
     number_fields_total: number;
@@ -78,6 +92,7 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]) {
             project_name: project_name,
             number_class_and_interfaces_latest_commit: 0,
             number_class_and_interfaces_total: 0,
+            percentage_classes_and_interfaces_with_data_clumps: 0,
             number_methods_latest_commit: 0,
             number_methods_total: 0,
             number_fields_total: 0,
@@ -91,6 +106,15 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]) {
             newest_project_tag: report_file_json.project_info.project_tag,
             number_of_data_clumps_latest_commit: 0,
           };
+        }
+
+        let dictClassesOrInterfacesWithDataClumps: Record<string, boolean> = {};
+        let data_clumps = report_file_json?.data_clumps || {};
+        let data_clumps_keys = Object.keys(data_clumps);
+        for (let j = 0; j < data_clumps_keys.length; j++) {
+          let data_clump_key = data_clumps_keys[j];
+          let data_clump = data_clumps[data_clump_key];
+          dictClassesOrInterfacesWithDataClumps[data_clump.from_class_or_interface_key] = true;
         }
 
         let statisticsForProject = dictStatisticsForProject[project_name];
@@ -169,6 +193,11 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]) {
 
         let number_of_classes_or_interfaces = report_file_json?.project_info.number_of_classes_or_interfaces || 0;
         statisticsForProject.number_class_and_interfaces_total += number_of_classes_or_interfaces;
+
+        let percent_classes_with_data_clumps = calculatePercentageWithoutDigits(Object.keys(dictClassesOrInterfacesWithDataClumps).length, number_of_classes_or_interfaces);
+        statisticsForProject.percentage_classes_and_interfaces_with_data_clumps = percent_classes_with_data_clumps;
+        numberOccurenceDictPercentOfAllClassesHavingDataClumps.addOccurence(percent_classes_with_data_clumps, 1);
+
         let number_of_methods = report_file_json?.project_info.number_of_methods || 0;
         statisticsForProject.number_methods_total += number_of_methods;
         let number_of_fields = report_file_json?.project_info.number_of_data_fields || 0;
@@ -327,6 +356,8 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]) {
   console.log('average_amount_data_clumps_per_report: ' + average_amount_data_clumps_per_report);
   const average_amount_data_clumps_per_class_or_interface = total_amount_data_clumps / total_amount_classes_or_interfaces;
   console.log('average_amount_data_clumps_per_class_or_interface: ' + average_amount_data_clumps_per_class_or_interface);
+  const median_percent_of_all_classes_having_data_clumps = numberOccurenceDictPercentOfAllClassesHavingDataClumps.getMedian();
+  console.log('--> median_percent_of_all_classes_having_data_clumps: ' + median_percent_of_all_classes_having_data_clumps);
   const average_amount_data_clumps_per_method = total_amount_data_clumps / total_amount_methods;
   console.log('average_amount_data_clumps_per_method: ' + average_amount_data_clumps_per_method);
   const average_amount_field_to_field_data_clumps_per_class_or_interface = total_amount_fields_to_fields_data_clumps / total_amount_classes_or_interfaces;
@@ -338,14 +369,17 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]) {
   console.log('  highestMedianFieldToClasses: ' + highestMedianFieldToClasses);
   console.log('  highestMaximumFieldToClasses: ' + highestMaximumFieldToClasses);
   console.log('  average: ' + numberOccurenceDictFieldToClasses.getAverage());
+  console.log('  median: ' + numberOccurenceDictFieldToClasses.getMedian());
   console.log('invertedParameterToMethods: ');
   console.log('  highestMedianParameterToMethods: ' + highestMedianParameterToMethods);
   console.log('  highestMaximumParameterToMethods: ' + highestMaximumParameterToMethods);
   console.log('  average: ' + numberOccurenceDictParameterToMethods.getAverage());
+  console.log('  median: ' + numberOccurenceDictParameterToMethods.getMedian());
   console.log('invertedParameterToFields: ');
   console.log('  highestMedianParameterToFields: ' + highestMedianParameterToFields);
   console.log('  highestMaximumParameterToFields: ' + highestMaximumParameterToFields);
   console.log('  average: ' + numberOccurenceDictParameterToFields.getAverage());
+  console.log('  median: ' + numberOccurenceDictParameterToFields.getMedian());
   console.log('----');
   console.log('reports_with_data_clumps: ' + reports_with_data_clumps);
   console.log('Median amount classes or interfaces: ' + numberOccurenceDictAmountClassesOrInterfaces.getMedian());

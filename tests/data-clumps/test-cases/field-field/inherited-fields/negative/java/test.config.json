@@ -1,5 +1,5 @@
 {
-  "name": "Java field-field data clump between Patient and Doctor",
+  "name": "Java field-field with inherited fields but excluded inherited fields from analysis",
   "language": "java",
   "sourceDir": "source",
   "expectedReportFile": "report-expected.json",
