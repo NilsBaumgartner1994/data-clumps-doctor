@@ -197,7 +197,6 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext {
   public innerDefinedInterfaces: Dictionary<ClassOrInterfaceTypeContext>;
 
   public static fromObject(obj: ClassOrInterfaceTypeContext) {
-
     // @ts-ignore
     let instance = new ClassOrInterfaceTypeContext();
     Object.assign(instance, obj);
@@ -303,7 +302,6 @@ export class ClassOrInterfaceTypeContext extends AstElementTypeContext {
   }
 
   public getSuperClassesAndInterfacesKeys(softwareProjectDicts: SoftwareProjectDicts, recursive: boolean, checkedKeys: Dictionary<string | null> = {}, level = 0): any[] {
-
     let foundKeys: Dictionary<string | null> = {};
 
     if (!checkedKeys) {

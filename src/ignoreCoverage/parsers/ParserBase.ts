@@ -4,7 +4,6 @@ import fs from 'fs';
 import path from 'path';
 
 export class MyLogger {
-
   private shouldLog = false;
 
   constructor() {

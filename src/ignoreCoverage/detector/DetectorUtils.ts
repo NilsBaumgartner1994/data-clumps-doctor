@@ -198,7 +198,7 @@ export class DetectorUtils {
                 },
               };
 
-              if(otherClassParameter.inheritedFromClassOrInterfaceKey){
+              if (otherClassParameter.inheritedFromClassOrInterfaceKey) {
                 // @ts-ignore - TODO: Remove after updating data-clumps-type-context
                 related_to_parameter.inheritedFromClassOrInterfaceKey = otherClassParameter.inheritedFromClassOrInterfaceKey;
               }
@@ -222,9 +222,9 @@ export class DetectorUtils {
               endColumn: currentClassParameter.position?.endColumn,
             },
           };
-          if(currentClassParameter.inheritedFromClassOrInterfaceKey){
-              // @ts-ignore - TODO: Remove after updating data-clumps-type-context
-              currentParameters[currentClassParameter.key].inheritedFromClassOrInterfaceKey = currentClassParameter.inheritedFromClassOrInterfaceKey;
+          if (currentClassParameter.inheritedFromClassOrInterfaceKey) {
+            // @ts-ignore - TODO: Remove after updating data-clumps-type-context
+            currentParameters[currentClassParameter.key].inheritedFromClassOrInterfaceKey = currentClassParameter.inheritedFromClassOrInterfaceKey;
           }
         }
       }

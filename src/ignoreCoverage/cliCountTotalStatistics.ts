@@ -6,11 +6,11 @@ import { AnalyseHelper, NumberOccurenceDict } from './AnalyseHelper';
 import path from 'path';
 
 function calculatePercentageWithoutDigits(part: number, total: number) {
-    if (total === 0) {
-        return 0
-    } else {
-        return Math.round((part / total) * 100);
-    }
+  if (total === 0) {
+    return 0;
+  } else {
+    return Math.round((part / total) * 100);
+  }
 }
 
 function printDataClumpsClusterDistribution(all_report_files_paths: string[]) {
@@ -45,7 +45,7 @@ function printDataClumpsClusterDistribution(all_report_files_paths: string[]) {
   let highestMedianParameterToMethods = 0;
   let highestMaximumParameterToMethods = 0;
   let numberOccurenceDictParameterToFields = new NumberOccurenceDict();
-    let numberOccurenceDictParameterToFieldsMedian = new NumberOccurenceDict();
+  let numberOccurenceDictParameterToFieldsMedian = new NumberOccurenceDict();
   let highestMedianParameterToFields = 0;
   let highestMaximumParameterToFields = 0;
 

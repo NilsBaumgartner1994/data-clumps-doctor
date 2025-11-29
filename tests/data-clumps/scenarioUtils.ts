@@ -213,17 +213,16 @@ async function buildSoftwareProjectDicts(parser: ParserInterface, sourcePath: st
 export async function runScenario(scenario: Scenario) {
   const parser = createParser(scenario.language);
   const softwareProjectDicts = await buildSoftwareProjectDicts(parser, scenario.sourcePath, scenario.detectorOptions);
-  if(scenario.debug) {
+  if (scenario.debug) {
     console.log(`SoftwareProjectDicts for scenario "${scenario.name}":`);
     console.log(JSON.stringify(softwareProjectDicts, null, 2));
   }
 
   const detector = new Detector(softwareProjectDicts, scenario.detectorOptions ?? null, null, null, scenario.name, null, null, null, null, null, scenario.language);
   let result = await detector.detect();
-  if(scenario.debug) {
+  if (scenario.debug) {
     console.log(`Detection result for scenario "${scenario.name}":`);
     console.log(JSON.stringify(result.report_summary, null, 2));
   }
   return result;
-
 }
