@@ -105,7 +105,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
             paramNames.push(paramName);
             const paramKey = paramName;
             const paramType = this.normalizeTypeText(param.getType().getText(), path_to_source_folder);
-            const paramCtx = new MethodParameterTypeContext(paramKey, paramName, paramType, [], false, methodCtx);
+            const paramCtx = new MethodParameterTypeContext(paramName, paramName, paramType, [], false, methodCtx);
             methodCtx.parameters.push(paramCtx);
           }
             this.logger.log("     - Found method " + methodName + " (" + paramNames.join(", ") + ") : " + returnTypeText);
@@ -205,8 +205,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
                   // ignore
                 }
 
-                const paramKey = paramName;
-                const paramCtx = new MethodParameterTypeContext(paramKey, paramName, paramType, [], false, methodCtx);
+                const paramCtx = new MethodParameterTypeContext(paramName, paramName, paramType, [], false, methodCtx);
                 methodCtx.parameters.push(paramCtx);
               }
 
@@ -234,7 +233,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
             const paramName = param.getName();
             const paramKey = paramName;
             const paramType = this.normalizeTypeText(param.getType().getText(), path_to_source_folder);
-            const paramCtx = new MethodParameterTypeContext(paramKey, paramName, paramType, [], false, methodCtx);
+            const paramCtx = new MethodParameterTypeContext(paramName, paramName, paramType, [], false, methodCtx);
             methodCtx.parameters.push(paramCtx);
           }
 
@@ -282,7 +281,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
    */
   private resolveTypeToClassOrInterfaceKey(typeText: string, sourceFile: any, projectRoot: string, project: Project): string | undefined {
     // 1) Prüfe auf import("...").TypeName Pattern
-    const importRegex = /import\((['"])([^'"]+)\1\)\.?([A-Za-z0-9_$]+)?/;
+    const importRegex = /import\((['"])([^'"\\]+)\1\)\.?([A-ZaZ0-9_$]+)?/;
     let m = importRegex.exec(typeText);
     if (m) {
       const importPath = m[2];
@@ -291,12 +290,28 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
         return undefined;
       }
 
-      // Suche die Datei im Project (verschiedene Extension-Versuche)
-      const possibleModulePaths = [importPath, importPath + '.ts', importPath + '.tsx', importPath + '.d.ts', importPath + '/index.ts', importPath + '/index.tsx'];
-      for (const candidate of possibleModulePaths) {
+      // Build a list of candidate absolute paths to look for in the project
+      const dirOfSource = path.dirname(sourceFile.getFilePath());
+      const candidates: string[] = [];
+
+      // If importPath is relative, resolve it relative to the source file
+      if (importPath.startsWith('.')) {
+        const abs = path.resolve(dirOfSource, importPath);
+        candidates.push(abs);
+        candidates.push(abs + '.ts', abs + '.tsx', abs + '.d.ts', path.join(abs, 'index.ts'), path.join(abs, 'index.tsx'));
+      } else {
+        // non-relative imports: try resolving relative to project root and also try as-is
+        const absFromRoot = path.resolve(projectRoot, importPath);
+        candidates.push(absFromRoot, absFromRoot + '.ts', absFromRoot + '.tsx', absFromRoot + '.d.ts', path.join(absFromRoot, 'index.ts'), path.join(absFromRoot, 'index.tsx'));
+        candidates.push(importPath, importPath + '.ts', importPath + '.tsx', importPath + '/index.ts');
+      }
+
+      // Normalize and try to find a matching source file
+      for (const candidate of candidates) {
+        const normCandidate = candidate.split(path.sep).join('/');
         const found = project.getSourceFiles().find(sf => {
           const sfPath = sf.getFilePath().split(path.sep).join('/');
-          return sfPath.endsWith(candidate) || sfPath.endsWith(candidate.replace(/\.ts$|\.tsx$|\.d\.ts$/,''));
+          return sfPath === normCandidate || sfPath.endsWith('/' + normCandidate) || sfPath.endsWith(normCandidate);
         });
         if (found) {
           const rel = path.relative(projectRoot, found.getFilePath()).split(path.sep).join('/');
