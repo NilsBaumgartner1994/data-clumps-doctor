@@ -1,31 +1,10 @@
-import { ParserBase } from './ParserBase';
+import {MyLogger, ParserBase} from './ParserBase';
 import { ParserInterface } from './ParserInterface';
 import { Project, SyntaxKind } from 'ts-morph';
 import path from 'path';
 import { ClassOrInterfaceTypeContext, MemberFieldParameterTypeContext, MethodParameterTypeContext, MethodTypeContext } from '../ParsedAstTypes';
 
-class MyLogger {
 
-  private shouldLog = false;
-
-  constructor() {
-    this.shouldLog = false;
-  }
-
-  checkClassName(name: string) {
-    this.shouldLog = false;
-    let logForClassNames = ['DeepLTranslator'];
-    if (logForClassNames.includes(name)) {
-      this.shouldLog = true;
-    }
-  }
-
-    log(message: string) {
-    if (this.shouldLog) {
-      console.log(message);
-    }
-    }
-}
 
 export class ParserHelperTypeScript extends ParserBase implements ParserInterface {
   private logger: MyLogger = new MyLogger();
@@ -191,9 +170,54 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
           // ignore
         }
 
+        // iterate properties of interface; convert function-typed properties to methods
         for (const prop of intf.getProperties()) {
           const propName = prop.getName();
           const fieldKey = propName;
+
+          // Prefer reading the TypeNode (FunctionTypeNode) if present
+          const typeNode = prop.getTypeNode ? prop.getTypeNode() : undefined;
+          const isFunctionTypeNode = typeNode && typeof (typeNode as any).getParameters === 'function';
+
+          if (isFunctionTypeNode) {
+            try {
+              const paramsNodes = (typeNode as any).getParameters ? (typeNode as any).getParameters() : [];
+              const returnTypeNode = (typeNode as any).getReturnTypeNode ? (typeNode as any).getReturnTypeNode() : undefined;
+              const returnTypeText = returnTypeNode ? this.normalizeTypeText(returnTypeNode.getText(), path_to_source_folder) : this.normalizeTypeText(prop.getType().getCallSignatures && prop.getType().getCallSignatures()[0] ? prop.getType().getCallSignatures()[0].getReturnType().getText() : 'void', path_to_source_folder);
+
+              const methodCtx = new MethodTypeContext(fieldKey, propName, returnTypeText, false, ctx);
+              methodCtx.modifiers = [];
+
+              for (const pNode of paramsNodes) {
+                const paramName = typeof (pNode as any).getName === 'function' ? (pNode as any).getName() : (pNode as any).getText ? (pNode as any).getText() : 'param';
+                let paramType = 'any';
+                try {
+                  const pTypeNode = (pNode as any).getTypeNode ? (pNode as any).getTypeNode() : undefined;
+                  if (pTypeNode && typeof pTypeNode.getText === 'function') {
+                    paramType = this.normalizeTypeText(pTypeNode.getText(), path_to_source_folder);
+                  } else if ((pNode as any).getType && typeof (pNode as any).getType === 'function') {
+                    const pType = (pNode as any).getType();
+                    if (pType && typeof pType.getText === 'function') {
+                      paramType = this.normalizeTypeText(pType.getText(), path_to_source_folder);
+                    }
+                  }
+                } catch (e) {
+                  // ignore
+                }
+
+                const paramKey = paramName;
+                const paramCtx = new MethodParameterTypeContext(paramKey, paramName, paramType, [], false, methodCtx);
+                methodCtx.parameters.push(paramCtx);
+              }
+
+              ctx.methods[methodCtx.key] = methodCtx;
+              continue; // skip adding as field
+            } catch (e) {
+              // fallback to old behavior if signature parsing fails
+            }
+          }
+
+          // fallback: normal property
           const typeText = this.normalizeTypeText(prop.getType().getText(), path_to_source_folder);
           const field = new MemberFieldParameterTypeContext(fieldKey, propName, typeText, [], false, ctx);
           ctx.fields[field.key] = field;

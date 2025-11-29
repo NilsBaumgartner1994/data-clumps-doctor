@@ -3,7 +3,7 @@ import { ClassOrInterfaceTypeContext } from '../ParsedAstTypes';
 import fs from 'fs';
 import path from 'path';
 
-class MyLogger {
+export class MyLogger {
 
   private shouldLog = false;
 
@@ -13,7 +13,7 @@ class MyLogger {
 
   checkClassName(name: string) {
     this.shouldLog = false;
-    let logForClassNames = ['MyTranslatorInterface', 'DeepLTranslator'];
+    let logForClassNames: string[] = [];
     if (logForClassNames.includes(name)) {
       this.shouldLog = true;
     }
@@ -54,7 +54,8 @@ export abstract class ParserBase implements ParserInterface {
       if (namePart) {
         logger.checkClassName(namePart);
         logger.log(`Processing ${namePart}`);
-        logger.log(JSON.stringify(classOrInterface, null,  2));
+        //logger.log(JSON.stringify(classOrInterface, null,  2));
+        logger.log(JSON.stringify(classOrInterface?.methods, null, 2));
       }
 
       let path_to_file = path.join(path_to_ast_output, key + '.json');
