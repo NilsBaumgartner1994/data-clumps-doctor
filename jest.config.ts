@@ -84,6 +84,7 @@ export default {
   moduleNameMapper: {
     '^@azure/dtdl-parser$': '<rootDir>/jest/mocks/azure-dtdl-parser.js',
     '^@azure/logger$': '<rootDir>/jest/mocks/azure-logger.js',
+    '^@/(.*)$': '<rootDir>/tests/data-clumps/$1',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -157,6 +158,7 @@ export default {
     'generateMissingReports',
     'regenerateExistingReports',
     'scenarioUtils',
+    'test\\.config',
   ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files

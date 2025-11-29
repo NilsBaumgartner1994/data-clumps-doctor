@@ -10,6 +10,63 @@ import { ParserHelperJavaSourceCode } from '../../src/ignoreCoverage/parsers/Par
 import { ParserHelperTypeScript } from '../../src/ignoreCoverage/parsers/ParserHelperTypeScript';
 import { ClassOrInterfaceTypeContext } from '../../src/ignoreCoverage/ParsedAstTypes';
 
+const SCENARIO_CONFIG_FILENAMES = new Set(['test.config.ts', 'test.config.js', 'test.config.cjs', 'test.config.json']);
+
+let tsConfigPathsRegistered = false;
+let tsNodeRegistered = false;
+
+function ensureTsConfigPathsRegistered(configPath: string) {
+  if (tsConfigPathsRegistered) {
+    return;
+  }
+
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    require('tsconfig-paths/register');
+    tsConfigPathsRegistered = true;
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    throw new Error(`Unable to resolve module aliases while loading scenario config at ${configPath}. ${reason}. Please ensure tsconfig-paths is installed.`);
+  }
+}
+
+function ensureTsNodeRegistered(configPath: string) {
+  if (tsNodeRegistered) {
+    return;
+  }
+
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    require('ts-node/register');
+    tsNodeRegistered = true;
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    throw new Error(`Unable to load TypeScript scenario config at ${configPath}. ${reason}. Please run "yarn build" before executing the tests or ensure ts-node is installed.`);
+  }
+}
+
+function loadScenarioConfig(configPath: string): ScenarioConfig {
+  const extension = path.extname(configPath).toLowerCase();
+  if (extension === '.json') {
+    return JSON.parse(fs.readFileSync(configPath, 'utf8')) as ScenarioConfig;
+  }
+
+  ensureTsConfigPathsRegistered(configPath);
+
+  if (extension === '.ts') {
+    ensureTsNodeRegistered(configPath);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const loadedModule = require(configPath);
+  const config = (loadedModule?.default ?? loadedModule?.config ?? loadedModule) as ScenarioConfig | undefined;
+  if (!config) {
+    throw new Error(`Scenario config at ${configPath} did not export a configuration object.`);
+  }
+
+  return config;
+}
+
 export interface ScenarioConfig {
   id?: string;
   name: string;
@@ -34,14 +91,27 @@ function parserSupportsDictionary(parser: ParserInterface): parser is ParserWith
   return typeof (parser as Partial<ParserWithDictionary>).parseSourceToDictOfClassesOrInterfaces === 'function';
 }
 
+function resolveScenarioResourcePath(scenarioDir: string, relativePath: string): string {
+  const buildTestCasesDir = path.resolve(__dirname, 'test-cases');
+  const isBuildPath = buildTestCasesDir.includes(`${path.sep}build${path.sep}`);
+  if (isBuildPath) {
+    const relativeScenarioPath = path.relative(buildTestCasesDir, scenarioDir);
+    if (!relativeScenarioPath.startsWith('..') && !path.isAbsolute(relativeScenarioPath)) {
+      return path.resolve(__dirname, '..', '..', '..', 'tests/data-clumps/test-cases', relativeScenarioPath, relativePath);
+    }
+  }
+
+  return path.resolve(scenarioDir, relativePath);
+}
+
 function resolveScenarioPaths(configPath: string, rawConfig: ScenarioConfig): Scenario {
   const scenarioDir = path.dirname(configPath);
   return {
     ...rawConfig,
     scenarioDir,
     configPath,
-    sourcePath: path.resolve(scenarioDir, rawConfig.sourceDir),
-    expectedReportPath: path.resolve(scenarioDir, rawConfig.expectedReportFile),
+    sourcePath: resolveScenarioResourcePath(scenarioDir, rawConfig.sourceDir),
+    expectedReportPath: resolveScenarioResourcePath(scenarioDir, rawConfig.expectedReportFile),
   };
 }
 
@@ -61,8 +131,8 @@ export function discoverScenarioConfigs(baseDir: string): Scenario[] {
       const entryPath = path.join(current, entry.name);
       if (entry.isDirectory()) {
         stack.push(entryPath);
-      } else if (entry.isFile() && entry.name === 'test.config.json') {
-        const rawConfig = JSON.parse(fs.readFileSync(entryPath, 'utf8')) as ScenarioConfig;
+      } else if (entry.isFile() && SCENARIO_CONFIG_FILENAMES.has(entry.name)) {
+        const rawConfig = loadScenarioConfig(entryPath);
         scenarios.push(resolveScenarioPaths(entryPath, rawConfig));
       }
     }
