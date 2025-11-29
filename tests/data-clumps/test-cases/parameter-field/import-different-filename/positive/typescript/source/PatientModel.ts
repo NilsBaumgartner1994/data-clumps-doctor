@@ -10,4 +10,3 @@ export class Patient {
     this.visitCount = visitCount;
   }
 }
-
