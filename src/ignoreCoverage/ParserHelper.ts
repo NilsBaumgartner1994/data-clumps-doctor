@@ -1,23 +1,23 @@
-import {SoftwareProjectDicts} from './SoftwareProject';
+import { SoftwareProjectDicts } from './SoftwareProject';
 
 import fs from 'fs';
 import path from 'path';
-import {ClassOrInterfaceTypeContext} from './ParsedAstTypes';
-import {DetectorOptions} from '../index';
-import {pathMatchesPattern} from "./FilePathHelper";
+import { ClassOrInterfaceTypeContext } from './ParsedAstTypes';
+import { DetectorOptions } from '../index';
+import { pathMatchesPattern } from './FilePathHelper';
 
 export class ParserHelper {
   static async getSoftwareProjectDictsFromParsedAstFolder(path_to_folder_of_parsed_ast: string, detectorOptions: Partial<DetectorOptions>): Promise<SoftwareProjectDicts> {
     let softwareProjectDicts: SoftwareProjectDicts = new SoftwareProjectDicts();
 
     let excludePathsDict: Record<string, boolean> = {};
-    if(!!detectorOptions.pathsExcludedFromParsing && detectorOptions.pathsExcludedFromParsing.length > 0) {
+    if (!!detectorOptions.pathsExcludedFromParsing && detectorOptions.pathsExcludedFromParsing.length > 0) {
       for (const excludePath of detectorOptions.pathsExcludedFromParsing) {
         excludePathsDict[excludePath] = true;
       }
     }
 
-    let filesAndFoldersInPath = fs.readdirSync(path_to_folder_of_parsed_ast, {withFileTypes: true});
+    let filesAndFoldersInPath = fs.readdirSync(path_to_folder_of_parsed_ast, { withFileTypes: true });
     for (let fileOrFolder of filesAndFoldersInPath) {
       let fullPath = path.join(path_to_folder_of_parsed_ast, fileOrFolder.name);
       //console.log(`Found ${fullPath}`);
