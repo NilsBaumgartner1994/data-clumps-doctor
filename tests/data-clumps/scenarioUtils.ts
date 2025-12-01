@@ -84,14 +84,6 @@ export interface Scenario extends ScenarioConfig {
   expectedReportPath: string;
 }
 
-type ParserWithDictionary = ParserInterface & {
-  parseSourceToDictOfClassesOrInterfaces: (path: string) => Promise<Map<string, ClassOrInterfaceTypeContext>>;
-};
-
-function parserSupportsDictionary(parser: ParserInterface): parser is ParserWithDictionary {
-  return typeof (parser as Partial<ParserWithDictionary>).parseSourceToDictOfClassesOrInterfaces === 'function';
-}
-
 function resolveScenarioResourcePath(scenarioDir: string, relativePath: string): string {
   const buildTestCasesDir = path.resolve(__dirname, 'test-cases');
   const isBuildPath = buildTestCasesDir.includes(`${path.sep}build${path.sep}`);
@@ -184,18 +176,7 @@ async function buildSoftwareProjectDicts(parser: ParserInterface, sourcePath: st
     throw new Error(`Source path does not exist: ${sourcePath}`);
   }
 
-  if (parserSupportsDictionary(parser)) {
-    const classesOrInterfaces = await parser.parseSourceToDictOfClassesOrInterfaces(sourcePath);
-    const softwareProjectDicts = new SoftwareProjectDicts();
-    for (const classOrInterface of classesOrInterfaces.values()) {
-      softwareProjectDicts.loadClassOrInterface(classOrInterface);
-    }
-    return softwareProjectDicts;
-  }
-
   const tempAstDir = fs.mkdtempSync(path.join(os.tmpdir(), 'data-clumps-ast-'));
-  //console.log("Using temporary AST output directory:", tempAstDir);
-
   try {
     await parser.parseSourceToAst(sourcePath, tempAstDir);
     return await ParserHelper.getSoftwareProjectDictsFromParsedAstFolder(tempAstDir, detectorOptions ?? {});
@@ -213,10 +194,12 @@ async function buildSoftwareProjectDicts(parser: ParserInterface, sourcePath: st
 export async function runScenario(scenario: Scenario) {
   const parser = createParser(scenario.language);
   const softwareProjectDicts = await buildSoftwareProjectDicts(parser, scenario.sourcePath, scenario.detectorOptions);
+  /**
   if (scenario.debug) {
     console.log(`SoftwareProjectDicts for scenario "${scenario.name}":`);
     console.log(JSON.stringify(softwareProjectDicts, null, 2));
   }
+      */
 
   const detector = new Detector(softwareProjectDicts, scenario.detectorOptions ?? null, null, null, scenario.name, null, null, null, null, null, scenario.language);
   let result = await detector.detect();

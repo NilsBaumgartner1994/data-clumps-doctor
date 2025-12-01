@@ -101,6 +101,7 @@ function createScenarioTest(scenario: Scenario) {
         throw new Error(message);
       }
 
+      console.log(`Führe Szenario aus: ${scenario.name} (${scenarioDisplayPath})`);
       const actualReport = (await runScenario(scenario)) as DataClumpsReport;
       const expectedReport = loadExpectedReport(scenario.expectedReportPath);
 
@@ -140,8 +141,20 @@ function testAllLanguages() {
     const args = minimist(process.argv.slice(2));
     const scenarioId = args.id;
     let filteredScenarios = scenarios;
+    // Wenn Szenarien mit `debug === true` existieren und kein id-Filter gesetzt wurde,
+    // sollen nur diese ausgeführt werden und alle anderen als skipped markiert werden.
+    let onlyRunDebug = false;
     if (scenarioId) {
       filteredScenarios = scenarios.filter(s => s.id === scenarioId);
+    } else {
+      const debugScenarios = scenarios.filter(s => s.debug === true);
+      if (debugScenarios.length > 0) {
+        // Sortiere: zuerst diejenigen mit vorhandenem expectedReportPath, dann die ohne.
+        const withExpected = debugScenarios.filter(s => fs.existsSync(s.expectedReportPath));
+        const withoutExpected = debugScenarios.filter(s => !fs.existsSync(s.expectedReportPath));
+        filteredScenarios = [...withExpected, ...withoutExpected];
+        onlyRunDebug = true;
+      }
     }
     if (filteredScenarios.length === 0) {
       test('No data clumps scenarios found', () => {
@@ -151,6 +164,35 @@ function testAllLanguages() {
     }
     const skippedScenarios: string[] = [];
     for (const scenario of filteredScenarios) {
+      // Wenn Debug-only läuft und das expected-Report fehlt: trotzdem ausführen und
+      // zusätzlich eine Debug-Expected-Datei erstellen (Suffix '-debug.json').
+      const scenarioDisplayPath = path.relative(process.cwd(), scenario.scenarioDir) || scenario.scenarioDir;
+      if (onlyRunDebug && !fs.existsSync(scenario.expectedReportPath)) {
+        // Erstelle einen Test, der das Szenario ausführt, den Report speichert und fehlschlägt
+        test(`${scenario.name} (${scenarioDisplayPath}) [DEBUG: generated expected-report-debug]`, async () => {
+          try {
+            const actualReport = (await runScenario(scenario)) as DataClumpsReport;
+            // Schreibe debug-expected neben dem erwarteten Pfad mit Suffix '-debug.json'
+            const expectedDir = path.dirname(scenario.expectedReportPath);
+            const expectedBase = path.basename(scenario.expectedReportPath, path.extname(scenario.expectedReportPath));
+            const debugPath = path.join(expectedDir, `${expectedBase}-debug.json`);
+            fs.writeFileSync(debugPath, JSON.stringify(actualReport, null, 2), 'utf8');
+            const message = `Kein erwarteter Report für Szenario "${scenario.name}" gefunden. Es wurde ein Debug-Expected-Report erstellt: ${debugPath}`;
+            scenarioResults.set(`${scenario.name} (${scenarioDisplayPath})`, { status: 'failed', details: message });
+            throw new Error(message);
+          } catch (err) {
+            if (!scenarioResults.has(`${scenario.name} (${scenarioDisplayPath})`)) {
+              scenarioResults.set(`${scenario.name} (${scenarioDisplayPath})`, {
+                status: 'failed',
+                details: err instanceof Error ? err.message : String(err),
+              });
+            }
+            throw err;
+          }
+        });
+        continue;
+      }
+
       if (!fs.existsSync(scenario.expectedReportPath)) {
         skippedScenarios.push(`${scenario.name} (${scenario.scenarioDir})`);
         test.skip(`${scenario.name} (${scenario.scenarioDir}) [SKIPPED: missing report-expected]`, () => {
@@ -194,6 +236,37 @@ function testAllLanguages() {
       } else {
         console.log('❌ Fehlgeschlagen: Keine Tests fehlgeschlagen.');
       }
+
+      // Falls nur Debug-Szenarien ausgeführt wurden, drucke eine detaillierte Liste der Debug-Ergebnisse.
+      if (onlyRunDebug) {
+        const debugPassed: string[] = [];
+        const debugFailed: Array<{ name: string; details?: string }> = [];
+        for (const scenario of scenarios) {
+          if (!scenario.debug) continue;
+          const scenarioDisplayPath = path.relative(process.cwd(), scenario.scenarioDir) || scenario.scenarioDir;
+          const key = `${scenario.name} (${scenarioDisplayPath})`;
+          const result = scenarioResults.get(key);
+          if (!result) continue;
+          if (result.status === 'passed') {
+            debugPassed.push(key);
+          } else {
+            debugFailed.push({ name: key, details: result.details });
+          }
+        }
+
+        console.log('\nErgebnisse (debug-only run):');
+        console.log(`✅ Debug bestanden: ${debugPassed.length}`);
+        for (const d of debugPassed) {
+          console.log(`  - ${d}`);
+        }
+        console.log(`❌ Debug fehlgeschlagen: ${debugFailed.length}`);
+        for (const d of debugFailed) {
+          console.log(`  - ${d.name}`);
+          if (d.details) {
+            console.log(`    Details: ${d.details}`);
+          }
+        }
+      }
     });
   });
 }
@@ -201,3 +274,4 @@ function testAllLanguages() {
 testAllLanguages();
 
 export {}; // In order to allow our outer react app to compile, we need to add an empty export statement to this file.
+

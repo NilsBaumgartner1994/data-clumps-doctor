@@ -107,9 +107,17 @@ export class DetectorOptionsInformation {
     type: 'boolean',
   };
 
-  public static ignorePaths: DetectorOptionInformationParameter = {
-    label: 'Ignore Paths',
-    description: "If set to true, the detector will ignore paths. Default value is an empty array. The paths are relative to the project root. For example: ['src/test/java', 'src/main/resources']. The paths can contain wildcards. For example: ['src/test/java/*', 'src/main/resources/*'] and will be ignored.",
+  public static pathsExcludedFromParsing: DetectorOptionInformationParameter = {
+    label: 'Paths Excluded From Parsing',
+    description: "A list of paths that will be excluded from parsing (these files will not be loaded). Default value is an empty array. The paths are relative to the project root. For example: ['src/test/java', 'src/main/resources']. The paths can contain wildcards. For example: ['src/test/java/*', 'src/main/resources/*'].",
+    defaultValue: [],
+    group: 'all',
+    type: 'string[]',
+  };
+
+  public static pathsIgnoredInDetectionComparison: DetectorOptionInformationParameter = {
+    label: 'Paths Ignored In Detection Comparison',
+    description: "A list of paths that will be parsed but ignored during detection comparison. Files matching these paths are parsed (so their ASTs are available) but will not be considered as sources or targets during data-clump detection. Default value is an empty array. Supports wildcards like ['db/types/*'].",
     defaultValue: [],
     group: 'all',
     type: 'string[]',

@@ -77,6 +77,7 @@ export class DetectorDataClumpsMethods {
     let { currentMethod, detectedDataClumpsDict, softwareProjectDicts, invertedIndexSoftwareProject } = detectContext;
 
     let currentClassOrInterface = MethodTypeContext.getClassOrInterface(currentMethod, softwareProjectDicts);
+
     if (currentClassOrInterface.auxclass) {
       // ignore auxclasses as are not important for our project
       return;

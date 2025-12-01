@@ -70,6 +70,22 @@ program
     },
     []
   )
+  .option(
+    '--detector_options_paths_excluded_from_parsing <paths>',
+    'List of paths excluded from parsing (supports [a,b,c])',
+    val => {
+      return parseArrayFromString(val);
+    },
+    []
+  )
+  .option(
+    '--detector_options_paths_ignored_in_detection_comparison <paths>',
+    'List of paths that are parsed but ignored during detection comparison (supports [a,b,c])',
+    val => {
+      return parseArrayFromString(val);
+    },
+    []
+  )
   .option('--project_name <project_name>', 'Project Name (default: Git-Name)')
   .option('--project_url <project_url>', 'Project URL (default: Git-Repo-URL)')
   .option('--project_version <project_version>', 'Project Version (default: Git-Commit hash)')
@@ -109,6 +125,15 @@ async function analyse(path_to_project, options) {
   let detector_options_ignored_variable_names = options.detector_options_ignored_variable_names;
   if (detector_options_ignored_variable_names && detector_options_ignored_variable_names.length > 0) {
     detector_options.ignoredVariableNames = detector_options_ignored_variable_names;
+  }
+  let detector_options_paths_excluded_from_parsing = options.detector_options_paths_excluded_from_parsing;
+  if (detector_options_paths_excluded_from_parsing && detector_options_paths_excluded_from_parsing.length > 0) {
+    detector_options.pathsExcludedFromParsing = detector_options_paths_excluded_from_parsing;
+  }
+
+  let detector_options_paths_ignored_in_detection_comparison = options.detector_options_paths_ignored_in_detection_comparison;
+  if (detector_options_paths_ignored_in_detection_comparison && detector_options_paths_ignored_in_detection_comparison.length > 0) {
+    detector_options.pathsIgnoredInDetectionComparison = detector_options_paths_ignored_in_detection_comparison;
   }
 
   if (!!detector_options_path) {

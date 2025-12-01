@@ -1,6 +1,6 @@
 {
   "name": "data-clumps-doctor",
-  "version": "0.1.101",
+  "version": "0.1.102",
   "description": "This is a package to identify data-clumps",
   "main": "index.js",
   "types": "index.d.ts",
@@ -8,7 +8,6 @@
     "coverage": "jest --coverage",
     "test": "yarn run build && yarn run testOnly",
     "testOnly": "jest --coverage=false",
-    "generate-missing-test-reports": "yarn run build && node ./build/tests/generateMissingReports.js",
     "regenerate-existing-test-report-expected": "yarn run build && node ./build/tests/regenerateExistingReports.js",
     "start": "yarn run build && node ./build/ignoreCoverage/development.js",
     "build": "rimraf ./build && tsc && mkdir -p ./build/src/ignoreCoverage && cp -r ./src/ignoreCoverage/astGenerator ./build/src/ignoreCoverage/ && cp -r ./build/src/ignoreCoverage ./build/ignoreCoverage && cp ./build/src/index.js ./build/index.js && cp ./build/src/index.d.ts ./build/index.d.ts && cp package.json ./build && cp ./README.md ./build && cp ./LICENSE.md ./build && npm run chmodCli",

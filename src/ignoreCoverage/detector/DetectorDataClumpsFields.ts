@@ -6,6 +6,7 @@ import { ClassOrInterfaceTypeContext, MemberFieldParameterTypeContext, MethodTyp
 import { SoftwareProjectDicts } from './../SoftwareProject';
 import { DetectorOptions, InvertedIndexSoftwareProject } from './Detector';
 import { DetectorBase } from './DetectorBase';
+import { pathMatchesPattern } from '../FilePathHelper';
 
 // TODO refactor this method to Detector since there is already the creation, so why not the refactoring
 function getParsedValuesFromPartialOptions(rawOptions: DetectorOptions): DetectorOptions {
