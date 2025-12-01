@@ -100,7 +100,6 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
           for (const param of method.getParameters()) {
             const paramName = param.getName();
             paramNames.push(paramName);
-            const paramKey = paramName;
             const paramType = this.normalizeTypeText(param.getType().getText(), path_to_source_folder);
             const paramCtx = new MethodParameterTypeContext(paramName, paramName, paramType, [], false, methodCtx);
             methodCtx.parameters.push(paramCtx);
@@ -227,7 +226,6 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
 
           for (const param of method.getParameters()) {
             const paramName = param.getName();
-            const paramKey = paramName;
             const paramType = this.normalizeTypeText(param.getType().getText(), path_to_source_folder);
             const paramCtx = new MethodParameterTypeContext(paramName, paramName, paramType, [], false, methodCtx);
             methodCtx.parameters.push(paramCtx);
@@ -238,6 +236,113 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
 
         dict.set(ctx.key, ctx);
       }
+
+      // --- New: treat `type` aliases similar to interfaces ---
+      try {
+        for (const ta of sourceFile.getTypeAliases ? sourceFile.getTypeAliases() : []) {
+          const name = ta.getName ? ta.getName() : 'anonymous_type';
+          this.logger.checkClassName(name);
+          this.logger.log('  - Found type alias: ' + name);
+
+          // We treat types like interfaces (per Wunsch) to keep downstream logic simple
+          const key = `${relativePath}/interface/${name}`;
+          const ctx = new ClassOrInterfaceTypeContext(key, name, 'interface', relativePath);
+          ctx.modifiers = [];
+
+          const typeNode = ta.getTypeNode ? ta.getTypeNode() : undefined;
+
+          // If the type is an object literal type, it often has members we can convert to fields/methods
+          try {
+            if (typeNode && (typeNode as any).getMembers && typeof (typeNode as any).getMembers === 'function') {
+              const members = (typeNode as any).getMembers();
+              for (const mem of members) {
+                // PropertySignature -> field
+                if (typeof (mem as any).getName === 'function' && (mem.getKindName && mem.getKindName() === 'PropertySignature')) {
+                  const propName = (mem as any).getName();
+                  let typeText = 'any';
+                  try {
+                    const tnode = (mem as any).getTypeNode ? (mem as any).getTypeNode() : undefined;
+                    if (tnode && typeof tnode.getText === 'function') typeText = this.normalizeTypeText(tnode.getText(), path_to_source_folder);
+                    else if ((mem as any).getType && typeof (mem as any).getType === 'function') {
+                      const t = (mem as any).getType();
+                      if (t && typeof t.getText === 'function') typeText = this.normalizeTypeText(t.getText(), path_to_source_folder);
+                    }
+                  } catch (e) {
+                    // ignore
+                  }
+                  const field = new MemberFieldParameterTypeContext(propName, propName, typeText, [], false, ctx);
+                  ctx.fields[field.key] = field;
+                }
+
+                // CallSignature / MethodSignature -> method
+                if ((mem.getKindName && (mem.getKindName() === 'CallSignature' || mem.getKindName() === 'MethodSignature')) || (mem.getParameters && typeof (mem.getParameters) === 'function')) {
+                  try {
+                    const methodName = (mem as any).getName && (mem as any).getName() ? (mem as any).getName() : 'call';
+                    const returnNode = (mem as any).getReturnTypeNode ? (mem as any).getReturnTypeNode() : undefined;
+                    const returnTypeText = returnNode && typeof returnNode.getText === 'function' ? this.normalizeTypeText(returnNode.getText(), path_to_source_folder) : 'void';
+                    const methodCtx = new MethodTypeContext(methodName, methodName, returnTypeText, false, ctx);
+                    methodCtx.modifiers = [];
+                    const params = (mem as any).getParameters ? (mem as any).getParameters() : [];
+                    for (const p of params) {
+                      const pname = (p.getName && p.getName()) ? p.getName() : (p.getText && p.getText()) ? p.getText() : 'param';
+                      let ptype = 'any';
+                      try {
+                        const ptn = (p as any).getTypeNode ? (p as any).getTypeNode() : undefined;
+                        if (ptn && typeof ptn.getText === 'function') ptype = this.normalizeTypeText(ptn.getText(), path_to_source_folder);
+                        else if ((p as any).getType && typeof (p as any).getType === 'function') {
+                          const pt = (p as any).getType();
+                          if (pt && typeof pt.getText === 'function') ptype = this.normalizeTypeText(pt.getText(), path_to_source_folder);
+                        }
+                      } catch (e) {
+                        // ignore
+                      }
+                      const paramCtx = new MethodParameterTypeContext(pname, pname, ptype, [], false, methodCtx);
+                      methodCtx.parameters.push(paramCtx);
+                    }
+                    ctx.methods[methodCtx.key] = methodCtx;
+                  } catch (e) {
+                    // ignore per-member failures
+                  }
+                }
+              }
+            } else if (typeNode && (typeNode as any).getParameters && typeof (typeNode as any).getParameters === 'function') {
+              // Function type alias: treat as a single 'call' method
+              const paramsNodes = (typeNode as any).getParameters ? (typeNode as any).getParameters() : [];
+              const returnTypeNode = (typeNode as any).getReturnTypeNode ? (typeNode as any).getReturnTypeNode() : undefined;
+              const returnTypeText = returnTypeNode && typeof returnTypeNode.getText === 'function' ? this.normalizeTypeText(returnTypeNode.getText(), path_to_source_folder) : 'void';
+              const methodCtx = new MethodTypeContext('call', 'call', returnTypeText, false, ctx);
+              methodCtx.modifiers = [];
+              for (const pNode of paramsNodes) {
+                const paramName = typeof (pNode as any).getName === 'function' ? (pNode as any).getName() : (pNode as any).getText ? (pNode as any).getText() : 'param';
+                let paramType = 'any';
+                try {
+                  const pTypeNode = (pNode as any).getTypeNode ? (pNode as any).getTypeNode() : undefined;
+                  if (pTypeNode && typeof pTypeNode.getText === 'function') {
+                    paramType = this.normalizeTypeText(pTypeNode.getText(), path_to_source_folder);
+                  } else if ((pNode as any).getType && typeof (pNode as any).getType === 'function') {
+                    const pType = (pNode as any).getType();
+                    if (pType && typeof pType.getText === 'function') {
+                      paramType = this.normalizeTypeText(pType.getText(), path_to_source_folder);
+                    }
+                  }
+                } catch (e) {
+                  // ignore
+                }
+                const paramCtx = new MethodParameterTypeContext(paramName, paramName, paramType, [], false, methodCtx);
+                methodCtx.parameters.push(paramCtx);
+              }
+              ctx.methods[methodCtx.key] = methodCtx;
+            }
+          } catch (e) {
+            // ignore type parsing failures and keep an empty ctx
+          }
+
+          dict.set(ctx.key, ctx);
+        }
+      } catch (e) {
+        // ignore failures enumerating type aliases
+      }
+
     }
 
     return dict;
