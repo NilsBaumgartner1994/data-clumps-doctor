@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-12-01T12:55:02.239Z",
+  "report_timestamp": "2025-12-01T13:22:24.829Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -28,16 +28,16 @@
         }
       },
       "timer_information": {
-        "ast_generation_time_ms": 1925,
-        "detection_time_ms": 9,
+        "ast_generation_time_ms": 1904,
+        "detection_time_ms": 10,
         "machine_information": {
           "os": "Linux",
           "os_release": "6.11.0-1018-azure",
           "os_platform": "linux",
           "os_arch": "x64",
-          "os_uptime": 376.64,
-          "os_memory_free": 15494381568,
-          "os_memory_total": 16772575232,
+          "os_uptime": 134.13,
+          "os_memory_free": 15507787776,
+          "os_memory_total": 16772579328,
           "os_cpu_cores": 4,
           "os_cpu_model": "AMD EPYC 7763 64-Core Processor",
           "os_cpu_speed": 0
@@ -55,10 +55,10 @@
   "project_info": {
     "project_url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
     "project_name": "data-clumps-doctor",
-    "project_version": "bc6f35bc2a3ff03961a96dde2ebc8ddecc132f61",
-    "project_commit_hash": "bc6f35bc2a3ff03961a96dde2ebc8ddecc132f61",
+    "project_version": "61a6ee1b212ddf64d461b01ae36a236e8f468d6c",
+    "project_commit_hash": "61a6ee1b212ddf64d461b01ae36a236e8f468d6c",
     "project_tag": null,
-    "project_commit_date": "1764593601",
+    "project_commit_date": "1764595184",
     "additional": {},
     "number_of_files": 30,
     "number_of_classes_or_interfaces": 54,
@@ -154,8 +154,8 @@
       "key": "fields_to_fields_data_clump-ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts-ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData-ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData-projectNameprojectUrlreport_file_pathtagcommitHashtimestampfieldFieldDataClumpsparameterParameterDataClumpsparameterFieldDataClumpsnumberOfBugIntroducingCommits",
       "probability": 1,
       "from_file_path": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts",
-      "from_class_or_interface_name": "ProjectData",
       "from_class_or_interface_key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData",
+      "from_class_or_interface_name": "ProjectData",
       "from_method_name": null,
       "from_method_key": null,
       "to_file_path": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts",
@@ -322,8 +322,8 @@
       "key": "fields_to_fields_data_clump-ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts-ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData-ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData-projectNameprojectUrlreport_file_pathtagcommitHashtimestampfieldFieldDataClumpsparameterParameterDataClumpsparameterFieldDataClumpsnumberOfBugIntroducingCommits",
       "probability": 1,
       "from_file_path": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts",
-      "from_class_or_interface_name": "ProjectData",
       "from_class_or_interface_key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData",
+      "from_class_or_interface_name": "ProjectData",
       "from_method_name": null,
       "from_method_key": null,
       "to_file_path": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts",
