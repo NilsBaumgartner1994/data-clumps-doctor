@@ -10,4 +10,3 @@ const config = {
 } satisfies ScenarioConfig;
 
 export default config;
-

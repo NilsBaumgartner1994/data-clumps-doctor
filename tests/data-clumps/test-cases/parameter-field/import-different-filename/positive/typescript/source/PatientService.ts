@@ -8,4 +8,3 @@ export class PatientService {
     console.log(`Registering patient ${patient.recordId} with active status ${patient.isActive} and ${patient.visitCount} recorded visits`);
   }
 }
-

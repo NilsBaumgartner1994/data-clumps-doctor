@@ -356,7 +356,8 @@ node /Users/nilsbaumgartner/Documents/GitHub/data-clumps-doctor/build/ignoreCove
 - [x] Parser
   - [x] Support Java - PMD
   - [x] Support TypeScript
-    - [ ] Bug - Parsing: Class/Interface not correctly detected, when import from file which has different name than class/interface
+    - [ ] Bug - Parsing: Class/Interface not correctly detected, when import from file which has
+          different name than class/interface
   - [ ] Support Python
   - [ ] Support C#
   - [ ] Support C++
