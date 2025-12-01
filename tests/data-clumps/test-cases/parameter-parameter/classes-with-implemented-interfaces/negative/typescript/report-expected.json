@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-11-29T13:56:00.839Z",
+  "report_timestamp": "2025-12-01T13:18:02.422Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -53,10 +53,11 @@
   "detector": {
     "name": "data-clumps-doctor",
     "url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
-    "version": "0.1.101",
+    "version": "0.1.102",
     "options": {
       "fastDetection": true,
-      "ignorePaths": [],
+      "pathsExcludedFromParsing": [],
+      "pathsIgnoredInDetectionComparison": [],
       "similarityModifierOfVariablesWithUnknownType": 0,
       "minimumSimilarityForDataClumps": 0.5,
       "fieldsOfClassesWithUnknownHierarchyProbabilityModifier": 0,

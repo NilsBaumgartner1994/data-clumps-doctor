@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-12-01T12:40:58.343Z",
+  "report_timestamp": "2025-12-01T13:18:36.599Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -53,7 +53,7 @@
   "detector": {
     "name": "data-clumps-doctor",
     "url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
-    "version": "0.1.101",
+    "version": "0.1.102",
     "options": {
       "fastDetection": true,
       "pathsExcludedFromParsing": [],
@@ -77,13 +77,13 @@
       "key": "fields_to_fields_data_clump-Doctor.ts-Doctor.ts/class/Doctor-Patient.ts/class/Patient-recordIdisActivevisitCount",
       "probability": 1,
       "from_file_path": "Doctor.ts",
-      "from_class_or_interface_name": "Doctor",
       "from_class_or_interface_key": "Doctor.ts/class/Doctor",
+      "from_class_or_interface_name": "Doctor",
       "from_method_name": null,
       "from_method_key": null,
       "to_file_path": "Patient.ts",
       "to_class_or_interface_key": "Patient.ts/class/Patient",
-      "to_class_or_interface_name": "Doctor",
+      "to_class_or_interface_name": "Patient",
       "to_method_key": null,
       "to_method_name": null,
       "data_clump_type": "fields_to_fields_data_clump",
@@ -152,13 +152,13 @@
       "key": "fields_to_fields_data_clump-Patient.ts-Patient.ts/class/Patient-Doctor.ts/class/Doctor-recordIdisActivevisitCount",
       "probability": 1,
       "from_file_path": "Patient.ts",
-      "from_class_or_interface_name": "Patient",
       "from_class_or_interface_key": "Patient.ts/class/Patient",
+      "from_class_or_interface_name": "Patient",
       "from_method_name": null,
       "from_method_key": null,
       "to_file_path": "Doctor.ts",
       "to_class_or_interface_key": "Doctor.ts/class/Doctor",
-      "to_class_or_interface_name": "Patient",
+      "to_class_or_interface_name": "Doctor",
       "to_method_key": null,
       "to_method_name": null,
       "data_clump_type": "fields_to_fields_data_clump",
