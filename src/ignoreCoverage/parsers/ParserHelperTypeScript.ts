@@ -257,7 +257,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
               const members = (typeNode as any).getMembers();
               for (const mem of members) {
                 // PropertySignature -> field
-                if (typeof (mem as any).getName === 'function' && (mem.getKindName && mem.getKindName() === 'PropertySignature')) {
+                if (typeof (mem as any).getName === 'function' && mem.getKindName && mem.getKindName() === 'PropertySignature') {
                   const propName = (mem as any).getName();
                   let typeText = 'any';
                   try {
@@ -275,7 +275,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
                 }
 
                 // CallSignature / MethodSignature -> method
-                if ((mem.getKindName && (mem.getKindName() === 'CallSignature' || mem.getKindName() === 'MethodSignature')) || (mem.getParameters && typeof (mem.getParameters) === 'function')) {
+                if ((mem.getKindName && (mem.getKindName() === 'CallSignature' || mem.getKindName() === 'MethodSignature')) || (mem.getParameters && typeof mem.getParameters === 'function')) {
                   try {
                     const methodName = (mem as any).getName && (mem as any).getName() ? (mem as any).getName() : 'call';
                     const returnNode = (mem as any).getReturnTypeNode ? (mem as any).getReturnTypeNode() : undefined;
@@ -284,7 +284,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
                     methodCtx.modifiers = [];
                     const params = (mem as any).getParameters ? (mem as any).getParameters() : [];
                     for (const p of params) {
-                      const pname = (p.getName && p.getName()) ? p.getName() : (p.getText && p.getText()) ? p.getText() : 'param';
+                      const pname = p.getName && p.getName() ? p.getName() : p.getText && p.getText() ? p.getText() : 'param';
                       let ptype = 'any';
                       try {
                         const ptn = (p as any).getTypeNode ? (p as any).getTypeNode() : undefined;
@@ -342,7 +342,6 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
       } catch (e) {
         // ignore failures enumerating type aliases
       }
-
     }
 
     return dict;

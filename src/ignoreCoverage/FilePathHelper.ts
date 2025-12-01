@@ -69,4 +69,3 @@ export default {
   normalizePath,
   pathMatchesPattern,
 };
-

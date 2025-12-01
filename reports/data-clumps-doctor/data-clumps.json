@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-11-29T18:58:21.041Z",
+  "report_timestamp": "2025-12-01T12:55:02.239Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -8,8 +8,8 @@
         "invertedFieldToClasses": {
           "median": 1.5,
           "maximum": 4,
-          "average": 1.1304347826086956,
-          "amountSavedValuesForKeys": 104,
+          "average": 1.1733333333333333,
+          "amountSavedValuesForKeys": 176,
           "amountKeys": 4
         },
         "invertedParameterToMethods": {
@@ -22,57 +22,58 @@
         "invertedParameterToClasses": {
           "median": 1,
           "maximum": 4,
-          "average": 1.1428571428571428,
-          "amountSavedValuesForKeys": 104,
+          "average": 1.1812080536912752,
+          "amountSavedValuesForKeys": 176,
           "amountKeys": 4
         }
       },
       "timer_information": {
-        "ast_generation_time_ms": 1916,
+        "ast_generation_time_ms": 1925,
         "detection_time_ms": 9,
         "machine_information": {
           "os": "Linux",
           "os_release": "6.11.0-1018-azure",
           "os_platform": "linux",
           "os_arch": "x64",
-          "os_uptime": 134.78,
-          "os_memory_free": 15525916672,
-          "os_memory_total": 16772579328,
+          "os_uptime": 376.64,
+          "os_memory_free": 15494381568,
+          "os_memory_total": 16772575232,
           "os_cpu_cores": 4,
           "os_cpu_model": "AMD EPYC 7763 64-Core Processor",
           "os_cpu_speed": 0
         }
       }
     },
-    "amount_classes_or_interfaces_with_data_clumps": 0,
-    "amount_files_with_data_clumps": 0,
-    "amount_methods_with_data_clumps": 0,
-    "fields_to_fields_data_clump": 0,
-    "parameters_to_fields_data_clump": 0,
+    "amount_classes_or_interfaces_with_data_clumps": 3,
+    "amount_files_with_data_clumps": 3,
+    "amount_methods_with_data_clumps": 1,
+    "fields_to_fields_data_clump": 2,
+    "parameters_to_fields_data_clump": 1,
     "parameters_to_parameters_data_clump": 0,
-    "amount_data_clumps": 0
+    "amount_data_clumps": 3
   },
   "project_info": {
     "project_url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
     "project_name": "data-clumps-doctor",
-    "project_version": "f93a1099d72b14e4e5d0ee92fdea60b6f813703f",
-    "project_commit_hash": "f93a1099d72b14e4e5d0ee92fdea60b6f813703f",
+    "project_version": "bc6f35bc2a3ff03961a96dde2ebc8ddecc132f61",
+    "project_commit_hash": "bc6f35bc2a3ff03961a96dde2ebc8ddecc132f61",
     "project_tag": null,
-    "project_commit_date": "1764442592",
+    "project_commit_date": "1764593601",
     "additional": {},
-    "number_of_files": 25,
-    "number_of_classes_or_interfaces": 39,
+    "number_of_files": 30,
+    "number_of_classes_or_interfaces": 54,
     "number_of_methods": 200,
-    "number_of_data_fields": 104,
+    "number_of_data_fields": 176,
     "number_of_method_parameters": 278
   },
   "detector": {
     "name": "data-clumps-doctor",
     "url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
-    "version": "0.1.101",
+    "version": "0.1.102",
     "options": {
       "fastDetection": true,
-      "ignorePaths": [],
+      "pathsExcludedFromParsing": [],
+      "pathsIgnoredInDetectionComparison": [],
       "similarityModifierOfVariablesWithUnknownType": 0,
       "minimumSimilarityForDataClumps": 0.5,
       "fieldsOfClassesWithUnknownHierarchyProbabilityModifier": 0,
@@ -84,5 +85,405 @@
       "ignoredVariableNames": []
     }
   },
-  "data_clumps": {}
+  "data_clumps": {
+    "parameters_to_fields_data_clump-ignoreCoverage/detector/DetectorUtils.ts-ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields-ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext-currentClassWholeHierarchyKnownotherClassWholeHierarchyKnownparameterPairs": {
+      "type": "data_clump",
+      "key": "parameters_to_fields_data_clump-ignoreCoverage/detector/DetectorUtils.ts-ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields-ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext-currentClassWholeHierarchyKnownotherClassWholeHierarchyKnownparameterPairs",
+      "probability": 1,
+      "from_file_path": "ignoreCoverage/detector/DetectorUtils.ts",
+      "from_class_or_interface_name": "DetectorUtils",
+      "from_class_or_interface_key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils",
+      "from_method_name": "calculateProbabilityOfDataClumpsMethodsToFields",
+      "from_method_key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields",
+      "to_file_path": "ignoreCoverage/detector/DetectorUtils.ts",
+      "to_class_or_interface_name": "ProbabilityContext",
+      "to_class_or_interface_key": "ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext",
+      "to_method_name": null,
+      "to_method_key": null,
+      "data_clump_type": "parameters_to_fields_data_clump",
+      "data_clump_data": {
+        "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/currentClassWholeHierarchyKnown": {
+          "key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/currentClassWholeHierarchyKnown",
+          "name": "currentClassWholeHierarchyKnown",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext/memberField/currentClassWholeHierarchyKnown",
+            "name": "currentClassWholeHierarchyKnown",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/otherClassWholeHierarchyKnown": {
+          "key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/otherClassWholeHierarchyKnown",
+          "name": "otherClassWholeHierarchyKnown",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext/memberField/otherClassWholeHierarchyKnown",
+            "name": "otherClassWholeHierarchyKnown",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/parameterPairs": {
+          "key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/parameterPairs",
+          "name": "parameterPairs",
+          "type": "ParameterPair[]",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext/memberField/parameterPairs",
+            "name": "parameterPairs",
+            "type": "ParameterPair[]",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "fields_to_fields_data_clump-ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts-ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData-ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData-projectNameprojectUrlreport_file_pathtagcommitHashtimestampfieldFieldDataClumpsparameterParameterDataClumpsparameterFieldDataClumpsnumberOfBugIntroducingCommits": {
+      "type": "data_clump",
+      "key": "fields_to_fields_data_clump-ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts-ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData-ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData-projectNameprojectUrlreport_file_pathtagcommitHashtimestampfieldFieldDataClumpsparameterParameterDataClumpsparameterFieldDataClumpsnumberOfBugIntroducingCommits",
+      "probability": 1,
+      "from_file_path": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts",
+      "from_class_or_interface_name": "ProjectData",
+      "from_class_or_interface_key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData",
+      "from_method_name": null,
+      "from_method_key": null,
+      "to_file_path": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts",
+      "to_class_or_interface_key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData",
+      "to_class_or_interface_name": "ProjectData",
+      "to_method_key": null,
+      "to_method_name": null,
+      "data_clump_type": "fields_to_fields_data_clump",
+      "data_clump_data": {
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/projectName": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/projectName",
+          "name": "projectName",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/projectName",
+            "name": "projectName",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/projectUrl": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/projectUrl",
+          "name": "projectUrl",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/projectUrl",
+            "name": "projectUrl",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/report_file_path": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/report_file_path",
+          "name": "report_file_path",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/report_file_path",
+            "name": "report_file_path",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/tag": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/tag",
+          "name": "tag",
+          "type": "string | undefined | null",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/tag",
+            "name": "tag",
+            "type": "string | undefined | null",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/commitHash": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/commitHash",
+          "name": "commitHash",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/commitHash",
+            "name": "commitHash",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/timestamp": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/timestamp",
+          "name": "timestamp",
+          "type": "number",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/timestamp",
+            "name": "timestamp",
+            "type": "number",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/fieldFieldDataClumps": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/fieldFieldDataClumps",
+          "name": "fieldFieldDataClumps",
+          "type": "number",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/fieldFieldDataClumps",
+            "name": "fieldFieldDataClumps",
+            "type": "number",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/parameterParameterDataClumps": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/parameterParameterDataClumps",
+          "name": "parameterParameterDataClumps",
+          "type": "number",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/parameterParameterDataClumps",
+            "name": "parameterParameterDataClumps",
+            "type": "number",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/parameterFieldDataClumps": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/parameterFieldDataClumps",
+          "name": "parameterFieldDataClumps",
+          "type": "number",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/parameterFieldDataClumps",
+            "name": "parameterFieldDataClumps",
+            "type": "number",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/numberOfBugIntroducingCommits": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/numberOfBugIntroducingCommits",
+          "name": "numberOfBugIntroducingCommits",
+          "type": "number | undefined",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/numberOfBugIntroducingCommits",
+            "name": "numberOfBugIntroducingCommits",
+            "type": "number | undefined",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    },
+    "fields_to_fields_data_clump-ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts-ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData-ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData-projectNameprojectUrlreport_file_pathtagcommitHashtimestampfieldFieldDataClumpsparameterParameterDataClumpsparameterFieldDataClumpsnumberOfBugIntroducingCommits": {
+      "type": "data_clump",
+      "key": "fields_to_fields_data_clump-ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts-ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData-ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData-projectNameprojectUrlreport_file_pathtagcommitHashtimestampfieldFieldDataClumpsparameterParameterDataClumpsparameterFieldDataClumpsnumberOfBugIntroducingCommits",
+      "probability": 1,
+      "from_file_path": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts",
+      "from_class_or_interface_name": "ProjectData",
+      "from_class_or_interface_key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData",
+      "from_method_name": null,
+      "from_method_key": null,
+      "to_file_path": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts",
+      "to_class_or_interface_key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData",
+      "to_class_or_interface_name": "ProjectData",
+      "to_method_key": null,
+      "to_method_name": null,
+      "data_clump_type": "fields_to_fields_data_clump",
+      "data_clump_data": {
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/projectName": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/projectName",
+          "name": "projectName",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/projectName",
+            "name": "projectName",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/projectUrl": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/projectUrl",
+          "name": "projectUrl",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/projectUrl",
+            "name": "projectUrl",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/report_file_path": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/report_file_path",
+          "name": "report_file_path",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/report_file_path",
+            "name": "report_file_path",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/tag": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/tag",
+          "name": "tag",
+          "type": "string | undefined | null",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/tag",
+            "name": "tag",
+            "type": "string | undefined | null",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/commitHash": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/commitHash",
+          "name": "commitHash",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/commitHash",
+            "name": "commitHash",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/timestamp": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/timestamp",
+          "name": "timestamp",
+          "type": "number",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/timestamp",
+            "name": "timestamp",
+            "type": "number",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/fieldFieldDataClumps": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/fieldFieldDataClumps",
+          "name": "fieldFieldDataClumps",
+          "type": "number",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/fieldFieldDataClumps",
+            "name": "fieldFieldDataClumps",
+            "type": "number",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/parameterParameterDataClumps": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/parameterParameterDataClumps",
+          "name": "parameterParameterDataClumps",
+          "type": "number",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/parameterParameterDataClumps",
+            "name": "parameterParameterDataClumps",
+            "type": "number",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/parameterFieldDataClumps": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/parameterFieldDataClumps",
+          "name": "parameterFieldDataClumps",
+          "type": "number",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/parameterFieldDataClumps",
+            "name": "parameterFieldDataClumps",
+            "type": "number",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/numberOfBugIntroducingCommits": {
+          "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData/memberField/numberOfBugIntroducingCommits",
+          "name": "numberOfBugIntroducingCommits",
+          "type": "number | undefined",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData/memberField/numberOfBugIntroducingCommits",
+            "name": "numberOfBugIntroducingCommits",
+            "type": "number | undefined",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      }
+    }
+  }
 }

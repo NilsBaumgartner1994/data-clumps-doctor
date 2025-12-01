@@ -6,7 +6,7 @@ const config = {
   sourceDir: 'source',
   expectedReportFile: 'report-expected.json',
   detectorOptions: {
-    pathsIgnoredInDetectionComparison: ["**/WithDataClumpsButIgnored.ts"]
+    pathsIgnoredInDetectionComparison: ['**/WithDataClumpsButIgnored.ts'],
   },
   debug: false,
 } satisfies ScenarioConfig;
