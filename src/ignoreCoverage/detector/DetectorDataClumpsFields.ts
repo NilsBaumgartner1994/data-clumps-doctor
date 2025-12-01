@@ -245,14 +245,14 @@ export class DetectorDataClumpsFields extends DetectorBase {
       probability: probability,
 
       from_file_path: fileKey,
-      from_class_or_interface_name: currentClass.name,
       from_class_or_interface_key: currentClass.key,
+      from_class_or_interface_name: currentClass.name,
       from_method_name: null,
       from_method_key: null,
 
       to_file_path: otherClass.file_path,
       to_class_or_interface_key: otherClass.key,
-      to_class_or_interface_name: currentClass.name,
+      to_class_or_interface_name: otherClass.name,
       to_method_key: null,
       to_method_name: null,
 
