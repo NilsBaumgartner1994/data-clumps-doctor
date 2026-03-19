@@ -11,6 +11,7 @@ import { DetectorDataClumpsMethodsToOtherMethods } from './DetectorDataClumpsMet
 import { ClassOrInterfaceTypeContext, MemberFieldParameterTypeContext, MethodParameterTypeContext, MethodTypeContext, VariableTypeContext } from '../ParsedAstTypes';
 import { DetectorUtils } from './DetectorUtils';
 import { NumberOccurenceDict } from '../AnalyseHelper';
+import { buildClusterInfoFromDataClumps } from '../ClusterHelper';
 
 /**
  * Recursively walks up directories to find the nearest package.json.
@@ -68,9 +69,8 @@ async function getReportFormat() {
 const defaultValueField = 'defaultValue';
 
 /**
- * Builds a graph of class/interface connections from data clumps and runs DFS to find
- * connected components. Assigns a cluster_id and cluster_type (1, 2, or 3) to the
- * data_clump_type_additional field of each data clump.
+ * Assigns cluster_id and cluster_type to each data clump's data_clump_type_additional
+ * field by delegating to the shared ClusterHelper.
  *
  * Cluster types:
  *  - Type 1: The cluster contains only a single class node (isolated).
@@ -78,55 +78,10 @@ const defaultValueField = 'defaultValue';
  *  - Type 3: The cluster contains three or more class nodes.
  */
 function assignClusterInfoToDataClumps(data_clumps_dict: Record<string, any>): void {
-  const data_clumps_keys = Object.keys(data_clumps_dict);
-
-  // Build undirected graph: node = class/interface key, edge = data clump relationship
-  const graph: Record<string, Set<string>> = {};
-  for (const data_clump_key of data_clumps_keys) {
-    const data_clump = data_clumps_dict[data_clump_key];
-    const from_class = data_clump.from_class_or_interface_key;
-    const to_class = data_clump.to_class_or_interface_key;
-
-    if (!graph[from_class]) {
-      graph[from_class] = new Set<string>();
-    }
-    if (!graph[to_class]) {
-      graph[to_class] = new Set<string>();
-    }
-    graph[from_class].add(to_class);
-    graph[to_class].add(from_class);
-  }
-
-  // DFS to find connected components and assign cluster IDs
-  const visited: Record<string, boolean> = {};
-  const nodeClusterInfo: Record<string, { cluster_id: number; cluster_type: number }> = {};
-  let cluster_id = 0;
-
-  function dfs(node: string): string[] {
-    visited[node] = true;
-    const members: string[] = [node];
-    for (const neighbor of graph[node]) {
-      if (!visited[neighbor]) {
-        members.push(...dfs(neighbor));
-      }
-    }
-    return members;
-  }
-
-  for (const node of Object.keys(graph)) {
-    if (!visited[node]) {
-      cluster_id++;
-      const members = dfs(node);
-      const cluster_size = members.length;
-      const cluster_type = cluster_size === 1 ? 1 : cluster_size === 2 ? 2 : 3;
-      for (const member of members) {
-        nodeClusterInfo[member] = { cluster_id, cluster_type };
-      }
-    }
-  }
+  const nodeClusterInfo = buildClusterInfoFromDataClumps(data_clumps_dict);
 
   // Annotate each data clump with cluster info via data_clump_type_additional
-  for (const data_clump_key of data_clumps_keys) {
+  for (const data_clump_key of Object.keys(data_clumps_dict)) {
     const data_clump = data_clumps_dict[data_clump_key];
     const from_class = data_clump.from_class_or_interface_key;
     const info = nodeClusterInfo[from_class];
