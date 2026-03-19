@@ -9,12 +9,83 @@
     "from_method_name": "calculateProbabilityOfDataClumpsMethodsToFields",
     "to_method_name": null,
     "amount_of_variables": 3,
-    "variable_names": ["currentClassWholeHierarchyKnown", "otherClassWholeHierarchyKnown", "parameterPairs"],
+    "variable_names": [
+      "currentClassWholeHierarchyKnown",
+      "otherClassWholeHierarchyKnown",
+      "parameterPairs"
+    ],
     "from_file_path": "ignoreCoverage/detector/DetectorUtils.ts",
     "to_file_path": "ignoreCoverage/detector/DetectorUtils.ts",
     "from_start_line": null,
     "from_end_line": null,
     "to_start_line": null,
-    "to_end_line": null
+    "to_end_line": null,
+    "raw": {
+      "type": "data_clump",
+      "key": "parameters_to_fields_data_clump-ignoreCoverage/detector/DetectorUtils.ts-ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields-ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext-currentClassWholeHierarchyKnownotherClassWholeHierarchyKnownparameterPairs",
+      "probability": 1,
+      "from_file_path": "ignoreCoverage/detector/DetectorUtils.ts",
+      "from_class_or_interface_name": "DetectorUtils",
+      "from_class_or_interface_key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils",
+      "from_method_name": "calculateProbabilityOfDataClumpsMethodsToFields",
+      "from_method_key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields",
+      "to_file_path": "ignoreCoverage/detector/DetectorUtils.ts",
+      "to_class_or_interface_name": "ProbabilityContext",
+      "to_class_or_interface_key": "ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext",
+      "to_method_name": null,
+      "to_method_key": null,
+      "data_clump_type": "parameters_to_fields_data_clump",
+      "data_clump_data": {
+        "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/currentClassWholeHierarchyKnown": {
+          "key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/currentClassWholeHierarchyKnown",
+          "name": "currentClassWholeHierarchyKnown",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext/memberField/currentClassWholeHierarchyKnown",
+            "name": "currentClassWholeHierarchyKnown",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/otherClassWholeHierarchyKnown": {
+          "key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/otherClassWholeHierarchyKnown",
+          "name": "otherClassWholeHierarchyKnown",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext/memberField/otherClassWholeHierarchyKnown",
+            "name": "otherClassWholeHierarchyKnown",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/parameterPairs": {
+          "key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/parameterPairs",
+          "name": "parameterPairs",
+          "type": "ParameterPair[]",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext/memberField/parameterPairs",
+            "name": "parameterPairs",
+            "type": "ParameterPair[]",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 2
+      }
+    }
   }
 ]
