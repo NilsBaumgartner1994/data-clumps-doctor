@@ -1,10 +1,6 @@
 {
   "report_version": "^0.1.103",
-<<<<<<< Updated upstream
-  "report_timestamp": "2026-03-19T19:39:29.625Z",
-=======
   "report_timestamp": "2026-03-19T19:39:46.220Z",
->>>>>>> Stashed changes
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -32,27 +28,16 @@
         }
       },
       "timer_information": {
-<<<<<<< Updated upstream
-        "ast_generation_time_ms": 877,
-        "detection_time_ms": 10,
-=======
         "ast_generation_time_ms": 857,
         "detection_time_ms": 11,
->>>>>>> Stashed changes
         "machine_information": {
           "os": "Linux",
           "os_release": "6.14.0-1017-azure",
           "os_platform": "linux",
           "os_arch": "x64",
-<<<<<<< Updated upstream
-          "os_uptime": 70.88,
-          "os_memory_free": 15110729728,
-          "os_memory_total": 16771563520,
-=======
           "os_uptime": 101.82,
           "os_memory_free": 15179444224,
           "os_memory_total": 16771616768,
->>>>>>> Stashed changes
           "os_cpu_cores": 4,
           "os_cpu_model": "AMD EPYC 7763 64-Core Processor",
           "os_cpu_speed": 0
