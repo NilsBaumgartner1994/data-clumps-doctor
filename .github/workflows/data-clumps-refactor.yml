@@ -95,6 +95,8 @@ jobs:
   data-clumps-analyse-and-refactor:
     name: "🩺 Analyse & Refactor Data Clumps"
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: "🔄 Checkout Repository"
         uses: actions/checkout@v4

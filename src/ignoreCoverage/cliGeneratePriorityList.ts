@@ -55,9 +55,15 @@ function getClusterInfoForDataClumps(
   for (const key of Object.keys(data_clumps)) {
     const dc = data_clumps[key];
     const fromClass = dc.from_class_or_interface_key;
+    if (!fromClass) {
+      console.warn(`Warning: data clump "${key}" has no from_class_or_interface_key, skipping.`);
+      continue;
+    }
     const info = nodeClusterInfo[fromClass];
     if (info) {
       result[key] = { cluster_id: info.cluster_id, cluster_type: info.cluster_type };
+    } else {
+      console.warn(`Warning: no cluster info found for class "${fromClass}" (data clump "${key}"), skipping.`);
     }
   }
 
@@ -219,7 +225,14 @@ async function main() {
   }
 
   const reportContent = fs.readFileSync(reportPath, 'utf8');
-  const report: DataClumpsTypeContext = JSON.parse(reportContent);
+  let report: DataClumpsTypeContext;
+  try {
+    report = JSON.parse(reportContent);
+  } catch (e) {
+    console.error('ERROR: Failed to parse JSON from report file: ' + reportPath);
+    console.error(e);
+    process.exit(1);
+  }
 
   const clusterTypePriority = parseClusterTypePriority(options.cluster_type_priority);
   const amount = parseInt(options.amount, 10);

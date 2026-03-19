@@ -85,7 +85,14 @@ runs:
       id: data-clumps-count
       shell: bash
       run: |
-        count=$(jq '.report_summary.amount_data_clumps' "${{ inputs.output-path }}")
+        if ! count=$(jq '.report_summary.amount_data_clumps' "${{ inputs.output-path }}" 2>&1); then
+          echo "::error::Failed to extract data clumps count from ${{ inputs.output-path }}: $count"
+          exit 1
+        fi
+        if [ -z "$count" ] || [ "$count" = "null" ]; then
+          echo "::error::No data clumps count found in report (report_summary.amount_data_clumps is missing or null)"
+          exit 1
+        fi
         echo "count=$count" >> "$GITHUB_OUTPUT"
         echo "Detected $count data clumps."
 
@@ -171,7 +178,7 @@ runs:
 
           # Attempt to create a Copilot coding agent task.
           # This uses the 'gh copilot' extension if available.
-          if gh copilot --help &> /dev/null 2>&1; then
+          if gh copilot --help > /dev/null 2>&1; then
             echo "Creating Copilot agent task..."
             gh copilot suggest "$TASK_DESCRIPTION" || echo "::warning::Copilot task creation failed for cluster $CLUSTER_ID"
           else
