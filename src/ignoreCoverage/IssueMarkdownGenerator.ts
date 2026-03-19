@@ -5,6 +5,13 @@ export interface IssueMarkdownOptions {
   projectUrl?: string;
   /** Commit hash used to build stable permalink URLs */
   commitHash?: string;
+  /**
+   * Optional path prefix relative to the repository root that should be prepended
+   * to all file paths when building GitHub permalink URLs.
+   * Use this when the source files are not at the repository root, e.g. "src" or "src/main/java".
+   * Corresponds to the `--relative_path_to_source_folder_in_project` option of the detector.
+   */
+  sourcePrefix?: string;
 }
 
 /**
@@ -19,11 +26,21 @@ export class IssueMarkdownGenerator {
    * Builds a clickable GitHub blob permalink or returns null when the
    * required information is not available.
    */
-  private static buildLink(projectUrl: string | undefined, commitHash: string | undefined, filePath: string, startLine: number | null, endLine: number | null): string | null {
+  private static buildLink(projectUrl: string | undefined, commitHash: string | undefined, filePath: string, startLine: number | null, endLine: number | null, sourcePrefix?: string): string | null {
     if (!projectUrl || projectUrl === 'unknown' || !commitHash || commitHash === 'unknown' || !filePath) {
       return null;
     }
-    const base = `${projectUrl.replace(/\/$/, '')}/blob/${commitHash}/${filePath}`;
+    const normalizedPrefix = sourcePrefix
+      ? sourcePrefix
+          .replace(/^\.\//, '') // strip leading ./
+          .replace(/^\//, '')   // strip leading /
+          .replace(/\/$/, '')   // strip trailing /
+          .replace(/\/\//g, '/') // collapse duplicate slashes
+      : '';
+    // Do not use the prefix if it escapes the repository root (e.g. starts with "..")
+    const safePrefix = normalizedPrefix && !normalizedPrefix.startsWith('..') ? normalizedPrefix : '';
+    const fullPath = safePrefix ? `${safePrefix}/${filePath}` : filePath;
+    const base = `${projectUrl.replace(/\/$/, '')}/blob/${commitHash}/${fullPath}`;
     if (startLine != null && endLine != null) {
       return `${base}#L${startLine}-L${endLine}`;
     }
@@ -50,10 +67,10 @@ export class IssueMarkdownGenerator {
    * Renders one data-clump entry as a markdown section.
    */
   private static renderItem(item: PriorityListItem, options: IssueMarkdownOptions): string {
-    const { projectUrl, commitHash } = options;
+    const { projectUrl, commitHash, sourcePrefix } = options;
 
-    const fromLink = IssueMarkdownGenerator.buildLink(projectUrl, commitHash, item.from_file_path, item.from_start_line, item.from_end_line);
-    const toLink = IssueMarkdownGenerator.buildLink(projectUrl, commitHash, item.to_file_path, item.to_start_line, item.to_end_line);
+    const fromLink = IssueMarkdownGenerator.buildLink(projectUrl, commitHash, item.from_file_path, item.from_start_line, item.from_end_line, sourcePrefix);
+    const toLink = IssueMarkdownGenerator.buildLink(projectUrl, commitHash, item.to_file_path, item.to_start_line, item.to_end_line, sourcePrefix);
 
     const fromLocation = IssueMarkdownGenerator.renderLocation(item.from_class_or_interface_name, item.from_file_path, fromLink);
     const toLocation = IssueMarkdownGenerator.renderLocation(item.to_class_or_interface_name, item.to_file_path, toLink);

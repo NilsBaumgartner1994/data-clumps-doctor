@@ -421,8 +421,11 @@ export class Analyzer {
       let path_to_result = Analyzer.replaceOutputVariables(this.path_to_output_with_variables, this.projectInfo.project_name, commit);
       let progressCallback = null;
 
+      const relativePathToSource = path.relative(this.path_to_project, this.path_to_source);
+      const additional = { relative_path_to_source_folder_in_project: relativePathToSource };
+
       this.detectTimer.start();
-      let dataClumpsContext = await Analyzer.analyseSoftwareProjectDicts(softwareProjectDicts, this.projectInfo.project_url, this.projectInfo.project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, this.detectorOptions, null, target_language);
+      let dataClumpsContext = await Analyzer.analyseSoftwareProjectDicts(softwareProjectDicts, this.projectInfo.project_url, this.projectInfo.project_name, project_version, commit, commit_tag, commit_date, path_to_result, progressCallback, this.detectorOptions, additional, target_language);
       this.detectTimer.stop();
       this.detectTimer.printElapsedTime('Detect time for commit: ' + commit);
 
