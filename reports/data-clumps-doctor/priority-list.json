@@ -9,17 +9,6 @@
     "from_method_name": null,
     "to_method_name": null,
     "amount_of_variables": 10,
-    "variable_names": [
-      "projectName",
-      "projectUrl",
-      "report_file_path",
-      "tag",
-      "commitHash",
-      "timestamp",
-      "fieldFieldDataClumps",
-      "parameterParameterDataClumps",
-      "parameterFieldDataClumps",
-      "numberOfBugIntroducingCommits"
-    ]
+    "variable_names": ["projectName", "projectUrl", "report_file_path", "tag", "commitHash", "timestamp", "fieldFieldDataClumps", "parameterParameterDataClumps", "parameterFieldDataClumps", "numberOfBugIntroducingCommits"]
   }
 ]
