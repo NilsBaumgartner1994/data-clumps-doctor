@@ -9,13 +9,17 @@
     "from_method_name": "buildLink",
     "to_method_name": null,
     "amount_of_variables": 3,
-    "variable_names": ["projectUrl", "commitHash", "sourcePrefix"],
+    "variable_names": [
+      "projectUrl",
+      "commitHash",
+      "sourcePrefix"
+    ],
     "from_file_path": "ignoreCoverage/IssueMarkdownGenerator.ts",
     "to_file_path": "ignoreCoverage/IssueMarkdownGenerator.ts",
-    "from_start_line": null,
-    "from_end_line": null,
-    "to_start_line": null,
-    "to_end_line": null,
+    "from_start_line": 29,
+    "from_end_line": 29,
+    "to_start_line": 5,
+    "to_end_line": 14,
     "raw": {
       "type": "data_clump",
       "key": "parameters_to_fields_data_clump-ignoreCoverage/IssueMarkdownGenerator.ts-ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink-ignoreCoverage/IssueMarkdownGenerator.ts/interface/IssueMarkdownOptions-projectUrlcommitHashsourcePrefix",
@@ -43,9 +47,19 @@
             "name": "projectUrl",
             "type": "string",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 5,
+              "startColumn": 3,
+              "endLine": 5,
+              "endColumn": 23
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 29,
+            "startColumn": 28,
+            "endLine": 29,
+            "endColumn": 58
+          }
         },
         "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/commitHash": {
           "key": "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/commitHash",
@@ -58,9 +72,19 @@
             "name": "commitHash",
             "type": "string",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 7,
+              "startColumn": 3,
+              "endLine": 7,
+              "endColumn": 23
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 29,
+            "startColumn": 60,
+            "endLine": 29,
+            "endColumn": 90
+          }
         },
         "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/sourcePrefix": {
           "key": "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/sourcePrefix",
@@ -73,9 +97,19 @@
             "name": "sourcePrefix",
             "type": "string",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 14,
+              "startColumn": 3,
+              "endLine": 14,
+              "endColumn": 25
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 29,
+            "startColumn": 160,
+            "endLine": 29,
+            "endColumn": 181
+          }
         }
       },
       "data_clump_type_additional": {
@@ -94,13 +128,17 @@
     "from_method_name": "calculateProbabilityOfDataClumpsMethodsToFields",
     "to_method_name": null,
     "amount_of_variables": 3,
-    "variable_names": ["currentClassWholeHierarchyKnown", "otherClassWholeHierarchyKnown", "parameterPairs"],
+    "variable_names": [
+      "currentClassWholeHierarchyKnown",
+      "otherClassWholeHierarchyKnown",
+      "parameterPairs"
+    ],
     "from_file_path": "ignoreCoverage/detector/DetectorUtils.ts",
     "to_file_path": "ignoreCoverage/detector/DetectorUtils.ts",
-    "from_start_line": null,
-    "from_end_line": null,
-    "to_start_line": null,
-    "to_end_line": null,
+    "from_start_line": 111,
+    "from_end_line": 111,
+    "to_start_line": 13,
+    "to_end_line": 15,
     "raw": {
       "type": "data_clump",
       "key": "parameters_to_fields_data_clump-ignoreCoverage/detector/DetectorUtils.ts-ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields-ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext-currentClassWholeHierarchyKnownotherClassWholeHierarchyKnownparameterPairs",
@@ -128,9 +166,19 @@
             "name": "currentClassWholeHierarchyKnown",
             "type": "boolean",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 13,
+              "startColumn": 3,
+              "endLine": 13,
+              "endColumn": 44
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 111,
+            "startColumn": 65,
+            "endLine": 111,
+            "endColumn": 105
+          }
         },
         "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/otherClassWholeHierarchyKnown": {
           "key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/otherClassWholeHierarchyKnown",
@@ -143,9 +191,19 @@
             "name": "otherClassWholeHierarchyKnown",
             "type": "boolean",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 14,
+              "startColumn": 3,
+              "endLine": 14,
+              "endColumn": 42
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 111,
+            "startColumn": 107,
+            "endLine": 111,
+            "endColumn": 145
+          }
         },
         "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/parameterPairs": {
           "key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/parameterPairs",
@@ -158,9 +216,19 @@
             "name": "parameterPairs",
             "type": "ParameterPair[]",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 15,
+              "startColumn": 3,
+              "endLine": 15,
+              "endColumn": 35
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 111,
+            "startColumn": 147,
+            "endLine": 111,
+            "endColumn": 178
+          }
         }
       },
       "data_clump_type_additional": {
