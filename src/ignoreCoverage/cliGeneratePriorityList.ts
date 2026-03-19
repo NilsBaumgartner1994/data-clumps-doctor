@@ -29,6 +29,7 @@ export type PriorityListItem = {
   from_end_line: number | null;
   to_start_line: number | null;
   to_end_line: number | null;
+  raw?: any;
 };
 
 /**
@@ -215,6 +216,7 @@ export function generatePriorityList(report: DataClumpsTypeContext, clusterTypeP
       from_end_line: fromEndLine,
       to_start_line: toStartLine,
       to_end_line: toEndLine,
+      raw: dc,
     });
   }
 
