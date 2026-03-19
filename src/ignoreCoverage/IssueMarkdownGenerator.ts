@@ -33,8 +33,8 @@ export class IssueMarkdownGenerator {
     const normalizedPrefix = sourcePrefix
       ? sourcePrefix
           .replace(/^\.\//, '') // strip leading ./
-          .replace(/^\//, '')   // strip leading /
-          .replace(/\/$/, '')   // strip trailing /
+          .replace(/^\//, '') // strip leading /
+          .replace(/\/$/, '') // strip trailing /
           .replace(/\/\//g, '/') // collapse duplicate slashes
       : '';
     // Do not use the prefix if it escapes the repository root (e.g. starts with "..")
