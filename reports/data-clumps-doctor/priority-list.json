@@ -1,0 +1,25 @@
+[
+  {
+    "cluster_id": 10,
+    "cluster_type": 2,
+    "data_clump_id": "fields_to_fields_data_clump-src/ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts-src/ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData-src/ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData-projectNameprojectUrlreport_file_pathtagcommitHashtimestampfieldFieldDataClumpsparameterParameterDataClumpsparameterFieldDataClumpsnumberOfBugIntroducingCommits",
+    "data_clump_type": "fields_to_fields_data_clump",
+    "from_class_or_interface_name": "ProjectData",
+    "to_class_or_interface_name": "ProjectData",
+    "from_method_name": null,
+    "to_method_name": null,
+    "amount_of_variables": 10,
+    "variable_names": [
+      "projectName",
+      "projectUrl",
+      "report_file_path",
+      "tag",
+      "commitHash",
+      "timestamp",
+      "fieldFieldDataClumps",
+      "parameterParameterDataClumps",
+      "parameterFieldDataClumps",
+      "numberOfBugIntroducingCommits"
+    ]
+  }
+]
