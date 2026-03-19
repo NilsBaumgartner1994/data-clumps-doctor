@@ -166,7 +166,7 @@ export function generatePriorityList(report: DataClumpsTypeContext, clusterTypeP
    * Expands a [start, end] line range to include the given position.
    * Returns the updated [start, end] pair.
    */
-  function expandLineRange(start: number | null, end: number | null, pos: any): [number | null, number | null] {
+  function expandLineRange(start: number | null, end: number | null, pos: { startLine?: number; endLine?: number } | null | undefined): [number | null, number | null] {
     if (!pos) return [start, end];
     const newStart = pos.startLine != null ? (start === null ? pos.startLine : Math.min(start, pos.startLine)) : start;
     const newEnd = pos.endLine != null ? (end === null ? pos.endLine : Math.max(end, pos.endLine)) : end;
