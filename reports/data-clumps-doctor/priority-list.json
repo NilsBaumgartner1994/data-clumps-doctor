@@ -2,6 +2,95 @@
   {
     "cluster_id": 1,
     "cluster_type": 2,
+    "data_clump_id": "parameters_to_fields_data_clump-ignoreCoverage/IssueMarkdownGenerator.ts-ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink-ignoreCoverage/IssueMarkdownGenerator.ts/interface/IssueMarkdownOptions-projectUrlcommitHashsourcePrefix",
+    "data_clump_type": "parameters_to_fields_data_clump",
+    "from_class_or_interface_name": "IssueMarkdownGenerator",
+    "to_class_or_interface_name": "IssueMarkdownOptions",
+    "from_method_name": "buildLink",
+    "to_method_name": null,
+    "amount_of_variables": 3,
+    "variable_names": [
+      "projectUrl",
+      "commitHash",
+      "sourcePrefix"
+    ],
+    "from_file_path": "ignoreCoverage/IssueMarkdownGenerator.ts",
+    "to_file_path": "ignoreCoverage/IssueMarkdownGenerator.ts",
+    "from_start_line": null,
+    "from_end_line": null,
+    "to_start_line": null,
+    "to_end_line": null,
+    "raw": {
+      "type": "data_clump",
+      "key": "parameters_to_fields_data_clump-ignoreCoverage/IssueMarkdownGenerator.ts-ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink-ignoreCoverage/IssueMarkdownGenerator.ts/interface/IssueMarkdownOptions-projectUrlcommitHashsourcePrefix",
+      "probability": 1,
+      "from_file_path": "ignoreCoverage/IssueMarkdownGenerator.ts",
+      "from_class_or_interface_name": "IssueMarkdownGenerator",
+      "from_class_or_interface_key": "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator",
+      "from_method_name": "buildLink",
+      "from_method_key": "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink",
+      "to_file_path": "ignoreCoverage/IssueMarkdownGenerator.ts",
+      "to_class_or_interface_name": "IssueMarkdownOptions",
+      "to_class_or_interface_key": "ignoreCoverage/IssueMarkdownGenerator.ts/interface/IssueMarkdownOptions",
+      "to_method_name": null,
+      "to_method_key": null,
+      "data_clump_type": "parameters_to_fields_data_clump",
+      "data_clump_data": {
+        "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/projectUrl": {
+          "key": "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/projectUrl",
+          "name": "projectUrl",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/IssueMarkdownGenerator.ts/interface/IssueMarkdownOptions/memberField/projectUrl",
+            "name": "projectUrl",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/commitHash": {
+          "key": "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/commitHash",
+          "name": "commitHash",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/IssueMarkdownGenerator.ts/interface/IssueMarkdownOptions/memberField/commitHash",
+            "name": "commitHash",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/sourcePrefix": {
+          "key": "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/sourcePrefix",
+          "name": "sourcePrefix",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/IssueMarkdownGenerator.ts/interface/IssueMarkdownOptions/memberField/sourcePrefix",
+            "name": "sourcePrefix",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 2
+      }
+    }
+  },
+  {
+    "cluster_id": 2,
+    "cluster_type": 2,
     "data_clump_id": "parameters_to_fields_data_clump-ignoreCoverage/detector/DetectorUtils.ts-ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields-ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext-currentClassWholeHierarchyKnownotherClassWholeHierarchyKnownparameterPairs",
     "data_clump_type": "parameters_to_fields_data_clump",
     "from_class_or_interface_name": "DetectorUtils",
@@ -9,7 +98,11 @@
     "from_method_name": "calculateProbabilityOfDataClumpsMethodsToFields",
     "to_method_name": null,
     "amount_of_variables": 3,
-    "variable_names": ["currentClassWholeHierarchyKnown", "otherClassWholeHierarchyKnown", "parameterPairs"],
+    "variable_names": [
+      "currentClassWholeHierarchyKnown",
+      "otherClassWholeHierarchyKnown",
+      "parameterPairs"
+    ],
     "from_file_path": "ignoreCoverage/detector/DetectorUtils.ts",
     "to_file_path": "ignoreCoverage/detector/DetectorUtils.ts",
     "from_start_line": null,
@@ -79,7 +172,7 @@
         }
       },
       "data_clump_type_additional": {
-        "cluster_id": 1,
+        "cluster_id": 2,
         "cluster_type": 2
       }
     }

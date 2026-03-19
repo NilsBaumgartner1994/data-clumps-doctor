@@ -1,70 +1,72 @@
 {
   "report_version": "^0.1.103",
-  "report_timestamp": "2026-03-19T20:50:19.420Z",
+  "report_timestamp": "2026-03-19T21:12:29.853Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
       "invertedIndexSoftwareProjectStatistics": {
         "invertedFieldToClasses": {
-          "median": 1.5,
+          "median": 1,
           "maximum": 4,
-          "average": 1.1071428571428572,
-          "amountSavedValuesForKeys": 186,
+          "average": 1.106508875739645,
+          "amountSavedValuesForKeys": 187,
           "amountKeys": 4
         },
         "invertedParameterToMethods": {
-          "median": 1,
+          "median": 1.5,
           "maximum": 14,
-          "average": 1.7218934911242603,
-          "amountSavedValuesForKeys": 291,
+          "average": 1.7176470588235293,
+          "amountSavedValuesForKeys": 292,
           "amountKeys": 9
         },
         "invertedParameterToClasses": {
-          "median": 1,
+          "median": 1.5,
           "maximum": 4,
-          "average": 1.1137724550898203,
-          "amountSavedValuesForKeys": 186,
+          "average": 1.1130952380952381,
+          "amountSavedValuesForKeys": 187,
           "amountKeys": 4
         }
       },
       "timer_information": {
-        "ast_generation_time_ms": 839,
-        "detection_time_ms": 10,
+        "ast_generation_time_ms": 818,
+        "detection_time_ms": 9,
         "machine_information": {
           "os": "Linux",
           "os_release": "6.14.0-1017-azure",
           "os_platform": "linux",
           "os_arch": "x64",
-          "os_uptime": 111.06,
-          "os_memory_free": 15088824320,
-          "os_memory_total": 16767225856,
+          "os_uptime": 77.09,
+          "os_memory_free": 15150014464,
+          "os_memory_total": 16771563520,
           "os_cpu_cores": 4,
           "os_cpu_model": "AMD EPYC 7763 64-Core Processor",
           "os_cpu_speed": 0
         }
       }
     },
-    "amount_classes_or_interfaces_with_data_clumps": 1,
-    "amount_files_with_data_clumps": 1,
-    "amount_methods_with_data_clumps": 1,
+    "amount_classes_or_interfaces_with_data_clumps": 2,
+    "amount_files_with_data_clumps": 2,
+    "amount_methods_with_data_clumps": 2,
     "fields_to_fields_data_clump": 0,
-    "parameters_to_fields_data_clump": 1,
+    "parameters_to_fields_data_clump": 2,
     "parameters_to_parameters_data_clump": 0,
-    "amount_data_clumps": 1
+    "amount_data_clumps": 2
   },
   "project_info": {
     "project_url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
     "project_name": "data-clumps-doctor",
-    "project_version": "03768ba3b8af688ecfdca6611758219423abfc66",
-    "project_commit_hash": "03768ba3b8af688ecfdca6611758219423abfc66",
+    "project_version": "b49291ce3243406beb7e8aa6a8161b6513758ce0",
+    "project_commit_hash": "b49291ce3243406beb7e8aa6a8161b6513758ce0",
     "project_tag": null,
-    "project_commit_date": "1773953066",
-    "additional": {},
+    "project_commit_date": "1773954669",
+    "additional": {
+      "relative_path_to_source_folder_in_project": "src"
+    },
     "number_of_files": 31,
     "number_of_classes_or_interfaces": 56,
     "number_of_methods": 205,
-    "number_of_data_fields": 186,
-    "number_of_method_parameters": 291
+    "number_of_data_fields": 187,
+    "number_of_method_parameters": 292
   },
   "detector": {
     "name": "data-clumps-doctor",
@@ -87,6 +89,73 @@
     }
   },
   "data_clumps": {
+    "parameters_to_fields_data_clump-ignoreCoverage/IssueMarkdownGenerator.ts-ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink-ignoreCoverage/IssueMarkdownGenerator.ts/interface/IssueMarkdownOptions-projectUrlcommitHashsourcePrefix": {
+      "type": "data_clump",
+      "key": "parameters_to_fields_data_clump-ignoreCoverage/IssueMarkdownGenerator.ts-ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink-ignoreCoverage/IssueMarkdownGenerator.ts/interface/IssueMarkdownOptions-projectUrlcommitHashsourcePrefix",
+      "probability": 1,
+      "from_file_path": "ignoreCoverage/IssueMarkdownGenerator.ts",
+      "from_class_or_interface_name": "IssueMarkdownGenerator",
+      "from_class_or_interface_key": "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator",
+      "from_method_name": "buildLink",
+      "from_method_key": "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink",
+      "to_file_path": "ignoreCoverage/IssueMarkdownGenerator.ts",
+      "to_class_or_interface_name": "IssueMarkdownOptions",
+      "to_class_or_interface_key": "ignoreCoverage/IssueMarkdownGenerator.ts/interface/IssueMarkdownOptions",
+      "to_method_name": null,
+      "to_method_key": null,
+      "data_clump_type": "parameters_to_fields_data_clump",
+      "data_clump_data": {
+        "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/projectUrl": {
+          "key": "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/projectUrl",
+          "name": "projectUrl",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/IssueMarkdownGenerator.ts/interface/IssueMarkdownOptions/memberField/projectUrl",
+            "name": "projectUrl",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/commitHash": {
+          "key": "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/commitHash",
+          "name": "commitHash",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/IssueMarkdownGenerator.ts/interface/IssueMarkdownOptions/memberField/commitHash",
+            "name": "commitHash",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/sourcePrefix": {
+          "key": "ignoreCoverage/IssueMarkdownGenerator.ts/class/IssueMarkdownGenerator/method/buildLink/parameter/sourcePrefix",
+          "name": "sourcePrefix",
+          "type": "string",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/IssueMarkdownGenerator.ts/interface/IssueMarkdownOptions/memberField/sourcePrefix",
+            "name": "sourcePrefix",
+            "type": "string",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 2
+      }
+    },
     "parameters_to_fields_data_clump-ignoreCoverage/detector/DetectorUtils.ts-ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields-ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext-currentClassWholeHierarchyKnownotherClassWholeHierarchyKnownparameterPairs": {
       "type": "data_clump",
       "key": "parameters_to_fields_data_clump-ignoreCoverage/detector/DetectorUtils.ts-ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields-ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext-currentClassWholeHierarchyKnownotherClassWholeHierarchyKnownparameterPairs",
@@ -150,7 +219,7 @@
         }
       },
       "data_clump_type_additional": {
-        "cluster_id": 1,
+        "cluster_id": 2,
         "cluster_type": 2
       }
     }
