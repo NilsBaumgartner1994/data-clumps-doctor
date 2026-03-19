@@ -247,9 +247,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -264,9 +262,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -281,9 +277,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -320,9 +314,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -337,9 +329,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -354,9 +344,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -393,9 +381,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -410,9 +396,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -427,9 +411,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -466,9 +448,7 @@
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -483,9 +463,7 @@
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -500,9 +478,7 @@
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -539,9 +515,7 @@
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -556,9 +530,7 @@
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -573,9 +545,7 @@
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -612,9 +582,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -629,9 +597,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -646,9 +612,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -685,9 +649,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -702,9 +664,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -719,9 +679,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -758,9 +716,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/simple-non-primitive-datatypes/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "String",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -775,9 +731,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/simple-non-primitive-datatypes/positive/typescript/source/Patient.ts/class/Patient/memberField/kastanie",
             "name": "kastanie",
             "type": "String",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -792,9 +746,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/simple-non-primitive-datatypes/positive/typescript/source/Patient.ts/class/Patient/memberField/address",
             "name": "address",
             "type": "import(\"tests/data-clumps/test-cases/parameter-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -898,9 +850,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -915,9 +865,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -932,9 +880,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -971,9 +917,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -988,9 +932,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1005,9 +947,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1044,9 +984,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1061,9 +999,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1078,9 +1014,7 @@
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1117,9 +1051,7 @@
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1134,9 +1066,7 @@
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1151,9 +1081,7 @@
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1190,9 +1118,7 @@
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1207,9 +1133,7 @@
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1224,9 +1148,7 @@
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1263,9 +1185,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1280,9 +1200,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1297,9 +1215,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1336,9 +1252,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1353,9 +1267,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1370,9 +1282,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1543,9 +1453,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1560,9 +1468,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1577,9 +1483,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1616,9 +1520,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1633,9 +1535,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1650,9 +1550,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1689,9 +1587,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1706,9 +1602,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1723,9 +1617,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1762,9 +1654,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1779,9 +1669,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1796,9 +1684,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1835,9 +1721,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1852,9 +1736,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -1869,9 +1751,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -4618,9 +4498,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -4635,9 +4513,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -4652,9 +4528,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -4691,9 +4565,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -4708,9 +4580,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -4725,9 +4595,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -4764,9 +4632,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -4781,9 +4647,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -4798,9 +4662,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -4837,9 +4699,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -4854,9 +4714,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -4871,9 +4729,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -4910,9 +4766,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -4927,9 +4781,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -4944,9 +4796,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5117,9 +4967,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5134,9 +4982,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5151,9 +4997,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5190,9 +5034,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5207,9 +5049,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5224,9 +5064,7 @@
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5263,9 +5101,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5280,9 +5116,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5297,9 +5131,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5336,9 +5168,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5353,9 +5183,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5370,9 +5198,7 @@
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5409,9 +5235,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5426,9 +5250,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5443,9 +5265,7 @@
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5821,16 +5641,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5840,16 +5656,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5859,16 +5671,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5900,16 +5708,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5919,16 +5723,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5938,16 +5738,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5979,16 +5775,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -5998,16 +5790,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6017,16 +5805,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6058,16 +5842,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6077,16 +5857,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6096,16 +5872,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6137,16 +5909,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6156,16 +5924,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6175,16 +5939,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6216,16 +5976,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6235,16 +5991,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6254,16 +6006,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6295,16 +6043,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6314,16 +6058,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6333,16 +6073,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6374,16 +6110,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6393,16 +6125,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6412,16 +6140,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6453,16 +6177,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6472,16 +6192,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6491,16 +6207,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6532,16 +6244,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6551,16 +6259,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6570,16 +6274,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6611,16 +6311,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6630,16 +6326,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6649,16 +6341,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6690,16 +6378,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6709,16 +6393,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6728,16 +6408,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6769,16 +6445,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6788,16 +6460,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6807,16 +6475,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6848,16 +6512,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6867,16 +6527,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6886,16 +6542,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6927,16 +6579,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6946,16 +6594,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -6965,16 +6609,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7006,16 +6646,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7025,16 +6661,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7044,16 +6676,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7085,16 +6713,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7104,16 +6728,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7123,16 +6743,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7164,16 +6780,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7183,16 +6795,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7202,16 +6810,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7243,16 +6847,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7262,16 +6862,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7281,16 +6877,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7322,16 +6914,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7341,16 +6929,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7360,16 +6944,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7401,16 +6981,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7420,16 +6996,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7439,16 +7011,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7480,16 +7048,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7499,16 +7063,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7518,16 +7078,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7559,16 +7115,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7578,16 +7130,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7597,16 +7145,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7638,16 +7182,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7657,16 +7197,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7676,16 +7212,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7717,16 +7249,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7736,16 +7264,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7755,16 +7279,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7796,16 +7316,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7815,16 +7331,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7834,16 +7346,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7875,16 +7383,12 @@
           "name": "firstname",
           "type": "String",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "String",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7894,16 +7398,12 @@
           "name": "kastanie",
           "type": "String",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Patient.ts/class/Patient/memberField/kastanie",
             "name": "kastanie",
             "type": "String",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7913,16 +7413,12 @@
           "name": "address",
           "type": "import(\"tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Patient.ts/class/Patient/memberField/address",
             "name": "address",
             "type": "import(\"tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7954,16 +7450,12 @@
           "name": "firstname",
           "type": "String",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "String",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7973,16 +7465,12 @@
           "name": "kastanie",
           "type": "String",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Doctor.ts/class/Doctor/memberField/kastanie",
             "name": "kastanie",
             "type": "String",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -7992,16 +7480,12 @@
           "name": "address",
           "type": "import(\"tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Doctor.ts/class/Doctor/memberField/address",
             "name": "address",
             "type": "import(\"tests/data-clumps/test-cases/field-field/simple-non-primitive-datatypes/positive/typescript/source/Adress\").Adress",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8033,16 +7517,12 @@
           "name": "patientId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/negative/typescript/source/Patient.ts/class/Patient/memberField/patientId",
             "name": "patientId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8052,16 +7532,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/negative/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8071,16 +7547,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/negative/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8112,16 +7584,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8131,16 +7599,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8150,16 +7614,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8191,16 +7651,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8210,16 +7666,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8229,16 +7681,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8270,16 +7718,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8289,16 +7733,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8308,16 +7748,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8349,16 +7785,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8368,16 +7800,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8387,16 +7815,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8428,16 +7852,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8447,16 +7867,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8466,16 +7882,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8507,16 +7919,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8526,16 +7934,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8545,16 +7949,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8586,16 +7986,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8605,16 +8001,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8624,16 +8016,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8665,16 +8053,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8684,16 +8068,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8703,16 +8083,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8744,16 +8120,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8763,16 +8135,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8782,16 +8150,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8823,16 +8187,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8842,16 +8202,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8861,16 +8217,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8902,16 +8254,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8921,16 +8269,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8940,16 +8284,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -8981,16 +8321,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9000,16 +8336,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9019,16 +8351,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9060,16 +8388,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9079,16 +8403,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9098,16 +8418,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9139,16 +8455,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9158,16 +8470,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9177,16 +8485,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9218,16 +8522,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9237,16 +8537,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9256,16 +8552,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9297,16 +8589,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9316,16 +8604,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9335,16 +8619,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9376,16 +8656,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9395,16 +8671,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9414,16 +8686,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9455,16 +8723,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9474,16 +8738,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9493,16 +8753,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9534,16 +8790,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9553,16 +8805,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9572,16 +8820,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9613,16 +8857,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9632,16 +8872,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9651,16 +8887,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9692,16 +8924,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9711,16 +8939,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9730,16 +8954,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9771,16 +8991,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9790,16 +9006,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9809,16 +9021,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9850,16 +9058,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9869,16 +9073,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9888,16 +9088,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9929,16 +9125,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9948,16 +9140,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -9967,16 +9155,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10008,16 +9192,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10027,16 +9207,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10046,16 +9222,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10087,16 +9259,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10106,16 +9274,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10125,16 +9289,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10166,16 +9326,12 @@
           "name": "patientId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/negative/typescript/source/Patient.ts/class/Patient/memberField/patientId",
             "name": "patientId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10185,16 +9341,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/negative/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10204,16 +9356,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/negative/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10245,16 +9393,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10264,16 +9408,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10283,16 +9423,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10324,16 +9460,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10343,16 +9475,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10362,16 +9490,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10403,16 +9527,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10422,16 +9542,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10441,16 +9557,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/detector-options-tests/paths_ignored_in_detection/positive_but_ignored_file_from_detection/typescript/source/WithDataClumpsButIgnored.ts/class/WithDataClumpsButIgnored/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10482,16 +9594,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10501,16 +9609,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10520,16 +9624,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Doctor.ts/class/Doctor/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10561,16 +9661,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10580,16 +9676,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10599,16 +9691,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/simple/positive/typescript/source/Patient.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10640,16 +9728,12 @@
           "name": "recordId",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/recordId",
             "name": "recordId",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10659,16 +9743,12 @@
           "name": "isActive",
           "type": "boolean",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/isActive",
             "name": "isActive",
             "type": "boolean",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10678,16 +9758,12 @@
           "name": "visitCount",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/parameter-field/import-different-filename/positive/typescript/source/PatientModel.ts/class/Patient/memberField/visitCount",
             "name": "visitCount",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10719,16 +9795,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10738,16 +9810,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10757,16 +9825,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10798,16 +9862,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10817,16 +9877,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10836,16 +9892,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/multiple-classes-in-one-file/positive/typescript/source/Doctor.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10877,16 +9929,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10896,16 +9944,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10915,16 +9959,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Doctor.ts/class/Doctor/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10956,16 +9996,12 @@
           "name": "firstname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/firstname",
             "name": "firstname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10975,16 +10011,12 @@
           "name": "lastname",
           "type": "string",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/lastname",
             "name": "lastname",
             "type": "string",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
@@ -10994,16 +10026,12 @@
           "name": "age",
           "type": "number",
           "probability": 1,
-          "modifiers": [
-            "PUBLIC"
-          ],
+          "modifiers": ["PUBLIC"],
           "to_variable": {
             "key": "tests/data-clumps/test-cases/field-field/variable-order/positive/typescript/source/Patient.ts/class/Patient/memberField/age",
             "name": "age",
             "type": "number",
-            "modifiers": [
-              "PUBLIC"
-            ],
+            "modifiers": ["PUBLIC"],
             "position": {}
           },
           "position": {}
