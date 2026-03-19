@@ -60,6 +60,13 @@ on:
         type: boolean
         default: false
 
+    secrets:
+      copilot-token:
+        description: >
+          Personal access token (PAT) with the "Copilot Requests" permission.
+          Required when refactor-using-copilot is true.
+        required: false
+
   workflow_dispatch:
     inputs:
       path-to-source:
@@ -113,7 +120,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      issues: write
     steps:
       - name: "🔄 Checkout Repository"
         uses: actions/checkout@v4
@@ -143,6 +149,7 @@ jobs:
           # Manual (workflow_dispatch) runs leave these empty to always refactor.
           previous-report-path: ${{ github.event_name == 'workflow_call' && inputs.previous-report-path || '' }}
           trigger-refactor-only-when-data-clumps-change: ${{ github.event_name == 'workflow_call' && inputs.trigger-refactor-only-when-data-clumps-change || 'false' }}
+          copilot-token: ${{ secrets.copilot-token }}
 
       - name: "💾 Commit reports"
         run: |
