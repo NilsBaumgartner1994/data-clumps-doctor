@@ -28,8 +28,15 @@ on:
         required: false
         type: boolean
         default: false
-      refactor-using-copilot:
-        description: 'Whether to use GitHub Copilot agent for refactoring (true/false)'
+      create-issue-with-data-clumps:
+        description: 'When true, a GitHub Issue is created for each detected data clump in the priority list (true/false)'
+        required: false
+        type: boolean
+        default: true
+      automatically-let-github-copilot-refactor:
+        description: >
+          When true, the GitHub Copilot CLI automatically refactors detected data clumps on the runner.
+          Requires a PAT with the "Copilot Requests" permission stored as the copilot-token secret.
         required: false
         type: boolean
         default: false
@@ -64,7 +71,7 @@ on:
       copilot-token:
         description: >
           Personal access token (PAT) with the "Copilot Requests" permission.
-          Required when refactor-using-copilot is true.
+          Required when automatically-let-github-copilot-refactor is true.
         required: false
 
   workflow_dispatch:
@@ -94,8 +101,15 @@ on:
         required: false
         type: boolean
         default: false
-      refactor-using-copilot:
-        description: 'Whether to use GitHub Copilot agent for refactoring (true/false)'
+      create-issue-with-data-clumps:
+        description: 'When true, a GitHub Issue is created for each detected data clump in the priority list (true/false)'
+        required: false
+        type: boolean
+        default: true
+      automatically-let-github-copilot-refactor:
+        description: >
+          When true, the GitHub Copilot CLI automatically refactors detected data clumps on the runner.
+          Requires a PAT with the "Copilot Requests" permission stored as the copilot-token secret.
         required: false
         type: boolean
         default: false
@@ -120,6 +134,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write
     steps:
       - name: "🔄 Checkout Repository"
         uses: actions/checkout@v4
@@ -141,7 +156,8 @@ jobs:
           badge-output-path: ${{ inputs.badge-output-path }}
           source-language-type: ${{ inputs.source-language-type }}
           refactor-data-clumps: ${{ inputs.refactor-data-clumps }}
-          refactor-using-copilot: ${{ inputs.refactor-using-copilot }}
+          create-issue-with-data-clumps: ${{ inputs.create-issue-with-data-clumps }}
+          automatically-let-github-copilot-refactor: ${{ inputs.automatically-let-github-copilot-refactor }}
           cluster-type-priority: ${{ inputs.cluster-type-priority }}
           refactor-amount: ${{ inputs.refactor-amount }}
           # previous-report-path and trigger-refactor-only-when-data-clumps-change
@@ -170,4 +186,3 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
