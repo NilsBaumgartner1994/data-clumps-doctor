@@ -27,6 +27,33 @@ function getAllReportFilesRecursiveInFolder(folder_path) {
 function countDataClumpsGroups(data_clumps_dict) {
   let data_clumps_keys = Object.keys(data_clumps_dict);
 
+  // Use pre-computed cluster info from the report when available (set by the Detector)
+  const clusterTypes: Record<number, number> = {};
+  let hasPrecomputedClusterInfo = false;
+
+  for (const key of data_clumps_keys) {
+    const data_clump = data_clumps_dict[key];
+    const additional = data_clump.data_clump_type_additional;
+    if (additional && additional.cluster_id !== undefined && additional.cluster_type !== undefined) {
+      clusterTypes[additional.cluster_id] = additional.cluster_type;
+      hasPrecomputedClusterInfo = true;
+    }
+  }
+
+  if (hasPrecomputedClusterInfo) {
+    let singleNodeGroups = 0;
+    let twoNodeGroups = 0;
+    let largerGroups = 0;
+    for (const cluster_type of Object.values(clusterTypes)) {
+      if (cluster_type === 1) singleNodeGroups++;
+      else if (cluster_type === 2) twoNodeGroups++;
+      else largerGroups++;
+    }
+    return { singleNodeGroups, twoNodeGroups, largerGroups };
+  }
+
+  // Fallback for older reports that do not yet contain pre-computed cluster info:
+  // rebuild the class-relationship graph and run DFS to find connected components.
   let graph = {};
   for (let j = 0; j < data_clumps_keys.length; j++) {
     let data_clump_key = data_clumps_keys[j];
