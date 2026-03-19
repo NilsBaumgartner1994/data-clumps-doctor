@@ -108,15 +108,16 @@ export class DetectorUtils {
     return probabilityOfDataClumps;
   }
 
-  public static calculateProbabilityOfDataClumpsMethodsToFields(currentClassWholeHierarchyKnown: boolean, otherClassWholeHierarchyKnown: boolean, parameterPairs: ParameterPair[], methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier: number, fieldsOfClassesWithUnknownHierarchyProbabilityModifier: number) {
+  public static calculateProbabilityOfDataClumpsMethodsToFields(probabilityContext: ProbabilityContext) {
+    const { currentClassWholeHierarchyKnown, otherClassWholeHierarchyKnown, parameterPairs, options } = probabilityContext;
     let currentModifier = 1;
     if (!currentClassWholeHierarchyKnown) {
-      currentModifier = methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier * currentModifier;
+      currentModifier = options.methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier * currentModifier;
     }
 
     let otherModifier = 1;
     if (!otherClassWholeHierarchyKnown) {
-      otherModifier = fieldsOfClassesWithUnknownHierarchyProbabilityModifier * otherModifier;
+      otherModifier = options.fieldsOfClassesWithUnknownHierarchyProbabilityModifier * otherModifier;
     }
 
     return DetectorUtils.calculateProbabilityOfDataClumps(currentModifier, otherModifier, parameterPairs);

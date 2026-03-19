@@ -121,7 +121,12 @@ export class DetectorDataClumpsMethodsToOtherFields extends DetectorBase {
 
     let fileKey = currentClassOrInterface.file_path;
 
-    let probability = DetectorUtils.calculateProbabilityOfDataClumpsMethodsToFields(wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod, otherClassWholeHierarchyKnown, commonMethodParameterPairKeys, this.options.methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier, this.options.fieldsOfClassesWithUnknownHierarchyProbabilityModifier);
+    let probability = DetectorUtils.calculateProbabilityOfDataClumpsMethodsToFields({
+      currentClassWholeHierarchyKnown: wholeHierarchyKnownOfClassOrInterfaceOfCurrentMethod,
+      otherClassWholeHierarchyKnown: otherClassWholeHierarchyKnown,
+      parameterPairs: commonMethodParameterPairKeys,
+      options: this.options,
+    });
 
     let data_clump_type = DetectorDataClumpsMethodsToOtherFields.TYPE;
     let dataClumpContext: DataClumpTypeContext = {
