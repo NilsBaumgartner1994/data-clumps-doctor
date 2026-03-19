@@ -205,7 +205,7 @@ program
   )
   .version(version)
   .option('--report_path <path>', 'Path to the data clumps report JSON file')
-  .option('--cluster_type_priority <priority>', 'Cluster type priority order, e.g. "3,2,1" or "large,two,single"', '3,2,1')
+  .option('--cluster_type_priority <priority>', 'Cluster type priority order, e.g. "1,2,3" or "single,two,large"', '1,2,3')
   .option('--amount <number>', 'Number of data clumps to include in the priority list', '1')
   .option('--output <path>', 'Output path for the priority list JSON file');
 

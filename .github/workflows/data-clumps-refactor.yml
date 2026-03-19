@@ -36,15 +36,29 @@ on:
       cluster-type-priority:
         description: >
           Priority order of data clump cluster types.
-          Use numeric (e.g. "3,2,1") or named values (e.g. "large,two,single").
+          Use numeric (e.g. "1,2,3") or named values (e.g. "single,two,large").
         required: false
         type: string
-        default: '3,2,1'
+        default: '1,2,3'
       refactor-amount:
         description: Number of data clumps to refactor
         required: false
         type: number
         default: 1
+      previous-report-path:
+        description: >
+          Optional path to a previous data clumps report JSON.
+          Used together with trigger-refactor-only-when-data-clumps-change.
+        required: false
+        type: string
+        default: ''
+      trigger-refactor-only-when-data-clumps-change:
+        description: >
+          When true, refactoring runs only if the data clump count changed
+          compared to the previous report. Ignored when previous-report-path is empty.
+        required: false
+        type: boolean
+        default: false
 
   workflow_dispatch:
     inputs:
@@ -81,15 +95,17 @@ on:
       cluster-type-priority:
         description: >
           Priority order of data clump cluster types.
-          Use numeric (e.g. "3,2,1") or named values (e.g. "large,two,single").
+          Use numeric (e.g. "1,2,3") or named values (e.g. "single,two,large").
         required: false
         type: string
-        default: '3,2,1'
+        default: '1,2,3'
       refactor-amount:
         description: Number of data clumps to refactor
         required: false
         type: number
         default: 1
+      # Note: previous-report-path is intentionally omitted for workflow_dispatch
+      # so that manual runs always trigger refactoring unconditionally.
 
 jobs:
   data-clumps-analyse-and-refactor:
@@ -121,6 +137,11 @@ jobs:
           refactor-using-copilot: ${{ inputs.refactor-using-copilot }}
           cluster-type-priority: ${{ inputs.cluster-type-priority }}
           refactor-amount: ${{ inputs.refactor-amount }}
+          # previous-report-path and trigger-refactor-only-when-data-clumps-change
+          # are only passed through when this workflow is called via workflow_call.
+          # Manual (workflow_dispatch) runs leave these empty to always refactor.
+          previous-report-path: ${{ github.event_name == 'workflow_call' && inputs.previous-report-path || '' }}
+          trigger-refactor-only-when-data-clumps-change: ${{ github.event_name == 'workflow_call' && inputs.trigger-refactor-only-when-data-clumps-change || 'false' }}
 
       - name: "💾 Commit reports"
         run: |
@@ -141,3 +162,4 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
