@@ -13,12 +13,7 @@ const version = packageJson.version;
 const program = new Command();
 
 program
-  .description(
-    'Generate GitHub Issue Markdown from a data clumps priority list\n\n' +
-    'Reads a priority list JSON (produced by cliGeneratePriorityList) and renders\n' +
-    'a GitHub-flavoured Markdown body suitable for use with `gh issue create`.\n\n' +
-    'npx data-clumps-doctor-issue-markdown [options]',
-  )
+  .description('Generate GitHub Issue Markdown from a data clumps priority list\n\n' + 'Reads a priority list JSON (produced by cliGeneratePriorityList) and renders\n' + 'a GitHub-flavoured Markdown body suitable for use with `gh issue create`.\n\n' + 'npx data-clumps-doctor-issue-markdown [options]')
   .version(version)
   .option('--priority_list <path>', 'Path to the priority list JSON file')
   .option('--report_path <path>', 'Path to the data clumps report JSON (used to extract project_url and project_commit_hash)')

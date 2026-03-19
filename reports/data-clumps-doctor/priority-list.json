@@ -9,10 +9,6 @@
     "from_method_name": "calculateProbabilityOfDataClumpsMethodsToFields",
     "to_method_name": null,
     "amount_of_variables": 3,
-    "variable_names": [
-      "currentClassWholeHierarchyKnown",
-      "otherClassWholeHierarchyKnown",
-      "parameterPairs"
-    ]
+    "variable_names": ["currentClassWholeHierarchyKnown", "otherClassWholeHierarchyKnown", "parameterPairs"]
   }
 ]
