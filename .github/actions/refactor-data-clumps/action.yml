@@ -190,29 +190,33 @@ runs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        echo "::group::Copilot Refactoring"
+        set -euo pipefail
+
+        echo "::notice::🤖 Copilot Refactoring step started"
 
         PRIORITY_LIST="reports/data-clumps-doctor/priority-list.json"
         if [ ! -f "$PRIORITY_LIST" ]; then
-          echo "::warning::Priority list not found at $PRIORITY_LIST – skipping."
-          echo "::endgroup::"
+          echo "::warning::Priority list not found at $PRIORITY_LIST – skipping Copilot refactoring."
           exit 0
         fi
 
         ITEM_COUNT=$(jq 'length' "$PRIORITY_LIST")
-        echo "Found $ITEM_COUNT data clump(s) to refactor."
-        echo ""
+        echo "::notice::Found $ITEM_COUNT data clump(s) in priority list to refactor."
 
         GH_AVAILABLE=false
         if command -v gh > /dev/null 2>&1; then
           GH_AVAILABLE=true
-          echo "gh CLI is available – will create GitHub Issues to trigger Copilot Coding Agent."
+          GH_VERSION=$(gh --version | head -1)
+          echo "::notice::gh CLI is available ($GH_VERSION) – will create GitHub Issues to trigger Copilot Coding Agent."
         else
-          echo "::notice::gh CLI not available – task descriptions will be logged for manual refactoring."
+          echo "::warning::gh CLI not found in PATH – cannot create GitHub Issues. Task descriptions will be logged only."
         fi
 
+        echo "GitHub repository: $GITHUB_REPOSITORY"
+        echo "GH_TOKEN set: $( [ -n "${GH_TOKEN:-}" ] && echo 'yes' || echo 'NO (token missing!)' )"
         echo ""
 
+        ISSUES_CREATED=0
         for i in $(seq 0 $((ITEM_COUNT - 1))); do
           ITEM=$(jq ".[$i]" "$PRIORITY_LIST")
           CLUSTER_ID=$(echo "$ITEM" | jq -r '.cluster_id')
@@ -246,16 +250,21 @@ runs:
                 --title "$TASK_TITLE" \
                 --body "$TASK_BODY" \
                 --repo "$GITHUB_REPOSITORY" 2>&1); then
-              echo "✅ Copilot issue created: $ISSUE_URL"
+              echo "::notice::✅ Copilot issue created: $ISSUE_URL"
+              ISSUES_CREATED=$((ISSUES_CREATED + 1))
             else
-              echo "::warning::Failed to create GitHub Issue for cluster $CLUSTER_ID: $ISSUE_URL"
+              echo "::error::Failed to create GitHub Issue for cluster $CLUSTER_ID: $ISSUE_URL"
             fi
           fi
 
           echo ""
         done
 
-        echo "::endgroup::"
+        if [ "$GH_AVAILABLE" = "true" ]; then
+          echo "::notice::🤖 Copilot Refactoring step finished – $ISSUES_CREATED/$ITEM_COUNT issue(s) created."
+        else
+          echo "::notice::🤖 Copilot Refactoring step finished – $ITEM_COUNT data clump(s) logged (gh CLI unavailable, no issues created)."
+        fi
 
     # ── 7. Re-analyse after refactoring to get updated report ────────────
     - name: "🔄 Re-analyse data clumps (after refactoring)"
