@@ -7,6 +7,7 @@ All data clumps follow the same core idea:
 > Recurring groups of variables should be transformed into an explicit abstraction.
 
 Typical refactorings:
+
 - Extract Class
 - Introduce Parameter Object
 - Preserve Whole Object
@@ -24,19 +25,23 @@ However, the applicability depends on the data clump type and its directionality
 A group of fields appears in multiple classes.
 
 **Refactoring Strategy:**
+
 - Extract shared fields into a new class  
   (e.g. class Address with street, city, zip)
 - Replace duplicated fields with a reference to this class
 
 **Alternative:**
+
 - Use inheritance:
   - Move shared fields into a superclass
 
 **Key Property:**
+
 - Bidirectional  
   → Refactoring can start from either class
 
 **When to use what:**
+
 - Extract Class → if the data represents a meaningful concept
 - Inheritance → if classes share a structural identity
 
@@ -48,18 +53,22 @@ A group of fields appears in multiple classes.
 A group of parameters appears repeatedly across multiple methods.
 
 **Refactoring Strategy:**
+
 - Introduce a parameter object  
   (replace multiple parameters with a single object)
 - Update all affected method signatures consistently
 
 **Optional:**
+
 - Preserve Whole Object if a suitable object already exists
 
 **Key Property:**
+
 - Bidirectional  
   → Any method can be refactored first
 
 **Important:**
+
 - Refactoring must be applied consistently  
   → Otherwise, a Parameter–Field Data Clump may emerge
 
@@ -71,6 +80,7 @@ A group of parameters appears repeatedly across multiple methods.
 A group of method parameters corresponds to fields of a class.
 
 **Example (conceptual):**
+
 - Method parameters: morning, noon, evening
 - Class fields: morning, noon, evening
 
@@ -86,6 +96,7 @@ A group of method parameters corresponds to fields of a class.
 ### Correct Refactoring Strategy
 
 - Replace parameters with the existing object:
+
   - fn(morning, noon, evening)
   - becomes
   - fn(medicineObject)
@@ -96,9 +107,8 @@ A group of method parameters corresponds to fields of a class.
 
 ### Why Not the Other Direction?
 
-- Extracting fields or creating a new class:
-  → only shifts the problem
-  → results again in a parameter–field data clump
+- Extracting fields or creating a new class: → only shifts the problem → results again in a
+  parameter–field data clump
 
 ---
 
@@ -114,11 +124,11 @@ A group of method parameters corresponds to fields of a class.
 
 ## 4. Comparison of Data Clump Types
 
-| Type                | Direction        | Refactoring Freedom | Strategy                          |
-|---------------------|------------------|---------------------|-----------------------------------|
-| Field–Field         | Bidirectional    | High                | Extract Class / Inheritance       |
-| Parameter–Parameter | Bidirectional    | High                | Parameter Object                  |
-| Parameter–Field     | Unidirectional   | Restricted          | Replace Parameters with Object    |
+| Type                | Direction      | Refactoring Freedom | Strategy                       |
+| ------------------- | -------------- | ------------------- | ------------------------------ |
+| Field–Field         | Bidirectional  | High                | Extract Class / Inheritance    |
+| Parameter–Parameter | Bidirectional  | High                | Parameter Object               |
+| Parameter–Field     | Unidirectional | Restricted          | Replace Parameters with Object |
 
 ---
 
@@ -126,6 +136,7 @@ A group of method parameters corresponds to fields of a class.
 
 1. Identify data clump
 2. Check if a suitable class already exists
+
    - Yes → reuse existing class (preferred)
    - No → create new abstraction
 
