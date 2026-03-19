@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-12-01T13:18:00.457Z",
+  "report_timestamp": "2026-03-19T05:47:59.425Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -131,6 +131,10 @@
           },
           "position": {}
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 2
       }
     },
     "parameters_to_parameters_data_clump-MyUnsupportedCardReader.ts-MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate-MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate-abc": {
@@ -194,6 +198,10 @@
           },
           "position": {}
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 2
       }
     }
   }

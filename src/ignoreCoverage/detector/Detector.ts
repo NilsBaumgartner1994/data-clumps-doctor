@@ -11,6 +11,7 @@ import { DetectorDataClumpsMethodsToOtherMethods } from './DetectorDataClumpsMet
 import { ClassOrInterfaceTypeContext, MemberFieldParameterTypeContext, MethodParameterTypeContext, MethodTypeContext, VariableTypeContext } from '../ParsedAstTypes';
 import { DetectorUtils } from './DetectorUtils';
 import { NumberOccurenceDict } from '../AnalyseHelper';
+import { buildClusterInfoFromDataClumps } from '../ClusterHelper';
 
 /**
  * Recursively walks up directories to find the nearest package.json.
@@ -66,6 +67,33 @@ async function getReportFormat() {
 }
 
 const defaultValueField = 'defaultValue';
+
+/**
+ * Assigns cluster_id and cluster_type to each data clump's data_clump_type_additional
+ * field by delegating to the shared ClusterHelper.
+ *
+ * Cluster types:
+ *  - Type 1: The cluster contains only a single class node (isolated).
+ *  - Type 2: The cluster contains exactly two class nodes.
+ *  - Type 3: The cluster contains three or more class nodes.
+ */
+function assignClusterInfoToDataClumps(data_clumps_dict: Record<string, any>): void {
+  const nodeClusterInfo = buildClusterInfoFromDataClumps(data_clumps_dict);
+
+  // Annotate each data clump with cluster info via data_clump_type_additional
+  for (const data_clump_key of Object.keys(data_clumps_dict)) {
+    const data_clump = data_clumps_dict[data_clump_key];
+    const from_class = data_clump.from_class_or_interface_key;
+    const info = nodeClusterInfo[from_class];
+    if (info) {
+      data_clump.data_clump_type_additional = {
+        ...(data_clump.data_clump_type_additional || {}),
+        cluster_id: info.cluster_id,
+        cluster_type: info.cluster_type,
+      };
+    }
+  }
+}
 
 type DetectorOptionInformationParameter = {
   label: string;
@@ -212,6 +240,17 @@ export class DetectorOptionsInformation {
     defaultValue: 0,
     group: 'method',
     type: 'float',
+  };
+
+  /**
+   * Cluster Analysis
+   */
+  public static analyseDataClumpsClusterTypes: DetectorOptionInformationParameter = {
+    label: 'Analyse Data Clumps Cluster Types',
+    description: 'If set to true, the detector will compute cluster information (cluster_id and cluster_type) for each detected data clump and store it in data_clump_type_additional. Default value is true.',
+    defaultValue: true,
+    group: 'all',
+    type: 'boolean',
   };
 
   /**
@@ -626,6 +665,11 @@ export class Detector {
 
     //
     dataClumpsTypeContext.report_summary.additional.invertedIndexSoftwareProjectStatistics = invertedIndexSoftwareProject.getStatistics();
+
+    // Assign cluster IDs and cluster types to each data clump (if enabled)
+    if (this.options.analyseDataClumpsClusterTypes) {
+      assignClusterInfoToDataClumps(detected_data_clumps);
+    }
 
     // timeout for testing
 

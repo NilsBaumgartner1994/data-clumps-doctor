@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-12-01T13:18:23.870Z",
+  "report_timestamp": "2026-03-19T05:48:18.575Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -124,6 +124,10 @@
           },
           "position": {}
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 2
       }
     },
     "fields_to_fields_data_clump-Patient.ts-Patient.ts/class/Patient-Doctor.ts/class/Doctor-recordIdisActive": {
@@ -180,6 +184,10 @@
           },
           "position": {}
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 2
       }
     }
   }

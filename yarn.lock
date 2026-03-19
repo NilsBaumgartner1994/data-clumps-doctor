@@ -1768,10 +1768,10 @@ cssstyle@^2.3.0:
   dependencies:
     cssom "~0.3.6"
 
-data-clumps-type-context@^0.1.102:
-  version "0.1.102"
-  resolved "https://registry.yarnpkg.com/data-clumps-type-context/-/data-clumps-type-context-0.1.102.tgz#d7ea674b4d392f12310a830d07771942ded30860"
-  integrity sha512-YP3Zzw8hZMg+jc/MsU2GWYZIX+Q5qwkpCW22DyM5TdMz9qV5f46YXP5lGy2HfmKWK7muGNuti5tCVD6QFBjb4w==
+data-clumps-type-context@^0.1.103:
+  version "0.1.103"
+  resolved "https://registry.yarnpkg.com/data-clumps-type-context/-/data-clumps-type-context-0.1.103.tgz#39c7846f53679f6e949cf0b6dbbe04124c843bb7"
+  integrity sha512-8aQIF4bTGx4JltsItSZ4+vbcGBpvswlkWAZeA9dOZ3AdLWX5dUw6qV+gDY498uO17zVixTGkf3rzhuuYIcbQRA==
   dependencies:
     "@babel/preset-typescript" "^7.21.0"
     "@stdlib/buffer-from-string" "^0.0.8"

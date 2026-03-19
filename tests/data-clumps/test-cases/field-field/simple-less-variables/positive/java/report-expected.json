@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-12-01T13:18:25.303Z",
+  "report_timestamp": "2026-03-19T05:48:19.742Z",
   "target_language": "java",
   "report_summary": {
     "additional": {
@@ -144,6 +144,10 @@
             "endColumn": 28
           }
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 2
       }
     },
     "fields_to_fields_data_clump-Patient.java-Patient-Doctor-recordIdisActive": {
@@ -220,6 +224,10 @@
             "endColumn": 28
           }
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 2
       }
     }
   }

@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { AnalyseHelper } from './AnalyseHelper';
 import { Timer } from './Timer';
+import { buildClusterInfoFromDataClumps } from './ClusterHelper';
 
 function getAllReportFilesRecursiveInFolder(folder_path) {
   let all_report_files = fs.readdirSync(folder_path);
@@ -27,60 +28,47 @@ function getAllReportFilesRecursiveInFolder(folder_path) {
 function countDataClumpsGroups(data_clumps_dict) {
   let data_clumps_keys = Object.keys(data_clumps_dict);
 
-  let graph = {};
-  for (let j = 0; j < data_clumps_keys.length; j++) {
-    let data_clump_key = data_clumps_keys[j];
-    let data_clump = data_clumps_dict[data_clump_key];
-    let to_class = data_clump.to_class_or_interface_key;
-    let from_class = data_clump.from_class_or_interface_key;
+  // Use pre-computed cluster info from the report when available (set by the Detector)
+  const clusterTypes: Record<number, number> = {};
+  let hasPrecomputedClusterInfo = false;
 
-    if (graph[from_class] === undefined) {
-      graph[from_class] = [];
+  for (const key of data_clumps_keys) {
+    const data_clump = data_clumps_dict[key];
+    const additional = data_clump.data_clump_type_additional;
+    if (additional && additional.cluster_id !== undefined && additional.cluster_type !== undefined) {
+      clusterTypes[additional.cluster_id] = additional.cluster_type;
+      hasPrecomputedClusterInfo = true;
     }
-    if (graph[to_class] === undefined) {
-      graph[to_class] = [];
-    }
-    graph[from_class].push(to_class);
-    graph[to_class].push(from_class); // Assuming the graph is undirected
   }
 
-  let visited = {};
-  let groupSizes: any = [];
-
-  function dfs(node): number {
-    visited[node] = true;
-    let neighbors = graph[node];
-    let groupSize = 1; // Start with 1 to count the current node
-    for (let i = 0; i < neighbors.length; i++) {
-      let neighbor = neighbors[i];
-      if (!visited[neighbor]) {
-        groupSize += dfs(neighbor); // Accumulate the size from each connected node
-      }
+  if (hasPrecomputedClusterInfo) {
+    let singleNodeGroups = 0;
+    let twoNodeGroups = 0;
+    let largerGroups = 0;
+    for (const cluster_type of Object.values(clusterTypes)) {
+      if (cluster_type === 1) singleNodeGroups++;
+      else if (cluster_type === 2) twoNodeGroups++;
+      else largerGroups++;
     }
-    return groupSize;
+    return { singleNodeGroups, twoNodeGroups, largerGroups };
   }
 
-  let group_keys = Object.keys(graph);
-  for (let i = 0; i < group_keys.length; i++) {
-    let node = group_keys[i];
-    if (!visited[node]) {
-      let groupSize: number = dfs(node);
-      groupSizes.push(groupSize);
-    }
+  // Fallback for older reports that do not yet contain pre-computed cluster info:
+  // use the shared ClusterHelper to rebuild clusters from the data clumps.
+  const nodeClusterInfo = buildClusterInfoFromDataClumps(data_clumps_dict);
+  const clusterTypesFromDfs: Record<number, number> = {};
+  for (const info of Object.values(nodeClusterInfo)) {
+    clusterTypesFromDfs[info.cluster_id] = info.cluster_type;
   }
 
   let singleNodeGroups = 0;
   let twoNodeGroups = 0;
   let largerGroups = 0;
 
-  for (let i = 0; i < groupSizes.length; i++) {
-    if (groupSizes[i] === 1) {
-      singleNodeGroups++;
-    } else if (groupSizes[i] === 2) {
-      twoNodeGroups++;
-    } else {
-      largerGroups++;
-    }
+  for (const cluster_type of Object.values(clusterTypesFromDfs)) {
+    if (cluster_type === 1) singleNodeGroups++;
+    else if (cluster_type === 2) twoNodeGroups++;
+    else largerGroups++;
   }
 
   return {
