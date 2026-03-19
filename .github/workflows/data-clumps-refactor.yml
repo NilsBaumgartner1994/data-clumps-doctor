@@ -171,9 +171,15 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git pull --rebase --autostash origin "$GITHUB_REF_NAME"
           if [ -d reports/data-clumps-doctor ]; then
             echo "Committing reports from reports/data-clumps-doctor"
+            # Back up newly generated reports before syncing with upstream
+            cp -r reports/data-clumps-doctor /tmp/generated-reports
+            # Sync with upstream (force reset to avoid merge conflicts in generated files)
+            git fetch origin "$GITHUB_REF_NAME"
+            git reset --hard "origin/$GITHUB_REF_NAME"
+            # Restore newly generated reports (force overwrite upstream version)
+            cp -r /tmp/generated-reports/. reports/data-clumps-doctor/
             git add -f reports/data-clumps-doctor
             if git diff --cached --quiet; then
               echo "No changes to commit"
