@@ -30,9 +30,7 @@ export type PriorityListItem = {
  * Uses pre-computed cluster info from the report when available,
  * otherwise falls back to rebuilding clusters via ClusterHelper.
  */
-function getClusterInfoForDataClumps(
-  data_clumps: Record<string, any>
-): Record<string, { cluster_id: number; cluster_type: number }> {
+function getClusterInfoForDataClumps(data_clumps: Record<string, any>): Record<string, { cluster_id: number; cluster_type: number }> {
   const result: Record<string, { cluster_id: number; cluster_type: number }> = {};
   let hasPrecomputed = false;
 
@@ -109,11 +107,7 @@ function parseClusterTypePriority(input: string): number[] {
  * 4. Within each cluster type group, sort by number of variables (descending).
  * 5. Limit results to the requested amount.
  */
-export function generatePriorityList(
-  report: DataClumpsTypeContext,
-  clusterTypePriority: number[],
-  amount: number
-): PriorityListItem[] {
+export function generatePriorityList(report: DataClumpsTypeContext, clusterTypePriority: number[], amount: number): PriorityListItem[] {
   const data_clumps = report.data_clumps;
   if (!data_clumps) {
     console.log('No data clumps found in report.');
@@ -197,12 +191,7 @@ export function generatePriorityList(
 }
 
 program
-  .description(
-    'Generate Priority List of Data Clumps\n\n' +
-      'Reads a data clumps report (JSON) and generates a prioritized list\n' +
-      'of data clumps with unique cluster IDs, ordered by cluster type priority.\n\n' +
-      'npx data-clumps-doctor-priority [options]'
-  )
+  .description('Generate Priority List of Data Clumps\n\n' + 'Reads a data clumps report (JSON) and generates a prioritized list\n' + 'of data clumps with unique cluster IDs, ordered by cluster type priority.\n\n' + 'npx data-clumps-doctor-priority [options]')
   .version(version)
   .option('--report_path <path>', 'Path to the data clumps report JSON file')
   .option('--cluster_type_priority <priority>', 'Cluster type priority order, e.g. "1,2,3" or "single,two,large"', '1,2,3')
@@ -247,11 +236,7 @@ async function main() {
   console.log('Generated priority list with ' + priorityList.length + ' entries:');
   for (let i = 0; i < priorityList.length; i++) {
     const item = priorityList[i];
-    console.log(
-      `  ${i + 1}. [cluster_id=${item.cluster_id}, type=${item.cluster_type}] ` +
-        `${item.data_clump_type}: ${item.from_class_or_interface_name} <-> ${item.to_class_or_interface_name} ` +
-        `(${item.amount_of_variables} vars: ${item.variable_names.join(', ')})`
-    );
+    console.log(`  ${i + 1}. [cluster_id=${item.cluster_id}, type=${item.cluster_type}] ` + `${item.data_clump_type}: ${item.from_class_or_interface_name} <-> ${item.to_class_or_interface_name} ` + `(${item.amount_of_variables} vars: ${item.variable_names.join(', ')})`);
   }
 
   const outputPath = options.output;
