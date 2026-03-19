@@ -1,0 +1,203 @@
+name: Analyse & Refactor Data Clumps
+description: >
+  Analyse a project for data clumps using data-clumps-doctor, generate a
+  prioritised refactoring list, and optionally trigger Copilot-based
+  refactoring.
+
+inputs:
+  path-to-source:
+    description: Relative path to source files inside the project
+    required: false
+    default: '.'
+  output-path:
+    description: Path to the data clumps JSON report
+    required: false
+    default: 'reports/data-clumps-doctor/data-clumps.json'
+  badge-output-path:
+    description: Path to the generated badge (optional, leave empty to skip)
+    required: false
+    default: ''
+  source-language-type:
+    description: 'Language of the source files (typescript, java, uml, ast, digitalTwinsDefinitionLanguage, ngsi-ld)'
+    required: false
+    default: 'typescript'
+  refactor-data-clumps:
+    description: 'Whether to refactor detected data clumps (true/false)'
+    required: false
+    default: 'false'
+  refactor-using-copilot:
+    description: 'Whether to use GitHub Copilot agent for refactoring (true/false)'
+    required: false
+    default: 'false'
+  cluster-type-priority:
+    description: >
+      Priority order of data clump cluster types.
+      Use numeric (e.g. "3,2,1") or named values (e.g. "large,two,single").
+      Cluster types: 1/single = isolated, 2/two/pair = pair, 3/large = three-or-more.
+    required: false
+    default: '3,2,1'
+  refactor-amount:
+    description: Number of data clumps to refactor
+    required: false
+    default: '1'
+
+outputs:
+  report-path:
+    description: Path to the generated data clumps report
+    value: ${{ inputs.output-path }}
+  priority-list-path:
+    description: Path to the generated priority list JSON
+    value: reports/data-clumps-doctor/priority-list.json
+  data-clumps-count:
+    description: Number of detected data clumps
+    value: ${{ steps.data-clumps-count.outputs.count }}
+
+runs:
+  using: composite
+  steps:
+    # ── 1. Clone & build data-clumps-doctor ──────────────────────────────
+    - name: "🔧 Clone data-clumps-doctor"
+      shell: bash
+      run: |
+        git clone https://github.com/NilsBaumgartner1994/data-clumps-doctor "$RUNNER_TEMP/data-clumps-doctor"
+
+    - name: "🔨 Build data-clumps-doctor"
+      shell: bash
+      run: |
+        cd "$RUNNER_TEMP/data-clumps-doctor"
+        yarn install --immutable
+        yarn build
+
+    # ── 2. Analyse project for data clumps ───────────────────────────────
+    - name: "🩺 Analyse data clumps"
+      shell: bash
+      run: |
+        output_path="${{ inputs.output-path }}"
+        mkdir -p "$(dirname "$output_path")"
+        node "$RUNNER_TEMP/data-clumps-doctor/build/ignoreCoverage/cli.js" \
+          --source_type "${{ inputs.source-language-type }}" \
+          --commit_selection current \
+          --output "$output_path" \
+          --path_to_project "$GITHUB_WORKSPACE" \
+          --relative_path_to_source_folder_in_project "${{ inputs.path-to-source }}"
+
+    - name: "📊 Extract data clumps count"
+      id: data-clumps-count
+      shell: bash
+      run: |
+        count=$(jq '.report_summary.amount_data_clumps' "${{ inputs.output-path }}")
+        echo "count=$count" >> "$GITHUB_OUTPUT"
+        echo "Detected $count data clumps."
+
+    # ── 3. Generate badge (optional) ─────────────────────────────────────
+    - name: "📁 Prepare badge directory"
+      if: ${{ inputs.badge-output-path != '' }}
+      shell: bash
+      run: mkdir -p "$(dirname "${{ inputs.badge-output-path }}")"
+
+    - name: "🎨 Determine badge color"
+      id: badge-color
+      if: ${{ inputs.badge-output-path != '' }}
+      shell: bash
+      run: |
+        count=${{ steps.data-clumps-count.outputs.count }}
+        if [ "$count" -le 10 ]; then
+          echo "color=08A008" >> "$GITHUB_OUTPUT"
+        elif [ "$count" -le 100 ]; then
+          echo "color=FE7D37" >> "$GITHUB_OUTPUT"
+        else
+          echo "color=F85149" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: "🏷️ Generate data clumps badge"
+      if: ${{ inputs.badge-output-path != '' }}
+      uses: emibcn/badge-action@v2.0.2
+      with:
+        label: data clumps
+        status: ${{ steps.data-clumps-count.outputs.count }}
+        color: ${{ steps.badge-color.outputs.color }}
+        path: ${{ inputs.badge-output-path }}
+
+    # ── 4. Generate priority list ────────────────────────────────────────
+    - name: "📋 Generate data clumps priority list"
+      if: ${{ inputs.refactor-data-clumps == 'true' }}
+      shell: bash
+      run: |
+        mkdir -p reports/data-clumps-doctor
+        node "$RUNNER_TEMP/data-clumps-doctor/build/ignoreCoverage/cliGeneratePriorityList.js" \
+          --report_path "${{ inputs.output-path }}" \
+          --cluster_type_priority "${{ inputs.cluster-type-priority }}" \
+          --amount "${{ inputs.refactor-amount }}" \
+          --output reports/data-clumps-doctor/priority-list.json
+
+    # ── 5. Copilot-based refactoring (optional) ──────────────────────────
+    - name: "🤖 Refactor with GitHub Copilot"
+      if: ${{ inputs.refactor-data-clumps == 'true' && inputs.refactor-using-copilot == 'true' }}
+      shell: bash
+      run: |
+        echo "::group::Copilot Refactoring"
+
+        if ! command -v gh &> /dev/null; then
+          echo "::warning::gh CLI not found – skipping Copilot refactoring."
+          echo "::endgroup::"
+          exit 0
+        fi
+
+        PRIORITY_LIST="reports/data-clumps-doctor/priority-list.json"
+        if [ ! -f "$PRIORITY_LIST" ]; then
+          echo "::warning::Priority list not found at $PRIORITY_LIST – skipping."
+          echo "::endgroup::"
+          exit 0
+        fi
+
+        ITEM_COUNT=$(jq 'length' "$PRIORITY_LIST")
+        echo "Processing $ITEM_COUNT data clumps for refactoring..."
+
+        for i in $(seq 0 $((ITEM_COUNT - 1))); do
+          ITEM=$(jq ".[$i]" "$PRIORITY_LIST")
+          CLUSTER_ID=$(echo "$ITEM" | jq -r '.cluster_id')
+          DC_TYPE=$(echo "$ITEM" | jq -r '.data_clump_type')
+          FROM_CLASS=$(echo "$ITEM" | jq -r '.from_class_or_interface_name')
+          TO_CLASS=$(echo "$ITEM" | jq -r '.to_class_or_interface_name')
+          VARIABLES=$(echo "$ITEM" | jq -r '.variable_names | join(", ")')
+
+          TASK_DESCRIPTION="Refactor data clump (cluster $CLUSTER_ID, type: $DC_TYPE):
+        The classes '$FROM_CLASS' and '$TO_CLASS' share the following variables: $VARIABLES.
+        Extract these into a shared class or parameter object and update all references."
+
+          echo "--- Task $((i + 1))/$ITEM_COUNT ---"
+          echo "$TASK_DESCRIPTION"
+          echo ""
+
+          # Attempt to create a Copilot coding agent task.
+          # This uses the 'gh copilot' extension if available.
+          if gh copilot --help &> /dev/null 2>&1; then
+            echo "Creating Copilot agent task..."
+            gh copilot suggest "$TASK_DESCRIPTION" || echo "::warning::Copilot task creation failed for cluster $CLUSTER_ID"
+          else
+            echo "::notice::gh copilot extension not available. Task description printed above for manual refactoring."
+          fi
+        done
+
+        echo "::endgroup::"
+
+    # ── 6. Summary ───────────────────────────────────────────────────────
+    - name: "📝 Publish analysis summary"
+      shell: bash
+      run: |
+        {
+          echo "## 🩺 Data Clumps Analysis"
+          echo ""
+          echo "- **Data clumps detected:** ${{ steps.data-clumps-count.outputs.count }}"
+          echo "- **Report path:** \`${{ inputs.output-path }}\`"
+          echo "- **Refactoring enabled:** ${{ inputs.refactor-data-clumps }}"
+          echo "- **Copilot refactoring:** ${{ inputs.refactor-using-copilot }}"
+          if [ "${{ inputs.refactor-data-clumps }}" = "true" ]; then
+            echo "- **Cluster type priority:** ${{ inputs.cluster-type-priority }}"
+            echo "- **Refactor amount:** ${{ inputs.refactor-amount }}"
+            if [ -f reports/data-clumps-doctor/priority-list.json ]; then
+              PCOUNT=$(jq 'length' reports/data-clumps-doctor/priority-list.json)
+              echo "- **Priority list entries:** $PCOUNT"
+            fi
+          fi
+        } >> "$GITHUB_STEP_SUMMARY"
