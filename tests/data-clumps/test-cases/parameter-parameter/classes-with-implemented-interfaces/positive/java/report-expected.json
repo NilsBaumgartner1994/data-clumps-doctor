@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-12-01T13:18:01.907Z",
+  "report_timestamp": "2026-03-19T05:48:00.553Z",
   "target_language": "java",
   "report_summary": {
     "additional": {
@@ -186,6 +186,10 @@
             "endColumn": 107
           }
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 3
       }
     },
     "parameters_to_parameters_data_clump-MyCardReaderInterface.java-MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction": {
@@ -304,6 +308,10 @@
             "endColumn": 107
           }
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 3
       }
     },
     "parameters_to_parameters_data_clump-MyNativeCardReaderImpl.java-MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction": {
@@ -422,6 +430,10 @@
             "endColumn": 123
           }
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 3
       }
     },
     "parameters_to_parameters_data_clump-MyNativeCardReaderImpl.java-MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction": {
@@ -540,6 +552,10 @@
             "endColumn": 123
           }
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 3
       }
     },
     "parameters_to_parameters_data_clump-MyUnsupportedCardReaderImpl.java-MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyCardReaderInterface/method/readCard(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction": {
@@ -658,6 +674,10 @@
             "endColumn": 123
           }
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 3
       }
     },
     "parameters_to_parameters_data_clump-MyUnsupportedCardReaderImpl.java-MyUnsupportedCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-MyNativeCardReaderImpl/method/readCardDublicate(java.lang.String callBack, boolean showInstruction, boolean hideInstruction, java.lang.String nfcInstruction)-callBackshowInstructionhideInstructionnfcInstruction": {
@@ -776,6 +796,10 @@
             "endColumn": 123
           }
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 3
       }
     }
   }

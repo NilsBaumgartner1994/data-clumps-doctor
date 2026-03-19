@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-12-01T13:17:53.532Z",
+  "report_timestamp": "2026-03-19T05:47:54.161Z",
   "target_language": "java",
   "report_summary": {
     "additional": {
@@ -161,6 +161,10 @@
             "endColumn": 79
           }
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 2
       }
     },
     "parameters_to_parameters_data_clump-BillingProcessor.java-BillingProcessor/method/createInvoice(int patientId, int doctorId, boolean requiresFollowUp)-AppointmentScheduler/method/schedule(int patientId, int doctorId, boolean requiresFollowUp)-patientIddoctorIdrequiresFollowUp": {
@@ -254,6 +258,10 @@
             "endColumn": 84
           }
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 2
       }
     }
   }

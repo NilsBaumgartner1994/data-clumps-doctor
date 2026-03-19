@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.102",
-  "report_timestamp": "2025-12-01T13:17:42.888Z",
+  "report_timestamp": "2026-03-19T05:47:45.502Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -131,6 +131,10 @@
           },
           "position": {}
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 2
       }
     },
     "parameters_to_parameters_data_clump-PatientRegistration.ts-PatientRegistration.ts/class/PatientRegistration/method/registerPatient-DoctorScheduler.ts/class/DoctorScheduler/method/scheduleCheckup-firstnameagelastname": {
@@ -194,6 +198,10 @@
           },
           "position": {}
         }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 2
       }
     }
   }
