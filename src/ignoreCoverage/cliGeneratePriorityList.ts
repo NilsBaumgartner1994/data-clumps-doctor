@@ -109,10 +109,11 @@ function parseClusterTypePriority(input: string): number[] {
  *
  * The algorithm:
  * 1. Resolve cluster info for each data clump (pre-computed or via DFS).
- * 2. Filter data clumps by cluster type priority order.
- * 3. Iterate in priority order, adding unique cluster IDs (no duplicates).
- * 4. Within each cluster type group, sort by number of variables (descending).
- * 5. Limit results to the requested amount.
+ * 2. Sort data clumps by cluster type priority, then by variable count (descending).
+ * 3. Iterate in priority order, deduplicating at the *pair* level:
+ *    a data clump between class A and class B is stored twice (A→B and B→A);
+ *    only the first direction encountered is kept.
+ * 4. Limit results to the requested amount.
  */
 export function generatePriorityList(report: DataClumpsTypeContext, clusterTypePriority: number[], amount: number): PriorityListItem[] {
   const data_clumps = report.data_clumps;
@@ -162,7 +163,12 @@ export function generatePriorityList(report: DataClumpsTypeContext, clusterTypeP
     return b.variable_count - a.variable_count;
   });
 
-  // Build priority list with unique cluster IDs
+  // Build priority list with unique data-clump pairs.
+  // A data clump between class A and class B is always stored twice in the report
+  // (once as A→B and once as B→A).  We deduplicate at the *pair* level so that
+  // both directions count as a single entry.  This means --amount 5 returns up to
+  // 5 distinct class-pair data clumps, even when multiple pairs belong to the same
+  // connected-component cluster.
   /**
    * Expands a [start, end] line range to include the given position.
    * Returns the updated [start, end] pair.
@@ -174,14 +180,29 @@ export function generatePriorityList(report: DataClumpsTypeContext, clusterTypeP
     return [newStart, newEnd];
   }
 
-  const seenClusterIds = new Set<number>();
+  /**
+   * Returns a canonical key for the (unordered) pair of class keys so that
+   * A→B and B→A map to the same string.
+   * Uses a null byte (\0) as separator because class keys cannot contain \0.
+   */
+  function canonicalPairKey(fromKey: string, toKey: string): string {
+    return fromKey <= toKey ? `${fromKey}\0${toKey}` : `${toKey}\0${fromKey}`;
+  }
+
+  const seenPairs = new Set<string>();
   const priorityList: PriorityListItem[] = [];
 
   for (const entry of entries) {
     if (priorityList.length >= amount) break;
-    if (seenClusterIds.has(entry.cluster_id)) continue;
 
-    seenClusterIds.add(entry.cluster_id);
+    const fromKey = entry.dc.from_class_or_interface_key;
+    const toKey = entry.dc.to_class_or_interface_key;
+    if (!fromKey || !toKey) continue;
+
+    const pairKey = canonicalPairKey(fromKey, toKey);
+    if (seenPairs.has(pairKey)) continue;
+
+    seenPairs.add(pairKey);
 
     const dc = entry.dc;
     const variableNames: string[] = [];
@@ -224,7 +245,7 @@ export function generatePriorityList(report: DataClumpsTypeContext, clusterTypeP
 }
 
 program
-  .description('Generate Priority List of Data Clumps\n\n' + 'Reads a data clumps report (JSON) and generates a prioritized list\n' + 'of data clumps with unique cluster IDs, ordered by cluster type priority.\n\n' + 'npx data-clumps-doctor-priority [options]')
+  .description('Generate Priority List of Data Clumps\n\n' + 'Reads a data clumps report (JSON) and generates a prioritized list\n' + 'of data clumps with unique class-pair entries (bidirectional duplicates removed),\n' + 'ordered by cluster type priority.\n\n' + 'npx data-clumps-doctor-priority [options]')
   .version(version)
   .option('--report_path <path>', 'Path to the data clumps report JSON file')
   .option('--cluster_type_priority <priority>', 'Cluster type priority order, e.g. "1,2,3" or "single,two,large"', '1,2,3')

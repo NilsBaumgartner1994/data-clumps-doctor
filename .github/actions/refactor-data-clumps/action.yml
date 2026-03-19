@@ -27,9 +27,10 @@ inputs:
     default: 'false'
   create-issue-with-data-clumps:
     description: >
-      When true, a GitHub Issue is created for each data clump in the priority list.
+      When true, a single GitHub Issue is created that lists all detected data clumps
+      from the priority list, separated by markdown dividers.
       This makes detected data clumps visible in the issue tracker for manual review
-      or assignment.
+      or assignment. Works independently of refactor-data-clumps.
     required: false
     default: 'true'
   automatically-let-github-copilot-refactor:
@@ -193,7 +194,7 @@ runs:
 
     # ── 5. Generate priority list ────────────────────────────────────────
     - name: "📋 Generate data clumps priority list"
-      if: ${{ inputs.refactor-data-clumps == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
+      if: ${{ (inputs.create-issue-with-data-clumps == 'true' && inputs.refactor-data-clumps != 'true') || (inputs.refactor-data-clumps == 'true' && steps.refactor-decision.outputs.should-refactor == 'true') }}
       shell: bash
       run: |
         mkdir -p reports/data-clumps-doctor
@@ -205,7 +206,7 @@ runs:
 
     # ── 6. Create GitHub Issue for detected data clumps (optional) ──────
     - name: "🐛 Create GitHub Issue for data clumps"
-      if: ${{ inputs.refactor-data-clumps == 'true' && inputs.create-issue-with-data-clumps == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
+      if: ${{ inputs.create-issue-with-data-clumps == 'true' && (inputs.refactor-data-clumps != 'true' || steps.refactor-decision.outputs.should-refactor == 'true') }}
       shell: bash
       env:
         GH_TOKEN: ${{ github.token }}
