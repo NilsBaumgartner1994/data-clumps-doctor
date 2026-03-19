@@ -1,6 +1,6 @@
 {
-  "report_version": "^0.1.102",
-  "report_timestamp": "2026-03-19T05:47:49.662Z",
+  "report_version": "^0.1.103",
+  "report_timestamp": "2026-03-19T21:28:05.283Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -66,6 +66,7 @@
       "sharedParametersToParametersAmountMinimum": 2,
       "sharedParametersToFieldsAmountMinimum": 2,
       "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "analyseDataClumpsClusterTypes": true,
       "ignoredVariableNames": []
     }
   },
@@ -97,9 +98,19 @@
             "name": "patientId",
             "type": "number",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 17,
+              "endLine": 2,
+              "endColumn": 34
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 12,
+            "endLine": 2,
+            "endColumn": 29
+          }
         },
         "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/doctorId": {
           "key": "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/doctorId",
@@ -112,9 +123,19 @@
             "name": "doctorId",
             "type": "number",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 36,
+              "endLine": 2,
+              "endColumn": 52
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 31,
+            "endLine": 2,
+            "endColumn": 47
+          }
         }
       },
       "data_clump_type_additional": {
@@ -149,9 +170,19 @@
             "name": "patientId",
             "type": "number",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 12,
+              "endLine": 2,
+              "endColumn": 29
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 17,
+            "endLine": 2,
+            "endColumn": 34
+          }
         },
         "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/doctorId": {
           "key": "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/doctorId",
@@ -164,9 +195,19 @@
             "name": "doctorId",
             "type": "number",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 31,
+              "endLine": 2,
+              "endColumn": 47
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 36,
+            "endLine": 2,
+            "endColumn": 52
+          }
         }
       },
       "data_clump_type_additional": {

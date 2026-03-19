@@ -1,6 +1,6 @@
 {
-  "report_version": "^0.1.102",
-  "report_timestamp": "2026-03-19T05:47:56.218Z",
+  "report_version": "^0.1.103",
+  "report_timestamp": "2026-03-19T21:28:11.905Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -66,6 +66,7 @@
       "sharedParametersToParametersAmountMinimum": 3,
       "sharedParametersToFieldsAmountMinimum": 3,
       "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "analyseDataClumpsClusterTypes": true,
       "ignoredVariableNames": []
     }
   },
@@ -97,9 +98,19 @@
             "name": "patientId",
             "type": "number",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 17,
+              "endLine": 2,
+              "endColumn": 34
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 12,
+            "endLine": 2,
+            "endColumn": 29
+          }
         },
         "AppointmentScheduler.ts/interface/AppointmentScheduler/method/schedule/parameter/doctorId": {
           "key": "AppointmentScheduler.ts/interface/AppointmentScheduler/method/schedule/parameter/doctorId",
@@ -112,9 +123,19 @@
             "name": "doctorId",
             "type": "number",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 36,
+              "endLine": 2,
+              "endColumn": 52
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 31,
+            "endLine": 2,
+            "endColumn": 47
+          }
         },
         "AppointmentScheduler.ts/interface/AppointmentScheduler/method/schedule/parameter/requiresFollowUp": {
           "key": "AppointmentScheduler.ts/interface/AppointmentScheduler/method/schedule/parameter/requiresFollowUp",
@@ -127,9 +148,19 @@
             "name": "requiresFollowUp",
             "type": "boolean",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 54,
+              "endLine": 2,
+              "endColumn": 79
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 49,
+            "endLine": 2,
+            "endColumn": 74
+          }
         }
       },
       "data_clump_type_additional": {
@@ -164,9 +195,19 @@
             "name": "patientId",
             "type": "number",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 12,
+              "endLine": 2,
+              "endColumn": 29
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 17,
+            "endLine": 2,
+            "endColumn": 34
+          }
         },
         "BillingProcessor.ts/interface/BillingProcessor/method/createInvoice/parameter/doctorId": {
           "key": "BillingProcessor.ts/interface/BillingProcessor/method/createInvoice/parameter/doctorId",
@@ -179,9 +220,19 @@
             "name": "doctorId",
             "type": "number",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 31,
+              "endLine": 2,
+              "endColumn": 47
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 36,
+            "endLine": 2,
+            "endColumn": 52
+          }
         },
         "BillingProcessor.ts/interface/BillingProcessor/method/createInvoice/parameter/requiresFollowUp": {
           "key": "BillingProcessor.ts/interface/BillingProcessor/method/createInvoice/parameter/requiresFollowUp",
@@ -194,9 +245,19 @@
             "name": "requiresFollowUp",
             "type": "boolean",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 49,
+              "endLine": 2,
+              "endColumn": 74
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 54,
+            "endLine": 2,
+            "endColumn": 79
+          }
         }
       },
       "data_clump_type_additional": {

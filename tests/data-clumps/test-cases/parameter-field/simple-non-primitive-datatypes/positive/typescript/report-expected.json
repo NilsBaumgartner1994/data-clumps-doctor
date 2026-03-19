@@ -1,6 +1,6 @@
 {
-  "report_version": "^0.1.102",
-  "report_timestamp": "2026-03-19T05:48:04.333Z",
+  "report_version": "^0.1.103",
+  "report_timestamp": "2026-03-19T21:28:20.191Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -66,6 +66,7 @@
       "sharedParametersToParametersAmountMinimum": 3,
       "sharedParametersToFieldsAmountMinimum": 3,
       "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "analyseDataClumpsClusterTypes": true,
       "ignoredVariableNames": []
     }
   },
@@ -99,9 +100,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 4,
+              "startColumn": 3,
+              "endLine": 4,
+              "endColumn": 28
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 4,
+            "startColumn": 19,
+            "endLine": 4,
+            "endColumn": 36
+          }
         },
         "PatientService.ts/class/PatientService/method/registerPatient/parameter/kastanie": {
           "key": "PatientService.ts/class/PatientService/method/registerPatient/parameter/kastanie",
@@ -116,9 +127,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 5,
+              "startColumn": 3,
+              "endLine": 5,
+              "endColumn": 27
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 4,
+            "startColumn": 38,
+            "endLine": 4,
+            "endColumn": 54
+          }
         },
         "PatientService.ts/class/PatientService/method/registerPatient/parameter/address": {
           "key": "PatientService.ts/class/PatientService/method/registerPatient/parameter/address",
@@ -133,9 +154,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 6,
+              "startColumn": 3,
+              "endLine": 6,
+              "endColumn": 26
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 4,
+            "startColumn": 56,
+            "endLine": 4,
+            "endColumn": 71
+          }
         }
       },
       "data_clump_type_additional": {

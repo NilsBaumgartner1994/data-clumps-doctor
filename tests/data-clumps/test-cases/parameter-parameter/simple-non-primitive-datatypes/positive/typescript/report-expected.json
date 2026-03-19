@@ -1,6 +1,6 @@
 {
-  "report_version": "^0.1.102",
-  "report_timestamp": "2026-03-19T05:47:47.999Z",
+  "report_version": "^0.1.103",
+  "report_timestamp": "2026-03-19T21:28:03.557Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -66,6 +66,7 @@
       "sharedParametersToParametersAmountMinimum": 3,
       "sharedParametersToFieldsAmountMinimum": 3,
       "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "analyseDataClumpsClusterTypes": true,
       "ignoredVariableNames": []
     }
   },
@@ -97,9 +98,19 @@
             "name": "firstname",
             "type": "String",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 4,
+              "startColumn": 17,
+              "endLine": 4,
+              "endColumn": 34
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 4,
+            "startColumn": 12,
+            "endLine": 4,
+            "endColumn": 29
+          }
         },
         "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/kastanie": {
           "key": "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/kastanie",
@@ -112,9 +123,19 @@
             "name": "kastanie",
             "type": "String",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 4,
+              "startColumn": 36,
+              "endLine": 4,
+              "endColumn": 52
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 4,
+            "startColumn": 31,
+            "endLine": 4,
+            "endColumn": 47
+          }
         },
         "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/address": {
           "key": "AppointmentScheduler.ts/class/AppointmentScheduler/method/schedule/parameter/address",
@@ -127,9 +148,19 @@
             "name": "address",
             "type": "import(\"Adress\").Adress",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 4,
+              "startColumn": 54,
+              "endLine": 4,
+              "endColumn": 69
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 4,
+            "startColumn": 49,
+            "endLine": 4,
+            "endColumn": 64
+          }
         }
       },
       "data_clump_type_additional": {
@@ -164,9 +195,19 @@
             "name": "firstname",
             "type": "String",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 4,
+              "startColumn": 12,
+              "endLine": 4,
+              "endColumn": 29
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 4,
+            "startColumn": 17,
+            "endLine": 4,
+            "endColumn": 34
+          }
         },
         "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/kastanie": {
           "key": "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/kastanie",
@@ -179,9 +220,19 @@
             "name": "kastanie",
             "type": "String",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 4,
+              "startColumn": 31,
+              "endLine": 4,
+              "endColumn": 47
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 4,
+            "startColumn": 36,
+            "endLine": 4,
+            "endColumn": 52
+          }
         },
         "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/address": {
           "key": "BillingProcessor.ts/class/BillingProcessor/method/createInvoice/parameter/address",
@@ -194,9 +245,19 @@
             "name": "address",
             "type": "import(\"Adress\").Adress",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 4,
+              "startColumn": 49,
+              "endLine": 4,
+              "endColumn": 64
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 4,
+            "startColumn": 54,
+            "endLine": 4,
+            "endColumn": 69
+          }
         }
       },
       "data_clump_type_additional": {

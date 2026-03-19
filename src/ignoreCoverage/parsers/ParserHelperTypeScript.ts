@@ -2,7 +2,7 @@ import { MyLogger, ParserBase } from './ParserBase';
 import { ParserInterface } from './ParserInterface';
 import { Project, SyntaxKind } from 'ts-morph';
 import path from 'path';
-import { ClassOrInterfaceTypeContext, MemberFieldParameterTypeContext, MethodParameterTypeContext, MethodTypeContext } from '../ParsedAstTypes';
+import { AstPosition, ClassOrInterfaceTypeContext, MemberFieldParameterTypeContext, MethodParameterTypeContext, MethodTypeContext } from '../ParsedAstTypes';
 
 export class ParserHelperTypeScript extends ParserBase implements ParserInterface {
   private readonly logger: MyLogger = new MyLogger();
@@ -80,6 +80,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
           if (prop.hasModifier('private')) modifiers.push('PRIVATE');
           if (prop.isReadonly()) modifiers.push('READONLY');
           const field = new MemberFieldParameterTypeContext(fieldKey, propName, typeText, modifiers, false, ctx);
+          field.position = this.getAstPosition(prop, sourceFile);
           ctx.fields[field.key] = field;
         }
 
@@ -102,6 +103,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
             paramNames.push(paramName);
             const paramType = this.normalizeTypeText(param.getType().getText(), path_to_source_folder);
             const paramCtx = new MethodParameterTypeContext(paramName, paramName, paramType, [], false, methodCtx);
+            paramCtx.position = this.getAstPosition(param, sourceFile);
             methodCtx.parameters.push(paramCtx);
           }
           this.logger.log('     - Found method ' + methodName + ' (' + paramNames.join(', ') + ') : ' + returnTypeText);
@@ -113,6 +115,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
           const parameterInfos = ctor.getParameters().map(param => ({
             name: param.getName(),
             type: this.normalizeTypeText(param.getType().getText(), path_to_source_folder),
+            node: param,
           }));
           const signature = parameterInfos.map(param => `${param.type} ${param.name}`).join(', ');
           const ctorKey = `constructor(${signature})`;
@@ -124,6 +127,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
 
           for (const paramInfo of parameterInfos) {
             const paramCtx = new MethodParameterTypeContext(paramInfo.name, paramInfo.name, paramInfo.type, [], false, ctorCtx);
+            paramCtx.position = this.getAstPosition(paramInfo.node, sourceFile);
             ctorCtx.parameters.push(paramCtx);
           }
 
@@ -201,6 +205,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
                 }
 
                 const paramCtx = new MethodParameterTypeContext(paramName, paramName, paramType, [], false, methodCtx);
+                paramCtx.position = this.getAstPosition(pNode, sourceFile);
                 methodCtx.parameters.push(paramCtx);
               }
 
@@ -214,6 +219,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
           // fallback: normal property
           const typeText = this.normalizeTypeText(prop.getType().getText(), path_to_source_folder);
           const field = new MemberFieldParameterTypeContext(fieldKey, propName, typeText, [], false, ctx);
+          field.position = this.getAstPosition(prop, sourceFile);
           ctx.fields[field.key] = field;
         }
 
@@ -228,6 +234,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
             const paramName = param.getName();
             const paramType = this.normalizeTypeText(param.getType().getText(), path_to_source_folder);
             const paramCtx = new MethodParameterTypeContext(paramName, paramName, paramType, [], false, methodCtx);
+            paramCtx.position = this.getAstPosition(param, sourceFile);
             methodCtx.parameters.push(paramCtx);
           }
 
@@ -271,6 +278,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
                     // ignore
                   }
                   const field = new MemberFieldParameterTypeContext(propName, propName, typeText, [], false, ctx);
+                  field.position = this.getAstPosition(mem, sourceFile);
                   ctx.fields[field.key] = field;
                 }
 
@@ -297,6 +305,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
                         // ignore
                       }
                       const paramCtx = new MethodParameterTypeContext(pname, pname, ptype, [], false, methodCtx);
+                      paramCtx.position = this.getAstPosition(p, sourceFile);
                       methodCtx.parameters.push(paramCtx);
                     }
                     ctx.methods[methodCtx.key] = methodCtx;
@@ -329,6 +338,7 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
                   // ignore
                 }
                 const paramCtx = new MethodParameterTypeContext(paramName, paramName, paramType, [], false, methodCtx);
+                paramCtx.position = this.getAstPosition(pNode, sourceFile);
                 methodCtx.parameters.push(paramCtx);
               }
               ctx.methods[methodCtx.key] = methodCtx;
@@ -345,6 +355,26 @@ export class ParserHelperTypeScript extends ParserBase implements ParserInterfac
     }
 
     return dict;
+  }
+
+  /**
+   * Extracts position information from a ts-morph node.
+   */
+  private getAstPosition(node: any, sourceFile: any): AstPosition {
+    const position = new AstPosition();
+    try {
+      position.startLine = node.getStartLineNumber();
+      position.endLine = node.getEndLineNumber();
+      if (typeof sourceFile.getLineAndColumnAtPos === 'function') {
+        const startLc = sourceFile.getLineAndColumnAtPos(node.getStart());
+        const endLc = sourceFile.getLineAndColumnAtPos(node.getEnd());
+        position.startColumn = startLc.column;
+        position.endColumn = endLc.column;
+      }
+    } catch (e) {
+      // ignore position extraction errors
+    }
+    return position;
   }
 
   private normalizeTypeText(typeText: string, projectRoot: string): string {

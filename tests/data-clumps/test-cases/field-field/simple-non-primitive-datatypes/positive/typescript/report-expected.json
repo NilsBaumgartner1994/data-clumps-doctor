@@ -1,6 +1,6 @@
 {
-  "report_version": "^0.1.102",
-  "report_timestamp": "2026-03-19T05:48:16.959Z",
+  "report_version": "^0.1.103",
+  "report_timestamp": "2026-03-19T21:28:33.186Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -66,6 +66,7 @@
       "sharedParametersToParametersAmountMinimum": 3,
       "sharedParametersToFieldsAmountMinimum": 3,
       "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "analyseDataClumpsClusterTypes": true,
       "ignoredVariableNames": []
     }
   },
@@ -101,9 +102,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 4,
+              "startColumn": 3,
+              "endLine": 4,
+              "endColumn": 28
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 4,
+            "startColumn": 3,
+            "endLine": 4,
+            "endColumn": 28
+          }
         },
         "Doctor.ts/class/Doctor/memberField/kastanie": {
           "key": "Doctor.ts/class/Doctor/memberField/kastanie",
@@ -120,9 +131,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 5,
+              "startColumn": 3,
+              "endLine": 5,
+              "endColumn": 27
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 5,
+            "startColumn": 3,
+            "endLine": 5,
+            "endColumn": 27
+          }
         },
         "Doctor.ts/class/Doctor/memberField/address": {
           "key": "Doctor.ts/class/Doctor/memberField/address",
@@ -139,9 +160,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 6,
+              "startColumn": 3,
+              "endLine": 6,
+              "endColumn": 26
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 6,
+            "startColumn": 3,
+            "endLine": 6,
+            "endColumn": 26
+          }
         }
       },
       "data_clump_type_additional": {
@@ -180,9 +211,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 4,
+              "startColumn": 3,
+              "endLine": 4,
+              "endColumn": 28
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 4,
+            "startColumn": 3,
+            "endLine": 4,
+            "endColumn": 28
+          }
         },
         "Patient.ts/class/Patient/memberField/kastanie": {
           "key": "Patient.ts/class/Patient/memberField/kastanie",
@@ -199,9 +240,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 5,
+              "startColumn": 3,
+              "endLine": 5,
+              "endColumn": 27
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 5,
+            "startColumn": 3,
+            "endLine": 5,
+            "endColumn": 27
+          }
         },
         "Patient.ts/class/Patient/memberField/address": {
           "key": "Patient.ts/class/Patient/memberField/address",
@@ -218,9 +269,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 6,
+              "startColumn": 3,
+              "endLine": 6,
+              "endColumn": 26
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 6,
+            "startColumn": 3,
+            "endLine": 6,
+            "endColumn": 26
+          }
         }
       },
       "data_clump_type_additional": {

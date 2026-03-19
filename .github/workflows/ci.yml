@@ -102,19 +102,32 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git pull --rebase --autostash origin "$GITHUB_REF_NAME"
-          paths_to_commit=()
+          any_reports=false
           if [ -d reports/data-clumps-doctor ]; then
-            echo "Committing reports from reports/data-clumps-doctor"
-            paths_to_commit+=("reports/data-clumps-doctor")
+            cp -r reports/data-clumps-doctor /tmp/generated-data-clumps-doctor
+            any_reports=true
           fi
           if [ -d reports/tests ]; then
-            echo "Committing reports from reports/tests"
-            paths_to_commit+=("reports/tests")
+            cp -r reports/tests /tmp/generated-tests
+            any_reports=true
           fi
-          if [ "${#paths_to_commit[@]}" -eq 0 ]; then
+          if [ "$any_reports" = "false" ]; then
             echo "No reports generated, skipping commit"
           else
+            # Sync with upstream (force reset to avoid merge conflicts in generated files)
+            git fetch origin "$GITHUB_REF_NAME"
+            git reset --hard "origin/$GITHUB_REF_NAME"
+            paths_to_commit=()
+            if [ -d /tmp/generated-data-clumps-doctor ]; then
+              mkdir -p reports/data-clumps-doctor
+              cp -r /tmp/generated-data-clumps-doctor/. reports/data-clumps-doctor/
+              paths_to_commit+=("reports/data-clumps-doctor")
+            fi
+            if [ -d /tmp/generated-tests ]; then
+              mkdir -p reports/tests
+              cp -r /tmp/generated-tests/. reports/tests/
+              paths_to_commit+=("reports/tests")
+            fi
             git add -f "${paths_to_commit[@]}"
             if git diff --cached --quiet; then
               echo "No changes to commit"

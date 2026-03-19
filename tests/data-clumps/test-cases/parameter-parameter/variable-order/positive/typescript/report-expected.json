@@ -1,6 +1,6 @@
 {
-  "report_version": "^0.1.102",
-  "report_timestamp": "2026-03-19T05:47:45.502Z",
+  "report_version": "^0.1.103",
+  "report_timestamp": "2026-03-19T21:28:00.730Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -66,6 +66,7 @@
       "sharedParametersToParametersAmountMinimum": 3,
       "sharedParametersToFieldsAmountMinimum": 3,
       "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "analyseDataClumpsClusterTypes": true,
       "ignoredVariableNames": []
     }
   },
@@ -97,9 +98,19 @@
             "name": "firstname",
             "type": "string",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 19,
+              "endLine": 2,
+              "endColumn": 36
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 19,
+            "endLine": 2,
+            "endColumn": 36
+          }
         },
         "DoctorScheduler.ts/class/DoctorScheduler/method/scheduleCheckup/parameter/lastname": {
           "key": "DoctorScheduler.ts/class/DoctorScheduler/method/scheduleCheckup/parameter/lastname",
@@ -112,9 +123,19 @@
             "name": "lastname",
             "type": "string",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 51,
+              "endLine": 2,
+              "endColumn": 67
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 38,
+            "endLine": 2,
+            "endColumn": 54
+          }
         },
         "DoctorScheduler.ts/class/DoctorScheduler/method/scheduleCheckup/parameter/age": {
           "key": "DoctorScheduler.ts/class/DoctorScheduler/method/scheduleCheckup/parameter/age",
@@ -127,9 +148,19 @@
             "name": "age",
             "type": "number",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 38,
+              "endLine": 2,
+              "endColumn": 49
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 56,
+            "endLine": 2,
+            "endColumn": 67
+          }
         }
       },
       "data_clump_type_additional": {
@@ -164,9 +195,19 @@
             "name": "firstname",
             "type": "string",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 19,
+              "endLine": 2,
+              "endColumn": 36
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 19,
+            "endLine": 2,
+            "endColumn": 36
+          }
         },
         "PatientRegistration.ts/class/PatientRegistration/method/registerPatient/parameter/age": {
           "key": "PatientRegistration.ts/class/PatientRegistration/method/registerPatient/parameter/age",
@@ -179,9 +220,19 @@
             "name": "age",
             "type": "number",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 56,
+              "endLine": 2,
+              "endColumn": 67
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 38,
+            "endLine": 2,
+            "endColumn": 49
+          }
         },
         "PatientRegistration.ts/class/PatientRegistration/method/registerPatient/parameter/lastname": {
           "key": "PatientRegistration.ts/class/PatientRegistration/method/registerPatient/parameter/lastname",
@@ -194,9 +245,19 @@
             "name": "lastname",
             "type": "string",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 38,
+              "endLine": 2,
+              "endColumn": 54
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 51,
+            "endLine": 2,
+            "endColumn": 67
+          }
         }
       },
       "data_clump_type_additional": {

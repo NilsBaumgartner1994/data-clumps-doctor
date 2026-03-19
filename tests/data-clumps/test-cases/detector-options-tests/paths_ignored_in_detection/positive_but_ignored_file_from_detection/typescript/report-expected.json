@@ -1,6 +1,6 @@
 {
-  "report_version": "^0.1.102",
-  "report_timestamp": "2026-03-19T05:48:28.901Z",
+  "report_version": "^0.1.103",
+  "report_timestamp": "2026-03-19T21:28:45.251Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -68,6 +68,7 @@
       "sharedParametersToParametersAmountMinimum": 3,
       "sharedParametersToFieldsAmountMinimum": 3,
       "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "analyseDataClumpsClusterTypes": true,
       "ignoredVariableNames": []
     }
   },
@@ -103,9 +104,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 3,
+              "endLine": 2,
+              "endColumn": 27
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 3,
+            "endLine": 2,
+            "endColumn": 27
+          }
         },
         "Doctor.ts/class/Doctor/memberField/isActive": {
           "key": "Doctor.ts/class/Doctor/memberField/isActive",
@@ -122,9 +133,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 3,
+              "startColumn": 3,
+              "endLine": 3,
+              "endColumn": 28
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 3,
+            "startColumn": 3,
+            "endLine": 3,
+            "endColumn": 28
+          }
         },
         "Doctor.ts/class/Doctor/memberField/visitCount": {
           "key": "Doctor.ts/class/Doctor/memberField/visitCount",
@@ -141,9 +162,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 4,
+              "startColumn": 3,
+              "endLine": 4,
+              "endColumn": 29
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 4,
+            "startColumn": 3,
+            "endLine": 4,
+            "endColumn": 29
+          }
         }
       },
       "data_clump_type_additional": {
@@ -182,9 +213,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 3,
+              "endLine": 2,
+              "endColumn": 27
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 3,
+            "endLine": 2,
+            "endColumn": 27
+          }
         },
         "Patient.ts/class/Patient/memberField/isActive": {
           "key": "Patient.ts/class/Patient/memberField/isActive",
@@ -201,9 +242,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 3,
+              "startColumn": 3,
+              "endLine": 3,
+              "endColumn": 28
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 3,
+            "startColumn": 3,
+            "endLine": 3,
+            "endColumn": 28
+          }
         },
         "Patient.ts/class/Patient/memberField/visitCount": {
           "key": "Patient.ts/class/Patient/memberField/visitCount",
@@ -220,9 +271,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 4,
+              "startColumn": 3,
+              "endLine": 4,
+              "endColumn": 29
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 4,
+            "startColumn": 3,
+            "endLine": 4,
+            "endColumn": 29
+          }
         }
       },
       "data_clump_type_additional": {
