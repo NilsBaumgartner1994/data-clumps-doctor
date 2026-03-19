@@ -7,9 +7,7 @@
  *  - 2: pair (two classes)
  *  - 3: three or more classes
  */
-export function buildClusterInfoFromDataClumps(
-  data_clumps_dict: Record<string, any>
-): Record<string, { cluster_id: number; cluster_type: number }> {
+export function buildClusterInfoFromDataClumps(data_clumps_dict: Record<string, any>): Record<string, { cluster_id: number; cluster_type: number }> {
   const data_clumps_keys = Object.keys(data_clumps_dict);
 
   // Build undirected graph: node = class/interface key, edge = data clump relationship
