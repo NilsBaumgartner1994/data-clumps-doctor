@@ -9,6 +9,16 @@
     "from_method_name": "calculateProbabilityOfDataClumpsMethodsToFields",
     "to_method_name": null,
     "amount_of_variables": 3,
-    "variable_names": ["currentClassWholeHierarchyKnown", "otherClassWholeHierarchyKnown", "parameterPairs"]
+    "variable_names": [
+      "currentClassWholeHierarchyKnown",
+      "otherClassWholeHierarchyKnown",
+      "parameterPairs"
+    ],
+    "from_file_path": "ignoreCoverage/detector/DetectorUtils.ts",
+    "to_file_path": "ignoreCoverage/detector/DetectorUtils.ts",
+    "from_start_line": null,
+    "from_end_line": null,
+    "to_start_line": null,
+    "to_end_line": null
   }
 ]
