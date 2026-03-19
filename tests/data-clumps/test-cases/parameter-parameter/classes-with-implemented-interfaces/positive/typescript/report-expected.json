@@ -1,6 +1,6 @@
 {
-  "report_version": "^0.1.102",
-  "report_timestamp": "2026-03-19T05:47:59.425Z",
+  "report_version": "^0.1.103",
+  "report_timestamp": "2026-03-19T21:28:15.199Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -66,6 +66,7 @@
       "sharedParametersToParametersAmountMinimum": 3,
       "sharedParametersToFieldsAmountMinimum": 3,
       "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "analyseDataClumpsClusterTypes": true,
       "ignoredVariableNames": []
     }
   },
@@ -97,9 +98,19 @@
             "name": "a",
             "type": "string",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 8,
+              "startColumn": 21,
+              "endLine": 8,
+              "endColumn": 30
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 8,
+            "startColumn": 21,
+            "endLine": 8,
+            "endColumn": 30
+          }
         },
         "MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate/parameter/b": {
           "key": "MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate/parameter/b",
@@ -112,9 +123,19 @@
             "name": "b",
             "type": "string",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 8,
+              "startColumn": 32,
+              "endLine": 8,
+              "endColumn": 41
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 8,
+            "startColumn": 32,
+            "endLine": 8,
+            "endColumn": 41
+          }
         },
         "MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate/parameter/c": {
           "key": "MyNativeCardReader.ts/class/MyNativeCardReader/method/readCardDublicate/parameter/c",
@@ -127,9 +148,19 @@
             "name": "c",
             "type": "string",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 8,
+              "startColumn": 43,
+              "endLine": 8,
+              "endColumn": 52
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 8,
+            "startColumn": 43,
+            "endLine": 8,
+            "endColumn": 52
+          }
         }
       },
       "data_clump_type_additional": {
@@ -164,9 +195,19 @@
             "name": "a",
             "type": "string",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 8,
+              "startColumn": 21,
+              "endLine": 8,
+              "endColumn": 30
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 8,
+            "startColumn": 21,
+            "endLine": 8,
+            "endColumn": 30
+          }
         },
         "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate/parameter/b": {
           "key": "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate/parameter/b",
@@ -179,9 +220,19 @@
             "name": "b",
             "type": "string",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 8,
+              "startColumn": 32,
+              "endLine": 8,
+              "endColumn": 41
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 8,
+            "startColumn": 32,
+            "endLine": 8,
+            "endColumn": 41
+          }
         },
         "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate/parameter/c": {
           "key": "MyUnsupportedCardReader.ts/class/MyUnsupportedCardReader/method/readCardDublicate/parameter/c",
@@ -194,9 +245,19 @@
             "name": "c",
             "type": "string",
             "modifiers": [],
-            "position": {}
+            "position": {
+              "startLine": 8,
+              "startColumn": 43,
+              "endLine": 8,
+              "endColumn": 52
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 8,
+            "startColumn": 43,
+            "endLine": 8,
+            "endColumn": 52
+          }
         }
       },
       "data_clump_type_additional": {

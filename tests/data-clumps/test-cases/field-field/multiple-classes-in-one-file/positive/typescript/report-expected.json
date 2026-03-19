@@ -1,6 +1,6 @@
 {
-  "report_version": "^0.1.102",
-  "report_timestamp": "2026-03-19T05:48:25.004Z",
+  "report_version": "^0.1.103",
+  "report_timestamp": "2026-03-19T21:28:41.353Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -66,6 +66,7 @@
       "sharedParametersToParametersAmountMinimum": 3,
       "sharedParametersToFieldsAmountMinimum": 3,
       "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "analyseDataClumpsClusterTypes": true,
       "ignoredVariableNames": []
     }
   },
@@ -101,9 +102,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 14,
+              "startColumn": 3,
+              "endLine": 14,
+              "endColumn": 28
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 2,
+            "startColumn": 3,
+            "endLine": 2,
+            "endColumn": 28
+          }
         },
         "Doctor.ts/class/Doctor/memberField/lastname": {
           "key": "Doctor.ts/class/Doctor/memberField/lastname",
@@ -120,9 +131,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 15,
+              "startColumn": 3,
+              "endLine": 15,
+              "endColumn": 27
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 3,
+            "startColumn": 3,
+            "endLine": 3,
+            "endColumn": 27
+          }
         },
         "Doctor.ts/class/Doctor/memberField/age": {
           "key": "Doctor.ts/class/Doctor/memberField/age",
@@ -139,9 +160,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 16,
+              "startColumn": 3,
+              "endLine": 16,
+              "endColumn": 22
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 4,
+            "startColumn": 3,
+            "endLine": 4,
+            "endColumn": 22
+          }
         }
       },
       "data_clump_type_additional": {
@@ -180,9 +211,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 2,
+              "startColumn": 3,
+              "endLine": 2,
+              "endColumn": 28
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 14,
+            "startColumn": 3,
+            "endLine": 14,
+            "endColumn": 28
+          }
         },
         "Doctor.ts/class/Patient/memberField/lastname": {
           "key": "Doctor.ts/class/Patient/memberField/lastname",
@@ -199,9 +240,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 3,
+              "startColumn": 3,
+              "endLine": 3,
+              "endColumn": 27
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 15,
+            "startColumn": 3,
+            "endLine": 15,
+            "endColumn": 27
+          }
         },
         "Doctor.ts/class/Patient/memberField/age": {
           "key": "Doctor.ts/class/Patient/memberField/age",
@@ -218,9 +269,19 @@
             "modifiers": [
               "PUBLIC"
             ],
-            "position": {}
+            "position": {
+              "startLine": 4,
+              "startColumn": 3,
+              "endLine": 4,
+              "endColumn": 22
+            }
           },
-          "position": {}
+          "position": {
+            "startLine": 16,
+            "startColumn": 3,
+            "endLine": 16,
+            "endColumn": 22
+          }
         }
       },
       "data_clump_type_additional": {
