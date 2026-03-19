@@ -1,14 +1,19 @@
 [
   {
-    "cluster_id": 10,
+    "cluster_id": 5,
     "cluster_type": 2,
-    "data_clump_id": "fields_to_fields_data_clump-src/ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts-src/ignoreCoverage/cliDataClumpsBugIntroducingCommitAnalyse.ts/interface/ProjectData-src/ignoreCoverage/cliDataClumpsBugIntroducingCommitGather.ts/interface/ProjectData-projectNameprojectUrlreport_file_pathtagcommitHashtimestampfieldFieldDataClumpsparameterParameterDataClumpsparameterFieldDataClumpsnumberOfBugIntroducingCommits",
-    "data_clump_type": "fields_to_fields_data_clump",
-    "from_class_or_interface_name": "ProjectData",
-    "to_class_or_interface_name": "ProjectData",
-    "from_method_name": null,
-    "to_method_name": null,
-    "amount_of_variables": 10,
-    "variable_names": ["projectName", "projectUrl", "report_file_path", "tag", "commitHash", "timestamp", "fieldFieldDataClumps", "parameterParameterDataClumps", "parameterFieldDataClumps", "numberOfBugIntroducingCommits"]
+    "data_clump_id": "parameters_to_parameters_data_clump-tests/data-clumps/test-cases/parameter-parameter/classes-with-implemented-interfaces/negative/typescript/source/MyCardReaderInterface.ts-tests/data-clumps/test-cases/parameter-parameter/classes-with-implemented-interfaces/negative/typescript/source/MyCardReaderInterface.ts/interface/MyCardReaderInterface/method/readCard-tests/data-clumps/test-cases/parameter-parameter/classes-with-implemented-interfaces/positive/typescript/source/MyCardReaderInterface.ts/interface/MyCardReaderInterface/method/readCard-callBackshowInstructionhideInstructionnfcInstruction",
+    "data_clump_type": "parameters_to_parameters_data_clump",
+    "from_class_or_interface_name": "MyCardReaderInterface",
+    "to_class_or_interface_name": "MyCardReaderInterface",
+    "from_method_name": "readCard",
+    "to_method_name": "readCard",
+    "amount_of_variables": 4,
+    "variable_names": [
+      "callBack",
+      "showInstruction",
+      "hideInstruction",
+      "nfcInstruction"
+    ]
   }
 ]
