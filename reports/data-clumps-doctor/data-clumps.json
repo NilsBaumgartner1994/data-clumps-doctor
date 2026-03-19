@@ -1,0 +1,158 @@
+{
+  "report_version": "^0.1.103",
+  "report_timestamp": "2026-03-19T17:40:17.921Z",
+  "target_language": "typescript",
+  "report_summary": {
+    "additional": {
+      "invertedIndexSoftwareProjectStatistics": {
+        "invertedFieldToClasses": {
+          "median": 1,
+          "maximum": 4,
+          "average": 1.0993788819875776,
+          "amountSavedValuesForKeys": 177,
+          "amountKeys": 4
+        },
+        "invertedParameterToMethods": {
+          "median": 1,
+          "maximum": 14,
+          "average": 1.748427672955975,
+          "amountSavedValuesForKeys": 278,
+          "amountKeys": 9
+        },
+        "invertedParameterToClasses": {
+          "median": 1.5,
+          "maximum": 4,
+          "average": 1.10625,
+          "amountSavedValuesForKeys": 177,
+          "amountKeys": 4
+        }
+      },
+      "timer_information": {
+        "ast_generation_time_ms": 1842,
+        "detection_time_ms": 13,
+        "machine_information": {
+          "os": "Linux",
+          "os_release": "6.14.0-1017-azure",
+          "os_platform": "linux",
+          "os_arch": "x64",
+          "os_uptime": 147.08,
+          "os_memory_free": 15411687424,
+          "os_memory_total": 16771563520,
+          "os_cpu_cores": 4,
+          "os_cpu_model": "AMD EPYC 7763 64-Core Processor",
+          "os_cpu_speed": 0
+        }
+      }
+    },
+    "amount_classes_or_interfaces_with_data_clumps": 1,
+    "amount_files_with_data_clumps": 1,
+    "amount_methods_with_data_clumps": 1,
+    "fields_to_fields_data_clump": 0,
+    "parameters_to_fields_data_clump": 1,
+    "parameters_to_parameters_data_clump": 0,
+    "amount_data_clumps": 1
+  },
+  "project_info": {
+    "project_url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
+    "project_name": "data-clumps-doctor",
+    "project_version": "03666a4718844864d871fabfc7f67233a9baa196",
+    "project_commit_hash": "03666a4718844864d871fabfc7f67233a9baa196",
+    "project_tag": null,
+    "project_commit_date": "1773941889",
+    "additional": {},
+    "number_of_files": 30,
+    "number_of_classes_or_interfaces": 54,
+    "number_of_methods": 200,
+    "number_of_data_fields": 177,
+    "number_of_method_parameters": 278
+  },
+  "detector": {
+    "name": "data-clumps-doctor",
+    "url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
+    "version": "0.1.102",
+    "options": {
+      "fastDetection": true,
+      "pathsExcludedFromParsing": [],
+      "pathsIgnoredInDetectionComparison": [],
+      "similarityModifierOfVariablesWithUnknownType": 0,
+      "minimumSimilarityForDataClumps": 0.5,
+      "fieldsOfClassesWithUnknownHierarchyProbabilityModifier": 0,
+      "sharedFieldsToFieldsAmountMinimum": 3,
+      "analyseFieldsInClassesOrInterfacesInheritedFromSuperClassesOrInterfaces": false,
+      "sharedParametersToParametersAmountMinimum": 3,
+      "sharedParametersToFieldsAmountMinimum": 3,
+      "methodsOfClassesOrInterfacesWithUnknownHierarchyProbabilityModifier": 0,
+      "analyseDataClumpsClusterTypes": true,
+      "ignoredVariableNames": []
+    }
+  },
+  "data_clumps": {
+    "parameters_to_fields_data_clump-ignoreCoverage/detector/DetectorUtils.ts-ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields-ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext-currentClassWholeHierarchyKnownotherClassWholeHierarchyKnownparameterPairs": {
+      "type": "data_clump",
+      "key": "parameters_to_fields_data_clump-ignoreCoverage/detector/DetectorUtils.ts-ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields-ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext-currentClassWholeHierarchyKnownotherClassWholeHierarchyKnownparameterPairs",
+      "probability": 1,
+      "from_file_path": "ignoreCoverage/detector/DetectorUtils.ts",
+      "from_class_or_interface_name": "DetectorUtils",
+      "from_class_or_interface_key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils",
+      "from_method_name": "calculateProbabilityOfDataClumpsMethodsToFields",
+      "from_method_key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields",
+      "to_file_path": "ignoreCoverage/detector/DetectorUtils.ts",
+      "to_class_or_interface_name": "ProbabilityContext",
+      "to_class_or_interface_key": "ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext",
+      "to_method_name": null,
+      "to_method_key": null,
+      "data_clump_type": "parameters_to_fields_data_clump",
+      "data_clump_data": {
+        "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/currentClassWholeHierarchyKnown": {
+          "key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/currentClassWholeHierarchyKnown",
+          "name": "currentClassWholeHierarchyKnown",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext/memberField/currentClassWholeHierarchyKnown",
+            "name": "currentClassWholeHierarchyKnown",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/otherClassWholeHierarchyKnown": {
+          "key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/otherClassWholeHierarchyKnown",
+          "name": "otherClassWholeHierarchyKnown",
+          "type": "boolean",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext/memberField/otherClassWholeHierarchyKnown",
+            "name": "otherClassWholeHierarchyKnown",
+            "type": "boolean",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        },
+        "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/parameterPairs": {
+          "key": "ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields/parameter/parameterPairs",
+          "name": "parameterPairs",
+          "type": "ParameterPair[]",
+          "probability": 1,
+          "modifiers": [],
+          "to_variable": {
+            "key": "ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext/memberField/parameterPairs",
+            "name": "parameterPairs",
+            "type": "ParameterPair[]",
+            "modifiers": [],
+            "position": {}
+          },
+          "position": {}
+        }
+      },
+      "data_clump_type_additional": {
+        "cluster_id": 1,
+        "cluster_type": 2
+      }
+    }
+  }
+}
