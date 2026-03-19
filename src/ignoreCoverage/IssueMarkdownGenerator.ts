@@ -39,10 +39,11 @@ export class IssueMarkdownGenerator {
   }
 
   /** Renders a single location line (file path, optionally as a markdown link). */
-  private static renderLocation(filePath: string, link: string | null): string {
+  private static renderLocation(className: string, filePath: string, link: string | null): string {
     if (!filePath) return '(unknown)';
-    if (link) return `${filePath} – [view lines](${link})`;
-    return filePath;
+    const classLabel = className ? `\`${className}\` in ` : '';
+    if (link) return `${classLabel}${filePath} – [view lines](${link})`;
+    return `${classLabel}${filePath}`;
   }
 
   /**
@@ -54,8 +55,8 @@ export class IssueMarkdownGenerator {
     const fromLink = IssueMarkdownGenerator.buildLink(projectUrl, commitHash, item.from_file_path, item.from_start_line, item.from_end_line);
     const toLink = IssueMarkdownGenerator.buildLink(projectUrl, commitHash, item.to_file_path, item.to_start_line, item.to_end_line);
 
-    const fromLocation = IssueMarkdownGenerator.renderLocation(item.from_file_path, fromLink);
-    const toLocation = IssueMarkdownGenerator.renderLocation(item.to_file_path, toLink);
+    const fromLocation = IssueMarkdownGenerator.renderLocation(item.from_class_or_interface_name, item.from_file_path, fromLink);
+    const toLocation = IssueMarkdownGenerator.renderLocation(item.to_class_or_interface_name, item.to_file_path, toLink);
 
     const methodInfo: string[] = [];
     if (item.from_method_name) methodInfo.push(`**From method:** \`${item.from_method_name}\``);
@@ -67,6 +68,17 @@ export class IssueMarkdownGenerator {
       lines.push('');
       methodInfo.forEach(m => lines.push(`- ${m}`));
     }
+
+    const rawJson = (item.raw !== undefined && item.raw !== null) ? item.raw : item;
+    lines.push('');
+    lines.push('<details>');
+    lines.push('<summary>Raw JSON</summary>');
+    lines.push('');
+    lines.push('```json');
+    lines.push(JSON.stringify(rawJson, null, 2));
+    lines.push('```');
+    lines.push('');
+    lines.push('</details>');
 
     return lines.join('\n');
   }
