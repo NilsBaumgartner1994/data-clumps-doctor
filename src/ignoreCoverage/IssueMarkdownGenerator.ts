@@ -69,7 +69,7 @@ export class IssueMarkdownGenerator {
       methodInfo.forEach(m => lines.push(`- ${m}`));
     }
 
-    const rawJson = (item.raw !== undefined && item.raw !== null) ? item.raw : item;
+    const rawJson = item.raw !== undefined && item.raw !== null ? item.raw : item;
     lines.push('');
     lines.push('<details>');
     lines.push('<summary>Raw JSON</summary>');
