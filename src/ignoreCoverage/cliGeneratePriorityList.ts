@@ -174,10 +174,14 @@ export function generatePriorityList(report: DataClumpsTypeContext, clusterTypeP
     return [newStart, newEnd];
   }
 
+  const seenClusterIds = new Set<number>();
   const priorityList: PriorityListItem[] = [];
 
   for (const entry of entries) {
     if (priorityList.length >= amount) break;
+    if (seenClusterIds.has(entry.cluster_id)) continue;
+
+    seenClusterIds.add(entry.cluster_id);
 
     const dc = entry.dc;
     const variableNames: string[] = [];
