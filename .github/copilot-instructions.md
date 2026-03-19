@@ -15,3 +15,7 @@
 | `npm run build` | `yarn build` |
 
 Do **not** create or commit a `package-lock.json` file. The authoritative lock file is `yarn.lock`.
+
+## Refactoring Data Clumps
+
+When refactoring data clumps, follow the strategies described in [REFACTORING_DATA_CLUMPS.md](../REFACTORING_DATA_CLUMPS.md).
