@@ -243,6 +243,17 @@ export class DetectorOptionsInformation {
   };
 
   /**
+   * Cluster Analysis
+   */
+  public static analyseDataClumpsClusterTypes: DetectorOptionInformationParameter = {
+    label: 'Analyse Data Clumps Cluster Types',
+    description: 'If set to true, the detector will compute cluster information (cluster_id and cluster_type) for each detected data clump and store it in data_clump_type_additional. Default value is true.',
+    defaultValue: true,
+    group: 'all',
+    type: 'boolean',
+  };
+
+  /**
    * Ignored Variables
    */
   public static ignoredVariableNames: DetectorOptionInformationParameter = {
@@ -655,8 +666,10 @@ export class Detector {
     //
     dataClumpsTypeContext.report_summary.additional.invertedIndexSoftwareProjectStatistics = invertedIndexSoftwareProject.getStatistics();
 
-    // Assign cluster IDs and cluster types to each data clump
-    assignClusterInfoToDataClumps(detected_data_clumps);
+    // Assign cluster IDs and cluster types to each data clump (if enabled)
+    if (this.options.analyseDataClumpsClusterTypes) {
+      assignClusterInfoToDataClumps(detected_data_clumps);
+    }
 
     // timeout for testing
 
