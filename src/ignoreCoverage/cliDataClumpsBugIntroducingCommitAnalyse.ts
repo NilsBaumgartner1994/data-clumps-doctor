@@ -4,6 +4,7 @@ import { Command } from 'commander';
 import { Analyzer } from './Analyzer';
 import { AnalyseHelper } from './AnalyseHelper';
 import { Timer } from './Timer';
+import { ProjectData } from './ProjectData';
 
 const packageJsonPath = path.join(__dirname, '..', '..', 'package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
@@ -13,19 +14,6 @@ const program = new Command();
 const current_working_directory = process.cwd();
 
 program.description('Analyse Detected Data-Clumps').version(version).option('--report_folder <path>', 'Output path', path.join(current_working_directory, 'data-clumps-results', Analyzer.project_name_variable_placeholder));
-
-type ProjectData = {
-  projectName: string;
-  projectUrl: string;
-  report_file_path: string;
-  tag: string | undefined | null;
-  commitHash: string;
-  timestamp: number;
-  fieldFieldDataClumps: number;
-  parameterParameterDataClumps: number;
-  parameterFieldDataClumps: number;
-  numberOfBugIntroducingCommits: number | undefined;
-};
 
 async function analyse(report_project_folder_path: string, options: any): Promise<string> {
   if (!fs.existsSync(report_project_folder_path)) {
