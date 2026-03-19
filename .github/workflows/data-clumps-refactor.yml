@@ -1,0 +1,165 @@
+name: "🩺 Data Clumps Analysis & Refactoring"
+
+on:
+  workflow_call:
+    inputs:
+      path-to-source:
+        description: Relative path to source files inside the project
+        required: false
+        type: string
+        default: '.'
+      source-language-type:
+        description: 'Language of the source files (typescript, java, uml, ast, digitalTwinsDefinitionLanguage, ngsi-ld)'
+        required: false
+        type: string
+        default: 'typescript'
+      output-path:
+        description: Path to the data clumps JSON report
+        required: false
+        type: string
+        default: 'reports/data-clumps-doctor/data-clumps.json'
+      badge-output-path:
+        description: Path to the generated badge (optional, leave empty to skip)
+        required: false
+        type: string
+        default: ''
+      refactor-data-clumps:
+        description: 'Whether to refactor detected data clumps (true/false)'
+        required: false
+        type: boolean
+        default: false
+      refactor-using-copilot:
+        description: 'Whether to use GitHub Copilot agent for refactoring (true/false)'
+        required: false
+        type: boolean
+        default: false
+      cluster-type-priority:
+        description: >
+          Priority order of data clump cluster types.
+          Use numeric (e.g. "1,2,3") or named values (e.g. "single,two,large").
+        required: false
+        type: string
+        default: '1,2,3'
+      refactor-amount:
+        description: Number of data clumps to refactor
+        required: false
+        type: number
+        default: 1
+      previous-report-path:
+        description: >
+          Optional path to a previous data clumps report JSON.
+          Used together with trigger-refactor-only-when-data-clumps-change.
+        required: false
+        type: string
+        default: ''
+      trigger-refactor-only-when-data-clumps-change:
+        description: >
+          When true, refactoring runs only if the data clump count changed
+          compared to the previous report. Ignored when previous-report-path is empty.
+        required: false
+        type: boolean
+        default: false
+
+  workflow_dispatch:
+    inputs:
+      path-to-source:
+        description: Relative path to source files inside the project
+        required: false
+        type: string
+        default: '.'
+      source-language-type:
+        description: 'Language of the source files (typescript, java, uml, ast, digitalTwinsDefinitionLanguage, ngsi-ld)'
+        required: false
+        type: string
+        default: 'typescript'
+      output-path:
+        description: Path to the data clumps JSON report
+        required: false
+        type: string
+        default: 'reports/data-clumps-doctor/data-clumps.json'
+      badge-output-path:
+        description: Path to the generated badge (optional, leave empty to skip)
+        required: false
+        type: string
+        default: ''
+      refactor-data-clumps:
+        description: 'Whether to refactor detected data clumps (true/false)'
+        required: false
+        type: boolean
+        default: false
+      refactor-using-copilot:
+        description: 'Whether to use GitHub Copilot agent for refactoring (true/false)'
+        required: false
+        type: boolean
+        default: false
+      cluster-type-priority:
+        description: >
+          Priority order of data clump cluster types.
+          Use numeric (e.g. "1,2,3") or named values (e.g. "single,two,large").
+        required: false
+        type: string
+        default: '1,2,3'
+      refactor-amount:
+        description: Number of data clumps to refactor
+        required: false
+        type: number
+        default: 1
+      # Note: previous-report-path is intentionally omitted for workflow_dispatch
+      # so that manual runs always trigger refactoring unconditionally.
+
+jobs:
+  data-clumps-analyse-and-refactor:
+    name: "🩺 Analyse & Refactor Data Clumps"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: "🔄 Checkout Repository"
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "⚙️ Setup Node.js"
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.16.0"
+
+      - name: "🩺 Analyse & Refactor Data Clumps"
+        uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/refactor-data-clumps@master
+        with:
+          path-to-source: ${{ inputs.path-to-source }}
+          output-path: ${{ inputs.output-path }}
+          badge-output-path: ${{ inputs.badge-output-path }}
+          source-language-type: ${{ inputs.source-language-type }}
+          refactor-data-clumps: ${{ inputs.refactor-data-clumps }}
+          refactor-using-copilot: ${{ inputs.refactor-using-copilot }}
+          cluster-type-priority: ${{ inputs.cluster-type-priority }}
+          refactor-amount: ${{ inputs.refactor-amount }}
+          # previous-report-path and trigger-refactor-only-when-data-clumps-change
+          # are only passed through when this workflow is called via workflow_call.
+          # Manual (workflow_dispatch) runs leave these empty to always refactor.
+          previous-report-path: ${{ github.event_name == 'workflow_call' && inputs.previous-report-path || '' }}
+          trigger-refactor-only-when-data-clumps-change: ${{ github.event_name == 'workflow_call' && inputs.trigger-refactor-only-when-data-clumps-change || 'false' }}
+
+      - name: "💾 Commit reports"
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git pull --rebase --autostash origin "$GITHUB_REF_NAME"
+          if [ -d reports/data-clumps-doctor ]; then
+            echo "Committing reports from reports/data-clumps-doctor"
+            git add -f reports/data-clumps-doctor
+            if git diff --cached --quiet; then
+              echo "No changes to commit"
+            else
+              git commit -m "chore: update data clumps report [skip ci]"
+              git push
+            fi
+          else
+            echo "No reports generated at reports/data-clumps-doctor, skipping commit"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
