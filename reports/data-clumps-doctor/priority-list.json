@@ -1,19 +1,18 @@
 [
   {
-    "cluster_id": 5,
+    "cluster_id": 1,
     "cluster_type": 2,
-    "data_clump_id": "parameters_to_parameters_data_clump-tests/data-clumps/test-cases/parameter-parameter/classes-with-implemented-interfaces/negative/typescript/source/MyCardReaderInterface.ts-tests/data-clumps/test-cases/parameter-parameter/classes-with-implemented-interfaces/negative/typescript/source/MyCardReaderInterface.ts/interface/MyCardReaderInterface/method/readCard-tests/data-clumps/test-cases/parameter-parameter/classes-with-implemented-interfaces/positive/typescript/source/MyCardReaderInterface.ts/interface/MyCardReaderInterface/method/readCard-callBackshowInstructionhideInstructionnfcInstruction",
-    "data_clump_type": "parameters_to_parameters_data_clump",
-    "from_class_or_interface_name": "MyCardReaderInterface",
-    "to_class_or_interface_name": "MyCardReaderInterface",
-    "from_method_name": "readCard",
-    "to_method_name": "readCard",
-    "amount_of_variables": 4,
+    "data_clump_id": "parameters_to_fields_data_clump-ignoreCoverage/detector/DetectorUtils.ts-ignoreCoverage/detector/DetectorUtils.ts/class/DetectorUtils/method/calculateProbabilityOfDataClumpsMethodsToFields-ignoreCoverage/detector/DetectorUtils.ts/interface/ProbabilityContext-currentClassWholeHierarchyKnownotherClassWholeHierarchyKnownparameterPairs",
+    "data_clump_type": "parameters_to_fields_data_clump",
+    "from_class_or_interface_name": "DetectorUtils",
+    "to_class_or_interface_name": "ProbabilityContext",
+    "from_method_name": "calculateProbabilityOfDataClumpsMethodsToFields",
+    "to_method_name": null,
+    "amount_of_variables": 3,
     "variable_names": [
-      "callBack",
-      "showInstruction",
-      "hideInstruction",
-      "nfcInstruction"
+      "currentClassWholeHierarchyKnown",
+      "otherClassWholeHierarchyKnown",
+      "parameterPairs"
     ]
   }
 ]
