@@ -23,6 +23,12 @@ export type PriorityListItem = {
   to_method_name: string | null;
   amount_of_variables: number;
   variable_names: string[];
+  from_file_path: string;
+  to_file_path: string;
+  from_start_line: number | null;
+  from_end_line: number | null;
+  to_start_line: number | null;
+  to_end_line: number | null;
 };
 
 /**
@@ -156,6 +162,17 @@ export function generatePriorityList(report: DataClumpsTypeContext, clusterTypeP
   });
 
   // Build priority list with unique cluster IDs
+  /**
+   * Expands a [start, end] line range to include the given position.
+   * Returns the updated [start, end] pair.
+   */
+  function expandLineRange(start: number | null, end: number | null, pos: any): [number | null, number | null] {
+    if (!pos) return [start, end];
+    const newStart = pos.startLine != null ? (start === null ? pos.startLine : Math.min(start, pos.startLine)) : start;
+    const newEnd = pos.endLine != null ? (end === null ? pos.endLine : Math.max(end, pos.endLine)) : end;
+    return [newStart, newEnd];
+  }
+
   const seenClusterIds = new Set<number>();
   const priorityList: PriorityListItem[] = [];
 
@@ -167,9 +184,17 @@ export function generatePriorityList(report: DataClumpsTypeContext, clusterTypeP
 
     const dc = entry.dc;
     const variableNames: string[] = [];
+    let fromStartLine: number | null = null;
+    let fromEndLine: number | null = null;
+    let toStartLine: number | null = null;
+    let toEndLine: number | null = null;
+
     if (dc.data_clump_data) {
       for (const varKey of Object.keys(dc.data_clump_data)) {
-        variableNames.push(dc.data_clump_data[varKey].name);
+        const variable = dc.data_clump_data[varKey];
+        variableNames.push(variable.name);
+        [fromStartLine, fromEndLine] = expandLineRange(fromStartLine, fromEndLine, variable.position);
+        [toStartLine, toEndLine] = expandLineRange(toStartLine, toEndLine, variable.to_variable?.position);
       }
     }
 
@@ -184,6 +209,12 @@ export function generatePriorityList(report: DataClumpsTypeContext, clusterTypeP
       to_method_name: dc.to_method_name || null,
       amount_of_variables: variableNames.length,
       variable_names: variableNames,
+      from_file_path: dc.from_file_path || '',
+      to_file_path: dc.to_file_path || '',
+      from_start_line: fromStartLine,
+      from_end_line: fromEndLine,
+      to_start_line: toStartLine,
+      to_end_line: toEndLine,
     });
   }
 
