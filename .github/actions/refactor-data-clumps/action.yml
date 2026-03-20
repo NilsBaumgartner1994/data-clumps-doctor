@@ -64,6 +64,14 @@ inputs:
       always runs regardless of this setting.
     required: false
     default: 'false'
+  only-update-if-changes:
+    description: >
+      When true, badge generation, issue creation, and refactoring are skipped if the
+      data clumps content has not changed since the last report (compared by hashing
+      the data_clumps section of the JSON). Useful for avoiding unnecessary updates and
+      duplicate issues on every push when the detected data clumps are identical.
+    required: false
+    default: 'true'
   copilot-token:
     description: >
       Personal access token (PAT) with the "Copilot Requests" permission, used to
@@ -92,6 +100,7 @@ runs:
   steps:
     # ── 1. Analyse project (detect + optional badge + optional issue) ─────
     - name: "🩺 Analyse data clumps"
+      id: analyse
       uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@master
       with:
         path-to-source: ${{ inputs.path-to-source }}
@@ -101,6 +110,7 @@ runs:
         generate-issue: ${{ inputs.generate-issue }}
         cluster-type-priority: ${{ inputs.cluster-type-priority }}
         refactor-amount: ${{ inputs.refactor-amount }}
+        only-update-if-changes: ${{ inputs.only-update-if-changes }}
 
     - name: "📊 Read data clumps count"
       id: data-clumps-count
@@ -130,6 +140,11 @@ runs:
       run: |
         if [ "${{ steps.data-clumps-count.outputs.count }}" -eq 0 ]; then
           echo "No data clumps detected. Skipping refactoring."
+          echo "should-refactor=false" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
+        if [ "${{ inputs.only-update-if-changes }}" = "true" ] && [ "${{ steps.analyse.outputs.changes-detected }}" = "false" ]; then
+          echo "Data clumps content is unchanged (only-update-if-changes=true). Skipping refactoring."
           echo "should-refactor=false" >> "$GITHUB_OUTPUT"
           exit 0
         fi
@@ -277,6 +292,7 @@ runs:
         COUNT_BEFORE="${{ steps.data-clumps-count.outputs.count }}"
         COUNT_FINAL="${{ steps.data-clumps-count-final.outputs.count }}"
         SHOULD_REFACTOR="${{ steps.refactor-decision.outputs.should-refactor }}"
+        CHANGES_DETECTED="${{ steps.analyse.outputs.changes-detected }}"
         {
           echo "## 🩺 Data Clumps Analysis"
           echo ""
@@ -288,12 +304,17 @@ runs:
           fi
           echo ""
           echo "- **Report path:** \`${{ inputs.output-path }}\`"
+          echo "- **Only update if changes:** ${{ inputs.only-update-if-changes }}"
+          echo "- **Changes detected:** ${CHANGES_DETECTED:-true}"
           echo "- **Generate issue:** ${{ inputs.generate-issue }}"
           echo "- **Refactor with Copilot:** ${{ inputs.refactor-with-copilot }}"
           if [ "${{ inputs.refactor-with-copilot }}" = "true" ]; then
             echo "- **Cluster type priority:** ${{ inputs.cluster-type-priority }}"
             echo "- **Refactor amount:** ${{ inputs.refactor-amount }}"
             echo "- **Refactoring ran:** $SHOULD_REFACTOR"
+            if [ "$CHANGES_DETECTED" = "false" ]; then
+              echo "- **Skipped reason:** Data clumps content unchanged (only-update-if-changes=true)"
+            fi
             if [ -f reports/data-clumps-doctor/priority-list.json ]; then
               PCOUNT=$(jq 'length' reports/data-clumps-doctor/priority-list.json)
               echo "- **Priority list entries:** $PCOUNT"
