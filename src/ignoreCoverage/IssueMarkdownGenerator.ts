@@ -56,14 +56,6 @@ export class IssueMarkdownGenerator {
     return names.map(n => `\`${n}\``).join(', ');
   }
 
-  /** Renders a single location line (file path, optionally with a plain URL). */
-  private static renderLocation(className: string, filePath: string, link: string | null): string {
-    if (!filePath) return '(unknown)';
-    const classLabel = className ? `\`${className}\` in ` : '';
-    if (link) return `${classLabel}${filePath} – ${link}`;
-    return `${classLabel}${filePath}`;
-  }
-
   /**
    * Renders one data-clump entry as a markdown section.
    */
@@ -71,31 +63,19 @@ export class IssueMarkdownGenerator {
     const fromLink = IssueMarkdownGenerator.buildLink(options, item.from_file_path, item.from_start_line, item.from_end_line);
     const toLink = IssueMarkdownGenerator.buildLink(options, item.to_file_path, item.to_start_line, item.to_end_line);
 
-    const fromLocation = IssueMarkdownGenerator.renderLocation(item.from_class_or_interface_name, item.from_file_path, fromLink);
-    const toLocation = IssueMarkdownGenerator.renderLocation(item.to_class_or_interface_name, item.to_file_path, toLink);
-
-    const methodInfo: string[] = [];
-    if (item.from_method_name) methodInfo.push(`**From method:** \`${item.from_method_name}\``);
-    if (item.to_method_name) methodInfo.push(`**To method:** \`${item.to_method_name}\``);
-
-    const affectedLines: string[] = [`**From:** ${fromLocation}`, '', `**To:** ${toLocation}`];
-    if (methodInfo.length > 0) {
-      affectedLines.push('');
-      methodInfo.forEach(m => affectedLines.push(m));
-    }
+    const affectedLinks: string[] = [];
+    if (fromLink) affectedLinks.push(fromLink);
+    if (toLink) affectedLinks.push(toLink);
 
     const lines: string[] = [
       `### ${index}. Data Clump:`,
       '',
       `The classes \`${item.from_class_or_interface_name}\` and \`${item.to_class_or_interface_name}\` share **${item.amount_of_variables}** variable(s): ${IssueMarkdownGenerator.formatVariableNames(item.variable_names)}.`,
-      '',
-      '<details>',
-      '<summary>Affected locations</summary>',
-      '',
-      ...affectedLines,
-      '',
-      '</details>',
     ];
+
+    if (affectedLinks.length > 0) {
+      lines.push('', '<details>', '<summary>Affected locations</summary>', '', ...affectedLinks, '', '</details>');
+    }
 
     const rawJson = item.raw !== undefined && item.raw !== null ? item.raw : item;
     lines.push('');
