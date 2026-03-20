@@ -80,22 +80,23 @@ jobs:
 
 ### Action inputs
 
-| Input                                                  | Required | Default                                        | Description                                                                                                                        |
-| ------------------------------------------------------ | -------- | ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `path-to-source`                                       | No       | `.`                                            | Relative path to the source files inside the repository                                                                            |
-| `output-path`                                          | No       | `reports/data-clumps-doctor/data-clumps.json`  | Path where the JSON report is written                                                                                              |
-| `source-language-type`                                 | No       | `typescript`                                   | Language of the source files (`typescript`, `java`, `uml`, `ast`, `digitalTwinsDefinitionLanguage`, `ngsi-ld`)                     |
-| `badge-output-path`                                    | No       | _(empty — no badge)_                           | Path to write the badge SVG to; leave empty to skip badge generation                                                               |
-| `generate-issue`                                       | No       | `false`                                        | When `'true'`, creates a GitHub Issue with the detected data clumps. Requires `issues: write` permission.                          |
-| `cluster-type-priority`                                | No       | `1,2,3`                                        | Priority order of cluster types used for the issue body (`1`/`single`, `2`/`two`, `3`/`large`)                                    |
-| `refactor-amount`                                      | No       | `5`                                            | Number of top data clumps to list in the issue body                                                                                |
-| `only-update-if-changes`                               | No       | `true`                                         | When `'true'`, badge and issue creation are skipped if the detected data clumps are identical to the previous run                  |
-| `detector-options-path`                                | No       | _(empty)_                                      | Path (relative to repo root) to a JSON file with detector options. Supports all detector option fields (see [Detector options](#detector-options)). |
-| `detector-options-paths-ignored-in-detection-comparison` | No     | _(empty)_                                      | Comma-separated list of path patterns that are parsed but excluded from data-clump detection comparison. Supports wildcards (e.g. `src/generated/*,**/fixtures/**`). |
+| Input                                                    | Required | Default                                       | Description                                                                                                                                                          |
+| -------------------------------------------------------- | -------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path-to-source`                                         | No       | `.`                                           | Relative path to the source files inside the repository                                                                                                              |
+| `output-path`                                            | No       | `reports/data-clumps-doctor/data-clumps.json` | Path where the JSON report is written                                                                                                                                |
+| `source-language-type`                                   | No       | `typescript`                                  | Language of the source files (`typescript`, `java`, `uml`, `ast`, `digitalTwinsDefinitionLanguage`, `ngsi-ld`)                                                       |
+| `badge-output-path`                                      | No       | _(empty — no badge)_                          | Path to write the badge SVG to; leave empty to skip badge generation                                                                                                 |
+| `generate-issue`                                         | No       | `false`                                       | When `'true'`, creates a GitHub Issue with the detected data clumps. Requires `issues: write` permission.                                                            |
+| `cluster-type-priority`                                  | No       | `1,2,3`                                       | Priority order of cluster types used for the issue body (`1`/`single`, `2`/`two`, `3`/`large`)                                                                       |
+| `refactor-amount`                                        | No       | `5`                                           | Number of top data clumps to list in the issue body                                                                                                                  |
+| `only-update-if-changes`                                 | No       | `true`                                        | When `'true'`, badge and issue creation are skipped if the detected data clumps are identical to the previous run                                                    |
+| `detector-options-path`                                  | No       | _(empty)_                                     | Path (relative to repo root) to a JSON file with detector options. Supports all detector option fields (see [Detector options](#detector-options)).                  |
+| `detector-options-paths-ignored-in-detection-comparison` | No       | _(empty)_                                     | Comma-separated list of path patterns that are parsed but excluded from data-clump detection comparison. Supports wildcards (e.g. `src/generated/*,**/fixtures/**`). |
 
 ### Detector options
 
-You can fine-tune detection by passing either a path to an options JSON file or individual option inputs.
+You can fine-tune detection by passing either a path to an options JSON file or individual option
+inputs.
 
 #### Via `detector-options-path` (JSON file)
 
@@ -103,15 +104,13 @@ You can fine-tune detection by passing either a path to an options JSON file or 
 
 ```json
 {
-  "pathsIgnoredInDetectionComparison": [
-    "**/databaseTypes/types.ts"
-  ]
+  "pathsIgnoredInDetectionComparison": ["**/databaseTypes/types.ts"]
 }
 ```
 
-You can list as many glob patterns as needed. Files matching these patterns are still parsed (so their
-type information is available), but they are not considered as sources or targets during data-clump
-detection.
+You can list as many glob patterns as needed. Files matching these patterns are still parsed (so
+their type information is available), but they are not considered as sources or targets during
+data-clump detection.
 
 **Step 2 — Reference the file in your workflow** using the `detector-options-path` input (path is
 relative to the repository root):
