@@ -1,5 +1,5 @@
 import path from 'path';
-import { Node, Project } from 'ts-morph';
+import { IndentationText, Node, Project, QuoteKind } from 'ts-morph';
 import { DataClumpTypeContext, DataClumpsVariableFromContext, Dictionary } from 'data-clumps-type-context';
 
 export interface RefactoringResult {
@@ -32,7 +32,13 @@ export class TsMorphDataClumpRefactorer {
 
   constructor(sourceRoot: string) {
     this.sourceRoot = sourceRoot;
-    this.project = new Project({ skipAddingFilesFromTsConfig: true });
+    this.project = new Project({
+      skipAddingFilesFromTsConfig: true,
+      manipulationSettings: {
+        quoteKind: QuoteKind.Single,
+        indentationText: IndentationText.TwoSpaces,
+      },
+    });
     this.project.addSourceFilesAtPaths([path.join(sourceRoot, '**/*.ts'), path.join(sourceRoot, '**/*.tsx'), `!**/node_modules/**`, `!**/dist/**`]);
   }
 
