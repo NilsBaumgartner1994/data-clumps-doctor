@@ -54,7 +54,7 @@ jobs:
 
       - name: Analyse data clumps
         id: data-clumps
-        uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@main
+        uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@master
         with:
           path-to-source: .
           output-path: reports/data-clumps-doctor/data-clumps.json
@@ -117,7 +117,7 @@ relative to the repository root):
 
 ```yaml
 - name: Analyse data clumps
-  uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@main
+  uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@master
   with:
     path-to-source: src
     output-path: reports/data-clumps-doctor/data-clumps.json
@@ -130,7 +130,7 @@ For a quick one-liner without an extra file, pass a comma-separated list of glob
 
 ```yaml
 - name: Analyse data clumps
-  uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@main
+  uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@master
   with:
     path-to-source: src
     output-path: reports/data-clumps-doctor/data-clumps.json
@@ -146,13 +146,13 @@ sub-actions are available:
 
 ```yaml
 # Badge only (from an existing report)
-- uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-badge@main
+- uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-badge@master
   with:
     report-path: reports/data-clumps-doctor/data-clumps.json
     badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
 
 # Issue only (from an existing report)
-- uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-issue@main
+- uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-issue@master
   with:
     report-path: reports/data-clumps-doctor/data-clumps.json
 ```
