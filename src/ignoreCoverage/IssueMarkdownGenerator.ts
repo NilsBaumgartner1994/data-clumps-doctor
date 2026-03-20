@@ -78,11 +78,11 @@ export class IssueMarkdownGenerator {
     if (item.from_method_name) methodInfo.push(`**From method:** \`${item.from_method_name}\``);
     if (item.to_method_name) methodInfo.push(`**To method:** \`${item.to_method_name}\``);
 
-    const lines: string[] = [`### ${index}. Data Clump:`, '', `The classes \`${item.from_class_or_interface_name}\` and \`${item.to_class_or_interface_name}\` share **${item.amount_of_variables}** variable(s): ${IssueMarkdownGenerator.formatVariableNames(item.variable_names)}.`, '', '**Affected locations**', '', `- **From:** ${fromLocation}`, `- **To:** ${toLocation}`];
+    const lines: string[] = [`### ${index}. Data Clump:`, '', `The classes \`${item.from_class_or_interface_name}\` and \`${item.to_class_or_interface_name}\` share **${item.amount_of_variables}** variable(s): ${IssueMarkdownGenerator.formatVariableNames(item.variable_names)}.`, '', '**Affected locations**', '', `**From:** ${fromLocation}`, '', `**To:** ${toLocation}`];
 
     if (methodInfo.length > 0) {
       lines.push('');
-      methodInfo.forEach(m => lines.push(`- ${m}`));
+      methodInfo.forEach(m => lines.push(m));
     }
 
     const rawJson = item.raw !== undefined && item.raw !== null ? item.raw : item;
