@@ -99,13 +99,22 @@ You can fine-tune detection by passing either a path to an options JSON file or 
 
 #### Via `detector-options-path` (JSON file)
 
-Create a JSON file in your repository (e.g. `detector-options.json`) and pass its path to the action:
+**Step 1 — Create the options file** in your repository, e.g. `detector-options.json`:
 
 ```json
 {
-  "pathsIgnoredInDetectionComparison": ["src/generated/*", "**/fixtures/**"]
+  "pathsIgnoredInDetectionComparison": [
+    "**/databaseTypes/types.ts"
+  ]
 }
 ```
+
+You can list as many glob patterns as needed. Files matching these patterns are still parsed (so their
+type information is available), but they are not considered as sources or targets during data-clump
+detection.
+
+**Step 2 — Reference the file in your workflow** using the `detector-options-path` input (path is
+relative to the repository root):
 
 ```yaml
 - name: Analyse data clumps
@@ -118,7 +127,7 @@ Create a JSON file in your repository (e.g. `detector-options.json`) and pass it
 
 #### Via `detector-options-paths-ignored-in-detection-comparison` (inline)
 
-Pass a comma-separated list of glob patterns directly:
+For a quick one-liner without an extra file, pass a comma-separated list of glob patterns directly:
 
 ```yaml
 - name: Analyse data clumps
@@ -126,11 +135,10 @@ Pass a comma-separated list of glob patterns directly:
   with:
     path-to-source: src
     output-path: reports/data-clumps-doctor/data-clumps.json
-    detector-options-paths-ignored-in-detection-comparison: 'src/generated/*,**/fixtures/**'
+    detector-options-paths-ignored-in-detection-comparison: '**/databaseTypes/types.ts'
 ```
 
-Files matching these patterns are still parsed (so their type information is available), but they are
-not considered as sources or targets during data-clump detection.
+Multiple patterns are separated by commas, e.g. `'**/databaseTypes/types.ts,src/generated/*'`.
 
 ### Composable sub-actions
 
