@@ -33,19 +33,12 @@ export class TsMorphDataClumpRefactorer {
   constructor(sourceRoot: string) {
     this.sourceRoot = sourceRoot;
     this.project = new Project({ skipAddingFilesFromTsConfig: true });
-    this.project.addSourceFilesAtPaths([
-      path.join(sourceRoot, '**/*.ts'),
-      path.join(sourceRoot, '**/*.tsx'),
-      `!**/node_modules/**`,
-      `!**/dist/**`,
-    ]);
+    this.project.addSourceFilesAtPaths([path.join(sourceRoot, '**/*.ts'), path.join(sourceRoot, '**/*.tsx'), `!**/node_modules/**`, `!**/dist/**`]);
   }
 
   async refactorDataClump(dataClump: DataClumpTypeContext): Promise<RefactoringResult> {
     if (dataClump.data_clump_type !== 'parameters_to_parameters_data_clump') {
-      throw new Error(
-        `Unsupported data clump type: ${dataClump.data_clump_type}. Only parameters_to_parameters_data_clump is currently supported.`
-      );
+      throw new Error(`Unsupported data clump type: ${dataClump.data_clump_type}. Only parameters_to_parameters_data_clump is currently supported.`);
     }
 
     if (!dataClump.from_method_name || !dataClump.to_method_name) {
@@ -61,27 +54,12 @@ export class TsMorphDataClumpRefactorer {
     this.createParameterObjectInterface(interfaceFilePath, interfaceName, variables);
 
     const fromFilePath = path.resolve(this.sourceRoot, dataClump.from_file_path);
-    this.updateMethodToUseParameterObject(
-      fromFilePath,
-      dataClump.from_class_or_interface_name,
-      dataClump.from_method_name,
-      variableNames,
-      interfaceName,
-      interfaceFilePath
-    );
+    this.updateMethodToUseParameterObject(fromFilePath, dataClump.from_class_or_interface_name, dataClump.from_method_name, variableNames, interfaceName, interfaceFilePath);
 
     const toFilePath = path.resolve(this.sourceRoot, dataClump.to_file_path);
-    const toMethodDiffersFromFrom =
-      fromFilePath !== toFilePath || dataClump.to_method_name !== dataClump.from_method_name;
+    const toMethodDiffersFromFrom = fromFilePath !== toFilePath || dataClump.to_method_name !== dataClump.from_method_name;
     if (toMethodDiffersFromFrom) {
-      this.updateMethodToUseParameterObject(
-        toFilePath,
-        dataClump.to_class_or_interface_name,
-        dataClump.to_method_name,
-        variableNames,
-        interfaceName,
-        interfaceFilePath
-      );
+      this.updateMethodToUseParameterObject(toFilePath, dataClump.to_class_or_interface_name, dataClump.to_method_name, variableNames, interfaceName, interfaceFilePath);
     }
 
     await this.project.save();
@@ -98,11 +76,7 @@ export class TsMorphDataClumpRefactorer {
     };
   }
 
-  private createParameterObjectInterface(
-    filePath: string,
-    interfaceName: string,
-    variables: Dictionary<DataClumpsVariableFromContext>
-  ): void {
+  private createParameterObjectInterface(filePath: string, interfaceName: string, variables: Dictionary<DataClumpsVariableFromContext>): void {
     const existing = this.project.getSourceFile(filePath);
     if (existing) {
       existing.delete();
@@ -119,14 +93,7 @@ export class TsMorphDataClumpRefactorer {
     });
   }
 
-  private updateMethodToUseParameterObject(
-    filePath: string,
-    className: string,
-    methodName: string,
-    variableNames: string[],
-    interfaceName: string,
-    interfaceFilePath: string
-  ): void {
+  private updateMethodToUseParameterObject(filePath: string, className: string, methodName: string, variableNames: string[], interfaceName: string, interfaceFilePath: string): void {
     const sourceFile = this.project.getSourceFile(filePath);
     if (!sourceFile) {
       throw new Error(`Source file not found in project: ${filePath}`);
@@ -169,14 +136,9 @@ export class TsMorphDataClumpRefactorer {
       body.insertStatements(0, `const { ${variableNames.join(', ')} } = params;`);
     }
 
-    const relativeImportPath = path
-      .relative(path.dirname(filePath), interfaceFilePath)
-      .replace(/\.ts$/, '')
-      .replace(/\\/g, '/');
+    const relativeImportPath = path.relative(path.dirname(filePath), interfaceFilePath).replace(/\.ts$/, '').replace(/\\/g, '/');
     const interfaceImportPath = relativeImportPath.startsWith('.') ? relativeImportPath : `./${relativeImportPath}`;
-    const existingImport = sourceFile.getImportDeclaration(
-      d => d.getModuleSpecifierValue() === interfaceImportPath
-    );
+    const existingImport = sourceFile.getImportDeclaration(d => d.getModuleSpecifierValue() === interfaceImportPath);
     if (!existingImport) {
       sourceFile.addImportDeclaration({
         namedImports: [interfaceName],

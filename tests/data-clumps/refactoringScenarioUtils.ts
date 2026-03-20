@@ -131,10 +131,7 @@ export function discoverRefactoringScenarios(baseDir: string): RefactoringScenar
 }
 
 export function resolveRefactoringTestCasesBaseDir(): { baseDir: string; scenarios: RefactoringScenario[] } {
-  const candidates = [
-    path.resolve(__dirname, 'test-cases/refactoring'),
-    path.resolve(__dirname, '..', '..', '..', 'tests/data-clumps/test-cases/refactoring'),
-  ];
+  const candidates = [path.resolve(__dirname, 'test-cases/refactoring'), path.resolve(__dirname, '..', '..', '..', 'tests/data-clumps/test-cases/refactoring')];
 
   for (const candidate of candidates) {
     const scenarios = discoverRefactoringScenarios(candidate);
@@ -169,10 +166,7 @@ function copySourceToTemp(sourcePath: string): string {
  * - Trims trailing whitespace
  */
 export function normalizeFileContent(content: string): string {
-  return content
-    .replace(/\r\n/g, '\n')
-    .replace(/\r/g, '\n')
-    .trim();
+  return content.replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim();
 }
 
 export interface RefactoringScenarioResult {
