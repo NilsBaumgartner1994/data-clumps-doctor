@@ -26,9 +26,10 @@ A group of fields appears in multiple classes.
 
 **Refactoring Strategy:**
 
-- Extract shared fields into a new class  
+- Extract shared fields into a new **class** (preferred over an interface)  
   (e.g. class Address with street, city, zip)
 - Replace duplicated fields with a reference to this class
+- If a suitable class already exists, **reuse it** instead of creating a new one
 
 **Alternative:**
 
@@ -42,8 +43,15 @@ A group of fields appears in multiple classes.
 
 **When to use what:**
 
-- Extract Class → if the data represents a meaningful concept
+- Reuse existing class → if a matching class already exists (most preferred)
+- Extract Class → if the data represents a meaningful concept and no suitable class exists; **use a class, not an interface**
 - Inheritance → if classes share a structural identity
+
+**Note on classes vs. interfaces:**
+
+> Prefer generating a **class** over an interface for the extracted data clump type.  
+> Classes can carry behaviour, be instantiated directly, and are easier to evolve.  
+> Only use an interface when you explicitly need a structural contract without implementation.
 
 ---
 
@@ -55,7 +63,8 @@ A group of parameters appears repeatedly across multiple methods.
 **Refactoring Strategy:**
 
 - Introduce a parameter object  
-  (replace multiple parameters with a single object)
+  (replace multiple parameters with a single **class** instance; prefer a class over an interface)
+- If a suitable class already exists, **reuse it** instead of creating a new one
 - Update all affected method signatures consistently
 
 **Optional:**
@@ -135,15 +144,18 @@ A group of method parameters corresponds to fields of a class.
 ## 5. Practical Decision Logic
 
 1. Identify data clump
-2. Check if a suitable class already exists
+2. Check if a suitable **class** already exists
 
-   - Yes → reuse existing class (preferred)
-   - No → create new abstraction
+   - Yes → **reuse existing class** (most preferred)
+   - No → create new abstraction as a **class** (preferred over an interface)
 
 3. Determine type:
    - Field–Field → refactor either side
    - Parameter–Parameter → refactor all methods consistently
    - Parameter–Field → refactor parameters only
+
+> **Prefer classes over interfaces** when creating a new data clump type.  
+> Reuse existing classes whenever possible before introducing a new one.
 
 ---
 
