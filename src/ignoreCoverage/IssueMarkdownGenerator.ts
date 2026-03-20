@@ -56,11 +56,11 @@ export class IssueMarkdownGenerator {
     return names.map(n => `\`${n}\``).join(', ');
   }
 
-  /** Renders a single location line (file path, optionally as a markdown link). */
+  /** Renders a single location line (file path, optionally with a plain URL). */
   private static renderLocation(className: string, filePath: string, link: string | null): string {
     if (!filePath) return '(unknown)';
     const classLabel = className ? `\`${className}\` in ` : '';
-    if (link) return `${classLabel}${filePath} – [view lines](${link})`;
+    if (link) return `${classLabel}${filePath} – ${link}`;
     return `${classLabel}${filePath}`;
   }
 
@@ -78,12 +78,24 @@ export class IssueMarkdownGenerator {
     if (item.from_method_name) methodInfo.push(`**From method:** \`${item.from_method_name}\``);
     if (item.to_method_name) methodInfo.push(`**To method:** \`${item.to_method_name}\``);
 
-    const lines: string[] = [`### ${index}. Data Clump:`, '', `The classes \`${item.from_class_or_interface_name}\` and \`${item.to_class_or_interface_name}\` share **${item.amount_of_variables}** variable(s): ${IssueMarkdownGenerator.formatVariableNames(item.variable_names)}.`, '', '**Affected locations**', '', `**From:** ${fromLocation}`, '', `**To:** ${toLocation}`];
-
+    const affectedLines: string[] = [`**From:** ${fromLocation}`, '', `**To:** ${toLocation}`];
     if (methodInfo.length > 0) {
-      lines.push('');
-      methodInfo.forEach(m => lines.push(m));
+      affectedLines.push('');
+      methodInfo.forEach(m => affectedLines.push(m));
     }
+
+    const lines: string[] = [
+      `### ${index}. Data Clump:`,
+      '',
+      `The classes \`${item.from_class_or_interface_name}\` and \`${item.to_class_or_interface_name}\` share **${item.amount_of_variables}** variable(s): ${IssueMarkdownGenerator.formatVariableNames(item.variable_names)}.`,
+      '',
+      '<details>',
+      '<summary>Affected locations</summary>',
+      '',
+      ...affectedLines,
+      '',
+      '</details>',
+    ];
 
     const rawJson = item.raw !== undefined && item.raw !== null ? item.raw : item;
     lines.push('');
