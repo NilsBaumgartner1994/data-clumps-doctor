@@ -63,11 +63,7 @@ export class IssueMarkdownGenerator {
     const fromLink = IssueMarkdownGenerator.buildLink(options, item.from_file_path, item.from_start_line, item.from_end_line);
     const toLink = IssueMarkdownGenerator.buildLink(options, item.to_file_path, item.to_start_line, item.to_end_line);
 
-    const lines: string[] = [
-      `### ${index}. Data Clump:`,
-      '',
-      `The classes \`${item.from_class_or_interface_name}\` and \`${item.to_class_or_interface_name}\` share **${item.amount_of_variables}** variable(s): ${IssueMarkdownGenerator.formatVariableNames(item.variable_names)}.`,
-    ];
+    const lines: string[] = [`### ${index}. Data Clump:`, '', `The classes \`${item.from_class_or_interface_name}\` and \`${item.to_class_or_interface_name}\` share **${item.amount_of_variables}** variable(s): ${IssueMarkdownGenerator.formatVariableNames(item.variable_names)}.`];
 
     if (fromLink || toLink) {
       const affectedLines: string[] = ['', '<details>', '<summary>Affected locations</summary>', ''];
