@@ -78,6 +78,60 @@ jobs:
 | `found-data-clumps` | `'true'` when at least one data clump was detected; use this as a quality gate |
 | `report-path`       | Path to the generated JSON report                                              |
 
+### Action inputs
+
+| Input                                                  | Required | Default                                        | Description                                                                                                                        |
+| ------------------------------------------------------ | -------- | ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `path-to-source`                                       | No       | `.`                                            | Relative path to the source files inside the repository                                                                            |
+| `output-path`                                          | No       | `reports/data-clumps-doctor/data-clumps.json`  | Path where the JSON report is written                                                                                              |
+| `source-language-type`                                 | No       | `typescript`                                   | Language of the source files (`typescript`, `java`, `uml`, `ast`, `digitalTwinsDefinitionLanguage`, `ngsi-ld`)                     |
+| `badge-output-path`                                    | No       | _(empty — no badge)_                           | Path to write the badge SVG to; leave empty to skip badge generation                                                               |
+| `generate-issue`                                       | No       | `false`                                        | When `'true'`, creates a GitHub Issue with the detected data clumps. Requires `issues: write` permission.                          |
+| `cluster-type-priority`                                | No       | `1,2,3`                                        | Priority order of cluster types used for the issue body (`1`/`single`, `2`/`two`, `3`/`large`)                                    |
+| `refactor-amount`                                      | No       | `5`                                            | Number of top data clumps to list in the issue body                                                                                |
+| `only-update-if-changes`                               | No       | `true`                                         | When `'true'`, badge and issue creation are skipped if the detected data clumps are identical to the previous run                  |
+| `detector-options-path`                                | No       | _(empty)_                                      | Path (relative to repo root) to a JSON file with detector options. Supports all detector option fields (see [Detector options](#detector-options)). |
+| `detector-options-paths-ignored-in-detection-comparison` | No     | _(empty)_                                      | Comma-separated list of path patterns that are parsed but excluded from data-clump detection comparison. Supports wildcards (e.g. `src/generated/*,**/fixtures/**`). |
+
+### Detector options
+
+You can fine-tune detection by passing either a path to an options JSON file or individual option inputs.
+
+#### Via `detector-options-path` (JSON file)
+
+Create a JSON file in your repository (e.g. `detector-options.json`) and pass its path to the action:
+
+```json
+{
+  "pathsIgnoredInDetectionComparison": ["src/generated/*", "**/fixtures/**"]
+}
+```
+
+```yaml
+- name: Analyse data clumps
+  uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@main
+  with:
+    path-to-source: src
+    output-path: reports/data-clumps-doctor/data-clumps.json
+    detector-options-path: detector-options.json
+```
+
+#### Via `detector-options-paths-ignored-in-detection-comparison` (inline)
+
+Pass a comma-separated list of glob patterns directly:
+
+```yaml
+- name: Analyse data clumps
+  uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@main
+  with:
+    path-to-source: src
+    output-path: reports/data-clumps-doctor/data-clumps.json
+    detector-options-paths-ignored-in-detection-comparison: 'src/generated/*,**/fixtures/**'
+```
+
+Files matching these patterns are still parsed (so their type information is available), but they are
+not considered as sources or targets during data-clump detection.
+
 ### Composable sub-actions
 
 For advanced workflows where you already have a report and only need one part, two focused
