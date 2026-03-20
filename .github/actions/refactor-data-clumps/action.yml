@@ -21,21 +21,17 @@ inputs:
     description: 'Language of the source files (typescript, java, uml, ast, digitalTwinsDefinitionLanguage, ngsi-ld)'
     required: false
     default: 'typescript'
-  refactor-data-clumps:
-    description: 'Whether to refactor detected data clumps (true/false)'
-    required: false
-    default: 'false'
-  create-issue-with-data-clumps:
+  generate-issue:
     description: >
-      When true, a GitHub Issue is created for each data clump in the priority list.
+      When true, a GitHub Issue is created with the detected data clumps as the body.
       This makes detected data clumps visible in the issue tracker for manual review
       or assignment.
     required: false
     default: 'true'
-  automatically-let-github-copilot-refactor:
+  refactor-with-copilot:
     description: >
       When true, the GitHub Copilot CLI is invoked directly on the runner to refactor
-      each data clump in the priority list without any human interaction.
+      detected data clumps without any human interaction.
       Requires a personal access token (PAT) with the "Copilot Requests" permission
       stored as a secret and passed via the copilot-token input
       (set COPILOT_GITHUB_TOKEN in your environment, or use the copilot-token input).
@@ -71,7 +67,7 @@ inputs:
   copilot-token:
     description: >
       Personal access token (PAT) with the "Copilot Requests" permission, used to
-      authenticate the GitHub Copilot CLI when automatically-let-github-copilot-refactor is true.
+      authenticate the GitHub Copilot CLI when refactor-with-copilot is true.
       Create a fine-grained PAT at github.com/settings/personal-access-tokens/new
       and add it as a repository secret (COPILOT_GITHUB_TOKEN).
     required: false
@@ -164,7 +160,7 @@ runs:
     # ── 4. Decide whether to run refactoring ─────────────────────────────
     - name: "🔍 Determine whether to run refactoring"
       id: refactor-decision
-      if: ${{ inputs.refactor-data-clumps == 'true' }}
+      if: ${{ inputs.refactor-with-copilot == 'true' }}
       shell: bash
       run: |
         if [ "${{ inputs.trigger-refactor-only-when-data-clumps-change }}" = "true" ]; then
@@ -193,7 +189,7 @@ runs:
 
     # ── 5. Generate priority list ────────────────────────────────────────
     - name: "📋 Generate data clumps priority list"
-      if: ${{ inputs.refactor-data-clumps == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
+      if: ${{ inputs.refactor-with-copilot == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
       shell: bash
       run: |
         mkdir -p reports/data-clumps-doctor
@@ -205,7 +201,7 @@ runs:
 
     # ── 6. Create GitHub Issue for detected data clumps (optional) ──────
     - name: "🐛 Create GitHub Issue for data clumps"
-      if: ${{ inputs.refactor-data-clumps == 'true' && inputs.create-issue-with-data-clumps == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
+      if: ${{ inputs.generate-issue == 'true' }}
       shell: bash
       env:
         GH_TOKEN: ${{ github.token }}
@@ -214,23 +210,16 @@ runs:
 
         echo "::notice::🐛 GitHub Issue creation step started"
 
-        PRIORITY_LIST="reports/data-clumps-doctor/priority-list.json"
-        if [ ! -f "$PRIORITY_LIST" ]; then
-          echo "::warning::Priority list not found at $PRIORITY_LIST – skipping issue creation."
-          exit 0
-        fi
-
-        ITEM_COUNT=$(jq 'length' "$PRIORITY_LIST")
-        echo "::notice::Found $ITEM_COUNT data clump(s) in priority list."
-
-        # Generate the issue body markdown via the TypeScript CLI
+        # Generate the issue body markdown via the new markdown report CLI
         ISSUE_BODY_FILE="$RUNNER_TEMP/data-clumps-doctor-issue-body.md"
-        node "$RUNNER_TEMP/data-clumps-doctor/build/ignoreCoverage/cliGenerateIssueMarkdown.js" \
-          --priority_list "$PRIORITY_LIST" \
+        node "$RUNNER_TEMP/data-clumps-doctor/build/ignoreCoverage/cliGenerateMarkdownReport.js" \
           --report_path "${{ inputs.output-path }}" \
-          --output "$ISSUE_BODY_FILE"
+          --cluster_type_priority "${{ inputs.cluster-type-priority }}" \
+          --amount "${{ inputs.refactor-amount }}" \
+          --markdown_output_path "$ISSUE_BODY_FILE"
 
-        TASK_TITLE="chore: Refactor data clumps (${ITEM_COUNT} detected)"
+        DATA_CLUMPS_COUNT=$(jq '.report_summary.amount_data_clumps // 0' "${{ inputs.output-path }}")
+        TASK_TITLE="chore: Refactor data clumps (${DATA_CLUMPS_COUNT} detected)"
 
         if ISSUE_URL=$(gh issue create \
             --title "$TASK_TITLE" \
@@ -246,12 +235,12 @@ runs:
 
     # ── 7. Copilot CLI-based refactoring (optional) ──────────────────────
     - name: "📦 Install GitHub Copilot CLI"
-      if: ${{ inputs.refactor-data-clumps == 'true' && inputs.automatically-let-github-copilot-refactor == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
+      if: ${{ inputs.refactor-with-copilot == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
       shell: bash
       run: npm install -g @github/copilot
 
     - name: "🤖 Refactor with GitHub Copilot CLI"
-      if: ${{ inputs.refactor-data-clumps == 'true' && inputs.automatically-let-github-copilot-refactor == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
+      if: ${{ inputs.refactor-with-copilot == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
       shell: bash
       env:
         COPILOT_GITHUB_TOKEN: ${{ inputs.copilot-token }}
@@ -313,7 +302,7 @@ runs:
 
     # ── 8. Re-analyse after refactoring to get updated report ────────────
     - name: "🔄 Re-analyse data clumps (after refactoring)"
-      if: ${{ inputs.refactor-data-clumps == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
+      if: ${{ inputs.refactor-with-copilot == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
       shell: bash
       run: |
         output_path="${{ inputs.output-path }}"
@@ -340,7 +329,7 @@ runs:
     # ── 9. Update badge with final count (optional) ───────────────────────
     - name: "🎨 Determine final badge color"
       id: badge-color-final
-      if: ${{ inputs.badge-output-path != '' && inputs.refactor-data-clumps == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
+      if: ${{ inputs.badge-output-path != '' && inputs.refactor-with-copilot == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
       shell: bash
       run: |
         count=${{ steps.data-clumps-count-final.outputs.count }}
@@ -353,7 +342,7 @@ runs:
         fi
 
     - name: "🏷️ Update data clumps badge (after refactoring)"
-      if: ${{ inputs.badge-output-path != '' && inputs.refactor-data-clumps == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
+      if: ${{ inputs.badge-output-path != '' && inputs.refactor-with-copilot == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
       uses: emibcn/badge-action@v2.0.2
       with:
         label: data clumps
@@ -379,10 +368,9 @@ runs:
           fi
           echo ""
           echo "- **Report path:** \`${{ inputs.output-path }}\`"
-          echo "- **Refactoring enabled:** ${{ inputs.refactor-data-clumps }}"
-          echo "- **Create issues for data clumps:** ${{ inputs.create-issue-with-data-clumps }}"
-          echo "- **Automatic Copilot refactoring:** ${{ inputs.automatically-let-github-copilot-refactor }}"
-          if [ "${{ inputs.refactor-data-clumps }}" = "true" ]; then
+          echo "- **Generate issue:** ${{ inputs.generate-issue }}"
+          echo "- **Refactor with Copilot:** ${{ inputs.refactor-with-copilot }}"
+          if [ "${{ inputs.refactor-with-copilot }}" = "true" ]; then
             echo "- **Cluster type priority:** ${{ inputs.cluster-type-priority }}"
             echo "- **Refactor amount:** ${{ inputs.refactor-amount }}"
             echo "- **Refactoring ran:** $SHOULD_REFACTOR"

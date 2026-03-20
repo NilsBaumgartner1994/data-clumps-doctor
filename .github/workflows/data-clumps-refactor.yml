@@ -23,17 +23,12 @@ on:
         required: false
         type: string
         default: ''
-      refactor-data-clumps:
-        description: 'Whether to refactor detected data clumps (true/false)'
-        required: false
-        type: boolean
-        default: false
-      create-issue-with-data-clumps:
-        description: 'When true, a GitHub Issue is created for each detected data clump in the priority list (true/false)'
+      generate-issue:
+        description: 'When true, a GitHub Issue is created with the detected data clumps as the body (true/false)'
         required: false
         type: boolean
         default: true
-      automatically-let-github-copilot-refactor:
+      refactor-with-copilot:
         description: >
           When true, the GitHub Copilot CLI automatically refactors detected data clumps on the runner.
           Requires a PAT with the "Copilot Requests" permission stored as the copilot-token secret.
@@ -71,7 +66,7 @@ on:
       copilot-token:
         description: >
           Personal access token (PAT) with the "Copilot Requests" permission.
-          Required when automatically-let-github-copilot-refactor is true.
+          Required when refactor-with-copilot is true.
         required: false
 
   workflow_dispatch:
@@ -96,17 +91,12 @@ on:
         required: false
         type: string
         default: ''
-      refactor-data-clumps:
-        description: 'Whether to refactor detected data clumps (true/false)'
-        required: false
-        type: boolean
-        default: false
-      create-issue-with-data-clumps:
-        description: 'When true, a GitHub Issue is created for each detected data clump in the priority list (true/false)'
+      generate-issue:
+        description: 'When true, a GitHub Issue is created with the detected data clumps as the body (true/false)'
         required: false
         type: boolean
         default: true
-      automatically-let-github-copilot-refactor:
+      refactor-with-copilot:
         description: >
           When true, the GitHub Copilot CLI automatically refactors detected data clumps on the runner.
           Requires a PAT with the "Copilot Requests" permission stored as the copilot-token secret.
@@ -155,9 +145,8 @@ jobs:
           output-path: ${{ inputs.output-path }}
           badge-output-path: ${{ inputs.badge-output-path }}
           source-language-type: ${{ inputs.source-language-type }}
-          refactor-data-clumps: ${{ inputs.refactor-data-clumps }}
-          create-issue-with-data-clumps: ${{ inputs.create-issue-with-data-clumps }}
-          automatically-let-github-copilot-refactor: ${{ inputs.automatically-let-github-copilot-refactor }}
+          generate-issue: ${{ inputs.generate-issue }}
+          refactor-with-copilot: ${{ inputs.refactor-with-copilot }}
           cluster-type-priority: ${{ inputs.cluster-type-priority }}
           refactor-amount: ${{ inputs.refactor-amount }}
           # previous-report-path and trigger-refactor-only-when-data-clumps-change
@@ -168,6 +157,7 @@ jobs:
           copilot-token: ${{ secrets.copilot-token }}
 
       - name: "💾 Commit reports"
+        if: ${{ inputs.refactor-with-copilot == true }}
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
