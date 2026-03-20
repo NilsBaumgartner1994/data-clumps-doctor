@@ -35,30 +35,61 @@ following specification:
 
 ## GitHub Action
 
-Run the analysis in any repository via our reusable action:
+The `analyse-data-clumps` action is the single entry point that detects data clumps, optionally generates a badge, and optionally creates a GitHub Issue — all in one step.
 
 ```yaml
-- name: Analyse data clumps
-  uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@main
-  with:
-    path-to-source: .
-    output-path: reports/data-clumps-doctor/data-clumps.json
-    source-language-type: typescript
+permissions:
+  contents: write # required when committing the report or badge
+  issues: write   # only required when generate-issue: 'true'
 
-- name: Create data clumps badge
-  uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-badge@main
+jobs:
+  data-clumps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Analyse data clumps
+        id: data-clumps
+        uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@main
+        with:
+          path-to-source: .
+          output-path: reports/data-clumps-doctor/data-clumps.json
+          badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
+          source-language-type: typescript
+          generate-issue: 'true'
+
+      # Optional quality gate: fail the workflow when data clumps are found
+      - name: Fail if data clumps detected
+        if: steps.data-clumps.outputs.found-data-clumps == 'true'
+        run: |
+          echo "::error::${{ steps.data-clumps.outputs.data-clumps-count }} data clump(s) detected."
+          exit 1
+```
+
+### Action outputs
+
+| Output | Description |
+|---|---|
+| `data-clumps-count` | Number of data clumps detected |
+| `found-data-clumps` | `'true'` when at least one data clump was detected; use this as a quality gate |
+| `report-path` | Path to the generated JSON report |
+
+### Composable sub-actions
+
+For advanced workflows where you already have a report and only need one part, two focused sub-actions are available:
+
+```yaml
+# Badge only (from an existing report)
+- uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-badge@main
   with:
     report-path: reports/data-clumps-doctor/data-clumps.json
     badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
 
-- name: Create data clumps issue
-  uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-issue@main
+# Issue only (from an existing report)
+- uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-issue@main
   with:
     report-path: reports/data-clumps-doctor/data-clumps.json
 ```
-
-The actions are designed to be composable: run them all together or pick only what you need.
-The `output-path` and `badge-output-path` are optional and can be customised to suit your project's layout.
 
 ### Generate Markdown Report CLI (`cliGenerateMarkdownReport`)
 

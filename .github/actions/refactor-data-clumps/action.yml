@@ -83,17 +83,24 @@ outputs:
   data-clumps-count:
     description: Number of detected data clumps (from the final report, after any refactoring)
     value: ${{ steps.data-clumps-count-final.outputs.count }}
+  found-data-clumps:
+    description: "'true' if data clumps were detected before refactoring, 'false' otherwise"
+    value: ${{ steps.data-clumps-count.outputs.found }}
 
 runs:
   using: composite
   steps:
-    # ── 1. Analyse project for data clumps ───────────────────────────────
+    # ── 1. Analyse project (detect + optional badge + optional issue) ─────
     - name: "🩺 Analyse data clumps"
       uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@master
       with:
         path-to-source: ${{ inputs.path-to-source }}
         output-path: ${{ inputs.output-path }}
         source-language-type: ${{ inputs.source-language-type }}
+        badge-output-path: ${{ inputs.badge-output-path }}
+        generate-issue: ${{ inputs.generate-issue }}
+        cluster-type-priority: ${{ inputs.cluster-type-priority }}
+        refactor-amount: ${{ inputs.refactor-amount }}
 
     - name: "📊 Read data clumps count"
       id: data-clumps-count
@@ -108,17 +115,14 @@ runs:
           exit 1
         fi
         echo "count=$count" >> "$GITHUB_OUTPUT"
+        if [ "$count" -gt 0 ]; then
+          echo "found=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "found=false" >> "$GITHUB_OUTPUT"
+        fi
         echo "Detected $count data clumps."
 
-    # ── 2. Generate badge for the before-report (optional) ───────────────
-    - name: "🏷️ Create data clumps badge"
-      if: ${{ inputs.badge-output-path != '' }}
-      uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-badge@master
-      with:
-        report-path: ${{ inputs.output-path }}
-        badge-output-path: ${{ inputs.badge-output-path }}
-
-    # ── 3. Decide whether to run refactoring ─────────────────────────────
+    # ── 2. Decide whether to run refactoring ─────────────────────────────
     - name: "🔍 Determine whether to run refactoring"
       id: refactor-decision
       if: ${{ inputs.refactor-with-copilot == 'true' }}
@@ -153,7 +157,7 @@ runs:
         fi
         echo "should-refactor=true" >> "$GITHUB_OUTPUT"
 
-    # ── 4. Generate priority list ────────────────────────────────────────
+    # ── 3. Generate priority list ────────────────────────────────────────
     - name: "📋 Generate data clumps priority list"
       if: ${{ inputs.refactor-with-copilot == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
       shell: bash
@@ -165,16 +169,7 @@ runs:
           --amount "${{ inputs.refactor-amount }}" \
           --output reports/data-clumps-doctor/priority-list.json
 
-    # ── 5. Create GitHub Issue for detected data clumps (optional) ───────
-    - name: "🐛 Create GitHub Issue for data clumps"
-      if: ${{ inputs.generate-issue == 'true' }}
-      uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-issue@master
-      with:
-        report-path: ${{ inputs.output-path }}
-        cluster-type-priority: ${{ inputs.cluster-type-priority }}
-        refactor-amount: ${{ inputs.refactor-amount }}
-
-    # ── 6. Copilot CLI-based refactoring (optional) ──────────────────────
+    # ── 4. Copilot CLI-based refactoring (optional) ──────────────────────
     - name: "📦 Install GitHub Copilot CLI"
       if: ${{ inputs.refactor-with-copilot == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
       shell: bash
@@ -241,7 +236,7 @@ runs:
 
         echo "::notice::🤖 Copilot CLI Refactoring step finished – $REFACTORED/$ITEM_COUNT data clump(s) refactored."
 
-    # ── 7. Re-analyse after refactoring to get updated report ────────────
+    # ── 5. Re-analyse after refactoring to get updated report ────────────
     - name: "🔄 Re-analyse data clumps (after refactoring)"
       if: ${{ inputs.refactor-with-copilot == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
       shell: bash
@@ -267,15 +262,15 @@ runs:
         echo "count=$count" >> "$GITHUB_OUTPUT"
         echo "Final data clumps count: $count"
 
-    # ── 8. Update badge with final count (optional) ───────────────────────
-    - name: "🏷️ Update data clumps badge (after refactoring)"
+    # ── 6. Update badge with final count after refactoring (optional) ─────
+    - name: "��️ Update data clumps badge (after refactoring)"
       if: ${{ inputs.badge-output-path != '' && inputs.refactor-with-copilot == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
       uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-badge@master
       with:
         report-path: ${{ inputs.output-path }}
         badge-output-path: ${{ inputs.badge-output-path }}
 
-    # ── 9. Summary ───────────────────────────────────────────────────────
+    # ── 7. Summary ───────────────────────────────────────────────────────
     - name: "📝 Publish analysis summary"
       shell: bash
       run: |

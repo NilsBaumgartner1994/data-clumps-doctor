@@ -95,20 +95,20 @@ jobs:
         env:
           TEST_COUNT: ${{ steps.test-count.outputs.count }}
       - name: "🩺 Analyse data clumps"
+        id: data-clumps
         uses: ./.github/actions/analyse-data-clumps
         with:
           path-to-source: ./src
           output-path: reports/data-clumps-doctor/data-clumps.json
-          source-language-type: typescript
-      - name: "🏷️ Create data clumps badge"
-        uses: ./.github/actions/create-data-clumps-badge
-        with:
-          report-path: reports/data-clumps-doctor/data-clumps.json
           badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
-      - name: "🐛 Create data clumps issue"
-        uses: ./.github/actions/create-data-clumps-issue
-        with:
-          report-path: reports/data-clumps-doctor/data-clumps.json
+          source-language-type: typescript
+          generate-issue: 'true'
+      # Quality gate: uncomment the step below to fail the workflow when data clumps are detected
+      # - name: "🚫 Fail if data clumps detected"
+      #   if: steps.data-clumps.outputs.found-data-clumps == 'true'
+      #   run: |
+      #     echo "::error::${{ steps.data-clumps.outputs.data-clumps-count }} data clump(s) detected. Fix them or suppress this check."
+      #     exit 1
       - name: "💾 Commit reports"
         run: |
           git config user.name "github-actions"
