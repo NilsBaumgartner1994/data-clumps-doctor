@@ -44,7 +44,8 @@ A group of fields appears in multiple classes.
 **When to use what:**
 
 - Reuse existing class → if a matching class already exists (most preferred)
-- Extract Class → if the data represents a meaningful concept and no suitable class exists; **use a class, not an interface**
+- Extract Class → if the data represents a meaningful concept and no suitable class exists; **use a
+  class, not an interface**
 - Inheritance → if classes share a structural identity
 
 **Note on classes vs. interfaces:**
