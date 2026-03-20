@@ -35,20 +35,88 @@ following specification:
 
 ## GitHub Action
 
-Run the analysis in any repository via our reusable action:
+The `analyse-data-clumps` action is the single entry point that detects data clumps, optionally generates a badge, and optionally creates a GitHub Issue — all in one step.
+
+> **Working example:** the CI pipeline of this very repository uses the action. See [`.github/workflows/ci.yml`](.github/workflows/ci.yml) for a complete, production-ready reference.
 
 ```yaml
-- name: Analyse data clumps
-  uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@main
-  with:
-    path-to-source: .
-    output-path: reports/data-clumps-doctor/data-clumps.json
-    badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
-    source-language-type: typescript
+permissions:
+  contents: write # required when committing the report or badge
+  issues: write   # only required when generate-issue: 'true'
+
+jobs:
+  data-clumps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Analyse data clumps
+        id: data-clumps
+        uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@main
+        with:
+          path-to-source: .
+          output-path: reports/data-clumps-doctor/data-clumps.json
+          badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
+          source-language-type: typescript
+          generate-issue: 'true'
+
+      # Optional quality gate: fail the workflow when data clumps are found
+      - name: Fail if data clumps detected
+        if: steps.data-clumps.outputs.found-data-clumps == 'true'
+        run: |
+          echo "::error::${{ steps.data-clumps.outputs.data-clumps-count }} data clump(s) detected."
+          exit 1
 ```
 
-The `output-path` and `badge-output-path` are optional and can be customised to suit your project's
-layout.
+### Action outputs
+
+| Output | Description |
+|---|---|
+| `data-clumps-count` | Number of data clumps detected |
+| `found-data-clumps` | `'true'` when at least one data clump was detected; use this as a quality gate |
+| `report-path` | Path to the generated JSON report |
+
+### Composable sub-actions
+
+For advanced workflows where you already have a report and only need one part, two focused sub-actions are available:
+
+```yaml
+# Badge only (from an existing report)
+- uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-badge@main
+  with:
+    report-path: reports/data-clumps-doctor/data-clumps.json
+    badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
+
+# Issue only (from an existing report)
+- uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-issue@main
+  with:
+    report-path: reports/data-clumps-doctor/data-clumps.json
+```
+
+### Generate Markdown Report CLI (`cliGenerateMarkdownReport`)
+
+The `cliGenerateMarkdownReport` CLI generates a GitHub-flavoured Markdown summary of detected data clumps,
+suitable for creating GitHub issues, saving to a file, or piping to other tools.
+
+**Example 1 — Analyse a remote repository by URL and print data clumps count to the console:**
+
+```bash
+npx data-clumps-doctor-markdown-report \
+  --git_project_url_to_analyse https://github.com/your-org/your-repo \
+  --source_type typescript
+```
+
+The Markdown is written to stdout. The number of data clumps is visible in the `## Summary` section of the output.
+
+**Example 2 — Generate Markdown from an existing report file and save to a file:**
+
+```bash
+npx data-clumps-doctor-markdown-report \
+  --report_path reports/data-clumps-doctor/data-clumps.json \
+  --cluster_type_priority 1,2,3 \
+  --amount 10 \
+  --markdown_output_path reports/data-clumps-doctor/data-clumps-report.md
+```
 
 ## Requirements
 

@@ -83,37 +83,26 @@ outputs:
   data-clumps-count:
     description: Number of detected data clumps (from the final report, after any refactoring)
     value: ${{ steps.data-clumps-count-final.outputs.count }}
+  found-data-clumps:
+    description: "'true' if data clumps were detected before refactoring, 'false' otherwise"
+    value: ${{ steps.data-clumps-count.outputs.found }}
 
 runs:
   using: composite
   steps:
-    # ── 1. Clone & build data-clumps-doctor ──────────────────────────────
-    - name: "🔧 Clone data-clumps-doctor"
-      shell: bash
-      run: |
-        git clone https://github.com/NilsBaumgartner1994/data-clumps-doctor "$RUNNER_TEMP/data-clumps-doctor"
+    # ── 1. Analyse project (detect + optional badge + optional issue) ─────
+    - name: "🩺 Analyse data clumps"
+      uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/analyse-data-clumps@master
+      with:
+        path-to-source: ${{ inputs.path-to-source }}
+        output-path: ${{ inputs.output-path }}
+        source-language-type: ${{ inputs.source-language-type }}
+        badge-output-path: ${{ inputs.badge-output-path }}
+        generate-issue: ${{ inputs.generate-issue }}
+        cluster-type-priority: ${{ inputs.cluster-type-priority }}
+        refactor-amount: ${{ inputs.refactor-amount }}
 
-    - name: "🔨 Build data-clumps-doctor"
-      shell: bash
-      run: |
-        cd "$RUNNER_TEMP/data-clumps-doctor"
-        yarn install --immutable
-        yarn build
-
-    # ── 2. Analyse project for data clumps (before refactoring) ──────────
-    - name: "🩺 Analyse data clumps (before)"
-      shell: bash
-      run: |
-        output_path="${{ inputs.output-path }}"
-        mkdir -p "$(dirname "$output_path")"
-        node "$RUNNER_TEMP/data-clumps-doctor/build/ignoreCoverage/cli.js" \
-          --source_type "${{ inputs.source-language-type }}" \
-          --commit_selection current \
-          --output "$output_path" \
-          --path_to_project "$GITHUB_WORKSPACE" \
-          --relative_path_to_source_folder_in_project "${{ inputs.path-to-source }}"
-
-    - name: "📊 Extract data clumps count (before)"
+    - name: "📊 Read data clumps count"
       id: data-clumps-count
       shell: bash
       run: |
@@ -126,38 +115,14 @@ runs:
           exit 1
         fi
         echo "count=$count" >> "$GITHUB_OUTPUT"
+        if [ "$count" -gt 0 ]; then
+          echo "found=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "found=false" >> "$GITHUB_OUTPUT"
+        fi
         echo "Detected $count data clumps."
 
-    # ── 3. Generate badge for the before-report (optional) ───────────────
-    - name: "📁 Prepare badge directory"
-      if: ${{ inputs.badge-output-path != '' }}
-      shell: bash
-      run: mkdir -p "$(dirname "${{ inputs.badge-output-path }}")"
-
-    - name: "🎨 Determine badge color"
-      id: badge-color
-      if: ${{ inputs.badge-output-path != '' }}
-      shell: bash
-      run: |
-        count=${{ steps.data-clumps-count.outputs.count }}
-        if [ "$count" -le 10 ]; then
-          echo "color=08A008" >> "$GITHUB_OUTPUT"
-        elif [ "$count" -le 100 ]; then
-          echo "color=FE7D37" >> "$GITHUB_OUTPUT"
-        else
-          echo "color=F85149" >> "$GITHUB_OUTPUT"
-        fi
-
-    - name: "🏷️ Generate data clumps badge"
-      if: ${{ inputs.badge-output-path != '' }}
-      uses: emibcn/badge-action@v2.0.2
-      with:
-        label: data clumps
-        status: ${{ steps.data-clumps-count.outputs.count }}
-        color: ${{ steps.badge-color.outputs.color }}
-        path: ${{ inputs.badge-output-path }}
-
-    # ── 4. Decide whether to run refactoring ─────────────────────────────
+    # ── 2. Decide whether to run refactoring ─────────────────────────────
     - name: "🔍 Determine whether to run refactoring"
       id: refactor-decision
       if: ${{ inputs.refactor-with-copilot == 'true' }}
@@ -192,7 +157,7 @@ runs:
         fi
         echo "should-refactor=true" >> "$GITHUB_OUTPUT"
 
-    # ── 5. Generate priority list ────────────────────────────────────────
+    # ── 3. Generate priority list ────────────────────────────────────────
     - name: "📋 Generate data clumps priority list"
       if: ${{ inputs.refactor-with-copilot == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
       shell: bash
@@ -204,41 +169,7 @@ runs:
           --amount "${{ inputs.refactor-amount }}" \
           --output reports/data-clumps-doctor/priority-list.json
 
-    # ── 6. Create GitHub Issue for detected data clumps (optional) ──────
-    - name: "🐛 Create GitHub Issue for data clumps"
-      if: ${{ inputs.generate-issue == 'true' && steps.data-clumps-count.outputs.count > 0 }}
-      shell: bash
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        set -euo pipefail
-
-        echo "::notice::🐛 GitHub Issue creation step started"
-
-        # Generate the issue body markdown via the new markdown report CLI
-        ISSUE_BODY_FILE="$RUNNER_TEMP/data-clumps-doctor-issue-body.md"
-        node "$RUNNER_TEMP/data-clumps-doctor/build/ignoreCoverage/cliGenerateMarkdownReport.js" \
-          --report_path "${{ inputs.output-path }}" \
-          --cluster_type_priority "${{ inputs.cluster-type-priority }}" \
-          --amount "${{ inputs.refactor-amount }}" \
-          --markdown_output_path "$ISSUE_BODY_FILE"
-
-        DATA_CLUMPS_COUNT=$(jq '.report_summary.amount_data_clumps // 0' "${{ inputs.output-path }}")
-        TASK_TITLE="chore: Refactor data clumps (${DATA_CLUMPS_COUNT} detected)"
-
-        if ISSUE_URL=$(gh issue create \
-            --title "$TASK_TITLE" \
-            --body-file "$ISSUE_BODY_FILE" \
-            --repo "$GITHUB_REPOSITORY" 2>&1); then
-          echo "::notice::✅ Issue created: $ISSUE_URL"
-        else
-          echo "::error::Failed to create issue: $ISSUE_URL"
-          exit 1
-        fi
-
-        echo "::notice::🐛 Issue creation finished."
-
-    # ── 7. Copilot CLI-based refactoring (optional) ──────────────────────
+    # ── 4. Copilot CLI-based refactoring (optional) ──────────────────────
     - name: "📦 Install GitHub Copilot CLI"
       if: ${{ inputs.refactor-with-copilot == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
       shell: bash
@@ -305,7 +236,7 @@ runs:
 
         echo "::notice::🤖 Copilot CLI Refactoring step finished – $REFACTORED/$ITEM_COUNT data clump(s) refactored."
 
-    # ── 8. Re-analyse after refactoring to get updated report ────────────
+    # ── 5. Re-analyse after refactoring to get updated report ────────────
     - name: "🔄 Re-analyse data clumps (after refactoring)"
       if: ${{ inputs.refactor-with-copilot == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
       shell: bash
@@ -331,31 +262,15 @@ runs:
         echo "count=$count" >> "$GITHUB_OUTPUT"
         echo "Final data clumps count: $count"
 
-    # ── 9. Update badge with final count (optional) ───────────────────────
-    - name: "🎨 Determine final badge color"
-      id: badge-color-final
+    # ── 6. Update badge with final count after refactoring (optional) ─────
+    - name: "��️ Update data clumps badge (after refactoring)"
       if: ${{ inputs.badge-output-path != '' && inputs.refactor-with-copilot == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
-      shell: bash
-      run: |
-        count=${{ steps.data-clumps-count-final.outputs.count }}
-        if [ "$count" -le 10 ]; then
-          echo "color=08A008" >> "$GITHUB_OUTPUT"
-        elif [ "$count" -le 100 ]; then
-          echo "color=FE7D37" >> "$GITHUB_OUTPUT"
-        else
-          echo "color=F85149" >> "$GITHUB_OUTPUT"
-        fi
-
-    - name: "🏷️ Update data clumps badge (after refactoring)"
-      if: ${{ inputs.badge-output-path != '' && inputs.refactor-with-copilot == 'true' && steps.refactor-decision.outputs.should-refactor == 'true' }}
-      uses: emibcn/badge-action@v2.0.2
+      uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-badge@master
       with:
-        label: data clumps
-        status: ${{ steps.data-clumps-count-final.outputs.count }}
-        color: ${{ steps.badge-color-final.outputs.color }}
-        path: ${{ inputs.badge-output-path }}
+        report-path: ${{ inputs.output-path }}
+        badge-output-path: ${{ inputs.badge-output-path }}
 
-    # ── 10. Summary ───────────────────────────────────────────────────────
+    # ── 7. Summary ───────────────────────────────────────────────────────
     - name: "📝 Publish analysis summary"
       shell: bash
       run: |
@@ -385,4 +300,3 @@ runs:
             fi
           fi
         } >> "$GITHUB_STEP_SUMMARY"
-

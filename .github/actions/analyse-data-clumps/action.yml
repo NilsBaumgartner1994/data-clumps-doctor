@@ -1,5 +1,8 @@
 name: Analyse Data Clumps
-description: Run data-clumps-doctor to analyse repository for data clumps
+description: >
+  Detect data clumps, optionally generate a badge and/or create a GitHub Issue.
+  Exposes data-clumps-count and found-data-clumps outputs so the workflow can
+  act as a quality gate.
 
 inputs:
   path-to-source:
@@ -10,31 +13,60 @@ inputs:
     description: Path to the JSON report output
     required: false
     default: 'reports/data-clumps-doctor/data-clumps.json'
-  badge-output-path:
-    description: Path to the generated badge (optional)
-    required: false
-    default: ''
   source-language-type:
-    description: Language of the source files
+    description: 'Language of the source files (typescript, java, uml, ast, digitalTwinsDefinitionLanguage, ngsi-ld)'
     required: false
     default: 'typescript'
+  badge-output-path:
+    description: Path to write the badge SVG to (leave empty to skip badge generation)
+    required: false
+    default: ''
+  generate-issue:
+    description: >
+      When true, a GitHub Issue is created with the detected data clumps as the body.
+      Requires issues: write permission in the calling workflow.
+    required: false
+    default: 'false'
+  cluster-type-priority:
+    description: >
+      Priority order of data clump cluster types used for the issue body.
+      Use numeric (e.g. "1,2,3") or named values (e.g. "single,two,large").
+    required: false
+    default: '1,2,3'
+  refactor-amount:
+    description: Number of top data clumps to list in the issue body
+    required: false
+    default: '5'
+
+outputs:
+  report-path:
+    description: Path to the generated data clumps report
+    value: ${{ inputs.output-path }}
+  data-clumps-count:
+    description: Number of detected data clumps
+    value: ${{ steps.data-clumps-count.outputs.count }}
+  found-data-clumps:
+    description: "'true' if at least one data clump was detected, 'false' otherwise. Use this output as a quality gate: fail the workflow when found-data-clumps == 'true'."
+    value: ${{ steps.data-clumps-count.outputs.found }}
 
 runs:
   using: composite
   steps:
-    - name: Clone data-clumps-doctor
+    # ── 1. Clone & build data-clumps-doctor ──────────────────────────────
+    - name: "🔧 Clone data-clumps-doctor"
       shell: bash
       run: |
         git clone https://github.com/NilsBaumgartner1994/data-clumps-doctor "$RUNNER_TEMP/data-clumps-doctor"
 
-    - name: Build data-clumps-doctor
+    - name: "🔨 Build data-clumps-doctor"
       shell: bash
       run: |
         cd "$RUNNER_TEMP/data-clumps-doctor"
         yarn install --immutable
         yarn build
 
-    - name: Run data-clumps analysis
+    # ── 2. Detect data clumps ────────────────────────────────────────────
+    - name: "🩺 Run data-clumps analysis"
       shell: bash
       run: |
         output_path="${{ inputs.output-path }}"
@@ -46,20 +78,27 @@ runs:
           --path_to_project "$GITHUB_WORKSPACE" \
           --relative_path_to_source_folder_in_project "${{ inputs.path-to-source }}"
 
-    - name: Prepare badge directory
-      if: ${{ inputs.badge-output-path != '' }}
-      shell: bash
-      run: |
-        mkdir -p "$(dirname "${{ inputs.badge-output-path }}")"
-
-    - name: Extract data clumps count
+    # ── 3. Extract count & set quality-gate output ───────────────────────
+    - name: "📊 Extract data clumps count"
       id: data-clumps-count
-      if: ${{ inputs.badge-output-path != '' }}
       shell: bash
       run: |
-        echo "count=$(jq '.report_summary.amount_data_clumps' "${{ inputs.output-path }}")" >> "$GITHUB_OUTPUT"
+        count=$(jq '.report_summary.amount_data_clumps // 0' "${{ inputs.output-path }}")
+        echo "count=$count" >> "$GITHUB_OUTPUT"
+        if [ "$count" -gt 0 ]; then
+          echo "found=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "found=false" >> "$GITHUB_OUTPUT"
+        fi
+        echo "Detected $count data clump(s)."
 
-    - name: Determine badge color
+    # ── 4. Badge (optional) ──────────────────────────────────────────────
+    - name: "📁 Prepare badge directory"
+      if: ${{ inputs.badge-output-path != '' }}
+      shell: bash
+      run: mkdir -p "$(dirname "${{ inputs.badge-output-path }}")"
+
+    - name: "🎨 Determine badge color"
       id: badge-color
       if: ${{ inputs.badge-output-path != '' }}
       shell: bash
@@ -73,7 +112,7 @@ runs:
           echo "color=F85149" >> "$GITHUB_OUTPUT"
         fi
 
-    - name: Generate data clumps badge
+    - name: "🏷️ Generate data clumps badge"
       if: ${{ inputs.badge-output-path != '' }}
       uses: emibcn/badge-action@v2.0.2
       with:
@@ -82,3 +121,40 @@ runs:
         color: ${{ steps.badge-color.outputs.color }}
         path: ${{ inputs.badge-output-path }}
 
+    # ── 5. GitHub Issue (optional) ───────────────────────────────────────
+    - name: "ℹ️ No data clumps found — skipping issue creation"
+      if: ${{ inputs.generate-issue == 'true' && steps.data-clumps-count.outputs.count == 0 }}
+      shell: bash
+      run: echo "::notice::generate-issue is true but no data clumps were detected — no issue will be created."
+
+    - name: "🐛 Create GitHub Issue for data clumps"
+      if: ${{ inputs.generate-issue == 'true' && steps.data-clumps-count.outputs.count > 0 }}
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        set -euo pipefail
+
+        echo "::notice::🐛 GitHub Issue creation step started"
+
+        ISSUE_BODY_FILE="$RUNNER_TEMP/data-clumps-doctor-issue-body.md"
+        node "$RUNNER_TEMP/data-clumps-doctor/build/ignoreCoverage/cliGenerateMarkdownReport.js" \
+          --report_path "${{ inputs.output-path }}" \
+          --cluster_type_priority "${{ inputs.cluster-type-priority }}" \
+          --amount "${{ inputs.refactor-amount }}" \
+          --markdown_output_path "$ISSUE_BODY_FILE"
+
+        DATA_CLUMPS_COUNT="${{ steps.data-clumps-count.outputs.count }}"
+        TASK_TITLE="chore: Refactor data clumps (${DATA_CLUMPS_COUNT} detected)"
+
+        if ISSUE_URL=$(gh issue create \
+            --title "$TASK_TITLE" \
+            --body-file "$ISSUE_BODY_FILE" \
+            --repo "$GITHUB_REPOSITORY" 2>&1); then
+          echo "::notice::✅ Issue created: $ISSUE_URL"
+        else
+          echo "::error::Failed to create issue: $ISSUE_URL"
+          exit 1
+        fi
+
+        echo "::notice::🐛 Issue creation finished."
