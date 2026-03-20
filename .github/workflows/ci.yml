@@ -94,14 +94,21 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
         env:
           TEST_COUNT: ${{ steps.test-count.outputs.count }}
-      - name: "🩺 Run data-clumps-doctor"
+      - name: "🩺 Analyse data clumps"
         uses: ./.github/actions/analyse-data-clumps
         with:
           path-to-source: ./src
           output-path: reports/data-clumps-doctor/data-clumps.json
-          badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
           source-language-type: typescript
-          generate-issue: 'true'
+      - name: "🏷️ Create data clumps badge"
+        uses: ./.github/actions/create-data-clumps-badge
+        with:
+          report-path: reports/data-clumps-doctor/data-clumps.json
+          badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
+      - name: "🐛 Create data clumps issue"
+        uses: ./.github/actions/create-data-clumps-issue
+        with:
+          report-path: reports/data-clumps-doctor/data-clumps.json
       - name: "💾 Commit reports"
         run: |
           git config user.name "github-actions"

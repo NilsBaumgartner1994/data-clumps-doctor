@@ -43,12 +43,47 @@ Run the analysis in any repository via our reusable action:
   with:
     path-to-source: .
     output-path: reports/data-clumps-doctor/data-clumps.json
-    badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
     source-language-type: typescript
+
+- name: Create data clumps badge
+  uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-badge@main
+  with:
+    report-path: reports/data-clumps-doctor/data-clumps.json
+    badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
+
+- name: Create data clumps issue
+  uses: NilsBaumgartner1994/data-clumps-doctor/.github/actions/create-data-clumps-issue@main
+  with:
+    report-path: reports/data-clumps-doctor/data-clumps.json
 ```
 
-The `output-path` and `badge-output-path` are optional and can be customised to suit your project's
-layout.
+The actions are designed to be composable: run them all together or pick only what you need.
+The `output-path` and `badge-output-path` are optional and can be customised to suit your project's layout.
+
+### Generate Markdown Report CLI (`cliGenerateMarkdownReport`)
+
+The `cliGenerateMarkdownReport` CLI generates a GitHub-flavoured Markdown summary of detected data clumps,
+suitable for creating GitHub issues, saving to a file, or piping to other tools.
+
+**Example 1 — Analyse a remote repository by URL and print data clumps count to the console:**
+
+```bash
+npx data-clumps-doctor-markdown-report \
+  --git_project_url_to_analyse https://github.com/your-org/your-repo \
+  --source_type typescript
+```
+
+The Markdown is written to stdout. The number of data clumps is visible in the `## Summary` section of the output.
+
+**Example 2 — Generate Markdown from an existing report file and save to a file:**
+
+```bash
+npx data-clumps-doctor-markdown-report \
+  --report_path reports/data-clumps-doctor/data-clumps.json \
+  --cluster_type_priority 1,2,3 \
+  --amount 10 \
+  --markdown_output_path reports/data-clumps-doctor/data-clumps-report.md
+```
 
 ## Requirements
 
