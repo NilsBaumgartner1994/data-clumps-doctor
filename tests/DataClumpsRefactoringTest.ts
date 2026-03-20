@@ -1,142 +1,135 @@
 import fs from 'fs';
-import os from 'os';
 import path from 'path';
 
-import { Detector } from '../src/ignoreCoverage/detector/Detector';
-import { ParserHelper } from '../src/ignoreCoverage/ParserHelper';
-import { ParserHelperTypeScript } from '../src/ignoreCoverage/parsers/ParserHelperTypeScript';
-import { TsMorphDataClumpRefactorer } from '../src/ignoreCoverage/TsMorphDataClumpRefactorer';
-import { DataClumpsTypeContext, DataClumpTypeContext } from 'data-clumps-type-context';
+import { RefactoringScenario, normalizeFileContent, resolveRefactoringTestCasesBaseDir, runRefactoringScenario } from './data-clumps/refactoringScenarioUtils';
 
 jest.setTimeout(60000);
 
-/**
- * Sets up a temporary directory containing two TypeScript files that form a
- * parameter-parameter data clump: both methods share the parameters
- * `patientId: number`, `doctorId: number`, and `requiresFollowUp: boolean`.
- */
-function createDataClumpSourceFiles(dir: string): void {
-  fs.writeFileSync(
-    path.join(dir, 'AppointmentScheduler.ts'),
-    `export class AppointmentScheduler {
-  schedule(patientId: number, doctorId: number, requiresFollowUp: boolean): void {
-    console.log(\`Scheduling for patient \${patientId} with doctor \${doctorId} (follow-up: \${requiresFollowUp})\`);
-  }
-}
-`
-  );
+type ScenarioResult = {
+  status: 'passed' | 'failed';
+  details?: string;
+};
 
-  fs.writeFileSync(
-    path.join(dir, 'BillingProcessor.ts'),
-    `export class BillingProcessor {
-  createInvoice(patientId: number, doctorId: number, requiresFollowUp: boolean): void {
-    console.log(\`Invoice for patient \${patientId} and doctor \${doctorId} (follow-up: \${requiresFollowUp})\`);
-  }
-}
-`
-  );
-}
+const scenarioResults = new Map<string, ScenarioResult>();
 
-/**
- * Runs the data clump detector on the given source directory.
- */
-async function detectDataClumps(sourceDir: string): Promise<DataClumpsTypeContext> {
-  const parser = new ParserHelperTypeScript();
-  const tempAstDir = fs.mkdtempSync(path.join(os.tmpdir(), 'dc-ast-'));
-  try {
-    await parser.parseSourceToAst(sourceDir, tempAstDir);
-    const softwareProjectDicts = await ParserHelper.getSoftwareProjectDictsFromParsedAstFolder(tempAstDir, {});
-    const detector = new Detector(softwareProjectDicts, null, null, null, 'refactoring-test', null, null, null, null, null, 'typescript');
-    return detector.detect();
-  } finally {
+function createRefactoringScenarioTest(scenario: RefactoringScenario) {
+  const scenarioDisplayPath = path.relative(process.cwd(), scenario.scenarioDir) || scenario.scenarioDir;
+
+  test(`${scenario.name} (${scenarioDisplayPath})`, async () => {
+    let workDir: string | undefined;
     try {
-      await ParserHelper.removeGeneratedAst(tempAstDir, 'cleanup');
-    } catch {
-      // ignore cleanup errors
+      if (!fs.existsSync(scenario.sourceExpectedPath)) {
+        const message = `Missing expected source directory for scenario "${scenario.name}" at ${scenario.sourceExpectedPath}.`;
+        scenarioResults.set(`${scenario.name} (${scenarioDisplayPath})`, { status: 'failed', details: message });
+        throw new Error(message);
+      }
+
+      const result = await runRefactoringScenario(scenario);
+      workDir = result.workDir;
+
+      const expectedFiles = fs.readdirSync(scenario.sourceExpectedPath).filter(f => f.endsWith('.ts'));
+      const differences: string[] = [];
+
+      for (const file of expectedFiles) {
+        const expectedContent = normalizeFileContent(fs.readFileSync(path.join(scenario.sourceExpectedPath, file), 'utf8'));
+        const actualFilePath = path.join(workDir, file);
+
+        if (!fs.existsSync(actualFilePath)) {
+          differences.push(`File "${file}" expected in refactored output but not found.`);
+          continue;
+        }
+
+        const actualContent = normalizeFileContent(fs.readFileSync(actualFilePath, 'utf8'));
+        if (actualContent !== expectedContent) {
+          const expectedLines = expectedContent.split('\n');
+          const actualLines = actualContent.split('\n');
+          const maxLines = Math.max(expectedLines.length, actualLines.length);
+          let firstDiff = '';
+          for (let i = 0; i < maxLines; i++) {
+            if ((expectedLines[i] ?? '') !== (actualLines[i] ?? '')) {
+              firstDiff = `Line ${i + 1}: expected "${expectedLines[i] ?? ''}", got "${actualLines[i] ?? ''}"`;
+              break;
+            }
+          }
+          differences.push(`File "${file}" content differs. ${firstDiff}`);
+        }
+      }
+
+      if (differences.length > 0) {
+        const message = [`Refactoring output mismatch for scenario: ${scenario.name}`, ...differences].join('\n');
+        scenarioResults.set(`${scenario.name} (${scenarioDisplayPath})`, { status: 'failed', details: message });
+        throw new Error(message);
+      }
+
+      scenarioResults.set(`${scenario.name} (${scenarioDisplayPath})`, { status: 'passed' });
+    } catch (error) {
+      if (!scenarioResults.has(`${scenario.name} (${scenarioDisplayPath})`)) {
+        scenarioResults.set(`${scenario.name} (${scenarioDisplayPath})`, {
+          status: 'failed',
+          details: error instanceof Error ? error.message : String(error),
+        });
+      }
+      throw error;
+    } finally {
+      if (workDir) {
+        try {
+          fs.rmSync(workDir, { recursive: true, force: true });
+        } catch {
+          // ignore cleanup errors
+        }
+      }
     }
-  }
+  });
 }
 
-describe('Data Clump Detection and TsMorph Refactoring', () => {
-  let sourceDir: string;
+function testAllRefactoringScenarios() {
+  describe('Data clumps refactoring scenarios', () => {
+    scenarioResults.clear();
+    const { baseDir, scenarios } = resolveRefactoringTestCasesBaseDir();
 
-  beforeEach(() => {
-    sourceDir = fs.mkdtempSync(path.join(os.tmpdir(), 'dc-refactor-'));
-    createDataClumpSourceFiles(sourceDir);
-  });
-
-  afterEach(() => {
-    try {
-      fs.rmSync(sourceDir, { recursive: true, force: true });
-    } catch {
-      // ignore
+    if (scenarios.length === 0) {
+      test('No refactoring scenarios found', () => {
+        throw new Error(`No refactoring scenarios discovered in ${baseDir}`);
+      });
+      return;
     }
+
+    for (const scenario of scenarios) {
+      createRefactoringScenarioTest(scenario);
+    }
+
+    afterAll(() => {
+      if (scenarioResults.size === 0) {
+        return;
+      }
+
+      const passed: string[] = [];
+      const failed: string[] = [];
+
+      for (const [scenarioName, result] of scenarioResults.entries()) {
+        if (result.status === 'passed') {
+          passed.push(scenarioName);
+        } else {
+          failed.push(scenarioName);
+        }
+      }
+
+      console.log('\nZusammenfassung der Data-Clumps-Refactoring-Tests:');
+      if (passed.length > 0) {
+        console.log(['✅ Bestanden:', ...passed.map(n => `  - ${n}`)].join('\n'));
+      } else {
+        console.log('✅ Bestanden: Keine Tests bestanden.');
+      }
+
+      if (failed.length > 0) {
+        console.log(['❌ Fehlgeschlagen:', ...failed.map(n => `  - ${n}`)].join('\n'));
+      } else {
+        console.log('❌ Fehlgeschlagen: Keine Tests fehlgeschlagen.');
+      }
+    });
   });
+}
 
-  it('detects a parameter-parameter data clump in the source files', async () => {
-    const report = await detectDataClumps(sourceDir);
-
-    expect(report.report_summary.amount_data_clumps).toBeGreaterThan(0);
-    expect(report.report_summary.parameters_to_parameters_data_clump).toBeGreaterThan(0);
-
-    const dataClumps = Object.values(report.data_clumps);
-    const paramClump = dataClumps.find(dc => dc.data_clump_type === 'parameters_to_parameters_data_clump');
-    expect(paramClump).toBeDefined();
-
-    const variableNames = Object.values(paramClump!.data_clump_data).map(v => v.name);
-    expect(variableNames).toContain('patientId');
-    expect(variableNames).toContain('doctorId');
-    expect(variableNames).toContain('requiresFollowUp');
-  });
-
-  it('refactors a parameter-parameter data clump using TsMorphDataClumpRefactorer', async () => {
-    const reportBefore = await detectDataClumps(sourceDir);
-    const dataClumps = Object.values(reportBefore.data_clumps) as DataClumpTypeContext[];
-
-    const clump = dataClumps.find(dc => dc.data_clump_type === 'parameters_to_parameters_data_clump');
-    expect(clump).toBeDefined();
-
-    const refactorer = new TsMorphDataClumpRefactorer(sourceDir);
-    const result = await refactorer.refactorDataClump(clump!);
-
-    expect(result.parameterObjectInterfaceName).toBe('PatientIdDoctorIdRequiresFollowUpParams');
-    expect(result.parameterObjectFileName).toBe('PatientIdDoctorIdRequiresFollowUpParams.ts');
-    expect(result.modifiedFiles.length).toBeGreaterThan(0);
-
-    // The new parameter object interface file should exist
-    const interfaceFilePath = path.join(sourceDir, result.parameterObjectFileName);
-    expect(fs.existsSync(interfaceFilePath)).toBe(true);
-
-    const interfaceContent = fs.readFileSync(interfaceFilePath, 'utf8');
-    expect(interfaceContent).toContain('interface PatientIdDoctorIdRequiresFollowUpParams');
-    expect(interfaceContent).toContain('patientId');
-    expect(interfaceContent).toContain('doctorId');
-    expect(interfaceContent).toContain('requiresFollowUp');
-
-    // The refactored source files should use the new parameter object
-    const schedulerContent = fs.readFileSync(path.join(sourceDir, 'AppointmentScheduler.ts'), 'utf8');
-    expect(schedulerContent).toContain('PatientIdDoctorIdRequiresFollowUpParams');
-    expect(schedulerContent).toContain('params: PatientIdDoctorIdRequiresFollowUpParams');
-
-    const billingContent = fs.readFileSync(path.join(sourceDir, 'BillingProcessor.ts'), 'utf8');
-    expect(billingContent).toContain('PatientIdDoctorIdRequiresFollowUpParams');
-    expect(billingContent).toContain('params: PatientIdDoctorIdRequiresFollowUpParams');
-  });
-
-  it('no longer detects the original data clump after refactoring', async () => {
-    const reportBefore = await detectDataClumps(sourceDir);
-    const dataClumps = Object.values(reportBefore.data_clumps) as DataClumpTypeContext[];
-
-    const clump = dataClumps.find(dc => dc.data_clump_type === 'parameters_to_parameters_data_clump');
-    expect(clump).toBeDefined();
-
-    const refactorer = new TsMorphDataClumpRefactorer(sourceDir);
-    await refactorer.refactorDataClump(clump!);
-
-    // Re-detect after refactoring
-    const reportAfter = await detectDataClumps(sourceDir);
-    expect(reportAfter.report_summary.amount_data_clumps).toBe(0);
-  });
-});
+testAllRefactoringScenarios();
 
 export {};

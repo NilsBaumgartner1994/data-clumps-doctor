@@ -155,10 +155,13 @@ export default {
     '/node_modules/',
     '/src/ignoreCoverage/',
     '/tests/.*/source/',
+    '/tests/.*/source-expected/',
     'generateMissingReports',
     'regenerateExistingReports',
+    'ScenarioUtils',
     'scenarioUtils',
     'test\\.config',
+    'refactoring\\.config',
   ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
