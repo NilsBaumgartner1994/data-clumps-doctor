@@ -18,6 +18,23 @@ inputs:
     description: Language of the source files
     required: false
     default: 'typescript'
+  generate-issue:
+    description: >
+      When true, a GitHub Issue is created with the detected data clumps as the body.
+      This makes detected data clumps visible in the issue tracker for manual review
+      or assignment.
+    required: false
+    default: 'false'
+  cluster-type-priority:
+    description: >
+      Priority order of data clump cluster types used for the issue body.
+      Use numeric (e.g. "1,2,3") or named values (e.g. "single,two,large").
+    required: false
+    default: '1,2,3'
+  refactor-amount:
+    description: Number of top data clumps to list in the issue body
+    required: false
+    default: '5'
 
 runs:
   using: composite
@@ -54,7 +71,7 @@ runs:
 
     - name: Extract data clumps count
       id: data-clumps-count
-      if: ${{ inputs.badge-output-path != '' }}
+      if: ${{ inputs.badge-output-path != '' || inputs.generate-issue == 'true' }}
       shell: bash
       run: |
         echo "count=$(jq '.report_summary.amount_data_clumps' "${{ inputs.output-path }}")" >> "$GITHUB_OUTPUT"
@@ -81,4 +98,36 @@ runs:
         status: ${{ steps.data-clumps-count.outputs.count }}
         color: ${{ steps.badge-color.outputs.color }}
         path: ${{ inputs.badge-output-path }}
+
+    - name: "🐛 Create GitHub Issue for data clumps"
+      if: ${{ inputs.generate-issue == 'true' && steps.data-clumps-count.outputs.count > 0 }}
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        set -euo pipefail
+
+        echo "::notice::🐛 GitHub Issue creation step started"
+
+        ISSUE_BODY_FILE="$RUNNER_TEMP/data-clumps-doctor-issue-body.md"
+        node "$RUNNER_TEMP/data-clumps-doctor/build/ignoreCoverage/cliGenerateMarkdownReport.js" \
+          --report_path "${{ inputs.output-path }}" \
+          --cluster_type_priority "${{ inputs.cluster-type-priority }}" \
+          --amount "${{ inputs.refactor-amount }}" \
+          --markdown_output_path "$ISSUE_BODY_FILE"
+
+        DATA_CLUMPS_COUNT="${{ steps.data-clumps-count.outputs.count }}"
+        TASK_TITLE="chore: Refactor data clumps (${DATA_CLUMPS_COUNT} detected)"
+
+        if ISSUE_URL=$(gh issue create \
+            --title "$TASK_TITLE" \
+            --body-file "$ISSUE_BODY_FILE" \
+            --repo "$GITHUB_REPOSITORY" 2>&1); then
+          echo "::notice::✅ Issue created: $ISSUE_URL"
+        else
+          echo "::error::Failed to create issue: $ISSUE_URL"
+          exit 1
+        fi
+
+        echo "::notice::🐛 Issue creation finished."
 

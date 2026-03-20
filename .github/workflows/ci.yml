@@ -38,6 +38,9 @@ jobs:
     name: "🩺 Analyse Data Clumps"
     runs-on: ubuntu-latest
     needs: [lint]
+    permissions:
+      contents: write
+      issues: write
     steps:
       - name: "🔄 Checkout Repository"
         uses: actions/checkout@v4
@@ -98,6 +101,7 @@ jobs:
           output-path: reports/data-clumps-doctor/data-clumps.json
           badge-output-path: reports/data-clumps-doctor/badges/data-clumps.svg
           source-language-type: typescript
+          generate-issue: 'true'
       - name: "💾 Commit reports"
         run: |
           git config user.name "github-actions"
