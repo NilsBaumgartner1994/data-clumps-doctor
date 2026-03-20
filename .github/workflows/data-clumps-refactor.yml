@@ -61,6 +61,14 @@ on:
         required: false
         type: boolean
         default: false
+      only-update-if-changes:
+        description: >
+          When true, badge generation, issue creation, and refactoring are skipped if the
+          data clumps content has not changed since the last report (compared by hashing
+          the data_clumps section of the JSON).
+        required: false
+        type: boolean
+        default: true
 
     secrets:
       copilot-token:
@@ -117,6 +125,13 @@ on:
         default: 5
       # Note: previous-report-path is intentionally omitted for workflow_dispatch
       # so that manual runs always trigger refactoring unconditionally.
+      only-update-if-changes:
+        description: >
+          When true, badge generation, issue creation, and refactoring are skipped if the
+          data clumps content has not changed since the last report.
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   data-clumps-analyse-and-refactor:
@@ -154,6 +169,7 @@ jobs:
           # Manual (workflow_dispatch) runs leave these empty to always refactor.
           previous-report-path: ${{ github.event_name == 'workflow_call' && inputs.previous-report-path || '' }}
           trigger-refactor-only-when-data-clumps-change: ${{ github.event_name == 'workflow_call' && inputs.trigger-refactor-only-when-data-clumps-change || 'false' }}
+          only-update-if-changes: ${{ inputs.only-update-if-changes }}
           copilot-token: ${{ secrets.copilot-token }}
 
       - name: "💾 Commit reports"
