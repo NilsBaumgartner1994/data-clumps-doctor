@@ -46,6 +46,23 @@ inputs:
       clumps are identical.
     required: false
     default: 'true'
+  detector-options-path:
+    description: >
+      Path to a JSON file containing detector options (relative to the repository root).
+      All fields of the detector options object are supported (e.g. pathsIgnoredInDetectionComparison,
+      ignoredVariableNames, pathsExcludedFromParsing). When provided, options from this file
+      are applied during detection. Individual detector option inputs (see below) take precedence
+      over values in this file when both are set.
+    required: false
+    default: ''
+  detector-options-paths-ignored-in-detection-comparison:
+    description: >
+      A comma-separated list of path patterns that are parsed but ignored during detection
+      comparison. Files matching these paths are included in the AST but will not be considered
+      as sources or targets during data-clump detection.
+      Supports wildcards, e.g. "src/generated/*,**/fixtures/**".
+    required: false
+    default: ''
 
 outputs:
   report-path:
@@ -99,12 +116,26 @@ runs:
       run: |
         output_path="${{ inputs.output-path }}"
         mkdir -p "$(dirname "$output_path")"
+
+        extra_args=()
+
+        detector_options_path="${{ inputs.detector-options-path }}"
+        if [ -n "$detector_options_path" ]; then
+          extra_args+=(--detector_options_path "$GITHUB_WORKSPACE/$detector_options_path")
+        fi
+
+        ignored_paths="${{ inputs.detector-options-paths-ignored-in-detection-comparison }}"
+        if [ -n "$ignored_paths" ]; then
+          extra_args+=(--detector_options_paths_ignored_in_detection_comparison "[$ignored_paths]")
+        fi
+
         node "$RUNNER_TEMP/data-clumps-doctor/build/ignoreCoverage/cli.js" \
           --source_type "${{ inputs.source-language-type }}" \
           --commit_selection current \
           --output "$output_path" \
           --path_to_project "$GITHUB_WORKSPACE" \
-          --relative_path_to_source_folder_in_project "${{ inputs.path-to-source }}"
+          --relative_path_to_source_folder_in_project "${{ inputs.path-to-source }}" \
+          ${extra_args[@]+"${extra_args[@]}"}
 
     # ── 3. Extract count & set quality-gate output ───────────────────────
     - name: "📊 Extract data clumps count"
