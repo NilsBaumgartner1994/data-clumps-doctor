@@ -35,14 +35,16 @@ following specification:
 
 ## GitHub Action
 
-The `analyse-data-clumps` action is the single entry point that detects data clumps, optionally generates a badge, and optionally creates a GitHub Issue — all in one step.
+The `analyse-data-clumps` action is the single entry point that detects data clumps, optionally
+generates a badge, and optionally creates a GitHub Issue — all in one step.
 
-> **Working example:** the CI pipeline of this very repository uses the action. See [`.github/workflows/ci.yml`](.github/workflows/ci.yml) for a complete, production-ready reference.
+> **Working example:** the CI pipeline of this very repository uses the action. See
+> [`.github/workflows/ci.yml`](.github/workflows/ci.yml) for a complete, production-ready reference.
 
 ```yaml
 permissions:
   contents: write # required when committing the report or badge
-  issues: write   # only required when generate-issue: 'true'
+  issues: write # only required when generate-issue: 'true'
 
 jobs:
   data-clumps:
@@ -70,15 +72,16 @@ jobs:
 
 ### Action outputs
 
-| Output | Description |
-|---|---|
-| `data-clumps-count` | Number of data clumps detected |
+| Output              | Description                                                                    |
+| ------------------- | ------------------------------------------------------------------------------ |
+| `data-clumps-count` | Number of data clumps detected                                                 |
 | `found-data-clumps` | `'true'` when at least one data clump was detected; use this as a quality gate |
-| `report-path` | Path to the generated JSON report |
+| `report-path`       | Path to the generated JSON report                                              |
 
 ### Composable sub-actions
 
-For advanced workflows where you already have a report and only need one part, two focused sub-actions are available:
+For advanced workflows where you already have a report and only need one part, two focused
+sub-actions are available:
 
 ```yaml
 # Badge only (from an existing report)
@@ -95,8 +98,8 @@ For advanced workflows where you already have a report and only need one part, t
 
 ### Generate Markdown Report CLI (`cliGenerateMarkdownReport`)
 
-The `cliGenerateMarkdownReport` CLI generates a GitHub-flavoured Markdown summary of detected data clumps,
-suitable for creating GitHub issues, saving to a file, or piping to other tools.
+The `cliGenerateMarkdownReport` CLI generates a GitHub-flavoured Markdown summary of detected data
+clumps, suitable for creating GitHub issues, saving to a file, or piping to other tools.
 
 **Example 1 — Analyse a remote repository by URL and print data clumps count to the console:**
 
@@ -106,7 +109,8 @@ npx data-clumps-doctor-markdown-report \
   --source_type typescript
 ```
 
-The Markdown is written to stdout. The number of data clumps is visible in the `## Summary` section of the output.
+The Markdown is written to stdout. The number of data clumps is visible in the `## Summary` section
+of the output.
 
 **Example 2 — Generate Markdown from an existing report file and save to a file:**
 
