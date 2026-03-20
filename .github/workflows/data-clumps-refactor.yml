@@ -46,7 +46,7 @@ on:
         description: Number of data clumps to refactor
         required: false
         type: number
-        default: 1
+        default: 5
       previous-report-path:
         description: >
           Optional path to a previous data clumps report JSON.
@@ -114,7 +114,7 @@ on:
         description: Number of data clumps to refactor
         required: false
         type: number
-        default: 1
+        default: 5
       # Note: previous-report-path is intentionally omitted for workflow_dispatch
       # so that manual runs always trigger refactoring unconditionally.
 

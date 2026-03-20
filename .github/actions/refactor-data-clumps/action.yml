@@ -47,7 +47,7 @@ inputs:
   refactor-amount:
     description: Number of data clumps to refactor
     required: false
-    default: '1'
+    default: '5'
   previous-report-path:
     description: >
       Optional path to a previous data clumps report JSON. When provided together
@@ -163,6 +163,11 @@ runs:
       if: ${{ inputs.refactor-with-copilot == 'true' }}
       shell: bash
       run: |
+        if [ "${{ steps.data-clumps-count.outputs.count }}" -eq 0 ]; then
+          echo "No data clumps detected. Skipping refactoring."
+          echo "should-refactor=false" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
         if [ "${{ inputs.trigger-refactor-only-when-data-clumps-change }}" = "true" ]; then
           PREVIOUS_REPORT="${{ inputs.previous-report-path }}"
           if [ -n "$PREVIOUS_REPORT" ] && [ -f "$PREVIOUS_REPORT" ]; then
@@ -201,7 +206,7 @@ runs:
 
     # ── 6. Create GitHub Issue for detected data clumps (optional) ──────
     - name: "🐛 Create GitHub Issue for data clumps"
-      if: ${{ inputs.generate-issue == 'true' }}
+      if: ${{ inputs.generate-issue == 'true' && steps.data-clumps-count.outputs.count > 0 }}
       shell: bash
       env:
         GH_TOKEN: ${{ github.token }}
