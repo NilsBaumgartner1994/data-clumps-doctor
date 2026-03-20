@@ -37,6 +37,8 @@ following specification:
 
 The `analyse-data-clumps` action is the single entry point that detects data clumps, optionally generates a badge, and optionally creates a GitHub Issue — all in one step.
 
+> **Working example:** the CI pipeline of this very repository uses the action. See [`.github/workflows/ci.yml`](.github/workflows/ci.yml) for a complete, production-ready reference.
+
 ```yaml
 permissions:
   contents: write # required when committing the report or badge
