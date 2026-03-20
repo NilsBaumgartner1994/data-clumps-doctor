@@ -63,18 +63,22 @@ export class IssueMarkdownGenerator {
     const fromLink = IssueMarkdownGenerator.buildLink(options, item.from_file_path, item.from_start_line, item.from_end_line);
     const toLink = IssueMarkdownGenerator.buildLink(options, item.to_file_path, item.to_start_line, item.to_end_line);
 
-    const affectedLinks: string[] = [];
-    if (fromLink) affectedLinks.push(fromLink);
-    if (toLink) affectedLinks.push(toLink);
-
     const lines: string[] = [
       `### ${index}. Data Clump:`,
       '',
       `The classes \`${item.from_class_or_interface_name}\` and \`${item.to_class_or_interface_name}\` share **${item.amount_of_variables}** variable(s): ${IssueMarkdownGenerator.formatVariableNames(item.variable_names)}.`,
     ];
 
-    if (affectedLinks.length > 0) {
-      lines.push('', '<details>', '<summary>Affected locations</summary>', '', ...affectedLinks, '', '</details>');
+    if (fromLink || toLink) {
+      const affectedLines: string[] = ['', '<details>', '<summary>Affected locations</summary>', ''];
+      if (fromLink) {
+        affectedLines.push('From', '', fromLink, '');
+      }
+      if (toLink) {
+        affectedLines.push('To', '', toLink, '');
+      }
+      affectedLines.push('</details>');
+      lines.push(...affectedLines);
     }
 
     const rawJson = item.raw !== undefined && item.raw !== null ? item.raw : item;
