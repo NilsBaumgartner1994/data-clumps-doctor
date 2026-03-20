@@ -56,14 +56,6 @@ export class IssueMarkdownGenerator {
     return names.map(n => `\`${n}\``).join(', ');
   }
 
-  /** Renders a single location line (file path, optionally as a markdown link). */
-  private static renderLocation(className: string, filePath: string, link: string | null): string {
-    if (!filePath) return '(unknown)';
-    const classLabel = className ? `\`${className}\` in ` : '';
-    if (link) return `${classLabel}${filePath} – [view lines](${link})`;
-    return `${classLabel}${filePath}`;
-  }
-
   /**
    * Renders one data-clump entry as a markdown section.
    */
@@ -71,18 +63,22 @@ export class IssueMarkdownGenerator {
     const fromLink = IssueMarkdownGenerator.buildLink(options, item.from_file_path, item.from_start_line, item.from_end_line);
     const toLink = IssueMarkdownGenerator.buildLink(options, item.to_file_path, item.to_start_line, item.to_end_line);
 
-    const fromLocation = IssueMarkdownGenerator.renderLocation(item.from_class_or_interface_name, item.from_file_path, fromLink);
-    const toLocation = IssueMarkdownGenerator.renderLocation(item.to_class_or_interface_name, item.to_file_path, toLink);
+    const lines: string[] = [
+      `### ${index}. Data Clump:`,
+      '',
+      `The classes \`${item.from_class_or_interface_name}\` and \`${item.to_class_or_interface_name}\` share **${item.amount_of_variables}** variable(s): ${IssueMarkdownGenerator.formatVariableNames(item.variable_names)}.`,
+    ];
 
-    const methodInfo: string[] = [];
-    if (item.from_method_name) methodInfo.push(`**From method:** \`${item.from_method_name}\``);
-    if (item.to_method_name) methodInfo.push(`**To method:** \`${item.to_method_name}\``);
-
-    const lines: string[] = [`### ${index}. Data Clump:`, '', `The classes \`${item.from_class_or_interface_name}\` and \`${item.to_class_or_interface_name}\` share **${item.amount_of_variables}** variable(s): ${IssueMarkdownGenerator.formatVariableNames(item.variable_names)}.`, '', '**Affected locations**', '', `- **From:** ${fromLocation}`, `- **To:** ${toLocation}`];
-
-    if (methodInfo.length > 0) {
-      lines.push('');
-      methodInfo.forEach(m => lines.push(`- ${m}`));
+    if (fromLink || toLink) {
+      const affectedLines: string[] = ['', '<details>', '<summary>Affected locations</summary>', ''];
+      if (fromLink) {
+        affectedLines.push('From', '', fromLink, '');
+      }
+      if (toLink) {
+        affectedLines.push('To', '', toLink, '');
+      }
+      affectedLines.push('</details>');
+      lines.push(...affectedLines);
     }
 
     const rawJson = item.raw !== undefined && item.raw !== null ? item.raw : item;
