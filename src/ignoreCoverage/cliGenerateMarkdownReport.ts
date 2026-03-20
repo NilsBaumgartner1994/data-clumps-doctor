@@ -15,15 +15,7 @@ const version = packageJson.version;
 const program = new Command();
 
 program
-  .description(
-    'Generate Issue Markdown from a Data Clumps Report\n\n' +
-      'Reads a data clumps report (JSON) and renders a GitHub-flavoured Markdown body\n' +
-      'suitable for creating a GitHub issue or saving locally.\n\n' +
-      'The report can be provided directly via --report_path, or generated on-the-fly\n' +
-      'by specifying a GitHub project URL (--git_project_url_to_analyse) to clone and\n' +
-      'analyse automatically.\n\n' +
-      'npx data-clumps-doctor-markdown-report [options]'
-  )
+  .description('Generate Issue Markdown from a Data Clumps Report\n\n' + 'Reads a data clumps report (JSON) and renders a GitHub-flavoured Markdown body\n' + 'suitable for creating a GitHub issue or saving locally.\n\n' + 'The report can be provided directly via --report_path, or generated on-the-fly\n' + 'by specifying a GitHub project URL (--git_project_url_to_analyse) to clone and\n' + 'analyse automatically.\n\n' + 'npx data-clumps-doctor-markdown-report [options]')
   .version(version)
   // ── Report input (mutually exclusive: use one) ──────────────────────────
   .option('--report_path <path>', 'Path to an existing data clumps report JSON file')
@@ -92,11 +84,7 @@ async function main() {
 
     process.stderr.write('Cloning and analysing project: ' + gitUrl + '\n');
 
-    const result = spawnSync(
-      process.execPath,
-      [cliPath, '--git_project_url_to_analyse', gitUrl, '--source_type', sourceType, '--relative_path_to_source_folder_in_project', relativeSourcePath, '--commit_selection', 'current', '--output', tempReportPath],
-      { stdio: 'inherit' }
-    );
+    const result = spawnSync(process.execPath, [cliPath, '--git_project_url_to_analyse', gitUrl, '--source_type', sourceType, '--relative_path_to_source_folder_in_project', relativeSourcePath, '--commit_selection', 'current', '--output', tempReportPath], { stdio: 'inherit' });
 
     if (result.status !== 0) {
       console.error('ERROR: Detection failed for: ' + gitUrl);
