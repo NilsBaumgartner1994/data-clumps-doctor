@@ -1,45 +1,45 @@
 {
   "report_version": "^0.1.103",
-  "report_timestamp": "2026-03-20T02:18:36.503Z",
+  "report_timestamp": "2026-03-20T04:22:09.969Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
       "invertedIndexSoftwareProjectStatistics": {
         "invertedFieldToClasses": {
-          "median": 1,
+          "median": 1.5,
           "maximum": 4,
-          "average": 1.106508875739645,
-          "amountSavedValuesForKeys": 187,
+          "average": 1.103448275862069,
+          "amountSavedValuesForKeys": 192,
           "amountKeys": 4
         },
         "invertedParameterToMethods": {
           "median": 1.5,
           "maximum": 14,
-          "average": 1.7349397590361446,
-          "amountSavedValuesForKeys": 288,
+          "average": 1.7325581395348837,
+          "amountSavedValuesForKeys": 298,
           "amountKeys": 9
         },
         "invertedParameterToClasses": {
-          "median": 1.5,
+          "median": 1,
           "maximum": 4,
-          "average": 1.1130952380952381,
-          "amountSavedValuesForKeys": 187,
+          "average": 1.1098265895953756,
+          "amountSavedValuesForKeys": 192,
           "amountKeys": 4
         }
       },
       "timer_information": {
-        "ast_generation_time_ms": 1908,
+        "ast_generation_time_ms": 1886,
         "detection_time_ms": 8,
         "machine_information": {
           "os": "Linux",
           "os_release": "6.14.0-1017-azure",
           "os_platform": "linux",
           "os_arch": "x64",
-          "os_uptime": 133,
-          "os_memory_free": 15423836160,
+          "os_uptime": 130.53,
+          "os_memory_free": 15474778112,
           "os_memory_total": 16767234048,
           "os_cpu_cores": 4,
-          "os_cpu_model": "AMD EPYC 7763 64-Core Processor",
+          "os_cpu_model": "AMD EPYC 9V74 80-Core Processor",
           "os_cpu_speed": 0
         }
       }
@@ -55,18 +55,18 @@
   "project_info": {
     "project_url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
     "project_name": "data-clumps-doctor",
-    "project_version": "0406a7ee7577ab9c75196ab2c836ec6e956b98cc",
-    "project_commit_hash": "0406a7ee7577ab9c75196ab2c836ec6e956b98cc",
+    "project_version": "3db2c58a07402cf3972ef9d6977201df75415709",
+    "project_commit_hash": "3db2c58a07402cf3972ef9d6977201df75415709",
     "project_tag": null,
-    "project_commit_date": "1773973006",
+    "project_commit_date": "1773980426",
     "additional": {
       "relative_path_to_source_folder_in_project": "src"
     },
-    "number_of_files": 31,
-    "number_of_classes_or_interfaces": 56,
-    "number_of_methods": 206,
-    "number_of_data_fields": 187,
-    "number_of_method_parameters": 288
+    "number_of_files": 32,
+    "number_of_classes_or_interfaces": 58,
+    "number_of_methods": 209,
+    "number_of_data_fields": 192,
+    "number_of_method_parameters": 298
   },
   "detector": {
     "name": "data-clumps-doctor",
