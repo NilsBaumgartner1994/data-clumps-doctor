@@ -1,6 +1,6 @@
 {
   "report_version": "^0.1.103",
-  "report_timestamp": "2026-03-20T10:09:58.933Z",
+  "report_timestamp": "2026-03-20T16:22:35.766Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
@@ -13,10 +13,10 @@
           "amountKeys": 4
         },
         "invertedParameterToMethods": {
-          "median": 1,
+          "median": 1.5,
           "maximum": 14,
-          "average": 1.7283236994219653,
-          "amountSavedValuesForKeys": 299,
+          "average": 1.7209302325581395,
+          "amountSavedValuesForKeys": 296,
           "amountKeys": 9
         },
         "invertedParameterToClasses": {
@@ -28,16 +28,16 @@
         }
       },
       "timer_information": {
-        "ast_generation_time_ms": 2013,
+        "ast_generation_time_ms": 1923,
         "detection_time_ms": 9,
         "machine_information": {
           "os": "Linux",
           "os_release": "6.14.0-1017-azure",
           "os_platform": "linux",
           "os_arch": "x64",
-          "os_uptime": 128.24,
-          "os_memory_free": 15404630016,
-          "os_memory_total": 16771563520,
+          "os_uptime": 257.25,
+          "os_memory_free": 15408349184,
+          "os_memory_total": 16767234048,
           "os_cpu_cores": 4,
           "os_cpu_model": "AMD EPYC 7763 64-Core Processor",
           "os_cpu_speed": 0
@@ -55,18 +55,18 @@
   "project_info": {
     "project_url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
     "project_name": "data-clumps-doctor",
-    "project_version": "5b9da43c363a505d28ead644a71d9c00b40c2681",
-    "project_commit_hash": "5b9da43c363a505d28ead644a71d9c00b40c2681",
+    "project_version": "5abd91e6b3bc9eff16e9fa1adf91a7c5538c3ab4",
+    "project_commit_hash": "5abd91e6b3bc9eff16e9fa1adf91a7c5538c3ab4",
     "project_tag": null,
-    "project_commit_date": "1774001286",
+    "project_commit_date": "1774023649",
     "additional": {
       "relative_path_to_source_folder_in_project": "src"
     },
     "number_of_files": 32,
     "number_of_classes_or_interfaces": 58,
-    "number_of_methods": 209,
+    "number_of_methods": 208,
     "number_of_data_fields": 192,
-    "number_of_method_parameters": 299
+    "number_of_method_parameters": 296
   },
   "detector": {
     "name": "data-clumps-doctor",
