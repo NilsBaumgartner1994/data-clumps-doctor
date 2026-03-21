@@ -197,6 +197,12 @@ export interface IssueMarkdownOptions {
    * Set to 0 or -1 to disable the limit entirely.
    */
   charLimit?: number;
+  /**
+   * When true, includes the full raw data clump JSON (including the `raw` field
+   * with complete data clump details) in each rendered item.
+   * Useful for debugging or when full data clump details are required in the issue.
+   */
+  includeRawJson?: boolean;
 }
 
 /**
@@ -262,14 +268,15 @@ export class IssueMarkdownGenerator {
       lines.push(...affectedLines);
     }
 
-    // Include only the PriorityListItem fields (without the full raw data clump)
+    // Include raw JSON section; include the full `raw` field only when includeRawJson is true
     const { raw: _raw, ...rawJson } = item;
+    const jsonPayload = options.includeRawJson ? item : rawJson;
     lines.push('');
     lines.push('<details>');
     lines.push('<summary>Raw JSON</summary>');
     lines.push('');
     lines.push('```json');
-    lines.push(JSON.stringify(rawJson, null, 2));
+    lines.push(JSON.stringify(jsonPayload, null, 2));
     lines.push('```');
     lines.push('');
     lines.push('</details>');
