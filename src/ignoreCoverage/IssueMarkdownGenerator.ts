@@ -284,6 +284,11 @@ export class IssueMarkdownGenerator {
     return lines.join('\n');
   }
 
+  /** Returns the number of unique cluster IDs present in the given items. */
+  private static countUniqueClusters(items: PriorityListItem[]): number {
+    return new Set(items.map(item => item.cluster_id)).size;
+  }
+
   /**
    * Generates the full markdown body for a GitHub issue from a priority list.
    *
@@ -309,23 +314,28 @@ export class IssueMarkdownGenerator {
 
     const separator = '\n\n----\n\n';
 
-    const buildHeader = (count: number) => ['## Data Clump Refactoring Task', '', `Detected **${count}** data clump(s) that should be refactored. Please extract the shared variables into a dedicated class or parameter object and update all usages accordingly.`, ''].join('\n');
+    const buildHeader = (count: number, clusterCount: number) =>
+      ['## Data Clump Refactoring Task', '', `Detected **${count}** data clump(s) in **${clusterCount}** cluster(s) that should be refactored. Please extract the shared variables into a dedicated class or parameter object and update all usages accordingly.`, ''].join('\n');
 
     if (!useCharLimit) {
-      const header = buildHeader(items.length);
+      const clusterCount = IssueMarkdownGenerator.countUniqueClusters(items);
+      const header = buildHeader(items.length, clusterCount);
       const sections = items.map((item, i) => IssueMarkdownGenerator.renderItem(item, options, i + 1)).join(separator);
       return header + refactoringGuideSection + sections + footer;
     }
 
     // Char-limit mode: include as many items as fit within the allowed length.
     const renderedItems: string[] = [];
+    const includedItems: PriorityListItem[] = [];
     const fixedLength = refactoringGuideSection.length + footer.length;
     let accumulatedItemsLength = 0;
 
     for (let i = 0; i < items.length; i++) {
       const renderedItem = IssueMarkdownGenerator.renderItem(items[i], options, i + 1);
-      const candidateCount = renderedItems.length + 1;
-      const headerLength = buildHeader(candidateCount).length;
+      const candidateItems = [...includedItems, items[i]];
+      const candidateCount = candidateItems.length;
+      const candidateClusterCount = IssueMarkdownGenerator.countUniqueClusters(candidateItems);
+      const headerLength = buildHeader(candidateCount, candidateClusterCount).length;
       const separatorsLength = separator.length * (candidateCount - 1);
       const candidateTotal = fixedLength + headerLength + separatorsLength + accumulatedItemsLength + renderedItem.length;
 
@@ -334,6 +344,7 @@ export class IssueMarkdownGenerator {
       }
 
       renderedItems.push(renderedItem);
+      includedItems.push(items[i]);
       accumulatedItemsLength += renderedItem.length;
     }
 
@@ -341,7 +352,8 @@ export class IssueMarkdownGenerator {
       return '_No data clumps found._\n';
     }
 
-    const header = buildHeader(renderedItems.length);
+    const clusterCount = IssueMarkdownGenerator.countUniqueClusters(includedItems);
+    const header = buildHeader(renderedItems.length, clusterCount);
     const sections = renderedItems.join(separator);
     return header + refactoringGuideSection + sections + footer;
   }
