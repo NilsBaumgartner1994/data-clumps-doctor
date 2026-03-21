@@ -20,6 +20,7 @@ program
   .option('--project_url <url>', 'GitHub repository URL (overrides value from report)')
   .option('--commit_hash <hash>', 'Commit hash for permalink generation (overrides value from report)')
   .option('--source_prefix <prefix>', 'Path prefix relative to the repository root to prepend to file paths in GitHub links (e.g. "src"). Overrides value stored in report.')
+  .option('--char_limit <number>', 'Maximum character length for the generated issue body. Data clumps that would push the output beyond this limit are omitted. Use 0 or -1 to disable the limit. (default: 65536)', '65536')
   .option('--output <path>', 'Write the markdown to this file instead of stdout');
 
 async function main() {
@@ -62,7 +63,10 @@ async function main() {
     }
   }
 
-  const markdown = IssueMarkdownGenerator.generate(items, { projectUrl, commitHash, sourcePrefix });
+  const charLimitRaw = parseInt(options.char_limit, 10);
+  const charLimit = isNaN(charLimitRaw) ? 65536 : charLimitRaw;
+
+  const markdown = IssueMarkdownGenerator.generate(items, { projectUrl, commitHash, sourcePrefix, charLimit });
 
   if (options.output) {
     const outputDir = path.dirname(options.output);
