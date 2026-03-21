@@ -149,18 +149,19 @@ export function generatePriorityList(report: DataClumpsTypeContext, clusterTypeP
     });
   }
 
-  // Sort entries: first by cluster type priority, then by variable count descending
-  const priorityMap: Record<number, number> = {};
-  clusterTypePriority.forEach((ct, idx) => {
-    priorityMap[ct] = idx;
-  });
-
-  entries.sort((a, b) => {
-    const aPriority = priorityMap[a.cluster_type] ?? 999;
-    const bPriority = priorityMap[b.cluster_type] ?? 999;
-    if (aPriority !== bPriority) return aPriority - bPriority;
-    return b.variable_count - a.variable_count;
-  });
+  // Group entries into separate lists per cluster type, then sort each list by variable count descending
+  const listsByClusterType: Record<number, EnrichedEntry[]> = {};
+  for (const entry of entries) {
+    if (!listsByClusterType[entry.cluster_type]) {
+      listsByClusterType[entry.cluster_type] = [];
+    }
+    listsByClusterType[entry.cluster_type].push(entry);
+  }
+  for (const clusterType of clusterTypePriority) {
+    if (listsByClusterType[clusterType]) {
+      listsByClusterType[clusterType].sort((a, b) => b.variable_count - a.variable_count);
+    }
+  }
 
   // Build priority list with unique cluster IDs
   /**
@@ -177,47 +178,50 @@ export function generatePriorityList(report: DataClumpsTypeContext, clusterTypeP
   const seenClusterIds = new Set<number>();
   const priorityList: PriorityListItem[] = [];
 
-  for (const entry of entries) {
-    if (priorityList.length >= amount) break;
-    if (seenClusterIds.has(entry.cluster_id)) continue;
+  clusterTypeLoop: for (const clusterType of clusterTypePriority) {
+    const list = listsByClusterType[clusterType] ?? [];
+    for (const entry of list) {
+      if (priorityList.length >= amount) break clusterTypeLoop;
+      if (seenClusterIds.has(entry.cluster_id)) continue;
 
-    seenClusterIds.add(entry.cluster_id);
+      seenClusterIds.add(entry.cluster_id);
 
-    const dc = entry.dc;
-    const variableNames: string[] = [];
-    let fromStartLine: number | null = null;
-    let fromEndLine: number | null = null;
-    let toStartLine: number | null = null;
-    let toEndLine: number | null = null;
+      const dc = entry.dc;
+      const variableNames: string[] = [];
+      let fromStartLine: number | null = null;
+      let fromEndLine: number | null = null;
+      let toStartLine: number | null = null;
+      let toEndLine: number | null = null;
 
-    if (dc.data_clump_data) {
-      for (const varKey of Object.keys(dc.data_clump_data)) {
-        const variable = dc.data_clump_data[varKey];
-        variableNames.push(variable.name);
-        [fromStartLine, fromEndLine] = expandLineRange(fromStartLine, fromEndLine, variable.position);
-        [toStartLine, toEndLine] = expandLineRange(toStartLine, toEndLine, variable.to_variable?.position);
+      if (dc.data_clump_data) {
+        for (const varKey of Object.keys(dc.data_clump_data)) {
+          const variable = dc.data_clump_data[varKey];
+          variableNames.push(variable.name);
+          [fromStartLine, fromEndLine] = expandLineRange(fromStartLine, fromEndLine, variable.position);
+          [toStartLine, toEndLine] = expandLineRange(toStartLine, toEndLine, variable.to_variable?.position);
+        }
       }
-    }
 
-    priorityList.push({
-      cluster_id: entry.cluster_id,
-      cluster_type: entry.cluster_type,
-      data_clump_id: entry.key,
-      data_clump_type: dc.data_clump_type,
-      from_class_or_interface_name: dc.from_class_or_interface_name,
-      to_class_or_interface_name: dc.to_class_or_interface_name,
-      from_method_name: dc.from_method_name || null,
-      to_method_name: dc.to_method_name || null,
-      amount_of_variables: variableNames.length,
-      variable_names: variableNames,
-      from_file_path: dc.from_file_path || '',
-      to_file_path: dc.to_file_path || '',
-      from_start_line: fromStartLine,
-      from_end_line: fromEndLine,
-      to_start_line: toStartLine,
-      to_end_line: toEndLine,
-      raw: dc,
-    });
+      priorityList.push({
+        cluster_id: entry.cluster_id,
+        cluster_type: entry.cluster_type,
+        data_clump_id: entry.key,
+        data_clump_type: dc.data_clump_type,
+        from_class_or_interface_name: dc.from_class_or_interface_name,
+        to_class_or_interface_name: dc.to_class_or_interface_name,
+        from_method_name: dc.from_method_name || null,
+        to_method_name: dc.to_method_name || null,
+        amount_of_variables: variableNames.length,
+        variable_names: variableNames,
+        from_file_path: dc.from_file_path || '',
+        to_file_path: dc.to_file_path || '',
+        from_start_line: fromStartLine,
+        from_end_line: fromEndLine,
+        to_start_line: toStartLine,
+        to_end_line: toEndLine,
+        raw: dc,
+      });
+    }
   }
 
   return priorityList;
