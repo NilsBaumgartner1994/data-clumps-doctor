@@ -262,7 +262,8 @@ export class IssueMarkdownGenerator {
       lines.push(...affectedLines);
     }
 
-    const rawJson = item.raw !== undefined && item.raw !== null ? item.raw : item;
+    // Include only the PriorityListItem fields (without the full raw data clump)
+    const { raw: _raw, ...rawJson } = item;
     lines.push('');
     lines.push('<details>');
     lines.push('<summary>Raw JSON</summary>');
