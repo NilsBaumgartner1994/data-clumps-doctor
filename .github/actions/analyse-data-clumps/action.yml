@@ -216,10 +216,30 @@ runs:
       shell: bash
       env:
         GH_TOKEN: ${{ github.token }}
+        BRANCH_NAME: ${{ github.ref_name }}
       run: |
         set -euo pipefail
 
         echo "::notice::🐛 GitHub Issue creation step started"
+
+        # Derive a branch-specific label (sanitise branch name for use as a GitHub label)
+        SAFE_BRANCH=$(echo "${BRANCH_NAME}" | sed 's/[^a-zA-Z0-9._-]/-/g' | cut -c1-50)
+        LABEL_NAME="data-clumps:${SAFE_BRANCH}"
+
+        # Ensure the branch-specific label exists (--force updates it if it already exists)
+        gh label create "${LABEL_NAME}" \
+          --repo "$GITHUB_REPOSITORY" \
+          --color "0075ca" \
+          --description "Data clumps issues for branch ${BRANCH_NAME}" \
+          --force
+
+        # Find existing open issues tagged with this branch label
+        OLD_ISSUES=$(gh issue list \
+          --repo "$GITHUB_REPOSITORY" \
+          --label "${LABEL_NAME}" \
+          --state open \
+          --json number \
+          --jq '.[].number')
 
         ISSUE_BODY_FILE="$RUNNER_TEMP/data-clumps-doctor-issue-body.md"
         node "$RUNNER_TEMP/data-clumps-doctor/build/ignoreCoverage/cliGenerateMarkdownReport.js" \
@@ -234,11 +254,24 @@ runs:
         if ISSUE_URL=$(gh issue create \
             --title "$TASK_TITLE" \
             --body-file "$ISSUE_BODY_FILE" \
+            --label "${LABEL_NAME}" \
             --repo "$GITHUB_REPOSITORY" 2>&1); then
           echo "::notice::✅ Issue created: $ISSUE_URL"
         else
           echo "::error::Failed to create issue: $ISSUE_URL"
           exit 1
+        fi
+
+        # Comment on and close old issues, referencing the newly created one
+        if [ -n "$OLD_ISSUES" ]; then
+          for ISSUE_NUMBER in $OLD_ISSUES; do
+            gh issue comment "$ISSUE_NUMBER" \
+              --repo "$GITHUB_REPOSITORY" \
+              --body "A new data clumps analysis has been completed for branch \`${BRANCH_NAME}\`. A new issue has been created: ${ISSUE_URL}. Closing this issue."
+            gh issue close "$ISSUE_NUMBER" \
+              --repo "$GITHUB_REPOSITORY"
+            echo "::notice::🔒 Closed old issue #${ISSUE_NUMBER} with reference to new issue ${ISSUE_URL}."
+          done
         fi
 
         echo "::notice::🐛 Issue creation finished."
