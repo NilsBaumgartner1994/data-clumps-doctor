@@ -314,8 +314,7 @@ export class IssueMarkdownGenerator {
 
     const separator = '\n\n----\n\n';
 
-    const buildHeader = (count: number, clusterCount: number) =>
-      ['## Data Clump Refactoring Task', '', `Detected **${count}** data clump(s) in **${clusterCount}** cluster(s) that should be refactored. Please extract the shared variables into a dedicated class or parameter object and update all usages accordingly.`, ''].join('\n');
+    const buildHeader = (count: number, clusterCount: number) => ['## Data Clump Refactoring Task', '', `Detected **${count}** data clump(s) in **${clusterCount}** cluster(s) that should be refactored. Please extract the shared variables into a dedicated class or parameter object and update all usages accordingly.`, ''].join('\n');
 
     if (!useCharLimit) {
       const clusterCount = IssueMarkdownGenerator.countUniqueClusters(items);
