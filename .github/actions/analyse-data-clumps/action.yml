@@ -241,6 +241,19 @@ runs:
           --json number \
           --jq '.[].number')
 
+        # Close old issues before creating a new one so the newly created issue
+        # is always the latest open issue for this branch.
+        if [ -n "$OLD_ISSUES" ]; then
+          for ISSUE_NUMBER in $OLD_ISSUES; do
+            gh issue comment "$ISSUE_NUMBER" \
+              --repo "$GITHUB_REPOSITORY" \
+              --body "A new data clumps analysis is being run for branch \`${BRANCH_NAME}\`. Closing this issue."
+            gh issue close "$ISSUE_NUMBER" \
+              --repo "$GITHUB_REPOSITORY"
+            echo "::notice::🔒 Closed old issue #${ISSUE_NUMBER}."
+          done
+        fi
+
         ISSUE_BODY_FILE="$RUNNER_TEMP/data-clumps-doctor-issue-body.md"
         node "$RUNNER_TEMP/data-clumps-doctor/build/ignoreCoverage/cliGenerateMarkdownReport.js" \
           --report_path "${{ inputs.output-path }}" \
@@ -260,18 +273,6 @@ runs:
         else
           echo "::error::Failed to create issue: $ISSUE_URL"
           exit 1
-        fi
-
-        # Comment on and close old issues, referencing the newly created one
-        if [ -n "$OLD_ISSUES" ]; then
-          for ISSUE_NUMBER in $OLD_ISSUES; do
-            gh issue comment "$ISSUE_NUMBER" \
-              --repo "$GITHUB_REPOSITORY" \
-              --body "A new data clumps analysis has been completed for branch \`${BRANCH_NAME}\`. A new issue has been created: ${ISSUE_URL}. Closing this issue."
-            gh issue close "$ISSUE_NUMBER" \
-              --repo "$GITHUB_REPOSITORY"
-            echo "::notice::🔒 Closed old issue #${ISSUE_NUMBER} with reference to new issue ${ISSUE_URL}."
-          done
         fi
 
         echo "::notice::🐛 Issue creation finished."
