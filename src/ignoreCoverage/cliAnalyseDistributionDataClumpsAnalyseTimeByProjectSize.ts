@@ -55,49 +55,15 @@ function analyseProjects(all_report_files_paths: string[], output_filename?: str
 
   let fileContent = AnalyseHelper.getPythonLibrariesFileContent();
 
-  // Emit data as Python lists
+  // Emit data as Python lists using existing helper
   fileContent += '\n# --- Data ---\n';
-  fileContent += 'number_of_classes_or_interfaces = [\n';
-  for (const e of entries) {
-    fileContent += `  ${e.number_of_classes_or_interfaces},\n`;
-  }
-  fileContent += ']\n\n';
-
-  fileContent += 'number_of_methods = [\n';
-  for (const e of entries) {
-    fileContent += `  ${e.number_of_methods},\n`;
-  }
-  fileContent += ']\n\n';
-
-  fileContent += 'number_of_data_fields = [\n';
-  for (const e of entries) {
-    fileContent += `  ${e.number_of_data_fields},\n`;
-  }
-  fileContent += ']\n\n';
-
-  fileContent += 'number_of_method_parameters = [\n';
-  for (const e of entries) {
-    fileContent += `  ${e.number_of_method_parameters},\n`;
-  }
-  fileContent += ']\n\n';
-
-  fileContent += 'ast_generation_time_ms = [\n';
-  for (const e of entries) {
-    fileContent += `  ${e.ast_generation_time_ms},\n`;
-  }
-  fileContent += ']\n\n';
-
-  fileContent += 'detection_time_ms = [\n';
-  for (const e of entries) {
-    fileContent += `  ${e.detection_time_ms},\n`;
-  }
-  fileContent += ']\n\n';
-
-  fileContent += 'total_analysis_time_ms = [\n';
-  for (const e of entries) {
-    fileContent += `  ${e.total_analysis_time_ms},\n`;
-  }
-  fileContent += ']\n\n';
+  fileContent += AnalyseHelper.getPythonValuesFor('number_of_classes_or_interfaces', entries.map(e => e.number_of_classes_or_interfaces));
+  fileContent += AnalyseHelper.getPythonValuesFor('number_of_methods', entries.map(e => e.number_of_methods));
+  fileContent += AnalyseHelper.getPythonValuesFor('number_of_data_fields', entries.map(e => e.number_of_data_fields));
+  fileContent += AnalyseHelper.getPythonValuesFor('number_of_method_parameters', entries.map(e => e.number_of_method_parameters));
+  fileContent += AnalyseHelper.getPythonValuesFor('ast_generation_time_ms', entries.map(e => e.ast_generation_time_ms));
+  fileContent += AnalyseHelper.getPythonValuesFor('detection_time_ms', entries.map(e => e.detection_time_ms));
+  fileContent += AnalyseHelper.getPythonValuesFor('total_analysis_time_ms', entries.map(e => e.total_analysis_time_ms));
 
   // Python analysis & scatter plot generation
   fileContent += `
