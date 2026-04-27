@@ -1,15 +1,15 @@
 {
   "report_version": "^0.1.103",
-  "report_timestamp": "2026-03-24T17:10:16.697Z",
+  "report_timestamp": "2026-04-27T13:56:01.869Z",
   "target_language": "typescript",
   "report_summary": {
     "additional": {
       "invertedIndexSoftwareProjectStatistics": {
         "invertedFieldToClasses": {
-          "median": 1.5,
+          "median": 1,
           "maximum": 4,
-          "average": 1.1022727272727273,
-          "amountSavedValuesForKeys": 194,
+          "average": 1.098360655737705,
+          "amountSavedValuesForKeys": 201,
           "amountKeys": 4
         },
         "invertedParameterToMethods": {
@@ -20,24 +20,24 @@
           "amountKeys": 9
         },
         "invertedParameterToClasses": {
-          "median": 1,
+          "median": 1.5,
           "maximum": 4,
-          "average": 1.1085714285714285,
-          "amountSavedValuesForKeys": 194,
+          "average": 1.1043956043956045,
+          "amountSavedValuesForKeys": 201,
           "amountKeys": 4
         }
       },
       "timer_information": {
-        "ast_generation_time_ms": 2051,
-        "detection_time_ms": 9,
+        "ast_generation_time_ms": 1915,
+        "detection_time_ms": 8,
         "machine_information": {
           "os": "Linux",
-          "os_release": "6.14.0-1017-azure",
+          "os_release": "6.17.0-1010-azure",
           "os_platform": "linux",
           "os_arch": "x64",
-          "os_uptime": 131.91,
-          "os_memory_free": 15428141056,
-          "os_memory_total": 16771563520,
+          "os_uptime": 126.3,
+          "os_memory_free": 15336755200,
+          "os_memory_total": 16766431232,
           "os_cpu_cores": 4,
           "os_cpu_model": "AMD EPYC 7763 64-Core Processor",
           "os_cpu_speed": 0
@@ -55,17 +55,17 @@
   "project_info": {
     "project_url": "https://github.com/NilsBaumgartner1994/data-clumps-doctor",
     "project_name": "data-clumps-doctor",
-    "project_version": "490e6937e7943d78fb2feb41494f74686fb2984a",
-    "project_commit_hash": "490e6937e7943d78fb2feb41494f74686fb2984a",
+    "project_version": "ed9fef4e58b6eda4f66b786458daa6b96f1bb902",
+    "project_commit_hash": "ed9fef4e58b6eda4f66b786458daa6b96f1bb902",
     "project_tag": null,
-    "project_commit_date": "1774372106",
+    "project_commit_date": "1777298056",
     "additional": {
       "relative_path_to_source_folder_in_project": "src"
     },
-    "number_of_files": 32,
-    "number_of_classes_or_interfaces": 58,
+    "number_of_files": 33,
+    "number_of_classes_or_interfaces": 59,
     "number_of_methods": 209,
-    "number_of_data_fields": 194,
+    "number_of_data_fields": 201,
     "number_of_method_parameters": 297
   },
   "detector": {
