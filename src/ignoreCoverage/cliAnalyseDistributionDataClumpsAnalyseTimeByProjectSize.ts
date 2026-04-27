@@ -57,13 +57,34 @@ function analyseProjects(all_report_files_paths: string[], output_filename?: str
 
   // Emit data as Python lists using existing helper
   fileContent += '\n# --- Data ---\n';
-  fileContent += AnalyseHelper.getPythonValuesFor('number_of_classes_or_interfaces', entries.map(e => e.number_of_classes_or_interfaces));
-  fileContent += AnalyseHelper.getPythonValuesFor('number_of_methods', entries.map(e => e.number_of_methods));
-  fileContent += AnalyseHelper.getPythonValuesFor('number_of_data_fields', entries.map(e => e.number_of_data_fields));
-  fileContent += AnalyseHelper.getPythonValuesFor('number_of_method_parameters', entries.map(e => e.number_of_method_parameters));
-  fileContent += AnalyseHelper.getPythonValuesFor('ast_generation_time_ms', entries.map(e => e.ast_generation_time_ms));
-  fileContent += AnalyseHelper.getPythonValuesFor('detection_time_ms', entries.map(e => e.detection_time_ms));
-  fileContent += AnalyseHelper.getPythonValuesFor('total_analysis_time_ms', entries.map(e => e.total_analysis_time_ms));
+  fileContent += AnalyseHelper.getPythonValuesFor(
+    'number_of_classes_or_interfaces',
+    entries.map(e => e.number_of_classes_or_interfaces)
+  );
+  fileContent += AnalyseHelper.getPythonValuesFor(
+    'number_of_methods',
+    entries.map(e => e.number_of_methods)
+  );
+  fileContent += AnalyseHelper.getPythonValuesFor(
+    'number_of_data_fields',
+    entries.map(e => e.number_of_data_fields)
+  );
+  fileContent += AnalyseHelper.getPythonValuesFor(
+    'number_of_method_parameters',
+    entries.map(e => e.number_of_method_parameters)
+  );
+  fileContent += AnalyseHelper.getPythonValuesFor(
+    'ast_generation_time_ms',
+    entries.map(e => e.ast_generation_time_ms)
+  );
+  fileContent += AnalyseHelper.getPythonValuesFor(
+    'detection_time_ms',
+    entries.map(e => e.detection_time_ms)
+  );
+  fileContent += AnalyseHelper.getPythonValuesFor(
+    'total_analysis_time_ms',
+    entries.map(e => e.total_analysis_time_ms)
+  );
 
   // Python analysis & scatter plot generation
   fileContent += `
